@@ -28,10 +28,13 @@
 
     <abstract>
       <t>
+        OAuthは、リソースオーナー（別のクライアントやエンドユーザー）に代わって、サーバリソースにアクセスするための方法を、クライアントに提供するものである。また、リダイレクトを利用したプロセスにより、エンドユーザはクライアントにユーザ名やパスワードを共有することなく、サーバリソースへの第三者アクセスを認可することができる。
+        <!--
         OAuth provides a method for clients to access server resources on behalf of a resource
         owner (such as a different client or an end-user). It also provides a process for end-users
         to authorize third-party access to their server resources without sharing their credentials
         (typically, a username and password pair), using user-agent redirections.
+        -->
       </t>
     </abstract>
 
