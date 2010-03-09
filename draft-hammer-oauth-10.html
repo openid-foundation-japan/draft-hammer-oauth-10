@@ -142,19 +142,17 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 8, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 9, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 9, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 10, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
 <h3>Abstract</h3>
 
 <p>
-        OAuth provides a method for clients to access server resources on behalf of a resource
-        owner (such as a different client or an end-user). It also provides a process for end-users
-        to authorize third-party access to their server resources without sharing their credentials
-        (typically, a username and password pair), using user-agent redirections.
+        OAuthは、リソースオーナー（別のクライアントやエンドユーザー）に代わって、サーバリソースにアクセスするための方法を、クライアントに提供するものである。また、リダイレクトを利用したプロセスにより、エンドユーザはクライアントにユーザ名やパスワードを共有することなく、サーバリソースへの第三者アクセスを認可することができる。
+        
       
 </p>
 <h3>Status of this Memo</h3>
@@ -178,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 9, 2010.</p>
+This Internet-Draft will expire on September 10, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -194,9 +192,9 @@ rights and restrictions with respect to this document.</p>
 <h3>Table of Contents</h3>
 <p class="toc">
 <a href="#anchor1">1.</a>&nbsp;
-Introduction<br />
+はじめに<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor2">1.1.</a>&nbsp;
-Terminology<br />
+用語定義<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">1.2.</a>&nbsp;
 Example<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor4">1.3.</a>&nbsp;
@@ -291,159 +289,126 @@ Author's Address<br />
 <a name="anchor1"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.1"></a><h3>1.&nbsp;
-Introduction</h3>
+はじめに</h3>
 
 <p>
-        The OAuth protocol was originally created by a small community of web developers from a
-        variety of websites and other Internet services, who wanted to solve the common problem of
-        enabling delegated access to protected resources.  The resulting OAuth protocol was
-        stabilized at version 1.0 in October 2007, revised in June 2009, and published as
-        <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a>.
+      	OAuth はさまざまな Web サイトや Internet サービスの Developer からなる小さなコミュニティから生まれた。彼らは保護されたリソースへのアクセスを第三者に委任する際の共通の問題を解決する方法が必要だった。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> となった。
+	      
       
 </p>
 <p>
-        This specification provides an informational documentation of the OAuth 1.0 protocol as
-        revised in <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a>, and includes several errata
-        reported since that time, as well as numerous editorial clarifications. The publication
-        of this specification represents the transfer of change control from the community to the
-        IETF by the authors of the original work.
+      	この仕様書では改訂版 <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手によって OAuth 仕様策定権限がコミュニティから IETF に移管されることとなる。
+      	
       
 </p>
 <p>
-        In the traditional client-server authentication model, the client uses its credentials to
-        access its resources hosted by the server. With the increasing use of distributed web
-        services and cloud computing, third-party applications require access to these
-        server-hosted resources.
+      	従来のクライアント・サーバ型認証モデルでは、サーバ上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバ上リソースへのアクセス権を要求することになる。
+      	
       
 </p>
 <p>
-        OAuth introduces a third role to the traditional client-server authentication model: the
-        resource owner. In the OAuth model, the client (which is not the resource owner, but
-        is acting on its behalf) requests access to resources controlled by the resource owner, but
-        hosted by the server. In addition, OAuth allows the server to verify not only the resource
-        owner authorization, but also the identity of the client making the request.
+      	OAuth は従来のクライアント・サーバ型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないがオーナーの代理として振る舞う) はリソースオーナーが管理するリソースへのアクセス権を要求する。さらに OAuth では、サーバがリソースオーナーの認可情報だけでなく、リクエストを送ってきたクライアントの身元も検証することができる。
+      	
+  		
+</p>
+<p>
+      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザなど) の代理としてサーバリソースにアクセスする方法を提供する。またエンドユーザが自身の認証情報 (典型例: ユーザネームおよびパスワード) を共有することなしに自身のサーバリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザエージェントのリダイレクトを利用する。
+      	
       
 </p>
 <p>
-        OAuth provides a method for clients to access server resources on behalf of a resource
-        owner (such as a different client or an end-user). It also provides a process for end-users
-        to authorize third-party access to their server resources without sharing their credentials
-        (typically, a username and password pair), using user-agent redirections.
+      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバ) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザネームとパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+      	
       
 </p>
 <p>
-        For example, a web user (resource owner) can grant a printing service (client) access to
-        her private photos stored at a photo sharing service (server), without sharing her
-        username and password with the printing service. Instead, she authenticates directly with
-        the photo sharing service which issues the printing service delegation-specific credentials.
+      	リソースアクセスのために、クライアントはまずはじめにリソースオーナーから許可を受ける必要がある。この許可情報はトークンと共有鍵の形で示される。トークンがあることでリソースオーナーはクライアントに自身の認証情報を共有する必要がなくなる。リソースオーナーの認証情報と異なり、トークンは特定の目的のために、かつ有効期限付きで発行することが可能であり、個別に破棄することができる。
+      	
       
 </p>
 <p>
-        In order for the client to access resources, it first has to obtain permission from the
-        resource owner. This permission is expressed in the form of a token and matching
-        shared-secret. The purpose of the token is to make it unnecessary for the resource owner to
-        share its credentials with the client. Unlike the resource owner credentials, tokens can be
-        issued with a restricted scope and limited lifetime, and revoked independently.
+      	この仕様書は2つの部分からなる。前半部ではエンドユーザがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザエージェント処理について定義する。後半部では2セットの認証情報を用いて認証付き HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> リクエストを行う方法を定義する。この2セットの認証情報は、1つはリクエストを送るクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+      	
       
 </p>
 <p>
-        This specification consists of two parts. The first part defines a redirection-based
-        user-agent process for end-users to authorize client access to their resources, by
-        authenticating directly with the server and provisioning tokens to the client for use with
-        the authentication method. The second part defines a method for making authenticated HTTP
-        <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> requests using two sets of credentials, one identifying the
-        client making the request, and a second identifying the resource owner on whose behalf the
-        request is being made.
-      
-</p>
-<p>
-        The use of OAuth with any other transport protocol than <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> is
-        undefined.
+      	OAuth を <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 以外の転送プロトコル上で用いる方法については定義されていない。
+      	
       
 </p>
 <a name="anchor2"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.1.1"></a><h3>1.1.&nbsp;
-Terminology</h3>
+用語定義</h3>
 
 <p>
           </p>
 <blockquote class="text"><dl>
-<dt>client</dt>
+<dt>クライアント (client)</dt>
 <dd>
               
-              An HTTP client (per <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a>) capable of making
-              <a class='info' href='#requests'>OAuth-authenticated requests<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>.
+              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を発行可能な HTTP クライアント (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
-<dt>server</dt>
+<dt>サーバ (server)</dt>
 <dd>
               
-              An HTTP server (per <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a>) capable of accepting
-              <a class='info' href='#requests'>OAuth-authenticated requests<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>.
+              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を受入可能な HTTP サーバ (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
-<dt>protected resource</dt>
+<dt>保護されたリソース (protected resource)</dt>
 <dd>
               
-              An access-restricted resource which can be obtained from the server using an
-              <a class='info' href='#requests'>OAuth-authenticated request<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>.
+              アクセス制限下にあるリソースで、<a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を用いて取得可能なもの。
             
 </dd>
-<dt>resource owner</dt>
+<dt>リソースオーナー (resource owner)</dt>
 <dd>
               
-              An entity capable of accessing and controlling protected resources by using credentials
-              to authenticate with the server.
+              サーバに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
             
 </dd>
-<dt>credentials</dt>
+<dt>認証情報 (credentials)</dt>
 <dd>
               
-              Credentials are a pair of a unique identifier and a matching shared secret. OAuth
-              defines three classes of credentials: client, temporary, and token, used to identify
-              and authenticate the client making the request, the authorization request, and the
-              access grant, respectively.
+              ここでいう認証情報とはユニークな識別子と共有鍵のペアである。OAuth では「クライアント」「テンポラリ」「トークン」の3種類の認証情報が定義され、リクエストを行うクライアントの識別および認証時、認可リクエスト時、アクセス権受け渡し時にそれぞれ用いられる。
             
 </dd>
-<dt>token</dt>
+<dt>トークン (token)</dt>
 <dd>
               
-              An unique identifier issued by the server and used by the client to associate
-              authenticated requests with the resource owner whose authorization is requested or
-              has been obtained by the client. Tokens have a matching shared-secret that is used
-              by the client to establish its ownership of the token, and its authority to represent
-              the resource owner.
+              サーバが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証リクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
             
 </dd>
 </dl></blockquote><p>
         
 </p>
 <p>
-          The original community specification used a somewhat different terminology which maps to
-          this specifications as follows (original community terms provided on left):
+        	オリジナルのコミュニティ仕様書では多少異なる用語が用いられていた。それらはこの仕様書では以下のように表記されている。(左側がオリジナル仕様書)
+        	
           
           </p>
 <blockquote class="text"><dl>
 <dt>Consumer:</dt>
-<dd>client
+<dd>クライアント (client)
 </dd>
 <dt>Service Provider:</dt>
-<dd>server
+<dd>サーバ (server)
 </dd>
 <dt>User:</dt>
-<dd>resource owner
+<dd>リソースオーナー (resource owner)
 </dd>
 <dt>Consumer Key and Secret:</dt>
-<dd>client credentials
+<dd>クライアント認証情報 (client credentials)
 </dd>
 <dt>Request Token and Secret:</dt>
-<dd>temporary credentials
+<dd>テンポラリ認証情報 (temporary credentials)
 </dd>
 <dt>Access Token and Secret:</dt>
-<dd>token credentials
+<dd>トークン認証情報 (token credentials)
 </dd>
 </dl></blockquote><p>
+          
         
 </p>
 <a name="anchor3"></a><br /><hr />
