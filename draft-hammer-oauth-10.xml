@@ -64,7 +64,7 @@
        	-->
       </t>
       <t>
-      	従来のクライアント・サーバ型認証モデルでは、サーバ上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバ上リソースへのアクセス権を要求することになる。
+      	従来のクライアント・サーバー型認証モデルでは、サーバー上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバー上リソースへのアクセス権を要求することになる。
       	<!--
         In the traditional client-server authentication model, the client uses its credentials to
         access its resources hosted by the server. With the increasing use of distributed web
@@ -73,7 +73,7 @@
         -->
       </t>
       <t>
-      	OAuth は従来のクライアント・サーバ型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないがオーナーの代理として振る舞う) はリソースオーナーが管理するリソースへのアクセス権を要求する。さらに OAuth では、サーバがリソースオーナーの認可情報だけでなく、リクエストを送ってきたクライアントの身元も検証することができる。
+      	OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないがオーナーの代理として振る舞う) はリソースオーナーが管理するリソースへのアクセス権を要求する。さらに OAuth では、サーバーがリソースオーナーの認可情報だけでなく、リクエストを行っているクライアントの身元も検証することができる。
       	<!--
 				OAuth introduces a third role to the traditional client-server authentication model: the
         resource owner. In the OAuth model, the client (which is not the resource owner, but
@@ -83,7 +83,7 @@
   			-->
   		</t>
       <t>
-      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザなど) の代理としてサーバリソースにアクセスする方法を提供する。またエンドユーザが自身の認証情報 (典型例: ユーザネームおよびパスワード) を共有することなしに自身のサーバリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザエージェントのリダイレクトを利用する。
+      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザネームおよびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
       	<!--
         OAuth provides a method for clients to access server resources on behalf of a resource
         owner (such as a different client or an end-user). It also provides a process for end-users
@@ -92,7 +92,7 @@
         -->
       </t>
       <t>
-      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバ) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザネームとパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザネームとパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
       	<!--
         For example, a web user (resource owner) can grant a printing service (client) access to
         her private photos stored at a photo sharing service (server), without sharing her
@@ -111,7 +111,7 @@
         -->
       </t>
       <t>
-      	この仕様書は2つの部分からなる。前半部ではエンドユーザがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザエージェント処理について定義する。後半部では2セットの認証情報を用いて認証付き HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットの認証情報は、1つはリクエストを送るクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証付き HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
       	<!--
         This specification consists of two parts. The first part defines a redirection-based
         user-agent process for end-users to authorize client access to their resources, by
@@ -145,9 +145,9 @@
               <xref target="requests">OAuth-authenticated requests</xref>.
             </t>
             -->
-            <t hangText="サーバ (server)">
+            <t hangText="サーバー (server)">
               <vspace />
-              <xref target="requests">OAuth 認証リクエスト</xref>を受入可能な HTTP サーバ (<xref target="RFC2616" /> 参照)
+              <xref target="requests">OAuth 認証リクエスト</xref>を受入可能な HTTP サーバー (<xref target="RFC2616" /> 参照)
             </t>
             <!--
             <t hangText="server">
@@ -169,7 +169,7 @@
             -->
             <t hangText="リソースオーナー (resource owner)">
               <vspace />
-              サーバに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
+              サーバーに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
             </t>
             <!--
             <t hangText="resource owner">
@@ -178,9 +178,9 @@
               to authenticate with the server.
             </t>
             -->
-            <t hangText="認証情報 (credentials)">
+            <t hangText="クレデンシャル (credentials)">
               <vspace />
-              ここでいう認証情報とはユニークな識別子と共有鍵のペアである。OAuth では「クライアント」「テンポラリ」「トークン」の3種類の認証情報が定義され、リクエストを行うクライアントの識別および認証時、認可リクエスト時、アクセス権受け渡し時にそれぞれ用いられる。
+              ここでいうクレデンシャルとはユニークな識別子と共有鍵のペアを指す。OAuth では「クライアント」「テンポラリ」「トークン」の3種類のクレデンシャルが定義され、リクエストを行うクライアントの識別および認証時、認可リクエスト時、アクセス権受け渡し時にそれぞれ用いられる。
             </t>
             <!--
             <t hangText="credentials">
@@ -193,7 +193,7 @@
             -->
             <t hangText="トークン (token)">
               <vspace />
-              サーバが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証リクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
+              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証リクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
             </t>
             <!--
             <t hangText="token">
@@ -216,11 +216,11 @@
           
           <list style="hanging">
             <t hangText="Consumer:">クライアント (client)</t>
-            <t hangText="Service Provider:">サーバ (server)</t>
+            <t hangText="Service Provider:">サーバー (server)</t>
             <t hangText="User:">リソースオーナー (resource owner)</t>
-            <t hangText="Consumer Key and Secret:">クライアント認証情報 (client credentials)</t>
-            <t hangText="Request Token and Secret:">テンポラリ認証情報 (temporary credentials)</t>
-            <t hangText="Access Token and Secret:">トークン認証情報 (token credentials)</t>
+            <t hangText="Consumer Key and Secret:">クライアントクレデンシャル (client credentials)</t>
+            <t hangText="Request Token and Secret:">テンポラリクレデンシャル (temporary credentials)</t>
+            <t hangText="Access Token and Secret:">トークンクレデンシャル (token credentials)</t>
           </list>
           <!--
           <list style="hanging">
