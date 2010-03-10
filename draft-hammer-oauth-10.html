@@ -302,22 +302,22 @@ Author's Address<br />
       
 </p>
 <p>
-      	従来のクライアント・サーバ型認証モデルでは、サーバ上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバ上リソースへのアクセス権を要求することになる。
+      	従来のクライアント・サーバー型認証モデルでは、サーバー上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバー上リソースへのアクセス権を要求することになる。
       	
       
 </p>
 <p>
-      	OAuth は従来のクライアント・サーバ型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないがオーナーの代理として振る舞う) はリソースオーナーが管理するリソースへのアクセス権を要求する。さらに OAuth では、サーバがリソースオーナーの認可情報だけでなく、リクエストを送ってきたクライアントの身元も検証することができる。
+      	OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないがオーナーの代理として振る舞う) はリソースオーナーが管理するリソースへのアクセス権を要求する。さらに OAuth では、サーバーがリソースオーナーの認可情報だけでなく、リクエストを行っているクライアントの身元も検証することができる。
       	
   		
 </p>
 <p>
-      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザなど) の代理としてサーバリソースにアクセスする方法を提供する。またエンドユーザが自身の認証情報 (典型例: ユーザネームおよびパスワード) を共有することなしに自身のサーバリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザエージェントのリダイレクトを利用する。
+      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザネームおよびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
       	
       
 </p>
 <p>
-      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバ) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザネームとパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザネームとパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
       	
       
 </p>
@@ -327,7 +327,7 @@ Author's Address<br />
       
 </p>
 <p>
-      	この仕様書は2つの部分からなる。前半部ではエンドユーザがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザエージェント処理について定義する。後半部では2セットの認証情報を用いて認証付き HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> リクエストを行う方法を定義する。この2セットの認証情報は、1つはリクエストを送るクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証付き HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
       	
       
 </p>
@@ -350,10 +350,10 @@ Author's Address<br />
               <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を発行可能な HTTP クライアント (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
-<dt>サーバ (server)</dt>
+<dt>サーバー (server)</dt>
 <dd>
               
-              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を受入可能な HTTP サーバ (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
+              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を受入可能な HTTP サーバー (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
 <dt>保護されたリソース (protected resource)</dt>
@@ -365,19 +365,19 @@ Author's Address<br />
 <dt>リソースオーナー (resource owner)</dt>
 <dd>
               
-              サーバに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
+              サーバーに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
             
 </dd>
-<dt>認証情報 (credentials)</dt>
+<dt>クレデンシャル (credentials)</dt>
 <dd>
               
-              ここでいう認証情報とはユニークな識別子と共有鍵のペアである。OAuth では「クライアント」「テンポラリ」「トークン」の3種類の認証情報が定義され、リクエストを行うクライアントの識別および認証時、認可リクエスト時、アクセス権受け渡し時にそれぞれ用いられる。
+              ここでいうクレデンシャルとはユニークな識別子と共有鍵のペアを指す。OAuth では「クライアント」「テンポラリ」「トークン」の3種類のクレデンシャルが定義され、リクエストを行うクライアントの識別および認証時、認可リクエスト時、アクセス権受け渡し時にそれぞれ用いられる。
             
 </dd>
 <dt>トークン (token)</dt>
 <dd>
               
-              サーバが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証リクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
+              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証リクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
             
 </dd>
 </dl></blockquote><p>
@@ -393,19 +393,19 @@ Author's Address<br />
 <dd>クライアント (client)
 </dd>
 <dt>Service Provider:</dt>
-<dd>サーバ (server)
+<dd>サーバー (server)
 </dd>
 <dt>User:</dt>
 <dd>リソースオーナー (resource owner)
 </dd>
 <dt>Consumer Key and Secret:</dt>
-<dd>クライアント認証情報 (client credentials)
+<dd>クライアントクレデンシャル (client credentials)
 </dd>
 <dt>Request Token and Secret:</dt>
-<dd>テンポラリ認証情報 (temporary credentials)
+<dd>テンポラリクレデンシャル (temporary credentials)
 </dd>
 <dt>Access Token and Secret:</dt>
-<dd>トークン認証情報 (token credentials)
+<dd>トークンクレデンシャル (token credentials)
 </dd>
 </dl></blockquote><p>
           
