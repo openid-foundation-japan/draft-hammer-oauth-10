@@ -54,7 +54,7 @@
 	      -->
       </t>
       <t>
-      	この仕様書では改訂版 <xref target="OAuth Core 1.0 Revision A" /> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手によって OAuth 仕様策定権限がコミュニティから IETF に移管されることとなる。
+      	この仕様書では改訂版 <xref target="OAuth Core 1.0 Revision A" /> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
       	<!--
         This specification provides an informational documentation of the OAuth 1.0 protocol as
         revised in <xref target="OAuth Core 1.0 Revision A" />, and includes several errata
@@ -73,7 +73,7 @@
         -->
       </t>
       <t>
-      	OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないがオーナーの代理として振る舞う) はリソースオーナーが管理するリソースへのアクセス権を要求する。さらに OAuth では、サーバーがリソースオーナーの認可情報だけでなく、リクエストを行っているクライアントの身元も検証することができる。
+      	OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないが、リソースオーナーの代理として振る舞う) は、リソースオーナーが管理しながらもサーバーにホスティングされているリソースへのアクセス権を要求する。サーバーは、リソースオーナーの認可情報と同時に、リクエスト元であるクライアントの身元も検証することができる。
       	<!--
 				OAuth introduces a third role to the traditional client-server authentication model: the
         resource owner. In the OAuth model, the client (which is not the resource owner, but
@@ -83,7 +83,7 @@
   			-->
   		</t>
       <t>
-      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザネームおよびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
+      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザ名およびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
       	<!--
         OAuth provides a method for clients to access server resources on behalf of a resource
         owner (such as a different client or an end-user). It also provides a process for end-users
@@ -92,7 +92,7 @@
         -->
       </t>
       <t>
-      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザネームとパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
       	<!--
         For example, a web user (resource owner) can grant a printing service (client) access to
         her private photos stored at a photo sharing service (server), without sharing her

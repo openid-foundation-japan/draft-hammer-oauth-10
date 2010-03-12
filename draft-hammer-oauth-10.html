@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 11, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 12, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 12, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 13, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 12, 2010.</p>
+This Internet-Draft will expire on September 13, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -297,7 +297,7 @@ Author's Address<br />
       
 </p>
 <p>
-      	この仕様書では改訂版 <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手によって OAuth 仕様策定権限がコミュニティから IETF に移管されることとなる。
+      	この仕様書では改訂版 <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
       	
       
 </p>
@@ -307,17 +307,17 @@ Author's Address<br />
       
 </p>
 <p>
-      	OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないがオーナーの代理として振る舞う) はリソースオーナーが管理するリソースへのアクセス権を要求する。さらに OAuth では、サーバーがリソースオーナーの認可情報だけでなく、リクエストを行っているクライアントの身元も検証することができる。
+      	OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないが、リソースオーナーの代理として振る舞う) は、リソースオーナーが管理しながらもサーバーにホスティングされているリソースへのアクセス権を要求する。サーバーは、リソースオーナーの認可情報と同時に、リクエスト元であるクライアントの身元も検証することができる。
       	
   		
 </p>
 <p>
-      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザネームおよびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
+      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザ名およびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
       	
       
 </p>
 <p>
-      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザネームとパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
       	
       
 </p>
@@ -715,7 +715,7 @@ Temporary Credentials</h3>
           respond back to the client with a set of temporary credentials (in the form of an
           identifier and shared-secret). The temporary credentials are included in the HTTP
           response body using the <tt>application/x-www-form-urlencoded</tt>
-          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
+          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
           code (OK).
         
 </p>
@@ -926,7 +926,7 @@ Token Credentials</h3>
           before. The server MUST also verify the verification code received from the client. If
           the request is valid and authorized, the token credentials are included in the HTTP
           response body using the <tt>application/x-www-form-urlencoded</tt>
-          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
+          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
           code (OK).
         
 </p>
@@ -1487,7 +1487,7 @@ Parameter Sources</h3>
                     section 3.4. The query component is parsed into a list of name/value pairs by
                     treating it as an <tt>application/x-www-form-urlencoded</tt>
                     string, separating the names and values and decoding them as defined by
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 <li>
@@ -1509,7 +1509,7 @@ Parameter Sources</h3>
 <li>
                         The entity-body follows the encoding requirements of the
                         <tt>application/x-www-form-urlencoded</tt> content-type as
-                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
                       
 </li>
 <li>
@@ -1520,7 +1520,7 @@ Parameter Sources</h3>
 </ul>
 
                     The entity-body is parsed into a list of decoded name/value pairs as described in
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 </ul><p>
@@ -2127,7 +2127,7 @@ Form-Encoded Body</h3>
 <li>
                 The entity-body follows the encoding requirements of the
                 <tt>application/x-www-form-urlencoded</tt> content-type as
-                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
               
 </li>
 <li>
@@ -2190,7 +2190,7 @@ Percent Encoding</h3>
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
           the existing encoding methods defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> and
-          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
+          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
           signature base string and the <a class='info' href='#auth_header'>authorization header field<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>.
         
 </p>
@@ -2997,7 +2997,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
 <td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="ftp://ftp.isi.edu/in-notes/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html40-19980424">[W3C.REC-html40-19980424]</a></td>
-<td class="author-text">Hors, A., Jacobs, I., and D. Raggett, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
+<td class="author-text">Hors, A., Raggett, D., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
 </table>
 
 <a name="rfc.references2"></a><br /><hr />
