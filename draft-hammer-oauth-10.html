@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 10, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 11, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 11, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 12, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 11, 2010.</p>
+This Internet-Draft will expire on September 12, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -417,27 +417,22 @@ Author's Address<br />
 Example</h3>
 
 <p>
-          Jane (resource owner) has recently uploaded some private vacation photos (protected
-          resources) to her photo sharing site 'photos.example.net' (server). She would like to use
-          the 'printer.example.com' website (client) to print one of these photos. Typically, Jane
-          signs-into 'photos.example.net' using her username and password.
+          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
         
 </p>
 <p>
-          However, Jane does not wish to share her username and password with the 'printer.example.com'
-          website, which needs to access the photo in order to print it. In order to provide its
-          users with better service, 'printer.example.com' has signed-up for a set of 'photos.example.net'
-          client credentials ahead of time:
+          しかし、Jane は写真を現像するためとはいえ 'printer.example.com' に対してユーザ名とパスワードを提示したくない。そこで 'printer.example.com' では、ユーザによりよいサービスを提供するため、事前に 'photos.example.net' の提供するクライアントクレデンシャルを取得している:
+        
 
           </p>
 <blockquote class="text"><dl>
-<dt>Client Identifier</dt>
+<dt>クライアント識別子</dt>
 <dd>
               
               dpf43f3p2l4k3l03
             
 </dd>
-<dt>Client Shared-Secret:</dt>
+<dt>クライアント共有鍵:</dt>
 <dd>
               
               kd94hf93k423kf44
@@ -445,25 +440,24 @@ Example</h3>
 </dd>
 </dl></blockquote><p>
 
-          The 'printer.example.com' website has also configured its application to use the protocol
-          endpoints listed in the 'photos.example.net' API documentation, which use the
-          <tt>HMAC-SHA1</tt> signature method:
+          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <tt>HMAC-SHA1</tt> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みだ
+          
 
           </p>
 <blockquote class="text"><dl>
-<dt>Temporary Credential Request</dt>
+<dt>一時的クレデンシャルリクエスト</dt>
 <dd>
               
               https://photos.example.net/initiate
             
 </dd>
-<dt>Resource Owner Authorization URI:</dt>
+<dt>リソースオーナー認可URI:</dt>
 <dd>
               
               https://photos.example.net/authorize
             
 </dd>
-<dt>Token Request URI:</dt>
+<dt>トークンリクエストURI:</dt>
 <dd>
               
               https://photos.example.net/token
@@ -473,10 +467,7 @@ Example</h3>
         
 </p>
 <p>
-          Before 'printer.example.com' can ask Jane to grant it access to the photos, it must
-          first establish a set of temporary credentials with 'photos.example.net' to identify
-          the delegation request. To do so, the client sends the following HTTPS
-          <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> request to the server:
+          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、一時的なクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> リクエストをサーバーに送信する:
         
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   POST /initiate HTTP/1.1
@@ -491,8 +482,7 @@ Example</h3>
 
 </pre></div>
 <p>
-          The server validates the request and replies with a set of temporary credentials in the
-          body of the HTTP response (line breaks are for display purposes only):
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) に一時的なクレデンシャルを持たせた応答を行う:
         
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   HTTP/1.1 200 OK
@@ -503,18 +493,14 @@ Example</h3>
 
 </pre></div>
 <p>
-          The client redirects Jane's user-agent to the server's Resource Owner Authorization
-          endpoint to obtain Jane's approval for accessing her private photos:
+          クライアントは Jane の写真へのアクセス許可を取得するため、ユーザーエージェントをサーバーのリソースオーナー認可エンドポイントにリダイレクトする:
         
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   https://photos.example.net/authorize?oauth_token=hh5s93j4hdidpola
 
 </pre></div>
 <p>
-          The server requests Jane to sign-in using her username and password and if successful,
-          asks her to approve granting 'printer.example.com' access to her private photos. Jane
-          approves the request and her user-agent is redirected to the callback URI provided by
-          the client in the previous request (line breaks are for display purposes only):
+          サーバーは Jane にユーザ名とパスワードを使ったログインを要求し、成功した場合は、'printer.example.com' が写真にアクセスしてよいか尋ねる。Jane が承認を行うと、ユーザーエージェントは、先のリクエスト (改行は掲載上の都合による) で提供されたコールバック URI にクライアントをリダイレクトする:
         
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   http://printer.example.com/ready?
@@ -522,9 +508,7 @@ Example</h3>
 
 </pre></div>
 <p>
-          The callback request informs the client that Jane completed the authorization process.
-          The client then requests a set of token credentials using its temporary credentials
-          (over a secure TLS channel):
+          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、一時的なクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する:
         
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   POST /token HTTP/1.1
@@ -540,8 +524,7 @@ Example</h3>
 
 </pre></div>
 <p>
-          The server validates the request and replies with a set of token credentials in the body
-          of the HTTP response:
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディにトークンクレデンシャルを持たせた応答を行う:
         
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   HTTP/1.1 200 OK
@@ -551,7 +534,7 @@ Example</h3>
 
 </pre></div>
 <p>
-          With a set of token credentials, the client is now ready to request the private photo:
+          トークンクレデンシャルの取得により、クライアントがプライベートな写真を要求するための準備は整う:
         
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /photos?file=vacation.jpg&amp;size=original HTTP/1.1
@@ -566,10 +549,7 @@ Example</h3>
 
 </pre></div>
 <p>
-          The 'photos.example.net' server validates the request and responds with the requested
-          photo. 'printer.example.com' is able to continue accessing Jane's private photos using
-          the same set of token credentials for the duration of Jane's authorization, or until
-          Jane revokes access.
+          'photos.example.net' サーバーはリクエストの正当性を確認し、要求された写真を返す。'printer.example.com' は Jane の認可が期間終了するか、Jane がアクセスを無効にするまで、同じトークンクレデンシャルを使って、Jane の写真にアクセスし続けることができる。
         
 </p>
 <a name="anchor4"></a><br /><hr />
@@ -735,7 +715,7 @@ Temporary Credentials</h3>
           respond back to the client with a set of temporary credentials (in the form of an
           identifier and shared-secret). The temporary credentials are included in the HTTP
           response body using the <tt>application/x-www-form-urlencoded</tt>
-          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
+          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
           code (OK).
         
 </p>
@@ -946,7 +926,7 @@ Token Credentials</h3>
           before. The server MUST also verify the verification code received from the client. If
           the request is valid and authorized, the token credentials are included in the HTTP
           response body using the <tt>application/x-www-form-urlencoded</tt>
-          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
+          content type as defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> with a 200 status
           code (OK).
         
 </p>
@@ -1507,7 +1487,7 @@ Parameter Sources</h3>
                     section 3.4. The query component is parsed into a list of name/value pairs by
                     treating it as an <tt>application/x-www-form-urlencoded</tt>
                     string, separating the names and values and decoding them as defined by
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 <li>
@@ -1529,7 +1509,7 @@ Parameter Sources</h3>
 <li>
                         The entity-body follows the encoding requirements of the
                         <tt>application/x-www-form-urlencoded</tt> content-type as
-                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
                       
 </li>
 <li>
@@ -1540,7 +1520,7 @@ Parameter Sources</h3>
 </ul>
 
                     The entity-body is parsed into a list of decoded name/value pairs as described in
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 </ul><p>
@@ -2147,7 +2127,7 @@ Form-Encoded Body</h3>
 <li>
                 The entity-body follows the encoding requirements of the
                 <tt>application/x-www-form-urlencoded</tt> content-type as
-                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
               
 </li>
 <li>
@@ -2210,7 +2190,7 @@ Percent Encoding</h3>
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
           the existing encoding methods defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> and
-          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
+          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
           signature base string and the <a class='info' href='#auth_header'>authorization header field<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>.
         
 </p>
@@ -3017,7 +2997,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
 <td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="ftp://ftp.isi.edu/in-notes/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html40-19980424">[W3C.REC-html40-19980424]</a></td>
-<td class="author-text">Hors, A., Raggett, D., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
+<td class="author-text">Hors, A., Jacobs, I., and D. Raggett, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
 </table>
 
 <a name="rfc.references2"></a><br /><hr />
