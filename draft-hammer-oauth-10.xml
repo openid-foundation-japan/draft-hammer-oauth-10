@@ -246,7 +246,7 @@
           signs-into 'photos.example.net' using her username and password.
         </t-->
         <t>
-          しかし、Jane は写真を現像するためとはいえ 'printer.example.com' に対してユーザ名とパスワードを提示したくない。そこで 'printer.example.com' では、ユーザによりよいサービスを提供するため、事前に 'photos.example.net' の提供するクライアントクレデンシャルを取得している:
+          しかし、Jane は写真を現像するためとはいえ 'printer.example.com' に対してユーザ名とパスワードを提示したくない。そこで 'printer.example.com' では、ユーザによりよいサービスを提供するため、事前に 'photos.example.net' の提供するクライアントクレデンシャルを取得している。
         <!--t>
           However, Jane does not wish to share her username and password with the 'printer.example.com'
           website, which needs to access the photo in order to print it. In order to provide its
@@ -273,7 +273,7 @@
             </t-->
           </list>
 
-          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みだ
+          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みだ。
           <!--
           The 'printer.example.com' website has also configured its application to use the protocol
           endpoints listed in the 'photos.example.net' API documentation, which use the
@@ -308,7 +308,7 @@
           </list>
         </t>
         <t>
-          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、一時的なクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <xref target="RFC2818" /> リクエストをサーバーに送信する:
+          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、一時的なクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <xref target="RFC2818" /> リクエストをサーバーに送信する。
         </t>
         <!--t>
           Before 'printer.example.com' can ask Jane to grant it access to the photos, it must
@@ -331,7 +331,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) に一時的なクレデンシャルを持たせた応答を行う:
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) に一時的なクレデンシャルを持たせた応答を行う。
         </t>
         <!--t>
           The server validates the request and replies with a set of temporary credentials in the
@@ -348,7 +348,7 @@
           </artwork>
         </figure>
         <t>
-          クライアントは Jane の写真へのアクセス許可を取得するため、ユーザーエージェントをサーバーのリソースオーナー認可エンドポイントにリダイレクトする:
+        	クライアントは Jane から彼女のプライベートな写真へのアクセスに関して承認を得るため、彼女のユーザーエージェントをサーバーのリソースオーナー認可エンドポイントにリダイレクトする。
         </t>
         <!--t>
           The client redirects Jane's user-agent to the server's Resource Owner Authorization
@@ -361,7 +361,7 @@
         </artwork>
         </figure>
         <t>
-          サーバーは Jane にユーザ名とパスワードを使ったログインを要求し、成功した場合は、'printer.example.com' が写真にアクセスしてよいか尋ねる。Jane が承認を行うと、ユーザーエージェントは、先のリクエスト (改行は掲載上の都合による) で提供されたコールバック URI にクライアントをリダイレクトする:
+          サーバーは Jane にユーザ名とパスワードを使ったログインを要求し、成功した場合は、'printer.example.com' が写真にアクセスしてよいか尋ねる。Jane が承認を行うと、ユーザーエージェントは、先のリクエスト (改行は掲載上の都合による) で提供されたコールバック URI にクライアントをリダイレクトする。
         </t>
         <!--t>
           The server requests Jane to sign-in using her username and password and if successful,
@@ -377,7 +377,7 @@
           </artwork>
         </figure>
         <t>
-          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、一時的なクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する:
+          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、一時的なクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する。
         </t>
         <!--t>
           The callback request informs the client that Jane completed the authorization process.
@@ -400,7 +400,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディにトークンクレデンシャルを持たせた応答を行う:
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディにトークンクレデンシャルを持たせた応答を行う。
         </t>
         <!--t>
           The server validates the request and replies with a set of token credentials in the body
@@ -416,7 +416,7 @@
           </artwork>
         </figure>
         <t>
-          トークンクレデンシャルの取得により、クライアントがプライベートな写真を要求するための準備は整う:
+          トークンクレデンシャルの取得により、クライアントがプライベートな写真を要求するための準備は整う。
         </t>
         <!--t>
           With a set of token credentials, the client is now ready to request the private photo:
@@ -436,7 +436,7 @@
           </artwork>
         </figure>
         <t>
-          'photos.example.net' サーバーはリクエストの正当性を確認し、要求された写真を返す。'printer.example.com' は Jane の認可が期間終了するか、Jane がアクセスを無効にするまで、同じトークンクレデンシャルを使って、Jane の写真にアクセスし続けることができる。
+          'photos.example.net' サーバーはリクエストの正当性を確認し、要求された写真を返す。'printer.example.com' は Jane の認可の有効期間が終了するか、Jane がアクセスを無効にするまで、同じトークンクレデンシャルを使って、Jane の写真にアクセスし続けることができる。
         </t>
         <!--t>
           The 'photos.example.net' server validates the request and responds with the requested
