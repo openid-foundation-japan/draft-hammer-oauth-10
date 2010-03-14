@@ -446,24 +446,46 @@
         </t-->
       </section>
 
-      <section title="Notational Conventions">
+      <section title="要求記法および規則">
+      <!--section title="Notational Conventions"-->
         <t>
+          用いられる各キーワード「MUST (しなければならない) 」、「MUST NOT (してはならない) 」、「REQUIRED (必須である) 」、「SHALL (するものとする) 」、「SHALL NOT (しないものとする) 」、「SHOULD (すべきである) 」、「SHOULD NOT (すべきではない) 」、「RECOMMENDED (推奨される) 」、「MAY (してもよい) 」、「OPTIONAL (任意である) 」は <xref target="RFC2119" /> で述べられている通りに解釈されるべきものである。
+        </t>
+        <!--t>
           The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
           "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in
           <xref target="RFC2119" />.
-        </t>
+        </t-->
       </section>
       
     </section>
 
-    <section title="Redirection-Based Authorization" anchor="redirect_workflow">
+    <section title="リダイレクション・ベースの認可" anchor="redirect_workflow">
+    <!--section title="Redirection-Based Authorization" anchor="redirect_workflow"-->
       <t>
+        OAuth はリソースオーナーがクライアントに認可を与える際にトークンを用いる。一般的に、リソースオーナーのアイデンティティ (通常、ユーザー名とパスワードを使用する) を認証した後に、トークンクレデンシャルは、リソースオーナーの要求によりサーバーから提供される。
+      </t>
+      <!--t>
         OAuth uses tokens to represent the authorization granted to the client by the resource
         owner. Typically, token credentials are issued by the server at the resource owner's
         request, after authenticating the resource owner's identity (usually using a username and
         password).
-      </t>
+      </t-->
       <t>
+        サーバーがトークンクレデンシャルを容易に提供する多くの方法がある。このセクションは、HTTP リダイレクションについて定義している。リダイレクション・ベースの認可方法には、3 つのステップがある。
+        <list style="numbers">
+          <t>
+            クライアントは、サーバーから、一時的なクレデンシャルを得る (識別子と共有鍵の形式) 。一時的なクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
+          </t>
+          <t>
+            リソースオーナーは、サーバーにクライアントからリクエストすることを許可する (一時的なクレデンシャルによって識別される) 。
+          </t>
+          <t>
+            クライアントは、サーバーにトークンクレデンシャルをリクエストするために一時的なクレデンシャルを用いる。それにより、リソースオーナーの保護されたリソースにアクセスすることを可能する。
+          </t>
+        </list>
+      </t>
+      <!--t>
         There are many ways in which a server can facilitate the provisioning of token credentials.
         This section defines one such way, using HTTP redirections and the resource owner's
         user-agent. This redirection-based authorization method includes three steps:
@@ -483,14 +505,35 @@
             the server, which will enable it to access the resource owner's protected resources.
           </t>
         </list>
-      </t>
+      </t-->
       <t>
+        サーバーは、トークンクレデンシャルを利用した後に、一時的なクレデンシャルを破棄しなければならない (MUST) 。一時的なクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED) 。クライアントに発行された後、サーバーはリソースオーナーがトークンクレデンシャルを破棄することを可能にするべきである (SHOULD) 。
+      </t>
+      <!--t>
         The server MUST revoke the temporary credentials after being used once to obtain the token
         credentials. It is RECOMMENDED that the temporary credentials have a limited lifetime.
         Servers SHOULD enable resource owners to revoke token credentials after they have been
         issued to clients.
-      </t>
+      </t-->
       <t>
+        クライアントが、これらのステップを行うために、サーバーは URI に以下の 3 つのエンドポイントを知らせる必要がある。
+
+        <list style="hanging" hangIndent="6">
+          <t hangText="一時的なクレデンシャルリクエスト">
+            <vspace />
+            一時的なクレデンシャルを得るクライアントにより用いられるエンドポイント。 (<xref target="auth_step1" /> 参照)
+          </t>
+          <t hangText="リソースオーナー認可">
+            <vspace />
+            リソースオーナーが認可を与えるためにリダイレクトするエンドポイント。 (<xref target="auth_step2" /> 参照)
+          </t>
+          <t hangText="トークンリクエスト">
+            <vspace />
+            一時的なクレデンシャルを使用して、トークンクレデンシャルを要求するクライアントに用いられるエンドポイント。 (<xref target="auth_step3" /> 参照)
+          </t>
+        </list>
+      </t>
+      <!--t>
         In order for the client to perform these steps, the server needs to advertise the URIs of
         the following three endpoints:
 
@@ -511,14 +554,20 @@
             set of temporary credentials as described in <xref target="auth_step3" />.
           </t>
         </list>
-      </t>
+      </t-->
       <t>
+        通達された 3 つの URI はクエリーコンポーネントを含んでもよい (MAY) 。 (<xref target="RFC3986" /> 3節参照) クエリーには <spanx style="verb">oauth_</spanx> プリフィックスを伴ったパラメータを含むことができるが、利用時には、URI に加えられるプロトコル・パラメータとの競合を避けなければならない (MUST NOT) 。
+      </t>
+      <!--t>
         The three URIs advertised by the server MAY include a query component as defined by
         <xref target="RFC3986" /> section 3, but if present, the query MUST NOT contain any
         parameters beginning with the <spanx style="verb">oauth_</spanx> prefix, to avoid conflicts
         with the protocol parameters added to the URIs when used.
-      </t>
+      </t -->
       <t>
+        サーバーがその 3 つのエンドポイントを通達し、文書化する方法は、この仕様の範囲外となる。クライアントはトークンのサイズや他のサーバーで生成された値について、仮定をすることを避ける必要がある。これは、この仕様書では未定義となる。プロトコル・パラメータは、送信時に符号化した値を含むことができる (MAY) 。クライアントとサーバーは、その値のスコープについての仮定をしてはならない。
+      </t>
+      <!--t>
         The methods in which the server advertises and documents its three endpoints are beyond the
         scope of this specification. Clients should avoid making assumptions about the size of
         tokens and other server-generated values, which are left undefined by this specification.
@@ -526,9 +575,20 @@
         transmitted. Clients and servers should not make assumptions about the possible range of
         their values.
       </t>
-      
-      <section title="Temporary Credentials" anchor="auth_step1">
+
+      <section title="一時的なクレデンシャル" anchor="auth_step1">
+      <!--section title="Temporary Credentials" anchor="auth_step1"-->
         <t>
+          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証済み</xref>の HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (クライアントがサーバーに対して、別の HTTP リクエストメソッドを利用した場合を除く) 。クライアントは、次のパラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          <list style="hanging" hangIndent="6">
+            <t hangText="oauth_callback:">
+              サーバーが、リソースオーナーに絶対 URI を戻すことで、リソースオーナー認証手順 (<xref target="auth_step2" />) は完了する。もしクライアントがコールバックを受け取ることができない、もしくは、コールバック URI が他の手段を介して確立されたなら、パラメータに、out-of-band 設定が示す通り <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST) 。
+            </t>
+            <t hangText="サーバーは、追加パラメータを指定してもよい (MAY) 。">
+            </t>
+          </list>
+        </t>
+        <!--t>
           The client obtains a set of temporary credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
           request to the Temporary Credential Request endpoint (unless the server advertises
@@ -547,11 +607,17 @@
             <t hangText="Servers MAY specify additional parameters.">
             </t>
           </list>
-        </t>
+        </t-->
         <t>
+          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY) 。そして、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST) 。
+        </t>
+        <!--t>
           When making the request, the client authenticates using only the client credentials. The
           client MAY omit the empty <spanx style="verb">oauth_token</spanx> protocol parameter
           from the request and MUST use the empty string as the token secret value.
+        </t>
+        <t>
+          リクエスト結果が、プレーンテキストの場合、トランスポート層のメカニズム (TLS や SSL または、これら相当のセキュアな仕組み) を使用しなければならない (MUST) 。
         </t>
         <t>
           Since the request results in the transmission of plain text credentials in the HTTP
@@ -560,8 +626,11 @@
         </t>
         <figure>
           <preamble>
-            For example, the client makes the following HTTPS request:
+            たとえば、クライアントは以下のような HTTPS リクエストを行う。
           </preamble>
+          <!--preamble>
+            For example, the client makes the following HTTPS request:
+          </preamble-->
           <artwork xml:space="preserve"><![CDATA[
   POST /request_temp_credentials HTTP/1.1
   Host: server.example.com
@@ -574,6 +643,9 @@
           </artwork>
         </figure>
         <t>
+          サーバは、リクエストと有効性を確認 (<xref target="verify_request">verify</xref>) し (MUST) 、クライアントに一時的なクレデンシャルを返す (識別子と共有鍵の形式) 。一時的なクレデンシャルは、HTTP レスポンスボディ (<xref target="W3C.REC-html40-19980424" /> によって定義されたコンテントタイプ <spanx style="verb">application/x-www-form-urlencoded</spanx> と、ステータスコード 200 (OK)) を含む。
+        </t>
+        <!--t>
           The server MUST <xref target="verify_request">verify</xref> the request and if valid,
           respond back to the client with a set of temporary credentials (in the form of an
           identifier and shared-secret). The temporary credentials are included in the HTTP
@@ -582,6 +654,23 @@
           code (OK).
         </t>
         <t>
+          レスポンスには次のパラメータ (REQUIRED) が含まれる。
+
+          <list style="hanging" hangIndent="6">
+            <t hangText="oauth_token">
+              <vspace />
+              一時的なクレデンシャルの識別子
+            </t>
+            <t hangText="oauth_token_secret">
+              <vspace />
+              一時的なクレデンシャルの共有鍵
+            </t>
+            <t hangText="oauth_callback_confirmed:">
+              必ず存在しなければならない (MUST) 、かつ <spanx style="verb">true</spanx> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
+            </t>
+          </list>
+        </t>
+        <!--t>
           The response contains the following REQUIRED parameters:
 
           <list style="hanging" hangIndent="6">
@@ -600,14 +689,20 @@
           </list>
         </t>
         <t>
+          パラメータ名に 'token' が含まれる場合があるが、そのクレデンシャルは、トークンクレデンシャルではないことに注意する。しかし、次の 2 つのステップで、トークンクレデンシャルと同様の方法で使用される。
+        </t>
+        <!--t>
           Note that even though the parameter names include the term 'token', these credentials are
           not token credentials, but are used in the next two steps in a similar manner to token
           credentials.
-        </t>
+        </t-->
         <figure>
           <preamble>
-            For example (line breaks are for display purposes only):
+            例 (改行は掲載上の都合による)
           </preamble>
+          <!--preamble>
+            For example (line breaks are for display purposes only):
+          </preamble-->
           <artwork xml:space="preserve"><![CDATA[
   HTTP/1.1 200 OK
   Content-Type: application/x-www-form-urlencoded
