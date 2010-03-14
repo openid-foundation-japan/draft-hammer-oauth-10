@@ -563,7 +563,7 @@
         <xref target="RFC3986" /> section 3, but if present, the query MUST NOT contain any
         parameters beginning with the <spanx style="verb">oauth_</spanx> prefix, to avoid conflicts
         with the protocol parameters added to the URIs when used.
-      </t -->
+      </t-->
       <t>
         サーバーがその 3 つのエンドポイントを通達し、文書化する方法は、この仕様の範囲外となる。クライアントはトークンのサイズや他のサーバーで生成された値について、仮定をすることを避ける必要がある。これは、この仕様書では未定義となる。プロトコル・パラメータは、送信時に符号化した値を含むことができる (MAY) 。クライアントとサーバーは、その値のスコープについての仮定をしてはならない。
       </t>
@@ -574,7 +574,7 @@
         In addition, protocol parameters MAY include values which require encoding when
         transmitted. Clients and servers should not make assumptions about the possible range of
         their values.
-      </t>
+      </t-->
 
       <section title="一時的なクレデンシャル" anchor="auth_step1">
       <!--section title="Temporary Credentials" anchor="auth_step1"-->
@@ -615,15 +615,15 @@
           When making the request, the client authenticates using only the client credentials. The
           client MAY omit the empty <spanx style="verb">oauth_token</spanx> protocol parameter
           from the request and MUST use the empty string as the token secret value.
-        </t>
+        </t-->
         <t>
           リクエスト結果が、プレーンテキストの場合、トランスポート層のメカニズム (TLS や SSL または、これら相当のセキュアな仕組み) を使用しなければならない (MUST) 。
         </t>
-        <t>
+        <!--t>
           Since the request results in the transmission of plain text credentials in the HTTP
           response, the server MUST require the use of a transport-layer mechanisms such as TLS
           or SSL (or a secure channel with equivalent protections).
-        </t>
+        </t-->
         <figure>
           <preamble>
             たとえば、クライアントは以下のような HTTPS リクエストを行う。
@@ -652,7 +652,7 @@
           response body using the <spanx style="verb">application/x-www-form-urlencoded</spanx>
           content type as defined by <xref target="W3C.REC-html40-19980424" /> with a 200 status
           code (OK).
-        </t>
+        </t-->
         <t>
           レスポンスには次のパラメータ (REQUIRED) が含まれる。
 
@@ -687,7 +687,7 @@
               to differentiate from previous versions of the protocol.
             </t>
           </list>
-        </t>
+        </t-->
         <t>
           パラメータ名に 'token' が含まれる場合があるが、そのクレデンシャルは、トークンクレデンシャルではないことに注意する。しかし、次の 2 つのステップで、トークンクレデンシャルと同様の方法で使用される。
         </t>
