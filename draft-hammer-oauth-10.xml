@@ -463,7 +463,7 @@
     <section title="リダイレクション・ベースの認可" anchor="redirect_workflow">
     <!--section title="Redirection-Based Authorization" anchor="redirect_workflow"-->
       <t>
-        OAuth はリソースオーナーがクライアントに認可を与える際にトークンを用いる。一般的に、リソースオーナーのアイデンティティ (通常、ユーザー名とパスワードを使用する) を認証した後に、トークンクレデンシャルは、リソースオーナーの要求によりサーバーから提供される。
+        OAuth はリソースオーナーがクライアントに認可を与える際にトークンを用いる。一般的にトークンクレデンシャルの発行は、リソースオーナーの要求を受けてサーバーが行う。その際、サーバーはトークン発行前にリソースオーナーのアイデンティティを (通常はユーザー名とパスワードを使用して) 認証する。
       </t>
       <!--t>
         OAuth uses tokens to represent the authorization granted to the client by the resource
@@ -472,16 +472,16 @@
         password).
       </t-->
       <t>
-        サーバーがトークンクレデンシャルを容易に提供する多くの方法がある。このセクションは、HTTP リダイレクションについて定義している。リダイレクション・ベースの認可方法には、3 つのステップがある。
+        サーバーがトークンクレデンシャルを容易に提供するには多くの方法がある。このセクションは、HTTP リダイレクションについて定義している。リダイレクション・ベースの認可方法には、3つのステップがある。
         <list style="numbers">
           <t>
-            クライアントは、サーバーから、一時的なクレデンシャルを得る (識別子と共有鍵の形式) 。一時的なクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
+            クライアントは、サーバーから (識別子と共有鍵の形式で) 一時的なクレデンシャルを得る。一時的なクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
           </t>
           <t>
-            リソースオーナーは、サーバーにクライアントからリクエストすることを許可する (一時的なクレデンシャルによって識別される) 。
+            リソースオーナーは、サーバーが (一時的なクレデンシャルによって識別される) クライアントのアクセス要求を承認することを認可する。
           </t>
           <t>
-            クライアントは、サーバーにトークンクレデンシャルをリクエストするために一時的なクレデンシャルを用いる。それにより、リソースオーナーの保護されたリソースにアクセスすることを可能する。
+            クライアントは、サーバーにトークンクレデンシャルをリクエストするために一時的なクレデンシャルを用いる。トークンクレデンシャルを用いることで、リソースオーナーの保護されたリソースへのアクセスが可能になる。
           </t>
         </list>
       </t>
@@ -507,7 +507,7 @@
         </list>
       </t-->
       <t>
-        サーバーは、トークンクレデンシャルを利用した後に、一時的なクレデンシャルを破棄しなければならない (MUST) 。一時的なクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED) 。クライアントに発行された後、サーバーはリソースオーナーがトークンクレデンシャルを破棄することを可能にするべきである (SHOULD) 。
+        サーバーは、トークンクレデンシャルを利用した後に、一時的なクレデンシャルを破棄しなければならない (MUST)。一時的なクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
       </t>
       <!--t>
         The server MUST revoke the temporary credentials after being used once to obtain the token
@@ -516,20 +516,20 @@
         issued to clients.
       </t-->
       <t>
-        クライアントが、これらのステップを行うために、サーバーは URI に以下の 3 つのエンドポイントを知らせる必要がある。
+        クライアントが、これらのステップを行うために、サーバーは URI に以下の3つのエンドポイントを知らせる必要がある。
 
         <list style="hanging" hangIndent="6">
           <t hangText="一時的なクレデンシャルリクエスト">
             <vspace />
-            一時的なクレデンシャルを得るクライアントにより用いられるエンドポイント。 (<xref target="auth_step1" /> 参照)
+            一時的なクレデンシャルを得るために、クライアントに用いられるエンドポイント。(<xref target="auth_step1" /> 参照)
           </t>
           <t hangText="リソースオーナー認可">
             <vspace />
-            リソースオーナーが認可を与えるためにリダイレクトするエンドポイント。 (<xref target="auth_step2" /> 参照)
+            リソースオーナーが認可を与えるためにリダイレクトされるエンドポイント。(<xref target="auth_step2" /> 参照)
           </t>
           <t hangText="トークンリクエスト">
             <vspace />
-            一時的なクレデンシャルを使用して、トークンクレデンシャルを要求するクライアントに用いられるエンドポイント。 (<xref target="auth_step3" /> 参照)
+            一時的なクレデンシャルを使用してトークンクレデンシャルを要求するために、クライアントに用いられるエンドポイント。(<xref target="auth_step3" /> 参照)
           </t>
         </list>
       </t>
@@ -556,7 +556,7 @@
         </list>
       </t-->
       <t>
-        通達された 3 つの URI はクエリーコンポーネントを含んでもよい (MAY) 。 (<xref target="RFC3986" /> 3節参照) クエリーには <spanx style="verb">oauth_</spanx> プリフィックスを伴ったパラメータを含むことができるが、利用時には、URI に加えられるプロトコル・パラメータとの競合を避けなければならない (MUST NOT) 。
+        通達された3つの URI はクエリーコンポーネントを含んでもよい (MAY)。(<xref target="RFC3986" /> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコル・パラメータとの競合を防ぐため、クエリーには <spanx style="verb">oauth_</spanx> プリフィックスを伴ったパラメータを含んではならない (MUST NOT)。
       </t>
       <!--t>
         The three URIs advertised by the server MAY include a query component as defined by
@@ -565,7 +565,7 @@
         with the protocol parameters added to the URIs when used.
       </t-->
       <t>
-        サーバーがその 3 つのエンドポイントを通達し、文書化する方法は、この仕様の範囲外となる。クライアントはトークンのサイズや他のサーバーで生成された値について、仮定をすることを避ける必要がある。これは、この仕様書では未定義となる。プロトコル・パラメータは、送信時に符号化した値を含むことができる (MAY) 。クライアントとサーバーは、その値のスコープについての仮定をしてはならない。
+        サーバーがその3つのエンドポイントを通達し、文書化する方法は、この仕様の範囲外となる。クライアントはトークンのサイズや他のサーバーで生成された値について、仮定をすることを避ける必要がある。これは、この仕様書では未定義となる。プロトコル・パラメータは、送信時に符号化が必要な値を含むことがある (MAY)。クライアントとサーバーは、その値のスコープについての仮定をしてはならない。
       </t>
       <!--t>
         The methods in which the server advertises and documents its three endpoints are beyond the
@@ -579,12 +579,12 @@
       <section title="一時的なクレデンシャル" anchor="auth_step1">
       <!--section title="Temporary Credentials" anchor="auth_step1"-->
         <t>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証済み</xref>の HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (クライアントがサーバーに対して、別の HTTP リクエストメソッドを利用した場合を除く) 。クライアントは、次のパラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証済み</xref>の HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_callback:">
-              サーバーが、リソースオーナーに絶対 URI を戻すことで、リソースオーナー認証手順 (<xref target="auth_step2" />) は完了する。もしクライアントがコールバックを受け取ることができない、もしくは、コールバック URI が他の手段を介して確立されたなら、パラメータに、out-of-band 設定が示す通り <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST) 。
+              リソースオーナー認証手順 (<xref target="auth_step2" />) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST)。
             </t>
-            <t hangText="サーバーは、追加パラメータを指定してもよい (MAY) 。">
+            <t hangText="サーバーは、追加パラメータを指定してもよい (MAY)。">
             </t>
           </list>
         </t>
@@ -609,7 +609,7 @@
           </list>
         </t-->
         <t>
-          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY) 。そして、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST) 。
+          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。そして、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
         </t>
         <!--t>
           When making the request, the client authenticates using only the client credentials. The
@@ -617,7 +617,7 @@
           from the request and MUST use the empty string as the token secret value.
         </t-->
         <t>
-          リクエスト結果が、プレーンテキストの場合、トランスポート層のメカニズム (TLS や SSL または、これら相当のセキュアな仕組み) を使用しなければならない (MUST) 。
+        	リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
         </t>
         <!--t>
           Since the request results in the transmission of plain text credentials in the HTTP
@@ -643,7 +643,8 @@
           </artwork>
         </figure>
         <t>
-          サーバは、リクエストと有効性を確認 (<xref target="verify_request">verify</xref>) し (MUST) 、クライアントに一時的なクレデンシャルを返す (識別子と共有鍵の形式) 。一時的なクレデンシャルは、HTTP レスポンスボディ (<xref target="W3C.REC-html40-19980424" /> によって定義されたコンテントタイプ <spanx style="verb">application/x-www-form-urlencoded</spanx> と、ステータスコード 200 (OK)) を含む。
+          サーバーは、必ずリクエストを<xref target="verify_request">検証</xref>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式で含められる。
+          。
         </t>
         <!--t>
           The server MUST <xref target="verify_request">verify</xref> the request and if valid,
@@ -654,7 +655,7 @@
           code (OK).
         </t-->
         <t>
-          レスポンスには次のパラメータ (REQUIRED) が含まれる。
+          レスポンスには次の必須パラメータ (REQUIRED) が含まれる。
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
@@ -666,7 +667,7 @@
               一時的なクレデンシャルの共有鍵
             </t>
             <t hangText="oauth_callback_confirmed:">
-              必ず存在しなければならない (MUST) 、かつ <spanx style="verb">true</spanx> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
+              必ず存在しなければならない (MUST)、かつ <spanx style="verb">true</spanx> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
             </t>
           </list>
         </t>
@@ -689,7 +690,7 @@
           </list>
         </t-->
         <t>
-          パラメータ名に 'token' が含まれる場合があるが、そのクレデンシャルは、トークンクレデンシャルではないことに注意する。しかし、次の 2 つのステップで、トークンクレデンシャルと同様の方法で使用される。
+          パラメータ名に 'token' が含まれる場合があるが、そのクレデンシャルは、トークンクレデンシャルではないことに注意する。しかし、次の2つのステップで、トークンクレデンシャルと同様の方法で使用される。
         </t>
         <!--t>
           Note that even though the parameter names include the term 'token', these credentials are
@@ -849,7 +850,7 @@
 			<section title="トークンクレデンシャル" anchor="auth_step3">
       <!-- section title="Token Credentials" anchor="auth_step3" -->
         <t>
-        	クライアントは<xref target="requests">認証済み</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを指定する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+        	クライアントは<xref target="requests">認証済み</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
         	<!--
           The client obtains a set of token credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
