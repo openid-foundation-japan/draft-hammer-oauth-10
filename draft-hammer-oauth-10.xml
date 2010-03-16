@@ -235,7 +235,7 @@
         </t>
       </section>
 
-      <section title="Example">
+      <section title="例">
         <t>
           Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
         </t>
@@ -977,107 +977,161 @@
 
     </section>
     
-    <section title="Authenticated Requests" anchor="requests">
+    <section title="認証済みのリクエスト" anchor="requests">
       <t>
+        クライアントは<xref target="RFC2617" />で定義されている HTTP 認証メソッドにより、認証済みの HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+      </t>
+      <!--t>
         The HTTP authentication methods defined by <xref target="RFC2617" />, enable clients
         to make authenticated HTTP requests. Clients using these methods gain access to protected
         resources by using their credentials (typically a username and password pair), which
         allow the server to verify their authenticity. Using these methods for delegation requires
         the client to assume the role of the resource owner.
-      </t>
+      </t-->
       <t>
+        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みのリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<xref target="redirect_workflow" />は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
+      </t>
+      <!--t>
         OAuth provides a method designed to include two sets of credentials with each request, one
         to identify the client, and another to identify the resource owner. Before a client can
         make authenticated requests on behalf of the resource owner, it must obtain a token
         authorized by the resource owner. <xref target="redirect_workflow" /> provides one such
         method through which the client can obtain a token authorized by the resource owner.
-      </t>
+      </t-->
       <t>
+        クライアントクレデンシャルはユニークな識別子および、一対の共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みのリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については<xref target="client_cred_sec" />に記載している。
+      </t>
+      <!--t>
         The client credentials take the form of a unique identifier, and an associated shared-secret
         or RSA key pair. Prior to making authenticated requests, the client establishes a set of
         credentials with the server. The process and requirements for provisioning these are
         outside the scope of this specification. Implementers are urged to consider the security
         ramifications of using client credentials, some of which are described in
         <xref target="client_cred_sec" />.
-      </t>
+      </t-->
       <t>
+        認証済みのリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータ (<xref target="param_include" />) を送信するメソッドと、クライアントがクレデンシャル (<xref target="signature" />) の所有権を証明するために利用する方法が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
+      </t>
+      <!--t>
         Making authenticated requests requires prior knowledge of the server's configuration.
         OAuth includes multiple methods for transmitting protocol parameters with requests
 				(<xref target="param_include" />), as well as multiple methods for the client to
         prove its rightful ownership of the credentials used (<xref target="signature" />).
         The way in which clients discover the required configuration is outside the scope of
         this specification.
-      </t>
+      </t-->
 
-      <section title="Making Requests">
+      <section title="リクエストを行う">
         <t>
+          認証済みのリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は<spanx style="verb">oauth_</spanx>で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みのリクエストを行う。
+          <!--
           An authenticated request includes several protocol parameters. Each parameter name
           begins with the <spanx style="verb">oauth_</spanx> prefix, and the parameter names and
           values are case sensitive. Clients make authenticated requests by calculating the values
           of a set of protocol parameters and adding them to the HTTP request as follows:
+          -->
 
           <list style="numbers">
             <t>
+              クライアントは下記の (特に指定されていない限り) 必須であるプロトコルパラメータに、それぞれ値を割り当てる。
+              <!--
               The client assigns value to each of these REQUIRED (unless specified otherwise)
               protocol parameters:
+              -->
 
               <list style="hanging" hangIndent="6">
                 <t hangText="oauth_consumer_key">
+                  <vspace />
+                  クライアントクレデンシャルの識別子部分 (ユーザ名に当たる)。パラメータ名は本仕様の以前のバージョンで使用されていた用語 (Consumer Key) を反映しており、後方互換のためにそのまま使用する。
+                </t>
+                <!--t hangText="oauth_consumer_key">
                   <vspace />
                   The identifier portion of the client credentials (equivalent to a username). The
                   parameter name reflects a deprecated term (Consumer Key) used in previous
                   revisions of the specification, and has been retained to maintain backward
                   compatibility.
-                </t>
+                </t-->
                 <t hangText="oauth_token">
+                  <vspace />
+                  リソースオーナーとリクエストを関連付けるトークン値。リクエストがリソースオーナーと関連付けられていない場合 (トークンが利用できない場合)、パラメータを省略することができる。
+                </t>
+                <!--t hangText="oauth_token">
                   <vspace />
                   The token value used to associate the request with the resource owner. If the
                   request is not associated with a resource owner (no token available), clients
                   MAY omit the parameter.
-                </t>
+                </t-->
                 <t hangText="oauth_signature_method">
+                  <vspace />
+                  <xref target="signature" />で定義されている、クライアントがリクエストに署名するために使用する署名メソッドの名前。
+                </t>
+                <!--t hangText="oauth_signature_method">
                   <vspace />
                   The name of the signature method used by the client to sign the request,
                   as defined in <xref target="signature" />.
-                </t>
+                </t-->
                 <t hangText="oauth_timestamp">
+                  <vspace />
+                  <xref target="nonce" />で定義されているタイムスタンプ値。署名メソッドとして<spanx style="verb">プレーンテキスト</spanx>を使用している場合、省略することができる。
+                </t>
+                <!--t hangText="oauth_timestamp">
                   <vspace />
                   The timestamp value as defined in <xref target="nonce" />. The parameter MAY
                   be omitted when using the <spanx style="verb">PLAINTEXT</spanx> signature method.
-                </t>
+                </t-->
                 <t hangText="oauth_nonce">
+                  <vspace />
+                  <xref target="nonce" />で定義されているノンス値。署名メソッドとして<spanx style="verb">プレーンテキスト</spanx>を使用している場合、省略することができる。
+                </t>
+                <!--t hangText="oauth_nonce">
                   <vspace />
                   The nonce value as defined in <xref target="nonce" />. The parameter MAY be
                   omitted when using the <spanx style="verb">PLAINTEXT</spanx> signature method.
-                </t>
+                </t-->
                 <t hangText="oauth_version">
+                  <vspace />
+                  オプション。追加する場合、<spanx style="verb">1.0</spanx>でなければならない。本仕様で定義された認可手順のバージョンを示す。
+                </t>
+                <!--t hangText="oauth_version">
                   <vspace />
                   OPTIONAL. If present, MUST be set to <spanx style="verb">1.0</spanx>. Provides
                   the version of the authentication process as defined in this specification.
-                </t>
+                </t-->
               </list>
             </t>
             <t>
+              プロトコルパラメータは<xref target="param_include" />に記載された転送メソッドのいずれかを使い、リクエストに追加される。各パラメータはリクエストにつき、二度以上含まれてはならない。
+            </t>
+            <!--t>
               The protocol parameters are added to the request using one of the transmission
               methods listed in <xref target="param_include" />. Each parameter MUST NOT appear
               more than once per request.
-            </t>
+            </t-->
             <t>
+              クライアントは<xref target="signature" />に記載されている通り、<spanx style="verb">oauth_signature</spanx>パラメータの値を計算し、割り当てる。このパラメータは前のステップと同じ方法で、リクエストに追加する。
+            </t>
+            <!--t>
               The client calculates and assigns the value of the <spanx style="verb">oauth_signature</spanx>
               parameter as described in <xref target="signature" /> and adds the parameter to the
               request using the same method used in the previous step.
-            </t>
+            </t-->
             <t>
-              The client sends the authenticated HTTP request to the server.
+              クライアントが認証済みのリクエストをサーバーに送信する。
             </t>
+            <!--t>
+              The client sends the authenticated HTTP request to the server.
+            </t-->
           </list>
         </t>
         <figure>
           <preamble>
+            例えば、下記のような HTTP リクエストを認証済みで送信するとする (<spanx style="verb">c2&amp;a3=2+q</spanx>はフォームエンコードされたエンティティボディを強調するために使用する)
+          </preamble>
+          <!--preamble>
             For example, to make the following HTTP request authenticated (the
             <spanx style="verb">c2&amp;a3=2+q</spanx> string in the following examples is used to
             illustrate the impact of a form-encoded entity-body) :
-          </preamble>
+          </preamble-->
           <artwork xml:space="preserve"><![CDATA[
   GET /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
   Host: example.com
@@ -1089,10 +1143,13 @@
         </figure>
         <figure>
           <preamble>
+            クライアントはクライアントクレデンシャル、トークンクレデンシャル、現在のタイムスタンプ、ユニークなノンス、署名メソッドとして<spanx style="verb">HMAC-SHA1</spanx>を使用することを示し、下記プロトコルパラメータに値を割り当てる。
+          </preamble>
+          <!--preamble>
             The client assigns values to the following protocol parameters using its client
             credentials, token credentials, the current timestamp, a uniquely generated nonce, and
             indicates it will use the <spanx style="verb">HMAC-SHA1</spanx> signature method:
-          </preamble>
+          </preamble-->
           <artwork xml:space="preserve"><![CDATA[
   oauth_consumer_key:     9djdj82h48djs9d2
   oauth_token:            kkk9d7dh3k39sjv7
@@ -1104,9 +1161,12 @@
         </figure>
         <figure>
           <preamble>
+            クライアントが OAuth HTTP Authorization ヘッダーフィールドを使って、リクエストにプロトコルパラメータを追加する。
+          </preamble>
+          <!--preamble>
             The client adds the protocol parameters to the request using the OAuth HTTP
             Authorization header field:
-          </preamble>
+          </preamble-->
           <artwork xml:space="preserve"><![CDATA[
   Authorization: OAuth realm="Example",
                  oauth_consumer_key="9djdj82h48djs9d2",
@@ -1119,9 +1179,12 @@
         </figure>
         <figure>
           <preamble>
+            その後<spanx style="verb">oauth_signature</spanx>パラメータの値を計算し、リクエストに追加。そして HTTP リクエストをサーバーに送信する。
+          </preamble>
+          <!--preamble>
             Then calculates the value of the <spanx style="verb">oauth_signature</spanx> parameter,
             adds it to the request, and sends the HTTP request to the server:
-          </preamble>
+          </preamble-->
           <artwork xml:space="preserve"><![CDATA[
   GET /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
   Host: example.com
