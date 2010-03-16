@@ -196,7 +196,7 @@ rights and restrictions with respect to this document.</p>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor2">1.1.</a>&nbsp;
 用語定義<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">1.2.</a>&nbsp;
-Example<br />
+例<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor4">1.3.</a>&nbsp;
 要求記法および規則<br />
 <a href="#redirect_workflow">2.</a>&nbsp;
@@ -208,9 +208,9 @@ Example<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#auth_step3">2.3.</a>&nbsp;
 トークンクレデンシャル<br />
 <a href="#requests">3.</a>&nbsp;
-Authenticated Requests<br />
+認証済みのリクエスト<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">3.1.</a>&nbsp;
-Making Requests<br />
+リクエストを行う<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#verify_request">3.2.</a>&nbsp;
 Verifying Requests<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#nonce">3.3.</a>&nbsp;
@@ -347,19 +347,19 @@ Author's Address<br />
 <dt>クライアント (client)</dt>
 <dd>
               
-              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を発行可能な HTTP クライアント (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
+              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a>を発行可能な HTTP クライアント (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
 <dt>サーバー (server)</dt>
 <dd>
               
-              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を受入可能な HTTP サーバー (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
+              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a>を受入可能な HTTP サーバー (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
 <dt>保護されたリソース (protected resource)</dt>
 <dd>
               
-              アクセス制限下にあるリソースで、<a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>を用いて取得可能なもの。
+              アクセス制限下にあるリソースで、<a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a>を用いて取得可能なもの。
             
 </dd>
 <dt>リソースオーナー (resource owner)</dt>
@@ -414,7 +414,7 @@ Author's Address<br />
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.1.2"></a><h3>1.2.&nbsp;
-Example</h3>
+例</h3>
 
 <p>
           Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
@@ -633,7 +633,7 @@ Example</h3>
 一時的なクレデンシャル</h3>
 
 <p>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>の HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (クライアントがサーバーに対して、別の HTTP リクエストメソッドを利用した場合を除く) 。クライアントは、次のパラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a>の HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (クライアントがサーバーに対して、別の HTTP リクエストメソッドを利用した場合を除く) 。クライアントは、次のパラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           </p>
 <blockquote class="text"><dl>
 <dt>oauth_callback:</dt>
@@ -814,7 +814,7 @@ Example</h3>
 トークンクレデンシャル</h3>
 
 <p>
-        	クライアントは<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを指定する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+        	クライアントは<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを指定する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
         	
 
           </p>
@@ -899,139 +899,104 @@ Example</h3>
         
 </p>
 <p>
-        	ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<a class='info' href='#requests'>認可済みリクエスト<span> (</span><span class='info'>Authenticated Requests</span><span>)</span></a>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
+        	ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<a class='info' href='#requests'>認可済みリクエスト<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
         	
         
 </p>
 <a name="requests"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3"></a><h3>3.&nbsp;
-Authenticated Requests</h3>
+認証済みのリクエスト</h3>
 
 <p>
-        The HTTP authentication methods defined by <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>, enable clients
-        to make authenticated HTTP requests. Clients using these methods gain access to protected
-        resources by using their credentials (typically a username and password pair), which
-        allow the server to verify their authenticity. Using these methods for delegation requires
-        the client to assume the role of the resource owner.
+        クライアントは<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>で定義されている HTTP 認証メソッドにより、認証済みの HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
       
 </p>
 <p>
-        OAuth provides a method designed to include two sets of credentials with each request, one
-        to identify the client, and another to identify the resource owner. Before a client can
-        make authenticated requests on behalf of the resource owner, it must obtain a token
-        authorized by the resource owner. <a class='info' href='#redirect_workflow'>Section&nbsp;2<span> (</span><span class='info'>リダイレクション・ベースの認可</span><span>)</span></a> provides one such
-        method through which the client can obtain a token authorized by the resource owner.
+        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みのリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<a class='info' href='#redirect_workflow'>Section&nbsp;2<span> (</span><span class='info'>リダイレクション・ベースの認可</span><span>)</span></a>は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
       
 </p>
 <p>
-        The client credentials take the form of a unique identifier, and an associated shared-secret
-        or RSA key pair. Prior to making authenticated requests, the client establishes a set of
-        credentials with the server. The process and requirements for provisioning these are
-        outside the scope of this specification. Implementers are urged to consider the security
-        ramifications of using client credentials, some of which are described in
-        <a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>Secrecy of the Client Credentials</span><span>)</span></a>.
+        クライアントクレデンシャルはユニークな識別子および、一対の共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みのリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については<a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>Secrecy of the Client Credentials</span><span>)</span></a>に記載している。
       
 </p>
 <p>
-        Making authenticated requests requires prior knowledge of the server's configuration.
-        OAuth includes multiple methods for transmitting protocol parameters with requests
-				(<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>), as well as multiple methods for the client to
-        prove its rightful ownership of the credentials used (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>).
-        The way in which clients discover the required configuration is outside the scope of
-        this specification.
+        認証済みのリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータ (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>) を送信するメソッドと、クライアントがクレデンシャル (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>) の所有権を証明するために利用する方法が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
       
 </p>
 <a name="anchor5"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
-Making Requests</h3>
+リクエストを行う</h3>
 
 <p>
-          An authenticated request includes several protocol parameters. Each parameter name
-          begins with the <tt>oauth_</tt> prefix, and the parameter names and
-          values are case sensitive. Clients make authenticated requests by calculating the values
-          of a set of protocol parameters and adding them to the HTTP request as follows:
+          認証済みのリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は<tt>oauth_</tt>で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みのリクエストを行う。
+          
 
           </p>
 <ol class="text">
 <li>
-              The client assigns value to each of these REQUIRED (unless specified otherwise)
-              protocol parameters:
+              クライアントは下記の (特に指定されていない限り) 必須であるプロトコルパラメータに、それぞれ値を割り当てる。
+              
 
               
 <blockquote class="text"><dl>
 <dt>oauth_consumer_key</dt>
 <dd>
                   
-                  The identifier portion of the client credentials (equivalent to a username). The
-                  parameter name reflects a deprecated term (Consumer Key) used in previous
-                  revisions of the specification, and has been retained to maintain backward
-                  compatibility.
+                  クライアントクレデンシャルの識別子部分 (ユーザ名に当たる)。パラメータ名は本仕様の以前のバージョンで使用されていた用語 (Consumer Key) を反映しており、後方互換のためにそのまま使用する。
                 
 </dd>
 <dt>oauth_token</dt>
 <dd>
                   
-                  The token value used to associate the request with the resource owner. If the
-                  request is not associated with a resource owner (no token available), clients
-                  MAY omit the parameter.
+                  リソースオーナーとリクエストを関連付けるトークン値。リクエストがリソースオーナーと関連付けられていない場合 (トークンが利用できない場合)、パラメータを省略することができる。
                 
 </dd>
 <dt>oauth_signature_method</dt>
 <dd>
                   
-                  The name of the signature method used by the client to sign the request,
-                  as defined in <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>.
+                  <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>で定義されている、クライアントがリクエストに署名するために使用する署名メソッドの名前。
                 
 </dd>
 <dt>oauth_timestamp</dt>
 <dd>
                   
-                  The timestamp value as defined in <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a>. The parameter MAY
-                  be omitted when using the <tt>PLAINTEXT</tt> signature method.
+                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a>で定義されているタイムスタンプ値。署名メソッドとして<tt>プレーンテキスト</tt>を使用している場合、省略することができる。
                 
 </dd>
 <dt>oauth_nonce</dt>
 <dd>
                   
-                  The nonce value as defined in <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a>. The parameter MAY be
-                  omitted when using the <tt>PLAINTEXT</tt> signature method.
+                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a>で定義されているノンス値。署名メソッドとして<tt>プレーンテキスト</tt>を使用している場合、省略することができる。
                 
 </dd>
 <dt>oauth_version</dt>
 <dd>
                   
-                  OPTIONAL. If present, MUST be set to <tt>1.0</tt>. Provides
-                  the version of the authentication process as defined in this specification.
+                  オプション。追加する場合、<tt>1.0</tt>でなければならない。本仕様で定義された認可手順のバージョンを示す。
                 
 </dd>
 </dl></blockquote>
             
 </li>
 <li>
-              The protocol parameters are added to the request using one of the transmission
-              methods listed in <a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>. Each parameter MUST NOT appear
-              more than once per request.
+              プロトコルパラメータは<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>に記載された転送メソッドのいずれかを使い、リクエストに追加される。各パラメータはリクエストにつき、二度以上含まれてはならない。
             
 </li>
 <li>
-              The client calculates and assigns the value of the <tt>oauth_signature</tt>
-              parameter as described in <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a> and adds the parameter to the
-              request using the same method used in the previous step.
+              クライアントは<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>に記載されている通り、<tt>oauth_signature</tt>パラメータの値を計算し、割り当てる。このパラメータは前のステップと同じ方法で、リクエストに追加する。
             
 </li>
 <li>
-              The client sends the authenticated HTTP request to the server.
+              クライアントが認証済みのリクエストをサーバーに送信する。
             
 </li>
 </ol><p>
         
 </p>
 <p>
-            For example, to make the following HTTP request authenticated (the
-            <tt>c2&amp;a3=2+q</tt> string in the following examples is used to
-            illustrate the impact of a form-encoded entity-body) :
+            例えば、下記のような HTTP リクエストを認証済みで送信するとする (<tt>c2&amp;a3=2+q</tt>はフォームエンコードされたエンティティボディを強調するために使用する)
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /request?b5=%3D%253D&amp;a3=a&amp;c%40=&amp;a2=r%20b HTTP/1.1
@@ -1042,9 +1007,7 @@ Making Requests</h3>
 
 </pre></div>
 <p>
-            The client assigns values to the following protocol parameters using its client
-            credentials, token credentials, the current timestamp, a uniquely generated nonce, and
-            indicates it will use the <tt>HMAC-SHA1</tt> signature method:
+            クライアントはクライアントクレデンシャル、トークンクレデンシャル、現在のタイムスタンプ、ユニークなノンス、署名メソッドとして<tt>HMAC-SHA1</tt>を使用することを示し、下記プロトコルパラメータに値を割り当てる。
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   oauth_consumer_key:     9djdj82h48djs9d2
@@ -1055,8 +1018,7 @@ Making Requests</h3>
 
 </pre></div>
 <p>
-            The client adds the protocol parameters to the request using the OAuth HTTP
-            Authorization header field:
+            クライアントが OAuth HTTP Authorization ヘッダーフィールドを使って、リクエストにプロトコルパラメータを追加する。
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   Authorization: OAuth realm="Example",
@@ -1068,8 +1030,7 @@ Making Requests</h3>
 
 </pre></div>
 <p>
-            Then calculates the value of the <tt>oauth_signature</tt> parameter,
-            adds it to the request, and sends the HTTP request to the server:
+            その後<tt>oauth_signature</tt>パラメータの値を計算し、リクエストに追加。そして HTTP リクエストをサーバーに送信する。
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /request?b5=%3D%253D&amp;a3=a&amp;c%40=&amp;a2=r%20b HTTP/1.1
