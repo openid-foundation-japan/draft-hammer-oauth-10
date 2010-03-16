@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 15, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 16, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 16, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 17, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 16, 2010.</p>
+This Internet-Draft will expire on September 17, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -567,64 +567,64 @@ Author's Address<br />
 リダイレクション・ベースの認可</h3>
 
 <p>
-        OAuth はリソースオーナーがクライアントに認可を与える際にトークンを用いる。一般的に、リソースオーナーのアイデンティティ (通常、ユーザー名とパスワードを使用する) を認証した後に、トークンクレデンシャルは、リソースオーナーの要求によりサーバーから提供される。
+        OAuth はリソースオーナーがクライアントに認可を与える際にトークンを用いる。一般的にトークンクレデンシャルの発行は、リソースオーナーの要求を受けてサーバーが行う。その際、サーバーはトークン発行前にリソースオーナーのアイデンティティを (通常はユーザー名とパスワードを使用して) 認証する。
       
 </p>
 <p>
-        サーバーがトークンクレデンシャルを容易に提供する多くの方法がある。このセクションは、HTTP リダイレクションについて定義している。リダイレクション・ベースの認可方法には、3 つのステップがある。
+        サーバーがトークンクレデンシャルを容易に提供するには多くの方法がある。このセクションは、HTTP リダイレクションについて定義している。リダイレクション・ベースの認可方法には、3つのステップがある。
         </p>
 <ol class="text">
 <li>
-            クライアントは、サーバーから、一時的なクレデンシャルを得る (識別子と共有鍵の形式) 。一時的なクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
+            クライアントは、サーバーから (識別子と共有鍵の形式で) 一時的なクレデンシャルを得る。一時的なクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
           
 </li>
 <li>
-            リソースオーナーは、サーバーにクライアントからリクエストすることを許可する (一時的なクレデンシャルによって識別される) 。
+            リソースオーナーは、サーバーが (一時的なクレデンシャルによって識別される) クライアントのアクセス要求を承認することを認可する。
           
 </li>
 <li>
-            クライアントは、サーバーにトークンクレデンシャルをリクエストするために一時的なクレデンシャルを用いる。それにより、リソースオーナーの保護されたリソースにアクセスすることを可能する。
+            クライアントは、サーバーにトークンクレデンシャルをリクエストするために一時的なクレデンシャルを用いる。トークンクレデンシャルを用いることで、リソースオーナーの保護されたリソースへのアクセスが可能になる。
           
 </li>
 </ol><p>
       
 </p>
 <p>
-        サーバーは、トークンクレデンシャルを利用した後に、一時的なクレデンシャルを破棄しなければならない (MUST) 。一時的なクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED) 。クライアントに発行された後、サーバーはリソースオーナーがトークンクレデンシャルを破棄することを可能にするべきである (SHOULD) 。
+        サーバーは、トークンクレデンシャルを利用した後に、一時的なクレデンシャルを破棄しなければならない (MUST)。一時的なクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
       
 </p>
 <p>
-        クライアントが、これらのステップを行うために、サーバーは URI に以下の 3 つのエンドポイントを知らせる必要がある。
+        クライアントが、これらのステップを行うために、サーバーは URI に以下の3つのエンドポイントを知らせる必要がある。
 
         </p>
 <blockquote class="text"><dl>
 <dt>一時的なクレデンシャルリクエスト</dt>
 <dd>
             
-            一時的なクレデンシャルを得るクライアントにより用いられるエンドポイント。 (<a class='info' href='#auth_step1'>Section&nbsp;2.1<span> (</span><span class='info'>一時的なクレデンシャル</span><span>)</span></a> 参照)
+            一時的なクレデンシャルを得るために、クライアントに用いられるエンドポイント。(<a class='info' href='#auth_step1'>Section&nbsp;2.1<span> (</span><span class='info'>一時的なクレデンシャル</span><span>)</span></a> 参照)
           
 </dd>
 <dt>リソースオーナー認可</dt>
 <dd>
             
-            リソースオーナーが認可を与えるためにリダイレクトするエンドポイント。 (<a class='info' href='#auth_step2'>Section&nbsp;2.2<span> (</span><span class='info'>リソースオーナー認可</span><span>)</span></a> 参照)
+            リソースオーナーが認可を与えるためにリダイレクトされるエンドポイント。(<a class='info' href='#auth_step2'>Section&nbsp;2.2<span> (</span><span class='info'>リソースオーナー認可</span><span>)</span></a> 参照)
           
 </dd>
 <dt>トークンリクエスト</dt>
 <dd>
             
-            一時的なクレデンシャルを使用して、トークンクレデンシャルを要求するクライアントに用いられるエンドポイント。 (<a class='info' href='#auth_step3'>Section&nbsp;2.3<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a> 参照)
+            一時的なクレデンシャルを使用してトークンクレデンシャルを要求するために、クライアントに用いられるエンドポイント。(<a class='info' href='#auth_step3'>Section&nbsp;2.3<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a> 参照)
           
 </dd>
 </dl></blockquote><p>
       
 </p>
 <p>
-        通達された 3 つの URI はクエリーコンポーネントを含んでもよい (MAY) 。 (<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 3節参照) クエリーには <tt>oauth_</tt> プリフィックスを伴ったパラメータを含むことができるが、利用時には、URI に加えられるプロトコル・パラメータとの競合を避けなければならない (MUST NOT) 。
+        通達された3つの URI はクエリーコンポーネントを含んでもよい (MAY)。(<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコル・パラメータとの競合を防ぐため、クエリーには <tt>oauth_</tt> プリフィックスを伴ったパラメータを含んではならない (MUST NOT)。
       
 </p>
 <p>
-        サーバーがその 3 つのエンドポイントを通達し、文書化する方法は、この仕様の範囲外となる。クライアントはトークンのサイズや他のサーバーで生成された値について、仮定をすることを避ける必要がある。これは、この仕様書では未定義となる。プロトコル・パラメータは、送信時に符号化した値を含むことができる (MAY) 。クライアントとサーバーは、その値のスコープについての仮定をしてはならない。
+        サーバーがその3つのエンドポイントを通達し、文書化する方法は、この仕様の範囲外となる。クライアントはトークンのサイズや他のサーバーで生成された値について、仮定をすることを避ける必要がある。これは、この仕様書では未定義となる。プロトコル・パラメータは、送信時に符号化が必要な値を含むことがある (MAY)。クライアントとサーバーは、その値のスコープについての仮定をしてはならない。
       
 </p>
 <a name="auth_step1"></a><br /><hr />
@@ -633,15 +633,15 @@ Author's Address<br />
 一時的なクレデンシャル</h3>
 
 <p>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a>の HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (クライアントがサーバーに対して、別の HTTP リクエストメソッドを利用した場合を除く) 。クライアントは、次のパラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a>の HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           </p>
 <blockquote class="text"><dl>
 <dt>oauth_callback:</dt>
 <dd>
-              サーバーが、リソースオーナーに絶対 URI を戻すことで、リソースオーナー認証手順 (<a class='info' href='#auth_step2'>Section&nbsp;2.2<span> (</span><span class='info'>リソースオーナー認可</span><span>)</span></a>) は完了する。もしクライアントがコールバックを受け取ることができない、もしくは、コールバック URI が他の手段を介して確立されたなら、パラメータに、out-of-band 設定が示す通り <tt>oob</tt> (大文字小文字を区別) をセットしなければならない (MUST) 。
+              リソースオーナー認証手順 (<a class='info' href='#auth_step2'>Section&nbsp;2.2<span> (</span><span class='info'>リソースオーナー認可</span><span>)</span></a>) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <tt>oob</tt> (大文字小文字を区別) をセットしなければならない (MUST)。
             
 </dd>
-<dt>サーバーは、追加パラメータを指定してもよい (MAY) 。</dt>
+<dt>サーバーは、追加パラメータを指定してもよい (MAY)。</dt>
 <dd>
             
 </dd>
@@ -649,11 +649,11 @@ Author's Address<br />
         
 </p>
 <p>
-          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY) 。そして、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST) 。
+          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。そして、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
         
 </p>
 <p>
-          リクエスト結果が、プレーンテキストの場合、トランスポート層のメカニズム (TLS や SSL または、これら相当のセキュアな仕組み) を使用しなければならない (MUST) 。
+        	リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
         
 </p>
 <p>
@@ -670,11 +670,12 @@ Author's Address<br />
 
 </pre></div>
 <p>
-          サーバは、リクエストと有効性を確認 (<a class='info' href='#verify_request'>verify<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>) し (MUST) 、クライアントに一時的なクレデンシャルを返す (識別子と共有鍵の形式) 。一時的なクレデンシャルは、HTTP レスポンスボディ (<a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> によって定義されたコンテントタイプ <tt>application/x-www-form-urlencoded</tt> と、ステータスコード 200 (OK)) を含む。
+          サーバーは、必ずリクエストを<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式で含められる。
+          。
         
 </p>
 <p>
-          レスポンスには次のパラメータ (REQUIRED) が含まれる。
+          レスポンスには次の必須パラメータ (REQUIRED) が含まれる。
 
           </p>
 <blockquote class="text"><dl>
@@ -692,14 +693,14 @@ Author's Address<br />
 </dd>
 <dt>oauth_callback_confirmed:</dt>
 <dd>
-              必ず存在しなければならない (MUST) 、かつ <tt>true</tt> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
+              必ず存在しなければならない (MUST)、かつ <tt>true</tt> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
             
 </dd>
 </dl></blockquote><p>
         
 </p>
 <p>
-          パラメータ名に 'token' が含まれる場合があるが、そのクレデンシャルは、トークンクレデンシャルではないことに注意する。しかし、次の 2 つのステップで、トークンクレデンシャルと同様の方法で使用される。
+          パラメータ名に 'token' が含まれる場合があるが、そのクレデンシャルは、トークンクレデンシャルではないことに注意する。しかし、次の2つのステップで、トークンクレデンシャルと同様の方法で使用される。
         
 </p>
 <p>
@@ -814,7 +815,7 @@ Author's Address<br />
 トークンクレデンシャル</h3>
 
 <p>
-        	クライアントは<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを指定する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+        	クライアントは<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>認証済みのリクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
         	
 
           </p>
@@ -855,7 +856,7 @@ Author's Address<br />
 
 </pre></div>
 <p>
-        	サーバーはリクエストの妥当性を<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式でトークンクレデンシャルを含める。
+        	サーバーはリクエストの妥当性を<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式でトークンクレデンシャルを含める。
         	
         
 </p>
@@ -1378,7 +1379,7 @@ Parameter Sources</h3>
                     section 3.4. The query component is parsed into a list of name/value pairs by
                     treating it as an <tt>application/x-www-form-urlencoded</tt>
                     string, separating the names and values and decoding them as defined by
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 <li>
@@ -1400,7 +1401,7 @@ Parameter Sources</h3>
 <li>
                         The entity-body follows the encoding requirements of the
                         <tt>application/x-www-form-urlencoded</tt> content-type as
-                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
                       
 </li>
 <li>
@@ -1411,7 +1412,7 @@ Parameter Sources</h3>
 </ul>
 
                     The entity-body is parsed into a list of decoded name/value pairs as described in
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 </ul><p>
@@ -2018,7 +2019,7 @@ Form-Encoded Body</h3>
 <li>
                 The entity-body follows the encoding requirements of the
                 <tt>application/x-www-form-urlencoded</tt> content-type as
-                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
               
 </li>
 <li>
@@ -2081,7 +2082,7 @@ Percent Encoding</h3>
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
           the existing encoding methods defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> and
-          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
+          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
           signature base string and the <a class='info' href='#auth_header'>authorization header field<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>.
         
 </p>
@@ -2888,7 +2889,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
 <td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="ftp://ftp.isi.edu/in-notes/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html40-19980424">[W3C.REC-html40-19980424]</a></td>
-<td class="author-text">Hors, A., Raggett, D., and I. Jacobs, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
+<td class="author-text">Jacobs, I., Hors, A., and D. Raggett, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
 </table>
 
 <a name="rfc.references2"></a><br /><hr />
