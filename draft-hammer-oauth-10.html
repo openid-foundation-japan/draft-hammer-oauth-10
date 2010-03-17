@@ -212,11 +212,11 @@ rights and restrictions with respect to this document.</p>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">3.1.</a>&nbsp;
 リクエストを行う<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#verify_request">3.2.</a>&nbsp;
-Verifying Requests<br />
+リクエストの妥当性検証<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#nonce">3.3.</a>&nbsp;
-Nonce and Timestamp<br />
+ノンス値とタイムスタンプ<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#signature">3.4.</a>&nbsp;
-Signature<br />
+署名<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">3.4.1.</a>&nbsp;
 シグニチャベースストリング<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor8">3.4.2.</a>&nbsp;
@@ -670,7 +670,7 @@ Author's Address<br />
 
 </pre></div>
 <p>
-          サーバーは、必ずリクエストを<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式で含められる。
+          サーバーは、必ずリクエストを<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>リクエストの妥当性検証</span><span>)</span></a>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式で含められる。
           。
         
 </p>
@@ -856,7 +856,7 @@ Author's Address<br />
 
 </pre></div>
 <p>
-        	サーバーはリクエストの妥当性を<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式でトークンクレデンシャルを含める。
+        	サーバーはリクエストの妥当性を<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>リクエストの妥当性検証</span><span>)</span></a>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式でトークンクレデンシャルを含める。
         	
         
 </p>
@@ -922,7 +922,7 @@ Author's Address<br />
       
 </p>
 <p>
-        認証済みのリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
+        認証済みのリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a>) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
       
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -957,19 +957,19 @@ Author's Address<br />
 <dt>oauth_signature_method</dt>
 <dd>
                   
-                  <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a> で定義されている、クライアントがリクエストに署名するために使用する署名メソッドの名前。
+                  <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a> で定義されている、クライアントがリクエストに署名するために使用する署名メソッドの名前。
                 
 </dd>
 <dt>oauth_timestamp</dt>
 <dd>
                   
-                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a> で定義されているタイムスタンプ値。署名メソッドとして <tt>PLAINTEXT</tt> を使用している場合、省略することができる。
+                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>ノンス値とタイムスタンプ</span><span>)</span></a> で定義されているタイムスタンプ値。署名メソッドとして <tt>PLAINTEXT</tt> を使用している場合、省略することができる。
                 
 </dd>
 <dt>oauth_nonce</dt>
 <dd>
                   
-                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a> で定義されているノンス値。署名メソッドとして <tt>PLAINTEXT</tt> を使用している場合、省略することができる。
+                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>ノンス値とタイムスタンプ</span><span>)</span></a> で定義されているノンス値。署名メソッドとして <tt>PLAINTEXT</tt> を使用している場合、省略することができる。
                 
 </dd>
 <dt>oauth_version</dt>
@@ -986,7 +986,7 @@ Author's Address<br />
             
 </li>
 <li>
-              クライアントは <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a> に記載されている通り、<tt>oauth_signature</tt> パラメータの値を計算し、割り当てる。このパラメータは前のステップと同じ方法で、リクエストに追加する。
+              クライアントは <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a> に記載されている通り、<tt>oauth_signature</tt> パラメータの値を計算し、割り当てる。このパラメータは前のステップと同じ方法で、リクエストに追加する。
             
 </li>
 <li>
@@ -1051,125 +1051,80 @@ Author's Address<br />
 <a name="verify_request"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.2"></a><h3>3.2.&nbsp;
-Verifying Requests</h3>
+リクエストの妥当性検証</h3>
 
 <p>
-          Servers receiving an authenticated request MUST validate it by:
+          認証リクエストを受け取ったサーバーは、以下のようにその妥当性を検証しなければならない (MUST)。
 
           </p>
 <ul class="text">
 <li>
-              Recalculate the request signature independently as described in
-              <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a> and compare it to the value received from the client via
-              the <tt>oauth_signature</tt> parameter.
+              リクエスト署名を独力で再計算し (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a>)、それと <tt>ooauth_signature</tt> パラメータ経由でクライアントから受け取った値とを比較すること。
             
 </li>
 <li>
-              If using the <tt>HMAC-SHA1</tt> or
-              <tt>RSA-SHA1</tt> signature methods, ensure that the combination
-              of nonce/timestamp/token (if present) received from the client has not been used
-              before in a previous request (the server MAY reject requests with stale timestamps as
-              described in <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a>).
+              <tt>HMAC-SHA1 署名方式</tt>、または <tt>RSA-SHA1</tt> 署名方式を使用している場合、クライアントから受け取ったノンス値 / タイムスタンプ / トークン (存在する場合のみ) の組合せが以前のリクエストで使用されたものではないことを検証すること (サーバーは古いタイムスタンプを持ったリクエストを拒否してもよい(MAY) (<a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>ノンス値とタイムスタンプ</span><span>)</span></a>))。
             
 </li>
 <li>
-              If a token is present, verify the scope and status of the client authorization as
-              represented by the token (the server MAY choose to restrict token usage to the client
-              to which it was issued).
+              トークンが存在する場合、トークンで表されたクライアントの認可情報の範囲とステータスを検証すること (サーバーはクライアントがクライアント自身向けに発行されたトークンだけを使うよう制限してもよい (MAY))。
             
 </li>
 <li>
-              If the <tt>oauth_version</tt> parameter is present, ensure its
-              value is <tt>1.0</tt>.
+              <tt>oauth_version</tt> パラメータが存在する場合、その値が <tt>1.0</tt> であるか検証すること。
             
 </li>
 </ul><p>
         
 </p>
 <p>
-          If the request fails verification, the server SHOULD respond with the appropriate HTTP
-          response status code. The server MAY include further details about why the request was
-          rejected in the response body.
+          リクエストの妥当性検証に失敗した場合、サーバーは適切な HTTP 応答ステータスを応答すべきである (SHOULD)。
         
 </p>
 <p>
-          The server SHOULD return a 400 (bad request) status code
-          when receiving a request with unsupported parameters, unsupported signature method,
-          missing parameters, or duplicated protocol parameters. The server SHOULD return a 401
-          (unauthorized) status code when receiving a request with invalid client credentials,
-          invalid or expired token, invalid signature, or invalid or used nonce.
+          サーバーは、サポート外のパラメータ、サポート外の署名方式、パラメータ不足、重複したプロトコルパラメータを持ったリクエストを受け取った場合、ステータスコード 400 (正しくないリクエスト) を返すべきである (SHOULD)。サーバーは、不正なクライアントクレデンシャル、不正または期限切れのトークン、不正または使用済みのノンス値を持ったリクエストを受け取った場合、ステータスコード 401 (認可されていないリクエスト) を応答すべきである (SHOULD)。
         
 </p>
 <a name="nonce"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
-Nonce and Timestamp</h3>
+ノンス値とタイムスタンプ</h3>
 
 <p>
-          The timestamp value MUST be a positive integer. Unless otherwise specified by the
-          server's documentation, the timestamp is expressed in the number of seconds since
-          January 1, 1970 00:00:00 GMT.
+          タイムスタンプは正の整数でなければならない (MUST)。サーバーのドキュメントで規定されていない限り、タイムスタンプは 1970 年 1 月 1 日 0 時 0 分 0 秒を起点にした経過秒数で表される。
         
 </p>
 <p>
-          A nonce is a random string, uniquely generated by the client to allow the server to
-          verify that a request has never been made before and helps prevent replay attacks when
-          requests are made over a non-secure channel. The nonce value MUST be unique across all
-          requests with the same timestamp, client credentials, and token combinations.
+          ノンス値はランダムな文字列であり、リクエストが以前に作成されたものではなく、かつリクエストが安全でない通信チャネル経由でなされた時も、リプレイ攻撃を阻止するものであるかをサーバーが検証するために、クライアントによってユニークに生成されるものである。
         
 </p>
 <p>
-          To avoid the need to retain an infinite number of nonce values for future checks, servers
-          MAY choose to restrict the time period after which a request with an old timestamp is
-          rejected. Note that this restriction implies a level of synchronization between the
-          client's and server's clocks. Servers applying such a restriction MAY provide a way for
-          the client to sync with the server's clock; alternatively both systems could synchronize
-          with a trusted time service. Details of clock synchronization strategies are beyond the
-          scope of this specification.
+          将来のチェックのために無限の数のノンス値を維持する必要がないように、サーバーは期間を制限して、期間を過ぎた古いタイムスタンプを持ったリクエストを拒否してもよい (MAY)。この制限はクライアントとサーバーのクロックの同期が一定の水準にある前提としていることに注意する。サーバーはクライアントがサーバーのクロックと同期するための方法を提供してもよいし (MAY)、別途、信頼の置けるタイムサービスを利用して双方のシステムを同期させることも可能である。クロック同期方式の詳細についてはこの仕様書では未定義とする。
         
 </p>
 <a name="signature"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4"></a><h3>3.4.&nbsp;
-Signature</h3>
+署名</h3>
 
 <p>
-					OAuth-authenticated requests can have two sets of credentials: those passed via the
-					<tt>oauth_consumer_key</tt> parameter and those in the
-					<tt>oauth_token</tt> parameter. In order for the server to
-          verify the authenticity of the request and prevent unauthorized access, the client needs
-          to prove that it is the rightful owner of the credentials. This is accomplished using the
-          shared-secret (or RSA key) part of each set of credentials.
+          OAuth 認証リクエストは、<tt>oauth_consumer_key</tt> パラメータを通して渡されたもの、<tt>oauth_token</tt> パラメータ内にあるものという、2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正真性を検証し、認可されていないアクセスを阻止するために、クライアントはクレデンシャル情報の正当なオーナーであることを証明する必要がある。それは共有鍵 (または RSA 鍵) を使用することにより行うことができる。
         
 </p>
 <p>
-          OAuth provides three methods for the client to prove its rightful ownership of the
-          credentials: <tt>HMAC-SHA1</tt>, <tt>RSA-SHA1</tt>,
-          and <tt>PLAINTEXT</tt>. These methods are generally referred to as
-          signature methods, even though <tt>PLAINTEXT</tt> does not involve a
-          signature. In addition, <tt>RSA-SHA1</tt> utilizes an RSA key instead
-          of the shared-secrets associated with the client credentials.
+          OAuth はクライアントがクレデンシャル情報の正当なオーナーであることを証明するために <tt>HMAC-SHA</tt>、<tt>RSA-SHA1</tt>、<tt>PLAINTEXT</tt> という、3つの方法を提供する。署名ではない <tt>PLAINTEXT</tt> も含めて、これらは一般的には署名の方式としてみなされている。加えて、<tt>RSA-SHA1</tt> は、クライアントのクレデンシャル情報と結びついた共有鍵の代わりに RSA 鍵を利用する。
         
 </p>
 <p>
-          OAuth does not mandate a particular signature method, as each implementation can have its
-          own unique requirements. Servers are free to implement and document their own custom
-          methods. Recommending any particular method is beyond the scope of this specification.
-          Implementers should review the <a class='info' href='#Security'>Security Considerations section<span> (</span><span class='info'>Security Considerations</span><span>)</span></a>
-          before deciding on which method to support.
+          各実装でそれぞれの要件が持てるように、OAuth では特定の署名方式を強制しない。サーバーはそれ独自の方式を実装したり、規定しても構わない。特定の方式を薦めることはこの仕様書では範囲外となる。実装者はサポートする方式を決定する前に<a class='info' href='#Security'>セキュリティ検討部門<span> (</span><span class='info'>Security Considerations</span><span>)</span></a>にレビューをするべきである。
         
 </p>
 <p>
-          The client declares which signature method is used via the
-          <tt>oauth_signature_method</tt> parameter. It then generates a signature
-          (or a string of an equivalent value), and includes it in the
-          <tt>oauth_signature</tt> parameter. The server verifies the signature
-          as specified for each method.
+          クライアントは、どの署名方式を使用するかを <tt>oauth_signature_method</tt> パラメータを用いて宣言する。クライアントは署名 (またはそれと等価なもの) を生成し、<tt>oauth_signature</tt> パラメータにそれを含める。サーバーは各方式で規定されている方法で署名を検証する。
         
 </p>
 <p>
-          The signature process does not change the request or its parameters, with the exception of
-          the <tt>oauth_signature</tt> parameter.
+          <tt>oauth_signature</tt> パラメータを除いては、署名のプロセスではリクエストやパラメータを変更しない。
         
 </p>
 <a name="anchor6"></a><br /><hr />
