@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 16, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 17, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 17, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 18, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 17, 2010.</p>
+This Internet-Draft will expire on September 18, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -218,7 +218,7 @@ Nonce and Timestamp<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#signature">3.4.</a>&nbsp;
 Signature<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">3.4.1.</a>&nbsp;
-Signature Base String<br />
+シグニチャベースストリング<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor8">3.4.2.</a>&nbsp;
 HMAC-SHA1<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor9">3.4.3.</a>&nbsp;
@@ -670,7 +670,7 @@ Author's Address<br />
 
 </pre></div>
 <p>
-          サーバーは、必ずリクエストを<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式で含められる。
+          サーバーは、必ずリクエストを<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式で含められる。
           。
         
 </p>
@@ -856,7 +856,7 @@ Author's Address<br />
 
 </pre></div>
 <p>
-        	サーバーはリクエストの妥当性を<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式でトークンクレデンシャルを含める。
+        	サーバーはリクエストの妥当性を<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>Verifying Requests</span><span>)</span></a>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式でトークンクレデンシャルを含める。
         	
         
 </p>
@@ -910,19 +910,19 @@ Author's Address<br />
 認証済みのリクエスト</h3>
 
 <p>
-        クライアントは<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>で定義されている HTTP 認証メソッドにより、認証済みの HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+        クライアントは <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されている HTTP 認証メソッドにより、認証済みの HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
       
 </p>
 <p>
-        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みのリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<a class='info' href='#redirect_workflow'>Section&nbsp;2<span> (</span><span class='info'>リダイレクション・ベースの認可</span><span>)</span></a>は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
+        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みのリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<a class='info' href='#redirect_workflow'>Section&nbsp;2<span> (</span><span class='info'>リダイレクション・ベースの認可</span><span>)</span></a> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
       
 </p>
 <p>
-        クライアントクレデンシャルはユニークな識別子および、一対の共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みのリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については<a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>Secrecy of the Client Credentials</span><span>)</span></a>に記載している。
+        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みのリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>Secrecy of the Client Credentials</span><span>)</span></a> に記載している。
       
 </p>
 <p>
-        認証済みのリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータ (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>) を送信するメソッドと、クライアントがクレデンシャル (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>) の所有権を証明するために利用する方法が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
+        認証済みのリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
       
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -931,7 +931,7 @@ Author's Address<br />
 リクエストを行う</h3>
 
 <p>
-          認証済みのリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は<tt>oauth_</tt>で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みのリクエストを行う。
+          認証済みのリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <tt>oauth_</tt> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みのリクエストを行う。
           
 
           </p>
@@ -957,36 +957,36 @@ Author's Address<br />
 <dt>oauth_signature_method</dt>
 <dd>
                   
-                  <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>で定義されている、クライアントがリクエストに署名するために使用する署名メソッドの名前。
+                  <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a> で定義されている、クライアントがリクエストに署名するために使用する署名メソッドの名前。
                 
 </dd>
 <dt>oauth_timestamp</dt>
 <dd>
                   
-                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a>で定義されているタイムスタンプ値。署名メソッドとして<tt>プレーンテキスト</tt>を使用している場合、省略することができる。
+                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a> で定義されているタイムスタンプ値。署名メソッドとして <tt>PLAINTEXT</tt> を使用している場合、省略することができる。
                 
 </dd>
 <dt>oauth_nonce</dt>
 <dd>
                   
-                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a>で定義されているノンス値。署名メソッドとして<tt>プレーンテキスト</tt>を使用している場合、省略することができる。
+                  <a class='info' href='#nonce'>Section&nbsp;3.3<span> (</span><span class='info'>Nonce and Timestamp</span><span>)</span></a> で定義されているノンス値。署名メソッドとして <tt>PLAINTEXT</tt> を使用している場合、省略することができる。
                 
 </dd>
 <dt>oauth_version</dt>
 <dd>
                   
-                  オプション。追加する場合、<tt>1.0</tt>でなければならない。本仕様で定義された認可手順のバージョンを示す。
+                  オプション (OPTIONAL)。追加する場合、<tt>1.0</tt>でなければならない。本仕様で定義された認可手順のバージョンを示す。
                 
 </dd>
 </dl></blockquote>
             
 </li>
 <li>
-              プロトコルパラメータは<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>に記載された転送メソッドのいずれかを使い、リクエストに追加される。各パラメータはリクエストにつき、二度以上含まれてはならない。
+              プロトコルパラメータは <a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a> に記載された転送メソッドのいずれかを使い、リクエストに追加される。各パラメータはリクエストにつき、二度以上含まれてはならない。
             
 </li>
 <li>
-              クライアントは<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a>に記載されている通り、<tt>oauth_signature</tt>パラメータの値を計算し、割り当てる。このパラメータは前のステップと同じ方法で、リクエストに追加する。
+              クライアントは <a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>Signature</span><span>)</span></a> に記載されている通り、<tt>oauth_signature</tt> パラメータの値を計算し、割り当てる。このパラメータは前のステップと同じ方法で、リクエストに追加する。
             
 </li>
 <li>
@@ -997,7 +997,7 @@ Author's Address<br />
         
 </p>
 <p>
-            例えば、下記のような HTTP リクエストを認証済みで送信するとする (<tt>c2&amp;a3=2+q</tt>はフォームエンコードされたエンティティボディを強調するために使用する)
+            例えば、下記のような HTTP リクエストを認証済みで送信するとする (<tt>c2&amp;a3=2+q</tt> はフォームエンコードされたエンティティボディを強調するために使用する)
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /request?b5=%3D%253D&amp;a3=a&amp;c%40=&amp;a2=r%20b HTTP/1.1
@@ -1008,7 +1008,7 @@ Author's Address<br />
 
 </pre></div>
 <p>
-            クライアントはクライアントクレデンシャル、トークンクレデンシャル、現在のタイムスタンプ、ユニークなノンス、署名メソッドとして<tt>HMAC-SHA1</tt>を使用することを示し、下記プロトコルパラメータに値を割り当てる。
+            クライアントはクライアントクレデンシャル、トークンクレデンシャル、現在のタイムスタンプ、ユニークなノンス、署名メソッドとして <tt>HMAC-SHA1</tt> を使用することを示し、下記プロトコルパラメータに値を割り当てる。
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   oauth_consumer_key:     9djdj82h48djs9d2
@@ -1031,7 +1031,7 @@ Author's Address<br />
 
 </pre></div>
 <p>
-            その後<tt>oauth_signature</tt>パラメータの値を計算し、リクエストに追加。そして HTTP リクエストをサーバーに送信する。
+            その後 <tt>oauth_signature</tt> パラメータの値を計算し、リクエストに追加。そして HTTP リクエストをサーバーに送信する。
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /request?b5=%3D%253D&amp;a3=a&amp;c%40=&amp;a2=r%20b HTTP/1.1
@@ -1175,95 +1175,94 @@ Signature</h3>
 <a name="anchor6"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4.1"></a><h3>3.4.1.&nbsp;
-Signature Base String</h3>
+シグニチャベースストリング</h3>
 
 <p>
-            The signature base string is a consistent, reproducible concatenation of several
-            of the HTTP request elements into a single string. The string is used as an input to
-            the <tt>HMAC-SHA1</tt> and <tt>RSA-SHA1</tt>
-            signature methods.
+          	シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <tt>HMAC-SHA1</tt> および <tt>RSA-SHA1</tt> シグニチャ方式における入力の1つとなる。
+          	
           
 </p>
 <p>
-            The signature base string includes the following components of the HTTP request:
+          	シグニチャベースストリングは HTTP リクエストの構成要素を含む。
+          	
             
             </p>
 <ul class="text">
 <li>
-                The HTTP request method (e.g. <tt>GET</tt>,
-                <tt>POST</tt>, etc.).
+              	HTTP リクエストメソッド (例: <tt>GET</tt>、<tt>POST</tt> 等)
+              	
               
 </li>
 <li>
-                The authority as declared by the HTTP <tt>Host</tt> request
-                header field.
+              	リクエストの HTTP <tt>Host</tt> ヘッダーで示されるオーソリティ。
+              	
               
 </li>
 <li>
-                The path and query components of the request resource URI.
+              	リクエスト URI 中のパスとクエリー要素。
+              	
               
 </li>
 <li>
-                The protocol parameters excluding the
-                <tt>oauth_signature</tt>.
+              	<tt>oauth_signature</tt> を除くプロトコルパラメータ。
+              	
               
 </li>
 <li>
-                Parameters included in the request entity-body if they comply with the strict
-                restrictions defined in <a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>Request Parameters</span><span>)</span></a>.
+              	リクエストのエンティティボディー中に含まれる、<a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>Request Parameters</span><span>)</span></a> で定義されている厳格な制約を満たすパラメータ。
+              	
               
 </li>
 </ul><p>
           
 </p>
 <p>
-            The signature base string does not cover the entire HTTP request. Most notably, it
-            does not include the entity-body in most requests, nor does it include most HTTP
-            entity-headers. It is important to note that the server cannot verify the authenticity
-            of the excluded request components without using additional protections such as SSL/TLS or
-            other methods.
+          	シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に、多くのリクエストにおいてエンティティボディーが含まれず、HTTP エンティティヘッダーもその多くが含まれない。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
+          	
           
 </p>
 <a name="base_string"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4.1.1"></a><h3>3.4.1.1.&nbsp;
-String Construction</h3>
+シグニチャベースストリングの構築</h3>
 
 <p>
-              The signature base string is constructed by concatenating together, in order, the
-              following HTTP request elements:
+            	シグニチャベースストリングは以下の HTTP リクエスト要素を順番に連結して構築される。
+            	
 
               </p>
 <ol class="text">
 <li>
-                  The HTTP request method in uppercase. For example: <tt>HEAD</tt>,
-                  <tt>GET</tt>, <tt>POST</tt>, etc. If the
-                  request uses a custom HTTP method, it MUST be <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                	HTTP リクエストメソッド (大文字)。例: <tt>HEAD</tt>、<tt>GET</tt>、<tt>POST</tt> 等。独自の HTTP メソッドを利用する場合は、<a class='info' href='#encoding'>エンコーディング<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>しなければならない (MUST)。
+                	
                 
 </li>
 <li>
-                  An <tt>&amp;</tt> character (ASCII code 38).
+                	文字 <tt>&amp;</tt> (ASCII code 38)
+                	
                 
 </li>
 <li>
-                  The base string URI from <a class='info' href='#sig_uri'>Section&nbsp;3.4.1.2<span> (</span><span class='info'>Base String URI</span><span>)</span></a>, after being
-                  <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                	<a class='info' href='#sig_uri'>Section&nbsp;3.4.1.2<span> (</span><span class='info'>ベースストリング URI</span><span>)</span></a> に示されるベースストリング URI を <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a> した文字列。
+                	
                 
 </li>
 <li>
-                  An <tt>&amp;</tt> character (ASCII code 38).
+                	文字 <tt>&amp;</tt> (ASCII code 38)
+                	
                 
 </li>
 <li>
-                  The request parameters as normalized in <a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>Parameters Normalization</span><span>)</span></a>, after
-                  being <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                	<a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>Parameters Normalization</span><span>)</span></a> に示される正規化されたリクエストパラメータを <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a> した文字列。
+                	
                 
 </li>
 </ol><p>
             
 </p>
 <p>
-                For example, the HTTP request:
+              	例えば、以下のような HTTP リクエストがあったとする。
+              	
               
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /request?b5=%3D%253D&amp;a3=a&amp;c%40=&amp;a2=r%20b HTTP/1.1
@@ -1281,8 +1280,8 @@ String Construction</h3>
 
 </pre></div>
 <p>
-                Is represented by the following signature base string (line breaks are for display
-                purposes only):
+              	この時、このリクエストに対するシグニチャベースストリングは以下のようになる。(改行は掲載上の都合による)
+              	
               
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET&amp;http%3A%2F%2Fexample.com%2Frequest&amp;a2%3Dr%2520b%26a3%3D2%2520q%
@@ -1295,38 +1294,35 @@ String Construction</h3>
 <a name="sig_uri"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4.1.2"></a><h3>3.4.1.2.&nbsp;
-Base String URI</h3>
+ベースストリング URI</h3>
 
 <p>
-              The scheme, authority, and path of the request resource URI <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>
-              are included by constructing an <tt>http</tt> or
-              <tt>https</tt> URI representing the request resource (without the
-              query or fragment) as follows:
+            	ベースストリング URI には、リクエスト対象リソースを示す <tt>http</tt> もしくは <tt>https</tt> URI を構築した上で、リクエスト URI のスキーム、オーソリティおよびパス <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> を以下のように含める。
+            	
 
               </p>
 <ol class="text">
 <li>
-                  The scheme and host MUST be in lowercase.
+                	スキームおよびホストは小文字でなくてはならない (MUST)。
+                	
                 
 </li>
 <li>
-                  The host and port values MUST match the content of the HTTP request
-                  <tt>Host</tt> header field.
+                	ホストとポート番号はリクエスト中の HTTP <tt>Host</tt> ヘッダーの値と同一でなければならない (MUST)。
+                	
                 
 </li>
 <li>
-                  The port MUST be included if it is not the default port for the scheme, and MUST
-                  be excluded if it is the default. Specifically, the port MUST be excluded when
-                  making an HTTP request <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> to port 80 or when making an
-                  HTTPS request <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> to port 443. All other non-default port
-                  numbers MUST be included.
+                	ポート番号がそのスキームのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> の場合にはポート80、HTTPS リクエスト <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
+                	
                 
 </li>
 </ol><p>
             
 </p>
 <p>
-                For example, the HTTP request:
+              	例えば、以下のような HTTP リクエストがあったとする。
+              	
               
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /r%20v/X?id=123 HTTP/1.1
@@ -1334,12 +1330,14 @@ Base String URI</h3>
 
 </pre></div>
 <p>
-                is represented by the base string URI:
+              	このときベースストリング URI は次のようになる。
+              	
                 <tt>http://example.com/r%20v/X</tt>.
               
 </p>
 <p>
-                In another example, the HTTPS request:
+              	また以下のような HTTPS リクエストがあったとする。
+              	
               
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /?q=1 HTTP/1.1
@@ -1347,7 +1345,8 @@ Base String URI</h3>
 
 </pre></div>
 <p>
-                is represented by the base string URI:
+              	この場合のベースストリング URI は次のようになる。
+              	
                 <tt>https://www.example.net:8080/</tt>.
               
 </p>
@@ -1379,7 +1378,7 @@ Parameter Sources</h3>
                     section 3.4. The query component is parsed into a list of name/value pairs by
                     treating it as an <tt>application/x-www-form-urlencoded</tt>
                     string, separating the names and values and decoding them as defined by
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 <li>
@@ -1401,7 +1400,7 @@ Parameter Sources</h3>
 <li>
                         The entity-body follows the encoding requirements of the
                         <tt>application/x-www-form-urlencoded</tt> content-type as
-                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
                       
 </li>
 <li>
@@ -1412,7 +1411,7 @@ Parameter Sources</h3>
 </ul>
 
                     The entity-body is parsed into a list of decoded name/value pairs as described in
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
                   
 </li>
 </ul><p>
@@ -1732,7 +1731,7 @@ HMAC-SHA1</h3>
 <dt>text</dt>
 <dd>
                 
-                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>String Construction</span><span>)</span></a>.
+                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a>.
               
 </dd>
 <dt>key</dt>
@@ -1806,7 +1805,7 @@ RSA-SHA1</h3>
 <dt>M</dt>
 <dd>
                 
-                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>String Construction</span><span>)</span></a>, and
+                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a>, and
               
 </dd>
 <dt>S</dt>
@@ -1843,7 +1842,7 @@ RSA-SHA1</h3>
 <dt>M</dt>
 <dd>
                 
-                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>String Construction</span><span>)</span></a>, and
+                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a>, and
               
 </dd>
 <dt>S</dt>
@@ -2019,7 +2018,7 @@ Form-Encoded Body</h3>
 <li>
                 The entity-body follows the encoding requirements of the
                 <tt>application/x-www-form-urlencoded</tt> content-type as
-                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
               
 </li>
 <li>
@@ -2082,7 +2081,7 @@ Percent Encoding</h3>
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
           the existing encoding methods defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> and
-          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Jacobs, I., Hors, A., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
+          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
           signature base string and the <a class='info' href='#auth_header'>authorization header field<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>.
         
 </p>
@@ -2889,7 +2888,7 @@ References</h3>
 <tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
 <td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="ftp://ftp.isi.edu/in-notes/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html40-19980424">[W3C.REC-html40-19980424]</a></td>
-<td class="author-text">Jacobs, I., Hors, A., and D. Raggett, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
+<td class="author-text">Hors, A., Jacobs, I., and D. Raggett, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
 </table>
 
 <a name="rfc.references2"></a><br /><hr />

@@ -1305,76 +1305,123 @@
           the <spanx style="verb">oauth_signature</spanx> parameter.
         </t>
 
-        <section title="Signature Base String">
+				<section title="シグニチャベースストリング">
+        <!-- section title="Signature Base String" -->
           <t>
+          	シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> シグニチャ方式における入力の1つとなる。
+          	<!--
             The signature base string is a consistent, reproducible concatenation of several
             of the HTTP request elements into a single string. The string is used as an input to
             the <spanx style="verb">HMAC-SHA1</spanx> and <spanx style="verb">RSA-SHA1</spanx>
             signature methods.
+            -->
           </t>
           <t>
+          	シグニチャベースストリングは HTTP リクエストの構成要素を含む。
+          	<!--
             The signature base string includes the following components of the HTTP request:
+            -->
             
             <list style="symbols">
               <t>
+              	HTTP リクエストメソッド (例: <spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等)
+              	<!--
                 The HTTP request method (e.g. <spanx style="verb">GET</spanx>,
                 <spanx style="verb">POST</spanx>, etc.).
+                -->
               </t>
               <t>
+              	リクエストの HTTP <spanx style="verb">Host</spanx> ヘッダーで示されるオーソリティ。
+              	<!--
                 The authority as declared by the HTTP <spanx style="verb">Host</spanx> request
                 header field.
+                -->
               </t>
               <t>
+              	リクエスト URI 中のパスとクエリー要素。
+              	<!--
                 The path and query components of the request resource URI.
+                -->
               </t>
               <t>
+              	<spanx style="verb">oauth_signature</spanx> を除くプロトコルパラメータ。
+              	<!--
                 The protocol parameters excluding the
                 <spanx style="verb">oauth_signature</spanx>.
+                -->
               </t>
               <t>
+              	リクエストのエンティティボディー中に含まれる、<xref target="collect_param" /> で定義されている厳格な制約を満たすパラメータ。
+              	<!--
                 Parameters included in the request entity-body if they comply with the strict
                 restrictions defined in <xref target="collect_param" />.
+                -->
               </t>
             </list>
           </t>
           <t>
+          	シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に、多くのリクエストにおいてエンティティボディーが含まれず、HTTP エンティティヘッダーもその多くが含まれない。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
+          	<!--
             The signature base string does not cover the entire HTTP request. Most notably, it
             does not include the entity-body in most requests, nor does it include most HTTP
             entity-headers. It is important to note that the server cannot verify the authenticity
             of the excluded request components without using additional protections such as SSL/TLS or
             other methods.
+            -->
           </t>
           
-          <section title="String Construction" anchor="base_string">
+          <section title="シグニチャベースストリングの構築" anchor="base_string">
+          <!-- section title="String Construction" anchor="base_string" -->
             <t>
+            	シグニチャベースストリングは以下の HTTP リクエスト要素を順番に連結して構築される。
+            	<!--
               The signature base string is constructed by concatenating together, in order, the
               following HTTP request elements:
+              -->
 
               <list style="numbers">
                 <t>
+                	HTTP リクエストメソッド (大文字)。例: <spanx style="verb">HEAD</spanx>、<spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等。独自の HTTP メソッドを利用する場合は、<xref target="encoding">エンコーディング</xref>しなければならない (MUST)。
+                	<!--
                   The HTTP request method in uppercase. For example: <spanx style="verb">HEAD</spanx>,
                   <spanx style="verb">GET</spanx>, <spanx style="verb">POST</spanx>, etc. If the
                   request uses a custom HTTP method, it MUST be <xref target="encoding">encoded</xref>.
+                  -->
                 </t>
                 <t>
+                	文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
+                	<!--
                   An <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+                  -->
                 </t>
                 <t>
+                	<xref target="sig_uri" /> に示されるベースストリング URI を <xref target="encoding">encoded</xref> した文字列。
+                	<!--
                   The base string URI from <xref target="sig_uri" />, after being
                   <xref target="encoding">encoded</xref>.
+                  -->
                 </t>
                 <t>
+                	文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
+                	<!--
                   An <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+                  -->
                 </t>
                 <t>
+                	<xref target="sig_norm_param" /> に示される正規化されたリクエストパラメータを <xref target="encoding">encoded</xref> した文字列。
+                	<!--
                   The request parameters as normalized in <xref target="sig_norm_param" />, after
                   being <xref target="encoding">encoded</xref>.
+                  -->
                 </t>
               </list>
             </t>
             <figure>
               <preamble>
+              	例えば、以下のような HTTP リクエストがあったとする。
+              	<!--
                 For example, the HTTP request:
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
@@ -1394,8 +1441,11 @@
             </figure>
             <figure>
               <preamble>
+              	この時、このリクエストに対するシグニチャベースストリングは以下のようになる。(改行は掲載上の都合による)
+              	<!--
                 Is represented by the following signature base string (line breaks are for display
                 purposes only):
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET&http%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3D2%2520q%
@@ -1408,33 +1458,49 @@
             </figure>
           </section>
 
-          <section title="Base String URI" anchor="sig_uri">
+					<section title="ベースストリング URI" anchor="sig_uri">
+          <!-- section title="Base String URI" anchor="sig_uri" -->
             <t>
+            	ベースストリング URI には、リクエスト対象リソースを示す <spanx style="verb">http</spanx> もしくは <spanx style="verb">https</spanx> URI を構築した上で、リクエスト URI のスキーム、オーソリティおよびパス <xref target="RFC3986" /> を以下のように含める。
+            	<!--
               The scheme, authority, and path of the request resource URI <xref target="RFC3986" />
               are included by constructing an <spanx style="verb">http</spanx> or
               <spanx style="verb">https</spanx> URI representing the request resource (without the
               query or fragment) as follows:
+              -->
 
               <list style="numbers">
                 <t>
+                	スキームおよびホストは小文字でなくてはならない (MUST)。
+                	<!--
                   The scheme and host MUST be in lowercase.
+                  -->
                 </t>
                 <t>
+                	ホストとポート番号はリクエスト中の HTTP <spanx style="verb">Host</spanx> ヘッダーの値と同一でなければならない (MUST)。
+                	<!--
                   The host and port values MUST match the content of the HTTP request
                   <spanx style="verb">Host</spanx> header field.
+                  -->
                 </t>
                 <t>
+                	ポート番号がそのスキームのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <xref target="RFC2616" /> の場合にはポート80、HTTPS リクエスト <xref target="RFC2818" /> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
+                	<!--
                   The port MUST be included if it is not the default port for the scheme, and MUST
                   be excluded if it is the default. Specifically, the port MUST be excluded when
                   making an HTTP request <xref target="RFC2616" /> to port 80 or when making an
                   HTTPS request <xref target="RFC2818" /> to port 443. All other non-default port
                   numbers MUST be included.
+                  -->
                 </t>
               </list>
             </t>
             <figure>
               <preamble>
+              	例えば、以下のような HTTP リクエストがあったとする。
+              	<!--
                 For example, the HTTP request:
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET /r%20v/X?id=123 HTTP/1.1
@@ -1442,13 +1508,19 @@
 ]]>
               </artwork>
               <postamble>
+              	このときベースストリング URI は次のようになる。
+              	<!--
                 is represented by the base string URI:
+                -->
                 <spanx style="verb">http://example.com/r%20v/X</spanx>.
               </postamble>
             </figure>
             <figure>
               <preamble>
+              	また以下のような HTTPS リクエストがあったとする。
+              	<!--
                 In another example, the HTTPS request:
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET /?q=1 HTTP/1.1
@@ -1456,7 +1528,10 @@
 ]]>
               </artwork>
               <postamble>
+              	この場合のベースストリング URI は次のようになる。
+              	<!--
                 is represented by the base string URI:
+                -->
                 <spanx style="verb">https://www.example.net:8080/</spanx>.
               </postamble>
             </figure>
