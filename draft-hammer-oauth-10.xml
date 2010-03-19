@@ -111,7 +111,7 @@
         -->
       </t>
       <t>
-      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証付き HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証付きき HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
       	<!--
         This specification consists of two parts. The first part defines a redirection-based
         user-agent process for end-users to authorize client access to their resources, by
@@ -131,7 +131,7 @@
       </t>
 
 			<section title="用語定義">
-      <!-- section title="Terminology" -- >
+      <!-- section title="Terminology" -->
         <t>
           <list style="hanging" hangIndent="6">
           	<t hangText="クライアント (client)">
@@ -236,6 +236,7 @@
       </section>
 
       <section title="例">
+      <!-- section title="Example" -->
         <t>
           Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
         </t>
@@ -579,7 +580,7 @@
       <section title="一時的なクレデンシャル" anchor="auth_step1">
       <!--section title="Temporary Credentials" anchor="auth_step1"-->
         <t>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証済み</xref>の HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証付き</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_callback:">
               リソースオーナー認証手順 (<xref target="auth_step2" />) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST)。
@@ -850,7 +851,7 @@
 			<section title="トークンクレデンシャル" anchor="auth_step3">
       <!-- section title="Token Credentials" anchor="auth_step3" -->
         <t>
-        	クライアントは<xref target="requests">認証済み</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+        	クライアントは<xref target="requests">認証付き</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
         	<!--
           The client obtains a set of token credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
@@ -871,7 +872,7 @@
           </list>
         </t>
         <t>
-        	リクエストを行う際、クライアントは一時的なクレデンシャル同様クライアントクレデンシャルを用いて認証する。一時的なクレデンシャルは、認可済みリクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
+        	リクエストを行う際、クライアントは一時的なクレデンシャル同様クライアントクレデンシャルを用いて認証する。一時的なクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
         	<!--
           When making the request, the client authenticates using the client credentials as well as
           the temporary credentials. The temporary credentials are used as a substitute for token
@@ -978,9 +979,10 @@
 
     </section>
     
-    <section title="認証済みのリクエスト" anchor="requests">
+    <section title="認証リクエスト" anchor="requests">
+    <!-- section title="Authenticated Requests" anchor="requests" -->
       <t>
-        クライアントは <xref target="RFC2617" /> で定義されている HTTP 認証メソッドにより、認証済みの HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+        クライアントは <xref target="RFC2617" /> で定義されている HTTP 認証メソッドにより、認証付き HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
       </t>
       <!--t>
         The HTTP authentication methods defined by <xref target="RFC2617" />, enable clients
@@ -990,7 +992,7 @@
         the client to assume the role of the resource owner.
       </t-->
       <t>
-        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みのリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<xref target="redirect_workflow" /> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
+        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証リクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<xref target="redirect_workflow" /> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
       </t>
       <!--t>
         OAuth provides a method designed to include two sets of credentials with each request, one
@@ -1000,7 +1002,7 @@
         method through which the client can obtain a token authorized by the resource owner.
       </t-->
       <t>
-        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みのリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <xref target="client_cred_sec" /> に記載している。
+        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証リクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <xref target="client_cred_sec" /> に記載している。
       </t>
       <!--t>
         The client credentials take the form of a unique identifier, and an associated shared-secret
@@ -1011,7 +1013,7 @@
         <xref target="client_cred_sec" />.
       </t-->
       <t>
-        認証済みのリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<xref target="param_include" />) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<xref target="signature" />) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
+        認証リクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<xref target="param_include" />) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<xref target="signature" />) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
       </t>
       <!--t>
         Making authenticated requests requires prior knowledge of the server's configuration.
@@ -1023,8 +1025,9 @@
       </t-->
 
       <section title="リクエストを行う">
+      <!-- section title="Making Requests" -->
         <t>
-          認証済みのリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <spanx style="verb">oauth_</spanx> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みのリクエストを行う。
+          認証リクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <spanx style="verb">oauth_</spanx> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証リクエストを行う。
           <!--
           An authenticated request includes several protocol parameters. Each parameter name
           begins with the <spanx style="verb">oauth_</spanx> prefix, and the parameter names and
@@ -1117,7 +1120,7 @@
               request using the same method used in the previous step.
             </t-->
             <t>
-              クライアントが認証済みのリクエストをサーバーに送信する。
+              クライアントが認証リクエストをサーバーに送信する。
             </t>
             <!--t>
               The client sends the authenticated HTTP request to the server.
@@ -1126,7 +1129,7 @@
         </t>
         <figure>
           <preamble>
-            例えば、下記のような HTTP リクエストを認証済みで送信するとする (<spanx style="verb">c2&amp;a3=2+q</spanx> はフォームエンコードされたエンティティボディを強調するために使用する)
+            例えば、下記のような HTTP リクエストを認証付ききで実行するとする (<spanx style="verb">c2&amp;a3=2+q</spanx> はフォームエンコードされたエンティティボディを強調するために使用する)
           </preamble>
           <!--preamble>
             For example, to make the following HTTP request authenticated (the
@@ -1214,10 +1217,10 @@
               リクエスト署名を独力で再計算し (<xref target="signature" />)、それと <spanx style="verb">ooauth_signature</spanx> パラメータ経由でクライアントから受け取った値とを比較すること。
             </t>
             <t>
-              <spanx style="verb">HMAC-SHA1 署名方式</spanx>、または <spanx style="verb">RSA-SHA1</spanx> 署名方式を使用している場合、クライアントから受け取ったノンス値 / タイムスタンプ / トークン (存在する場合のみ) の組合せが以前のリクエストで使用されたものではないことを検証すること (サーバーは古いタイムスタンプを持ったリクエストを拒否してもよい(MAY) (<xref target="nonce" />))。
+              <spanx style="verb">HMAC-SHA1</spanx> または <spanx style="verb">RSA-SHA1</spanx> 署名方式を使用している場合、クライアントから受け取ったノンス値 / タイムスタンプ / トークン (存在する場合のみ) の組合せが以前のリクエストで使用されたものではないことを検証すること。(サーバーは古いタイムスタンプを持ったリクエストを拒否してもよい (MAY) (<xref target="nonce" />))
             </t>
             <t>
-              トークンが存在する場合、トークンで表されたクライアントの認可情報の範囲とステータスを検証すること (サーバーはクライアントがクライアント自身向けに発行されたトークンだけを使うよう制限してもよい (MAY))。
+              トークンが存在する場合、トークンで表されたクライアントの認可情報の範囲とステータスを検証すること。(サーバーはクライアントがクライアント自身向けに発行されたトークンだけを使うよう制限してもよい (MAY))
             </t>
             <t>
               <spanx style="verb">oauth_version</spanx> パラメータが存在する場合、その値が <spanx style="verb">1.0</spanx> であるか検証すること。
@@ -1252,7 +1255,7 @@
           </list>
         </t-->
         <t>
-          リクエストの妥当性検証に失敗した場合、サーバーは適切な HTTP 応答ステータスを応答すべきである (SHOULD)。
+          リクエストの妥当性検証に失敗した場合、サーバーは適切な HTTP ステータスコードを返すべきである (SHOULD)。その際、リクエストボディーで詳細なリクエスト拒否理由を通知することもできる (MAY)。
         </t>
         <!--t>
           If the request fails verification, the server SHOULD respond with the appropriate HTTP
@@ -1274,7 +1277,7 @@
       <section title="ノンス値とタイムスタンプ" anchor="nonce">
       <!--section title="Nonce and Timestamp" anchor="nonce"-->
         <t>
-          タイムスタンプは正の整数でなければならない (MUST)。サーバーのドキュメントで規定されていない限り、タイムスタンプは 1970 年 1 月 1 日 0 時 0 分 0 秒を起点にした経過秒数で表される。
+          タイムスタンプは正の整数でなければならない (MUST)。サーバーのドキュメントで規定されていない限り、タイムスタンプは 1970/01/01 00:00:00 GMT を起点にした経過秒数で表される。
         </t>
         <!--t>
           The timestamp value MUST be a positive integer. Unless otherwise specified by the
@@ -1282,7 +1285,7 @@
           January 1, 1970 00:00:00 GMT.
         </t-->
         <t>
-          ノンス値はランダムな文字列であり、リクエストが以前に作成されたものではなく、かつリクエストが安全でない通信チャネル経由でなされた時も、リプレイ攻撃を阻止するものであるかをサーバーが検証するために、クライアントによってユニークに生成されるものである。
+          ノンス値はランダムな文字列であり、クライアントによってユニークに生成される。ノンス値によりサーバーは、リクエストが以前に実行されたものかどうかを検証可能となり、リクエストが安全でない通信チャネル経由でなされた場合にリプレイ攻撃を阻止するために有効である。ノンス値は同じタイムスタンプ、クライアントクレデンシャル、トークンの組に対してユニークでなければならない (MUST)。
         </t>
         <!--t>
           A nonce is a random string, uniquely generated by the client to allow the server to
@@ -1307,7 +1310,7 @@
       <section title="署名" anchor="signature">
       <!--section title="Signature" anchor="signature"-->
         <t>
-          OAuth 認証リクエストは、<spanx style="verb">oauth_consumer_key</spanx> パラメータを通して渡されたもの、<spanx style="verb">oauth_token</spanx> パラメータ内にあるものという、2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正真性を検証し、認可されていないアクセスを阻止するために、クライアントはクレデンシャル情報の正当なオーナーであることを証明する必要がある。それは共有鍵 (または RSA 鍵) を使用することにより行うことができる。
+          OAuth 認証リクエストは、<spanx style="verb">oauth_consumer_key</spanx> と <spanx style="verb">oauth_token</spanx> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正真性を検証し、認可されていないアクセスを阻止するために、クライアントはクレデンシャル情報の正当なオーナーであることを証明する必要がある。それは共有鍵 (または RSA 鍵) を使用することにより行うことができる。
         </t>
         <!--t>
           OAuth-authenticated requests can have two sets of credentials: those passed via the
@@ -1329,7 +1332,7 @@
           of the shared-secrets associated with the client credentials.
         </t-->
         <t>
-          各実装でそれぞれの要件が持てるように、OAuth では特定の署名方式を強制しない。サーバーはそれ独自の方式を実装したり、規定しても構わない。特定の方式を薦めることはこの仕様書では範囲外となる。実装者はサポートする方式を決定する前に<xref target="Security">セキュリティ検討部門</xref>にレビューをするべきである。
+          各実装でそれぞれの要件が持てるように、OAuth では特定の署名方式を強制しない。サーバーはそれ独自の方式を実装したり、規定しても構わない。特定の方式を薦めることはこの仕様書では範囲外となる。実装者はサポートする方式を決定する前に<xref target="Security">セキュリティに関する考慮事項</xref>を精査するべきである。
         </t>
         <!--t>
           OAuth does not mandate a particular signature method, as each implementation can have its
@@ -1349,7 +1352,7 @@
           as specified for each method.
         </t-->
         <t>
-          <spanx style="verb">oauth_signature</spanx> パラメータを除いては、署名のプロセスではリクエストやパラメータを変更しない。
+          署名のプロセスでは、<spanx style="verb">oauth_signature</spanx> パラメータを除いては、リクエストやパラメータが変更されることはない。
         </t>
         <!--t>
           The signature process does not change the request or its parameters, with the exception of
