@@ -111,7 +111,7 @@
         -->
       </t>
       <t>
-      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証付きき HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
       	<!--
         This specification consists of two parts. The first part defines a redirection-based
         user-agent process for end-users to authorize client access to their resources, by
@@ -580,7 +580,7 @@
       <section title="一時的なクレデンシャル" anchor="auth_step1">
       <!--section title="Temporary Credentials" anchor="auth_step1"-->
         <t>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証付き</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_callback:">
               リソースオーナー認証手順 (<xref target="auth_step2" />) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST)。
@@ -851,7 +851,7 @@
 			<section title="トークンクレデンシャル" anchor="auth_step3">
       <!-- section title="Token Credentials" anchor="auth_step3" -->
         <t>
-        	クライアントは<xref target="requests">認証付き</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+        	クライアントは<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
         	<!--
           The client obtains a set of token credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
@@ -982,7 +982,7 @@
     <section title="認証リクエスト" anchor="requests">
     <!-- section title="Authenticated Requests" anchor="requests" -->
       <t>
-        クライアントは <xref target="RFC2617" /> で定義されている HTTP 認証メソッドにより、認証付き HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+        クライアントは <xref target="RFC2617" /> で定義されている HTTP 認証メソッドにより、認証 HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
       </t>
       <!--t>
         The HTTP authentication methods defined by <xref target="RFC2617" />, enable clients
@@ -1129,7 +1129,7 @@
         </t>
         <figure>
           <preamble>
-            例えば、下記のような HTTP リクエストを認証付ききで実行するとする (<spanx style="verb">c2&amp;a3=2+q</spanx> はフォームエンコードされたエンティティボディを強調するために使用する)
+            例えば、下記のような HTTP リクエストを認証付きで実行するとする (<spanx style="verb">c2&amp;a3=2+q</spanx> はフォームエンコードされたエンティティボディを強調するために使用する)
           </preamble>
           <!--preamble>
             For example, to make the following HTTP request authenticated (the
