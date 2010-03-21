@@ -1801,6 +1801,16 @@
 
         <section title="HMAC-SHA1">
           <t>
+            <spanx style="verb">HMAC-SHA1</spanx> 署名方式は、<xref target="RFC2104" /> で規定される、HMAC-SHA1 署名アルゴリズムを使用する。
+
+            <figure>
+              <artwork xml:space="preserve"><![CDATA[
+  digest = HMAC-SHA1 (key, text)
+]]>
+              </artwork>
+            </figure>
+          </t>
+          <!--t>
             The <spanx style="verb">HMAC-SHA1</spanx> signature method uses the HMAC-SHA1 signature
             algorithm as defined in <xref target="RFC2104" />:
 
@@ -1810,8 +1820,38 @@
 ]]>
               </artwork>
             </figure>
-          </t>
+          </t-->
           <t>
+            HMAC-SHA1 関数の変数は、次のように使用される。
+
+            <list style="hanging" hangIndent="6">
+              <t hangText="text">
+                <vspace />
+                シグニチャベースストリング (<xref target="base_string" /> 参照) の値に設定。
+              </t>
+              <t hangText="key">
+                <vspace />
+                下記を連結した値に設定。
+
+                <list style="numbers">
+                  <t>
+                    <xref target="encoding">エンコード</xref>されたクライアント共有鍵。
+                  </t>
+                  <t>
+                    <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
+                  </t>
+                  <t>
+                    <xref target="encoding">エンコード</xref>されたトークン共有鍵。
+                  </t>
+                </list>
+              </t>
+              <t hangText="digest">
+                <vspace />
+                結果のバイト文字列を base64 エンコード (<xref target="RFC2045" /> 6.8節参照) した、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータを設定。
+              </t>
+            </list>
+          </t>
+          <!--t>
             The HMAC-SHA1 function variables are used in following way:
 
             <list style="hanging" hangIndent="6">
@@ -1843,18 +1883,48 @@
                 <xref target="RFC2045" /> section 6.8.
               </t>
             </list>
-          </t>
+          </t-->
         </section>
 
         <section title="RSA-SHA1">
           <t>
+            <spanx style="verb">RSA-SHA1</spanx> 署名方式は、<xref target="RFC3447" /> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
+          </t>
+          <!--t>
             The <spanx style="verb">RSA-SHA1</spanx> signature method uses the RSASSA-PKCS1-v1_5
             signature algorithm as defined in <xref target="RFC3447" /> section 8.2 (also known as
             PKCS#1), using SHA-1 as the hash function for EMSA-PKCS1-v1_5. To use this method, the
             client MUST have established client credentials with the server which included its RSA
             public key (in a manner which is beyond the scope of this specification).
-          </t>
+          </t-->
           <t>
+            シグニチャベースストリングは、<xref target="RFC3447" /> 8.2.1節 に基づいた、RSA 秘密鍵を使用して署名される。
+
+            <figure>
+              <artwork xml:space="preserve"><![CDATA[
+  S = RSASSA-PKCS1-V1_5-SIGN (K, M)
+]]>
+              </artwork>
+            </figure>
+
+            Where:
+
+            <list style="hanging" hangIndent="6">
+              <t hangText="K">
+                <vspace />
+                クライアントの RSA 秘密鍵を設定。
+              </t>
+              <t hangText="M">
+                <vspace />
+                シグニチャベースストリング (<xref target="base_string" /> 参照) の値に設定。
+              </t>
+              <t hangText="S">
+                <vspace />
+                結果のバイト文字列を base64 エンコード (<xref target="RFC2045" /> 6.8節参照) した、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータを設定。
+              </t>
+            </list>
+          </t>
+          <!--t>
             The signature base string is signed using the client's RSA private key per
             <xref target="RFC3447" /> section 8.2.1:
 
@@ -1883,8 +1953,35 @@
                 section 6.8.
               </t>
             </list>
-          </t>
+          </t-->
           <t>
+            サーバーは、<xref target="RFC3447" /> 8.2.2節 に基づき、シグニチャの妥当性を検証する。
+
+            <figure>
+              <artwork xml:space="preserve"><![CDATA[
+  RSASSA-PKCS1-V1_5-VERIFY ((n, e), M, S)
+]]>
+              </artwork>
+            </figure>
+
+            Where:
+
+            <list style="hanging" hangIndent="6">
+              <t hangText="(n, e)">
+                <vspace />
+                クライアントの RSA 公開鍵を設定。
+              </t>
+              <t hangText="M">
+                <vspace />
+                シグニチャベースストリング (<xref target="base_string" /> 参照) の値に設定。
+              </t>
+              <t hangText="S">
+                <vspace />
+                クライアントが受け取った、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータのバイト文字列を設定。
+              </t>
+            </list>
+          </t>
+          <!--t>
             The server verifies the signature per <xref target="RFC3447" /> section 8.2.2:
 
             <figure>
@@ -1911,18 +2008,36 @@
                 protocol parameter received from the client.
               </t>
             </list>
-          </t>
+          </t-->
         </section>
 
         <section title="PLAINTEXT">
           <t>
+            <spanx style="verb">PLAINTEXT</spanx> 方式は、シグニチャアルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<spanx style="verb">oauth_timestamp</spanx> と <spanx style="verb">oauth_nonce</spanx> パラメータを使用しない。
+          </t>
+          <!--t>
             The <spanx style="verb">PLAINTEXT</spanx> method does not employ a signature algorithm.
             It MUST be used with a transport-layer mechanism such as TLS or SSL (or sent over a secure
             channel with equivalent protections). It does not utilize the signature base string nor
             the <spanx style="verb">oauth_timestamp</spanx> and <spanx style="verb">oauth_nonce</spanx>
             parameters.
-          </t>
+          </t-->
           <t>
+            <spanx style="verb">oauth_signature</spanx> プロトコルパラメータは、下記を連結した値に設定する。
+
+            <list style="numbers">
+              <t>
+                <xref target="encoding">エンコード</xref>されたクライアント共有鍵
+              </t>
+              <t>
+                <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
+              </t>
+              <t>
+                <xref target="encoding">エンコード</xref>されたトークン共有鍵
+              </t>
+            </list>
+          </t>
+          <!--t>
             The <spanx style="verb">oauth_signature</spanx> protocol parameter is set to the
             concatenated value of:
 
@@ -1938,7 +2053,7 @@
                 The token shared-secret, after being <xref target="encoding">encoded</xref>.
               </t>
             </list>
-          </t>
+          </t-->
         </section>
 
       </section>
