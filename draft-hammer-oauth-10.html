@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 19, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 22, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 20, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 23, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 20, 2010.</p>
+This Internet-Draft will expire on September 23, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -226,15 +226,15 @@ RSA-SHA1<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor10">3.4.4.</a>&nbsp;
 PLAINTEXT<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#param_include">3.5.</a>&nbsp;
-Parameter Transmission<br />
+パラメータの送信<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#auth_header">3.5.1.</a>&nbsp;
-Authorization Header<br />
+Authorization ヘッダー<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#auth_body">3.5.2.</a>&nbsp;
-Form-Encoded Body<br />
+フォームエンコードボディー<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#auth_query">3.5.3.</a>&nbsp;
-Request URI Query<br />
+リクエスト URI クエリー<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#encoding">3.6.</a>&nbsp;
-Percent Encoding<br />
+パーセントエンコーディング<br />
 <a href="#Security">4.</a>&nbsp;
 Security Considerations<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor11">4.1.</a>&nbsp;
@@ -327,7 +327,7 @@ Author's Address<br />
       
 </p>
 <p>
-      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証付きき HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
       	
       
 </p>
@@ -633,7 +633,7 @@ Author's Address<br />
 一時的なクレデンシャル</h3>
 
 <p>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<a class='info' href='#requests'>認証付き<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<a class='info' href='#requests'>認証<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           </p>
 <blockquote class="text"><dl>
 <dt>oauth_callback:</dt>
@@ -815,7 +815,7 @@ Author's Address<br />
 トークンクレデンシャル</h3>
 
 <p>
-        	クライアントは<a class='info' href='#requests'>認証付き<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+        	クライアントは<a class='info' href='#requests'>認証<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
         	
 
           </p>
@@ -910,7 +910,7 @@ Author's Address<br />
 認証リクエスト</h3>
 
 <p>
-        クライアントは <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されている HTTP 認証メソッドにより、認証付き HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+        クライアントは <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されている HTTP 認証メソッドにより、認証 HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
       
 </p>
 <p>
@@ -922,7 +922,7 @@ Author's Address<br />
       
 </p>
 <p>
-        認証リクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a>) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a>) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
+        認証リクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>パラメータの送信</span><span>)</span></a>) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a>) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
       
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -982,7 +982,7 @@ Author's Address<br />
             
 </li>
 <li>
-              プロトコルパラメータは <a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>Parameter Transmission</span><span>)</span></a> に記載された転送メソッドのいずれかを使い、リクエストに追加される。各パラメータはリクエストにつき、二度以上含まれてはならない。
+              プロトコルパラメータは <a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>パラメータの送信</span><span>)</span></a> に記載された転送メソッドのいずれかを使い、リクエストに追加される。各パラメータはリクエストにつき、二度以上含まれてはならない。
             
 </li>
 <li>
@@ -997,7 +997,7 @@ Author's Address<br />
         
 </p>
 <p>
-            例えば、下記のような HTTP リクエストを認証付ききで実行するとする (<tt>c2&amp;a3=2+q</tt> はフォームエンコードされたエンティティボディを強調するために使用する)
+            例えば、下記のような HTTP リクエストを認証付きで実行するとする (<tt>c2&amp;a3=2+q</tt> はフォームエンコードされたエンティティボディを強調するために使用する)
           
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /request?b5=%3D%253D&amp;a3=a&amp;c%40=&amp;a2=r%20b HTTP/1.1
@@ -1188,7 +1188,7 @@ Author's Address<br />
               </p>
 <ol class="text">
 <li>
-                	HTTP リクエストメソッド (大文字)。例: <tt>HEAD</tt>、<tt>GET</tt>、<tt>POST</tt> 等。独自の HTTP メソッドを利用する場合は、<a class='info' href='#encoding'>エンコーディング<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>しなければならない (MUST)。
+                	HTTP リクエストメソッド (大文字)。例: <tt>HEAD</tt>、<tt>GET</tt>、<tt>POST</tt> 等。独自の HTTP メソッドを利用する場合は、<a class='info' href='#encoding'>エンコーディング<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>しなければならない (MUST)。
                 	
                 
 </li>
@@ -1198,7 +1198,7 @@ Author's Address<br />
                 
 </li>
 <li>
-                	<a class='info' href='#sig_uri'>Section&nbsp;3.4.1.2<span> (</span><span class='info'>ベースストリング URI</span><span>)</span></a> に示されるベースストリング URI を <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a> した文字列。
+                	<a class='info' href='#sig_uri'>Section&nbsp;3.4.1.2<span> (</span><span class='info'>ベースストリング URI</span><span>)</span></a> に示されるベースストリング URI を <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a> した文字列。
                 	
                 
 </li>
@@ -1208,7 +1208,7 @@ Author's Address<br />
                 
 </li>
 <li>
-                	<a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>Parameters Normalization</span><span>)</span></a> に示される正規化されたリクエストパラメータを <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a> した文字列。
+                	<a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>Parameters Normalization</span><span>)</span></a> に示される正規化されたリクエストパラメータを <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a> した文字列。
                 	
                 
 </li>
@@ -1337,10 +1337,10 @@ Parameter Sources</h3>
                   
 </li>
 <li>
-                    The OAuth HTTP Authorization header field (<a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>) if
+                    The OAuth HTTP Authorization header field (<a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>) if
                     present. The header's content is parsed into a list of name/value pairs
                     excluding the <tt>realm</tt> parameter if present. The
-                    parameter values are decoded as defined by <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>.
+                    parameter values are decoded as defined by <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>.
                   
 </li>
 <li>
@@ -1476,7 +1476,7 @@ Parameters Normalization</h3>
                 </p>
 <ol class="text">
 <li>
-                    First, the name and value of each parameter are <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                    First, the name and value of each parameter are <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>.
     							
 </li>
 <li>
@@ -1667,8 +1667,7 @@ Parameters Normalization</h3>
 HMAC-SHA1</h3>
 
 <p>
-            The <tt>HMAC-SHA1</tt> signature method uses the HMAC-SHA1 signature
-            algorithm as defined in <a class='info' href='#RFC2104'>[RFC2104]<span> (</span><span class='info'>Krawczyk, H., Bellare, M., and R. Canetti, &ldquo;HMAC: Keyed-Hashing for Message Authentication,&rdquo; February&nbsp;1997.</span><span>)</span></a>:
+            <tt>HMAC-SHA1</tt> 署名方式は、<a class='info' href='#RFC2104'>[RFC2104]<span> (</span><span class='info'>Krawczyk, H., Bellare, M., and R. Canetti, &ldquo;HMAC: Keyed-Hashing for Message Authentication,&rdquo; February&nbsp;1997.</span><span>)</span></a> で規定される、HMAC-SHA1 署名アルゴリズムを使用する。
 
             </p>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -1679,34 +1678,33 @@ HMAC-SHA1</h3>
           
 </p>
 <p>
-            The HMAC-SHA1 function variables are used in following way:
+            HMAC-SHA1 関数の変数は、次のように使用される。
 
             </p>
 <blockquote class="text"><dl>
 <dt>text</dt>
 <dd>
                 
-                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a>.
+                シグニチャベースストリング (<a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a> 参照) の値に設定。
               
 </dd>
 <dt>key</dt>
 <dd>
                 
-                is set to the concatenated values of:
+                下記を連結した値に設定。
 
                 
 <ol class="text">
 <li>
-                    The client shared-secret, after being <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                    <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>されたクライアント共有鍵。
                   
 </li>
 <li>
-                    An <tt>&amp;</tt> character (ASCII code 38), which MUST be
-                    included even when either secret is empty.
+                    <tt>&amp;</tt> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
                   
 </li>
 <li>
-                    The token shared-secret, after being <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                    <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>されたトークン共有鍵。
                   
 </li>
 </ol>
@@ -1715,9 +1713,7 @@ HMAC-SHA1</h3>
 <dt>digest</dt>
 <dd>
                 
-                is used to set the value of the <tt>oauth_signature</tt>
-                protocol parameter, after the result octet string is base64-encoded per
-                <a class='info' href='#RFC2045'>[RFC2045]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies,&rdquo; November&nbsp;1996.</span><span>)</span></a> section 6.8.
+                結果のバイト文字列を base64 エンコード (<a class='info' href='#RFC2045'>[RFC2045]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies,&rdquo; November&nbsp;1996.</span><span>)</span></a> 6.8節参照) した、<tt>oauth_signature</tt> プロトコルパラメータを設定。
               
 </dd>
 </dl></blockquote><p>
@@ -1729,16 +1725,11 @@ HMAC-SHA1</h3>
 RSA-SHA1</h3>
 
 <p>
-            The <tt>RSA-SHA1</tt> signature method uses the RSASSA-PKCS1-v1_5
-            signature algorithm as defined in <a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> section 8.2 (also known as
-            PKCS#1), using SHA-1 as the hash function for EMSA-PKCS1-v1_5. To use this method, the
-            client MUST have established client credentials with the server which included its RSA
-            public key (in a manner which is beyond the scope of this specification).
+            <tt>RSA-SHA1</tt> 署名方式は、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
           
 </p>
 <p>
-            The signature base string is signed using the client's RSA private key per
-            <a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> section 8.2.1:
+            シグニチャベースストリングは、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2.1節 に基づいた、RSA 秘密鍵を使用して署名される。
 
             </p>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -1754,28 +1745,26 @@ RSA-SHA1</h3>
 <dt>K</dt>
 <dd>
                 
-                is set to the client's RSA private key,
+                クライアントの RSA 秘密鍵を設定。
               
 </dd>
 <dt>M</dt>
 <dd>
                 
-                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a>, and
+                シグニチャベースストリング (<a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a> 参照) の値に設定。
               
 </dd>
 <dt>S</dt>
 <dd>
                 
-                is the result signature used to set the value of the <tt>oauth_signature</tt>
-                protocol parameter, after the result octet string is base64-encoded per <a class='info' href='#RFC2045'>[RFC2045]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies,&rdquo; November&nbsp;1996.</span><span>)</span></a>
-                section 6.8.
+                結果のバイト文字列を base64 エンコード (<a class='info' href='#RFC2045'>[RFC2045]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies,&rdquo; November&nbsp;1996.</span><span>)</span></a> 6.8節参照) した、<tt>oauth_signature</tt> プロトコルパラメータを設定。
               
 </dd>
 </dl></blockquote><p>
           
 </p>
 <p>
-            The server verifies the signature per <a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> section 8.2.2:
+            サーバーは、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2.2節 に基づき、シグニチャの妥当性を検証する。
 
             </p>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -1791,20 +1780,19 @@ RSA-SHA1</h3>
 <dt>(n, e)</dt>
 <dd>
                 
-                is set to the client's RSA public key,
+                クライアントの RSA 公開鍵を設定。
               
 </dd>
 <dt>M</dt>
 <dd>
                 
-                is set to the value of the signature base string from <a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a>, and
+                シグニチャベースストリング (<a class='info' href='#base_string'>Section&nbsp;3.4.1.1<span> (</span><span class='info'>シグニチャベースストリングの構築</span><span>)</span></a> 参照) の値に設定。
               
 </dd>
 <dt>S</dt>
 <dd>
                 
-                is set to the octet string value of the <tt>oauth_signature</tt>
-                protocol parameter received from the client.
+                クライアントが受け取った、<tt>oauth_signature</tt> プロトコルパラメータのバイト文字列を設定。
               
 </dd>
 </dl></blockquote><p>
@@ -1816,30 +1804,24 @@ RSA-SHA1</h3>
 PLAINTEXT</h3>
 
 <p>
-            The <tt>PLAINTEXT</tt> method does not employ a signature algorithm.
-            It MUST be used with a transport-layer mechanism such as TLS or SSL (or sent over a secure
-            channel with equivalent protections). It does not utilize the signature base string nor
-            the <tt>oauth_timestamp</tt> and <tt>oauth_nonce</tt>
-            parameters.
+            <tt>PLAINTEXT</tt> 方式は、シグニチャアルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<tt>oauth_timestamp</tt> と <tt>oauth_nonce</tt> パラメータを使用しない。
           
 </p>
 <p>
-            The <tt>oauth_signature</tt> protocol parameter is set to the
-            concatenated value of:
+            <tt>oauth_signature</tt> プロトコルパラメータは、下記を連結した値に設定する。
 
             </p>
 <ol class="text">
 <li>
-                The client shared-secret, after being <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>されたクライアント共有鍵
               
 </li>
 <li>
-                An <tt>&amp;</tt> character (ASCII code 38), which MUST be
-                included even when either secret is empty.
+                <tt>&amp;</tt> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
               
 </li>
 <li>
-                The token shared-secret, after being <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+                <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>されたトークン共有鍵
               
 </li>
 </ol><p>
@@ -1848,50 +1830,50 @@ PLAINTEXT</h3>
 <a name="param_include"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.5"></a><h3>3.5.&nbsp;
-Parameter Transmission</h3>
+パラメータの送信</h3>
 
 <p>
-          When making an OAuth-authenticated request, protocol parameters as well as any other
-          parameter using the <tt>oauth_</tt> prefix SHALL be included in the
-          request using one and only one of the following locations, listed in order of decreasing
-          preference:
+        	OAuth 認可リクエストを行う際、プロトコルパラメータおよび <tt>oauth_</tt> プレフィックスを含むその他全てのパラメータは、以下のいずれか1ヶ所を用いてリクエストに含まれるであろう (SHALL)。以下、好ましい順に挙げる。
+        	
 
           </p>
 <ol class="text">
 <li>
-              The HTTP <tt>Authorization</tt> header field as described in
-              <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>.
+            	HTTP <tt>Authorization</tt> ヘッダーフィールド。(<a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> 参照)
+            	
             
 </li>
 <li>
-              The HTTP request entity-body as described in <a class='info' href='#auth_body'>Section&nbsp;3.5.2<span> (</span><span class='info'>Form-Encoded Body</span><span>)</span></a>.
+            	HTTP リクエストエンティティボディー。(<a class='info' href='#auth_body'>Section&nbsp;3.5.2<span> (</span><span class='info'>フォームエンコードボディー</span><span>)</span></a> 参照)
+            	
             
 </li>
 <li>
-              The HTTP request URI query as described in <a class='info' href='#auth_query'>Section&nbsp;3.5.3<span> (</span><span class='info'>Request URI Query</span><span>)</span></a>.
+            	HTTP リクエスト URI クエリー。（<a class='info' href='#auth_query'>Section&nbsp;3.5.3<span> (</span><span class='info'>リクエスト URI クエリー</span><span>)</span></a> 参照)
+            	
             
 </li>
 </ol><p>
         
 </p>
 <p>
-          In addition to these three methods, future extensions MAY define other methods for
-          including protocol parameters in the request.
+        	これら3つの方法に加え、今後の拡張仕様によってプロトコルパラメータをリクエストに含めるその他の手法が定義されることもある (MAY)。
+        	
         
 </p>
 <a name="auth_header"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.5.1"></a><h3>3.5.1.&nbsp;
-Authorization Header</h3>
+Authorization ヘッダー</h3>
 
 <p>
-            Protocol parameters can be transmitted using the HTTP
-            <tt>Authorization</tt> header field as defined by <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>
-            with the auth-scheme name set to <tt>OAuth</tt> (case-insensitive).
+          	プロトコルパラメータは、<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義される HTTP <tt>Authorization</tt> ヘッダーフィールドを用いて送信される。その際 auth-scheme 名を <tt>OAuth</tt> (大文字/小文字を区別) とする。
+          	
           
 </p>
 <p>
-              For example:
+            	例:
+              
             
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   Authorization: OAuth realm="Example",
@@ -1905,87 +1887,84 @@ Authorization Header</h3>
 
 </pre></div>
 <p>
-            Protocol parameters SHALL be included in the <tt>Authorization</tt>
-            header field as follows:
+          	プロトコルパラメータは以下のように <tt>Authorization</tt> ヘッダーフィールドに含まれるものとする (SHALL)。
+          	
 
             </p>
 <ol class="text">
 <li>
-                Parameter names and values are encoded per
-                <a class='info' href='#encoding'>Parameter Encoding<span> (</span><span class='info'>Percent Encoding</span><span>)</span></a>.
+              	パラメータ名と値は<a class='info' href='#encoding'>パラメータエンコーディング<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>に従いエンコーディングされる。
+              	
               
 </li>
 <li>
-                Each parameter's name is immediately followed by an <tt>=</tt>
-                character (ASCII code 61), a <tt>"</tt> character (ASCII code 34),
-                the parameter value (MAY be empty), and another <tt>"</tt> character
-                (ASCII code 34).
+              	各パラメータ名の直後には、<tt>=</tt> (ASCII code 61)、<tt>"</tt> (ASCII code 34)、パラメータ値 (空白も可 (MAY))、そして <tt>"</tt> (ASCII code 34) が続く。
+              	
               
 </li>
 <li>
-                Parameters are separated by a <tt>,</tt> character (ASCII code 44)
-                and OPTIONAL linear whitespace per <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>.
+              	パラメータは <tt>,</tt> (ASCII code 44) で区切られる。この際オプションとして <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> にある "linear whitespace" を用いることもできる (OPTIONAL)。
+              	
               
 </li>
 <li>
-                The OPTIONAL <tt>realm</tt> parameter MAY be added and
-                interpreted per <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> section 1.2.
+              	オプションで <tt>realm</tt> パラメータを追加することができる (OPTIONAL)。(<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> セクション1.2参照)
+              	
               
 </li>
 </ol><p>
           
 </p>
 <p>
-            Servers MAY indicate their support for the <tt>OAuth</tt>
-            auth-scheme by returning the HTTP <tt>WWW-Authenticate</tt>
-            response header field upon client requests for protected resources. As per
-            <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> such a response MAY include additional HTTP
-            <tt>WWW-Authenticate</tt> header fields:
+          	サーバーは、クライアントからの保護されたリソースへのリクエストに対して HTTP <tt>WWW-Authenticate</tt> レスポンスヘッダーフィールドを返すことで、 <tt>OAuth</tt> auth-scheme をサポートしていることを示すことができる (MAY)。<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> にあるように、そのようなレスポンスは HTTP <tt>WWW-Authenticate</tt> ヘッダーフィールドを含むことができる (MAY)。
+          	
           
 </p>
 <p>
-              For example:
+            	例:
+            	
             
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   WWW-Authenticate: OAuth realm="http://server.example.com/"
 
 </pre></div>
 <p>
-            The realm parameter defines a protection realm per <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a>
-            section 1.2.
+          	この realm パラメータは保護領域を示す。(<a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> セクション1.2参照)
+          	
           
 </p>
 <a name="auth_body"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.5.2"></a><h3>3.5.2.&nbsp;
-Form-Encoded Body</h3>
+フォームエンコードボディー</h3>
 
 <p>
-            Protocol parameters can be transmitted in the HTTP request entity-body, but only if the
-            following REQUIRED conditions are met:
+          	プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の必須条件を満たす必要がある (REQUIRED)。
+          	
 
             </p>
 <ul class="text">
 <li>
-                The entity-body is single-part.
+              	エンティティボディーが single-part である。
+              	
               
 </li>
 <li>
-                The entity-body follows the encoding requirements of the
-                <tt>application/x-www-form-urlencoded</tt> content-type as
-                defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+              	エンティティボディーが <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義される <tt>application/x-www-form-urlencoded</tt> コンテントタイプのエンコーディング条件を満たす。
+              	
               
 </li>
 <li>
-                The HTTP request entity-header includes the <tt>Content-Type</tt>
-                header field set to <tt>application/x-www-form-urlencoded</tt>.
+              	HTTP リクエストエンティティヘッダーが <tt>Content-Type</tt> ヘッダーフィールドを含み、その値が <tt>application/x-www-form-urlencoded</tt> である。
+              	
               
 </li>
 </ul><p>
 
             
 <p>
-                For example (line breaks are for display purposes only):
+              	例 (改行は掲載上の都合による)
+              	
               
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   oauth_consumer_key=0685bd9184jfhq22&amp;oauth_token=ad180jjd733klr
@@ -1995,23 +1974,23 @@ Form-Encoded Body</h3>
 
 </pre></div>
             
-            The entity-body MAY include other request-specific parameters, in which case, the
-            protocol parameters SHOULD be appended following the request-specific parameters,
-            properly separated by an <tt>&amp;</tt> character (ASCII code 38).
+            エンティティボディーは他のリクエスト固有のパラメータを含む可能性がある (MAY)。その場合、プロトコルパラメータは適切に <tt>&amp;</tt> (ASCII code 38) で分割され、リクエスト固有パラメータの後に付加されるべきである (SHOULD)。
+            
           
 
 <a name="auth_query"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.5.3"></a><h3>3.5.3.&nbsp;
-Request URI Query</h3>
+リクエスト URI クエリー</h3>
 
 <p>
-            Protocol parameters can be transmitted by being added to the HTTP request URI as a
-            query parameter as defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> section 3.
+          	プロトコルパラメータは、HTTP リクエスト URI に <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> セクション3で定義されるクエリーパラメータとして付与し、送信することができる。
+          	
 
             
 <p>
-                For example (line breaks are for display purposes only):
+              	例 (改行は掲載上の都合による)
+              	
               
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   GET /example/path?oauth_consumer_key=0685bd9184jfhq22&amp;
@@ -2022,53 +2001,50 @@ Request URI Query</h3>
 
 </pre></div>
 
-            The request URI MAY include other request-specific query parameters, in which case,
-            the protocol parameters SHOULD be appended following the request-specific parameters,
-            properly separated by an <tt>&amp;</tt> character (ASCII code 38).
+            リクエスト URI は他のリクエスト固有のクエリーパラメータを含む可能性がある (MAY)。その場合、プロトコルパラメータは適切に <tt>&amp;</tt> (ASCII code 38) で分割され、リクエスト固有パラメータの後に付加されるべきである (SHOULD)。
+            
           
 
 <a name="encoding"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.6"></a><h3>3.6.&nbsp;
-Percent Encoding</h3>
+パーセントエンコーディング</h3>
 
 <p>
-          Existing percent-encoding methods do not guarantee a consistent construction of the
-          signature base string. The following percent-encoding method is not defined to replace
-          the existing encoding methods defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> and
-          <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>. It is used only in the construction of the
-          signature base string and the <a class='info' href='#auth_header'>authorization header field<span> (</span><span class='info'>Authorization Header</span><span>)</span></a>.
+        	既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。いかに示すパーセントエンコーディング手法は <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> および <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <a class='info' href='#auth_header'>authorization ヘッダーフィールド<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>のエンコーディングにのみ用いられるものである。
+        	
         
 </p>
 <p>
-          This specification defines the following method for percent-encoding strings:
+        	この仕様書では以下のようにパーセントエンコーディング手法を定義する。
+        	
 
           </p>
 <ol class="text">
 <li>
-              Text values are first encoded as UTF-8 octets per <a class='info' href='#RFC3629'>[RFC3629]<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a> if they are
-              not already. This does not include binary values which are not intended for human
-              consumption.
+            	テキスト値がまだ <a class='info' href='#RFC3629'>[RFC3629]<span> (</span><span class='info'>Yergeau, F., &ldquo;UTF-8, a transformation format of ISO 10646,&rdquo; November&nbsp;2003.</span><span>)</span></a> で定義される UTF-8 オクテットにエンコードされていない場合は、そのようにエンコードする。人間に利用されないバイナリ値は、この行程をスキップする。
+            	
             
 </li>
 <li>
-              The values are then escaped using the <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> percent-encoding
-              (%XX) mechanism as follows:
+            	値を以下の <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> で定義されたパーセントエンコーディング手法に従ってエスケープする。
+            	
 
               
 <ul class="text">
 <li>
-                  Characters in the unreserved character set as defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>
-                  section 2.3 (ALPHA, DIGIT, "-", ".", "_", "~") MUST NOT be encoded.
+                	<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> のセクション2.3で定義された予約済みでない文字　(アルファベット, 数字, "-", ".", "_", "~")　はエンコードしてはならない (MUST NOT)。
+                	
                 
 </li>
 <li>
-                  All other characters MUST be encoded.
+                	その他の文字は全てエンコードしなければならない (MUST)。
+                	
                 
 </li>
 <li>
-                  The two hexadecimal characters used to represent encoded characters MUST be
-                  upper case.
+                	エンコード文字を示す2文字の16進数値は大文字でなければならない (MUST)。
+                	
                 
 </li>
 </ul>
@@ -2078,12 +2054,8 @@ Percent Encoding</h3>
         
 </p>
 <p>
-          This method is different from the encoding scheme used by the
-          <tt>application/x-www-form-urlencoded</tt> content-type (for example,
-          it encodes space characters as <tt>%20</tt> and not using the 
-          <tt>+</tt> character). It MAY be different from the
-          percent-encoding functions provided by web development frameworks (e.g. encode different
-          characters, use lower case hexadecimal characters).
+        	この手法は <tt>application/x-www-form-urlencoded</tt> で用いられるエンコード方式とは異なる。(例えばこの手法ではスペースは <tt>+</tt> ではなく <tt>%20</tt> とエンコードされる) この手法は Web デベロップメントフレームワークが提供するパーセントエンコーディングとも異なる可能性がある (MAY)。(異なる文字をエンコードしたり、小文字の16進数文字を使うことなどが想定される)
+        	
         
 </p>
 <a name="Security"></a><br /><hr />
@@ -2141,7 +2113,7 @@ Spoofing by Counterfeit Servers</h3>
 Proxying and Caching of Authenticated Content</h3>
 
 <p>
-          The <a class='info' href='#auth_header'>HTTP Authorization scheme<span> (</span><span class='info'>Authorization Header</span><span>)</span></a> is optional. However,
+          The <a class='info' href='#auth_header'>HTTP Authorization scheme<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> is optional. However,
           <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> relies on the <tt>Authorization</tt> and
           <tt>WWW-Authenticate</tt> header fields to distinguish authenticated content
           so that it can be protected. Proxies and caches, in particular, may fail to adequately
@@ -2151,7 +2123,7 @@ Proxying and Caching of Authenticated Content</h3>
 <p>
           For example, private authenticated content may be stored in (and thus retrievable from)
           publicly-accessible caches. Servers not using the
-          <a class='info' href='#auth_header'>HTTP Authorization header field<span> (</span><span class='info'>Authorization Header</span><span>)</span></a> should take care to use other
+          <a class='info' href='#auth_header'>HTTP Authorization header field<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> should take care to use other
           mechanisms, such as the <tt>Cache-Control</tt> header field, to ensure that
           authenticated content is protected.
         

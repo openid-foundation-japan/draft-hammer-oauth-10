@@ -2057,41 +2057,64 @@
         </section>
 
       </section>
-        
-      <section title="Parameter Transmission" anchor="param_include">
+      
+      <section title="パラメータの送信" anchor="param_include">  
+      <!-- section title="Parameter Transmission" anchor="param_include" -->
         <t>
+        	OAuth 認可リクエストを行う際、プロトコルパラメータおよび <spanx style="verb">oauth_</spanx> プレフィックスを含むその他全てのパラメータは、以下のいずれか1ヶ所を用いてリクエストに含まれるであろう (SHALL)。以下、好ましい順に挙げる。
+        	<!--
           When making an OAuth-authenticated request, protocol parameters as well as any other
           parameter using the <spanx style="verb">oauth_</spanx> prefix SHALL be included in the
           request using one and only one of the following locations, listed in order of decreasing
           preference:
+          -->
 
           <list style="numbers">
             <t>
+            	HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールド。(<xref target="auth_header" /> 参照)
+            	<!--
               The HTTP <spanx style="verb">Authorization</spanx> header field as described in
               <xref target="auth_header" />.
+              -->
             </t>
             <t>
+            	HTTP リクエストエンティティボディー。(<xref target="auth_body" /> 参照)
+            	<!--
               The HTTP request entity-body as described in <xref target="auth_body" />.
+              -->
             </t>
             <t>
+            	HTTP リクエスト URI クエリー。（<xref target="auth_query" /> 参照)
+            	<!--
               The HTTP request URI query as described in <xref target="auth_query" />.
+              -->
             </t>
           </list>
         </t>
         <t>
+        	これら3つの方法に加え、今後の拡張仕様によってプロトコルパラメータをリクエストに含めるその他の手法が定義されることもある (MAY)。
+        	<!--
           In addition to these three methods, future extensions MAY define other methods for
           including protocol parameters in the request.
+          -->
         </t>
 
-        <section title="Authorization Header" anchor="auth_header">
+				<section title="Authorization ヘッダー" anchor="auth_header">
+        <!-- section title="Authorization Header" anchor="auth_header" -->
           <t>
+          	プロトコルパラメータは、<xref target="RFC2617" /> で定義される HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールドを用いて送信される。その際 auth-scheme 名を <spanx style="verb">OAuth</spanx> (大文字/小文字を区別) とする。
+          	<!--
             Protocol parameters can be transmitted using the HTTP
             <spanx style="verb">Authorization</spanx> header field as defined by <xref target="RFC2617" />
             with the auth-scheme name set to <spanx style="verb">OAuth</spanx> (case-insensitive).
+            -->
           </t>
           <figure>
             <preamble>
+            	例:
+              <!--
               For example:
+              -->
             </preamble>
             <artwork xml:space="preserve"><![CDATA[
   Authorization: OAuth realm="Example",
@@ -2106,40 +2129,61 @@
             </artwork>
           </figure>
           <t>
+          	プロトコルパラメータは以下のように <spanx style="verb">Authorization</spanx> ヘッダーフィールドに含まれるものとする (SHALL)。
+          	<!--
             Protocol parameters SHALL be included in the <spanx style="verb">Authorization</spanx>
             header field as follows:
+            -->
 
             <list style="numbers">
               <t>
+              	パラメータ名と値は<xref target="encoding">パラメータエンコーディング</xref>に従いエンコーディングされる。
+              	<!--
                 Parameter names and values are encoded per
                 <xref target="encoding">Parameter Encoding</xref>.
+                -->
               </t>
               <t>
+              	各パラメータ名の直後には、<spanx style="verb">=</spanx> (ASCII code 61)、<spanx style="verb">"</spanx> (ASCII code 34)、パラメータ値 (空白も可 (MAY))、そして <spanx style="verb">"</spanx> (ASCII code 34) が続く。
+              	<!--
                 Each parameter's name is immediately followed by an <spanx style="verb">=</spanx>
                 character (ASCII code 61), a <spanx style="verb">"</spanx> character (ASCII code 34),
                 the parameter value (MAY be empty), and another <spanx style="verb">"</spanx> character
                 (ASCII code 34).
+                -->
               </t>
               <t>
+              	パラメータは <spanx style="verb">,</spanx> (ASCII code 44) で区切られる。この際オプションとして <xref target="RFC2617" /> にある "linear whitespace" を用いることもできる (OPTIONAL)。
+              	<!--
                 Parameters are separated by a <spanx style="verb">,</spanx> character (ASCII code 44)
                 and OPTIONAL linear whitespace per <xref target="RFC2617" />.
+                -->
               </t>
               <t>
+              	オプションで <spanx style="verb">realm</spanx> パラメータを追加することができる (OPTIONAL)。(<xref target="RFC2617" /> セクション1.2参照)
+              	<!--
                 The OPTIONAL <spanx style="verb">realm</spanx> parameter MAY be added and
                 interpreted per <xref target="RFC2617" /> section 1.2.
+                -->
               </t>
             </list>
           </t>
           <t>
+          	サーバーは、クライアントからの保護されたリソースへのリクエストに対して HTTP <spanx style="verb">WWW-Authenticate</spanx> レスポンスヘッダーフィールドを返すことで、 <spanx style="verb">OAuth</spanx> auth-scheme をサポートしていることを示すことができる (MAY)。<xref target="RFC2617" /> にあるように、そのようなレスポンスは HTTP <spanx style="verb">WWW-Authenticate</spanx> ヘッダーフィールドを含むことができる (MAY)。
+          	<!--
             Servers MAY indicate their support for the <spanx style="verb">OAuth</spanx>
             auth-scheme by returning the HTTP <spanx style="verb">WWW-Authenticate</spanx>
             response header field upon client requests for protected resources. As per
             <xref target="RFC2617" /> such a response MAY include additional HTTP
             <spanx style="verb">WWW-Authenticate</spanx> header fields:
+            -->
           </t>
           <figure>
             <preamble>
+            	例:
+            	<!--
               For example:
+              -->
             </preamble>
             <artwork xml:space="preserve"><![CDATA[
   WWW-Authenticate: OAuth realm="http://server.example.com/"
@@ -2147,34 +2191,53 @@
             </artwork>
           </figure>
           <t>
+          	この realm パラメータは保護領域を示す。(<xref target="RFC2617" /> セクション1.2参照)
+          	<!--
             The realm parameter defines a protection realm per <xref target="RFC2617" />
             section 1.2.
+            -->
           </t>
         </section>
 
-        <section title="Form-Encoded Body" anchor="auth_body">
+				<section title="フォームエンコードボディー" anchor="auth_body">
+        <!-- section title="Form-Encoded Body" anchor="auth_body" -->
           <t>
+          	プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の必須条件を満たす必要がある (REQUIRED)。
+          	<!--
             Protocol parameters can be transmitted in the HTTP request entity-body, but only if the
             following REQUIRED conditions are met:
+            -->
 
             <list style="symbols">
               <t>
+              	エンティティボディーが single-part である。
+              	<!--
                 The entity-body is single-part.
+                -->
               </t>
               <t>
+              	エンティティボディーが <xref target="W3C.REC-html40-19980424" /> で定義される <spanx style="verb">application/x-www-form-urlencoded</spanx> コンテントタイプのエンコーディング条件を満たす。
+              	<!--
                 The entity-body follows the encoding requirements of the
                 <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type as
                 defined by <xref target="W3C.REC-html40-19980424" />.
+                -->
               </t>
               <t>
+              	HTTP リクエストエンティティヘッダーが <spanx style="verb">Content-Type</spanx> ヘッダーフィールドを含み、その値が <spanx style="verb">application/x-www-form-urlencoded</spanx> である。
+              	<!--
                 The HTTP request entity-header includes the <spanx style="verb">Content-Type</spanx>
                 header field set to <spanx style="verb">application/x-www-form-urlencoded</spanx>.
+                -->
               </t>
             </list>
 
             <figure>
               <preamble>
+              	例 (改行は掲載上の都合による)
+              	<!--
                 For example (line breaks are for display purposes only):
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   oauth_consumer_key=0685bd9184jfhq22&oauth_token=ad180jjd733klr
@@ -2185,20 +2248,30 @@
               </artwork>
             </figure>
             
+            エンティティボディーは他のリクエスト固有のパラメータを含む可能性がある (MAY)。その場合、プロトコルパラメータは適切に <spanx style="verb">&amp;</spanx> (ASCII code 38) で分割され、リクエスト固有パラメータの後に付加されるべきである (SHOULD)。
+            <!--
             The entity-body MAY include other request-specific parameters, in which case, the
             protocol parameters SHOULD be appended following the request-specific parameters,
             properly separated by an <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+            -->
           </t>
         </section>
 
-        <section title="Request URI Query" anchor="auth_query">
+        <section title="リクエスト URI クエリー" anchor="auth_query">
+        <!-- section title="Request URI Query" anchor="auth_query" -->
           <t>
+          	プロトコルパラメータは、HTTP リクエスト URI に <xref target="RFC3986" /> セクション3で定義されるクエリーパラメータとして付与し、送信することができる。
+          	<!--
             Protocol parameters can be transmitted by being added to the HTTP request URI as a
             query parameter as defined by <xref target="RFC3986" /> section 3.
+            -->
 
             <figure>
               <preamble>
+              	例 (改行は掲載上の都合による)
+              	<!--
                 For example (line breaks are for display purposes only):
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET /example/path?oauth_consumer_key=0685bd9184jfhq22&
@@ -2210,58 +2283,86 @@
               </artwork>
             </figure>
 
+            リクエスト URI は他のリクエスト固有のクエリーパラメータを含む可能性がある (MAY)。その場合、プロトコルパラメータは適切に <spanx style="verb">&amp;</spanx> (ASCII code 38) で分割され、リクエスト固有パラメータの後に付加されるべきである (SHOULD)。
+            <!--
             The request URI MAY include other request-specific query parameters, in which case,
             the protocol parameters SHOULD be appended following the request-specific parameters,
             properly separated by an <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+            -->
           </t>
         </section>
 
       </section>
       
-      <section title="Percent Encoding" anchor="encoding">
+      <section title="パーセントエンコーディング" anchor="encoding">
+      <!-- section title="Percent Encoding" anchor="encoding" -->
         <t>
+        	既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。いかに示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">authorization ヘッダーフィールド</xref>のエンコーディングにのみ用いられるものである。
+        	<!--
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
           the existing encoding methods defined by <xref target="RFC3986" /> and
           <xref target="W3C.REC-html40-19980424" />. It is used only in the construction of the
           signature base string and the <xref target="auth_header">authorization header field</xref>.
+          -->
         </t>
         <t>
+        	この仕様書では以下のようにパーセントエンコーディング手法を定義する。
+        	<!--
           This specification defines the following method for percent-encoding strings:
+          -->
 
           <list style="numbers">
             <t>
+            	テキスト値がまだ <xref target="RFC3629" /> で定義される UTF-8 オクテットにエンコードされていない場合は、そのようにエンコードする。人間に利用されないバイナリ値は、この行程をスキップする。
+            	<!--
               Text values are first encoded as UTF-8 octets per <xref target="RFC3629" /> if they are
               not already. This does not include binary values which are not intended for human
               consumption.
+              -->
             </t>
             <t>
+            	値を以下の <xref target="RFC3986" /> で定義されたパーセントエンコーディング手法に従ってエスケープする。
+            	<!--
               The values are then escaped using the <xref target="RFC3986" /> percent-encoding
               (%XX) mechanism as follows:
+              -->
 
               <list style="symbols">
                 <t>
+                	<xref target="RFC3986" /> のセクション2.3で定義された予約済みでない文字　(アルファベット, 数字, "-", ".", "_", "~")　はエンコードしてはならない (MUST NOT)。
+                	<!--
                   Characters in the unreserved character set as defined by <xref target="RFC3986" />
                   section 2.3 (ALPHA, DIGIT, "-", ".", "_", "~") MUST NOT be encoded.
+                  -->
                 </t>
                 <t>
+                	その他の文字は全てエンコードしなければならない (MUST)。
+                	<!--
                   All other characters MUST be encoded.
+                  -->
                 </t>
                 <t>
+                	エンコード文字を示す2文字の16進数値は大文字でなければならない (MUST)。
+                	<!--
                   The two hexadecimal characters used to represent encoded characters MUST be
                   upper case.
+                  -->
                 </t>
               </list>
             </t>
           </list>
         </t>
         <t>
+        	この手法は <spanx style="verb">application/x-www-form-urlencoded</spanx> で用いられるエンコード方式とは異なる。(例えばこの手法ではスペースは <spanx style="verb">+</spanx> ではなく <spanx style="verb">%20</spanx> とエンコードされる) この手法は Web デベロップメントフレームワークが提供するパーセントエンコーディングとも異なる可能性がある (MAY)。(異なる文字をエンコードしたり、小文字の16進数文字を使うことなどが想定される)
+        	<!--
           This method is different from the encoding scheme used by the
           <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type (for example,
           it encodes space characters as <spanx style="verb">%20</spanx> and not using the 
           <spanx style="verb">+</spanx> character). It MAY be different from the
           percent-encoding functions provided by web development frameworks (e.g. encode different
           characters, use lower case hexadecimal characters).
+          -->
         </t>
       </section>
 
