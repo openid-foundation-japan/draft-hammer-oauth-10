@@ -1330,7 +1330,7 @@ Parameter Sources</h3>
                   
 </li>
 <li>
-                    あれば OAuth HTTP Authorization ヘッダフィールド ( <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> )。ヘッダーのコンテンツは <tt>realm</tt> パラメータを除き、すべて名前と値のペアに分解される。パラメータ値は <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> で定義された方法でデコードされる。
+                    OAuth HTTP Authorization ヘッダフィールド (<a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>) が存在する場合はその値。ヘッダーのコンテンツは <tt>realm</tt> パラメータを除き、すべて名前と値のペアに分解される。パラメータ値は <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> で定義された方法でデコードされる。
                   
 </li>
 <li>
@@ -1340,20 +1340,20 @@ Parameter Sources</h3>
                     
 <ul class="text">
 <li>
-                        エンティティボディがシングルパートである
+                        エンティティボディがシングルパートである。
                       
 </li>
 <li>
-                        エンティティボディが <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義されたコンテンツタイプ <tt>application/x-www-form-urlencoded</tt> のエンコード要件を満たしている
+                        エンティティボディが <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義されたコンテンツタイプ <tt>application/x-www-form-urlencoded</tt> のエンコード要件を満たしている。
                       
 </li>
 <li>
-                        HTTP リクエスト エンティティヘッダが <tt>application/x-www-form-urlencoded</tt> 形式の <tt>Content-Type</tt> ヘッダーフィールドセットを含む
+                        HTTP リクエストエンティティヘッダが <tt>application/x-www-form-urlencoded</tt> 形式の <tt>Content-Type</tt> ヘッダーフィールドセットを含む。
                       
 </li>
 </ul>
 
-                    エンティティボディが <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> 17.13.4節の方法でデコードされた名前と値のペアのリストに分解される。
+                    エンティティボディは <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> 17.13.4節の方法でデコードされた名前と値のペアのリストに分解される。
                     
                   
 </li>
@@ -1361,7 +1361,7 @@ Parameter Sources</h3>
               
 </p>
 <p>
-                <tt>oauth_signature</tt> パラメータは、存在した場合、シグニチャベースストリングから除外されなければならない。明示的にリクエストに含まれたパラメータ以外は、シグニチャベースストリングから除外されなければならない (<tt>oauth_version</tt> パラメータが省略された場合等)。
+                <tt>oauth_signature</tt> パラメータが存在した場合は、それをシグニチャベースストリングから除外しなければならない。明示的にリクエストに含まれたパラメータ以外は、シグニチャベースストリングから除外されなければならない (<tt>oauth_version</tt> パラメータが省略された場合等)。
               
 </p>
 <p>
@@ -1383,7 +1383,7 @@ Parameter Sources</h3>
 
 </pre></div>
 <p>
-                  下記の (デコード済み) パラメータがシグニチャベースストリングに含まれる
+                  下記の (デコード済み) パラメータがシグニチャベースストリングに含まれる。
                 
 </p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
 <col align="center"><col align="center">
@@ -1445,17 +1445,17 @@ Parameter Sources</h3>
 パラメータのノーマライゼーション</h3>
 
 <p>
-                <a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>リクエストパラメータ</span><span>)</span></a> で集められたパラメータは、以下のようにひとつの文字列にノーマライズされる
+                <a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>リクエストパラメータ</span><span>)</span></a> で集められたパラメータは、以下のようにひとつの文字列にノーマライズされる。
                 
 
                 </p>
 <ol class="text">
 <li>
-                    まず、各パラメータの名前と値は <a class='info' href='#encoding'>エンコードされる<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>。
+                    まず、各パラメータの名前と値を<a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>する。
     							
 </li>
 <li>
-                    パラメータはバイト値昇順を使い、名前でソートされる。2つかそれ以上のパラメータが同じ名前の場合、値でソートされる。
+                    パラメータはバイト値昇順を使い、名前でソートされる。2つ以上のパラメータが同じ名前を持つ場合、値でソートされる。
                   
 </li>
 <li>
@@ -1622,7 +1622,7 @@ Parameter Sources</h3>
 <br clear="all" />
 
 <p>
-                  ひとつの文字列に連結される (改行は掲載上の都合による)
+                  その後、これらのパラメータを連結し、単一文字列とする。(改行は掲載上の都合による)
                 
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   a2=r%20b&amp;a3=2%20q&amp;a3=a&amp;b5=%3D%253D&amp;c%40=&amp;c2=&amp;oauth_consumer_key=9dj
