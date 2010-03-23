@@ -1623,7 +1623,7 @@
                     <xref target="W3C.REC-html40-19980424" /> section 17.13.4.
                   </t-->
                   <t>
-                    あれば OAuth HTTP Authorization ヘッダフィールド ( <xref target="auth_header" /> )。ヘッダーのコンテンツは <spanx style="verb">realm</spanx> パラメータを除き、すべて名前と値のペアに分解される。パラメータ値は <xref target="auth_header" /> で定義された方法でデコードされる。
+                    OAuth HTTP Authorization ヘッダフィールド (<xref target="auth_header" />) が存在する場合はその値。ヘッダーのコンテンツは <spanx style="verb">realm</spanx> パラメータを除き、すべて名前と値のペアに分解される。パラメータ値は <xref target="auth_header" /> で定義された方法でデコードされる。
                   </t>
                   <!--t>
                     The OAuth HTTP Authorization header field (<xref target="auth_header" />) if
@@ -1639,13 +1639,13 @@
 
                     <list style="symbols">
                       <t>
-                        エンティティボディがシングルパートである
+                        エンティティボディがシングルパートである。
                       </t>
                       <!--t>
                         The entity-body is single-part.
                       </t-->
                       <t>
-                        エンティティボディが <xref target="W3C.REC-html40-19980424" /> で定義されたコンテンツタイプ <spanx style="verb">application/x-www-form-urlencoded</spanx> のエンコード要件を満たしている
+                        エンティティボディが <xref target="W3C.REC-html40-19980424" /> で定義されたコンテンツタイプ <spanx style="verb">application/x-www-form-urlencoded</spanx> のエンコード要件を満たしている。
                       </t>
                       <!--t>
                         The entity-body follows the encoding requirements of the
@@ -1653,7 +1653,7 @@
                         defined by <xref target="W3C.REC-html40-19980424" />.
                       </t-->
                       <t>
-                        HTTP リクエスト エンティティヘッダが <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式の <spanx style="verb">Content-Type</spanx> ヘッダーフィールドセットを含む
+                        HTTP リクエストエンティティヘッダが <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式の <spanx style="verb">Content-Type</spanx> ヘッダーフィールドセットを含む
                       </t>
                       <!--t>
                         The HTTP request entity-header includes the <spanx style="verb">Content-Type</spanx>
@@ -1661,7 +1661,7 @@
                       </t-->
                     </list>
 
-                    エンティティボディが <xref target="W3C.REC-html40-19980424" /> 17.13.4節の方法でデコードされた名前と値のペアのリストに分解される。
+                    エンティティボディは <xref target="W3C.REC-html40-19980424" /> 17.13.4節の方法でデコードされた名前と値のペアのリストに分解される。
                     <!--
                     The entity-body is parsed into a list of decoded name/value pairs as described in
                     <xref target="W3C.REC-html40-19980424" /> section 17.13.4.
@@ -1670,7 +1670,7 @@
                 </list>
               </t>
               <t>
-                <spanx style="verb">oauth_signature</spanx> パラメータは、存在した場合、シグニチャベースストリングから除外されなければならない。明示的にリクエストに含まれたパラメータ以外は、シグニチャベースストリングから除外されなければならない (<spanx style="verb">oauth_version</spanx> パラメータが省略された場合等)。
+                <spanx style="verb">oauth_signature</spanx> パラメータが存在した場合は、それをシグニチャベースストリングから除外しなければならない。明示的にリクエストに含まれたパラメータ以外は、シグニチャベースストリングから除外されなければならない (<spanx style="verb">oauth_version</spanx> パラメータが省略された場合等)。
               </t>
               <!--t>
                 The <spanx style="verb">oauth_signature</spanx> parameter MUST be excluded from the
@@ -1701,7 +1701,7 @@
   ]]>
                 </artwork>
                 <postamble>
-                  下記の (デコード済み) パラメータがシグニチャベースストリングに含まれる
+                  下記の (デコード済み) パラメータがシグニチャベースストリングに含まれる。
                 </postamble>
                 <!--postamble>
                   Contains the following (fully decoded) parameters used in the signature base
@@ -1745,7 +1745,7 @@
             <section title="パラメータのノーマライゼーション" anchor="sig_norm_param">
             <!--section title="Parameters Normalization" anchor="sig_norm_param"-->
               <t>
-                <xref target="collect_param" /> で集められたパラメータは、以下のようにひとつの文字列にノーマライズされる
+                <xref target="collect_param" /> で集められたパラメータは、以下のようにひとつの文字列にノーマライズされる。
                 <!--
                 The parameters collected in <xref target="collect_param" /> are normalized into a
                 single string as follows:
@@ -1753,13 +1753,13 @@
 
                 <list style="numbers">
                   <t>
-                    まず、各パラメータの名前と値は <xref target="encoding">エンコードされる</xref>。
+                    まず、各パラメータの名前と値を<xref target="encoding">エンコード</xref>する。
     							</t>
                   <!--t>
                     First, the name and value of each parameter are <xref target="encoding">encoded</xref>.
     							</t-->
                   <t>
-                    パラメータはバイト値昇順を使い、名前でソートされる。2つかそれ以上のパラメータが同じ名前の場合、値でソートされる。
+                    パラメータはバイト値昇順を使い、名前でソートされる。2つ以上のパラメータが同じ名前を持つ場合、値でソートされる。
                   </t>
                   <!--t>
                     The parameters are sorted by name, using ascending byte value ordering. If
@@ -1858,7 +1858,7 @@
               </texttable>
               <figure>
                 <preamble>
-                  ひとつの文字列に連結される (改行は掲載上の都合による)
+                  その後、これらのパラメータを連結し、単一文字列とする。(改行は掲載上の都合による)
                 </preamble>
                 <!--preamble>
                   And concatenated together into a single string (line breaks are for display
