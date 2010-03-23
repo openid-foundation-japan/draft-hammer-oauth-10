@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 22, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 23, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 23, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 24, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 23, 2010.</p>
+This Internet-Draft will expire on September 24, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -1164,7 +1164,7 @@ Author's Address<br />
               
 </li>
 <li>
-              	リクエストのエンティティボディー中に含まれる、<a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>Request Parameters</span><span>)</span></a> で定義されている厳格な制約を満たすパラメータ。
+              	リクエストのエンティティボディー中に含まれる、<a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>リクエストパラメータ</span><span>)</span></a> で定義されている厳格な制約を満たすパラメータ。
               	
               
 </li>
@@ -1208,7 +1208,7 @@ Author's Address<br />
                 
 </li>
 <li>
-                	<a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>Parameters Normalization</span><span>)</span></a> に示される正規化されたリクエストパラメータを <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a> した文字列。
+                	<a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>パラメータのノーマライゼーション</span><span>)</span></a> に示される正規化されたリクエストパラメータを <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a> した文字列。
                 	
                 
 </li>
@@ -1308,13 +1308,10 @@ Author's Address<br />
 <a name="collect_param"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4.1.3"></a><h3>3.4.1.3.&nbsp;
-Request Parameters</h3>
+リクエストパラメータ</h3>
 
 <p>
-              In order to guarantee a consistent and reproducible representation of the request
-              parameters, the parameters are collected and decoded to their original decoded form.
-              They are then sorted and encoded in a particular manner which is often different from
-              their original encoding scheme, and concatenated into a single string.
+              リクエストパラメータの一貫性と再現性を保証するため、パラメータは集められ、元の形式にデコードされる。その後ソートを行い、元のエンコード方式とは異なる可能性の高い方法でエンコードされ、ひとつの文字列に連結される。
             
 </p>
 <a name="anchor7"></a><br /><hr />
@@ -1323,64 +1320,52 @@ Request Parameters</h3>
 Parameter Sources</h3>
 
 <p>
-                The parameters from the following sources are collected into a single list of
-                name/value pairs:
+                下記に含まれるパラメータ群は、名前と値のペアのリストにまとめられる。
+              
 
                 </p>
 <ul class="text">
 <li>
-                    The query component of the HTTP request URI as defined by <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a>
-                    section 3.4. The query component is parsed into a list of name/value pairs by
-                    treating it as an <tt>application/x-www-form-urlencoded</tt>
-                    string, separating the names and values and decoding them as defined by
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 3.4節で定義されている HTTP リクエスト URI のクエリー部分。クエリー部分は <tt>application/x-www-form-urlencoded</tt> 文字列として名前と値が分割され、 <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> 17.13.4節で定義された方法でデコードし、名前と値のペアのリストに分解される。
                   
 </li>
 <li>
-                    The OAuth HTTP Authorization header field (<a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>) if
-                    present. The header's content is parsed into a list of name/value pairs
-                    excluding the <tt>realm</tt> parameter if present. The
-                    parameter values are decoded as defined by <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>.
+                    あれば OAuth HTTP Authorization ヘッダフィールド ( <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> )。ヘッダーのコンテンツは <tt>realm</tt> パラメータを除き、すべて名前と値のペアに分解される。パラメータ値は <a class='info' href='#auth_header'>Section&nbsp;3.5.1<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a> で定義された方法でデコードされる。
                   
 </li>
 <li>
-                    The HTTP request entity-body, but only if all of the following conditions are met:
+                    以下の条件に見合う場合のみ、HTTP リクエストエンティティボディ。
+                  
 
                     
 <ul class="text">
 <li>
-                        The entity-body is single-part.
+                        エンティティボディがシングルパートである
                       
 </li>
 <li>
-                        The entity-body follows the encoding requirements of the
-                        <tt>application/x-www-form-urlencoded</tt> content-type as
-                        defined by <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a>.
+                        エンティティボディが <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義されたコンテンツタイプ <tt>application/x-www-form-urlencoded</tt> のエンコード要件を満たしている
                       
 </li>
 <li>
-                        The HTTP request entity-header includes the <tt>Content-Type</tt>
-                        header field set to <tt>application/x-www-form-urlencoded</tt>.
+                        HTTP リクエスト エンティティヘッダが <tt>application/x-www-form-urlencoded</tt> 形式の <tt>Content-Type</tt> ヘッダーフィールドセットを含む
                       
 </li>
 </ul>
 
-                    The entity-body is parsed into a list of decoded name/value pairs as described in
-                    <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> section 17.13.4.
+                    エンティティボディが <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> 17.13.4節の方法でデコードされた名前と値のペアのリストに分解される。
+                    
                   
 </li>
 </ul><p>
               
 </p>
 <p>
-                The <tt>oauth_signature</tt> parameter MUST be excluded from the
-                signature base string if present. Parameters not explicitly included in the request
-                MUST be excluded from the signature base string (e.g. the
-                <tt>oauth_version</tt> parameter when omitted).
+                <tt>oauth_signature</tt> パラメータは、存在した場合、シグニチャベースストリングから除外されなければならない。明示的にリクエストに含まれたパラメータ以外は、シグニチャベースストリングから除外されなければならない (<tt>oauth_version</tt> パラメータが省略された場合等)。
               
 </p>
 <p>
-                  For example, the HTTP request:
+                  例えば下記のような HTTP リクエストの場合
                 
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
     GET /request?b5=%3D%253D&amp;a3=a&amp;c%40=&amp;a2=r%20b HTTP/1.1
@@ -1398,12 +1383,11 @@ Parameter Sources</h3>
 
 </pre></div>
 <p>
-                  Contains the following (fully decoded) parameters used in the signature base
-                  sting:
+                  下記の (デコード済み) パラメータがシグニチャベースストリングに含まれる
                 
 </p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
 <col align="center"><col align="center">
-<tr><th align="center">Name</th><th align="center">Value</th></tr>
+<tr><th align="center">名前</th><th align="center">値</th></tr>
 <tr>
 <td align="center">b5</td>
 <td align="center">=%3D</td>
@@ -1452,63 +1436,49 @@ Parameter Sources</h3>
 <br clear="all" />
 
 <p>
-                Note that the value of <tt>b5</tt> is <tt>=%3D</tt>
-                and not <tt>==</tt>. Both <tt>c@</tt> and
-                <tt>c2</tt> have empty values. While the encoding rules
-                specified in this specification for the purpose of constructing the signature base
-                string exclude the use of a <tt>+</tt> character (ASCII code 43)
-                to represent an encoded space character (ASCII code 32), this practice is widely
-                used in <tt>application/x-www-form-urlencoded</tt> encoded
-                values, and MUST be properly decoded, as demonstrated by one of the
-                <tt>a3</tt> parameter instances (the <tt>a3</tt>
-                parameter is used twice in this request).
+                <tt>b5</tt> の値は <tt>=%3D</tt> であり、 <tt>==</tt> ではないことに注意。<tt>c@</tt> と <tt>c2</tt> の値は空である。本仕様で定義しているシグニチャベースストリングの構築を目的としたエンコードルールでは、エンコードされたスペース (ASCII コード 32) を表す <tt>+</tt> 文字 (ASCII コード 43) を除外しているが、これは <tt>application/x-www-form-urlencoded</tt> でエンコードされた値では広く利用されており、<tt>a3</tt> パラメータインスタンスのひとつで示されるように (このリクエストでは <tt>a3</tt> は2回登場する)、正しくデコードされなければならない。
               
 </p>
 <a name="sig_norm_param"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4.1.3.2"></a><h3>3.4.1.3.2.&nbsp;
-Parameters Normalization</h3>
+パラメータのノーマライゼーション</h3>
 
 <p>
-                The parameters collected in <a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>Request Parameters</span><span>)</span></a> are normalized into a
-                single string as follows:
+                <a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>リクエストパラメータ</span><span>)</span></a> で集められたパラメータは、以下のようにひとつの文字列にノーマライズされる
+                
 
                 </p>
 <ol class="text">
 <li>
-                    First, the name and value of each parameter are <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>.
+                    まず、各パラメータの名前と値は <a class='info' href='#encoding'>エンコードされる<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>。
     							
 </li>
 <li>
-                    The parameters are sorted by name, using ascending byte value ordering. If
-                    two or more parameters share the same name, they are sorted by their value.
+                    パラメータはバイト値昇順を使い、名前でソートされる。2つかそれ以上のパラメータが同じ名前の場合、値でソートされる。
                   
 </li>
 <li>
-                    The name of each parameter is concatenated to its corresponding value using an
-                    <tt>=</tt> character (ASCII code 61) as separator, even if the
-                    value is empty.
+                    各パラメータの名前は <tt>=</tt> 文字 (ASCII コード 61) をセパレータとして、対応する値と (値が空であっても) 連結される。
                   
 </li>
 <li>
-                    The sorted name/value pairs are concatenated together into a single string by
-                    using an <tt>&amp;</tt> character (ASCII code 38) as separator.
+                    ソート済みの名前と値のペアは、<tt>&amp;</tt> 文字 (ASCII コード 38) をセパレータとして、ひとつの文字列に連結される。
                   
 </li>
 </ol><p>
               
 </p>
 <p>
-                For example, the list of parameters from the previous section would be normalized as
-                follows:
+                例えば前節から引き継いだパラメータは、以下のようにノーマライズされる。
               
 </p>
 <p style='text-align: center'>
-                  Encoded:
+                  エンコード済み
                 
 </p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
 <col align="center"><col align="center">
-<tr><th align="center">Name</th><th align="center">Value</th></tr>
+<tr><th align="center">名前</th><th align="center">値</th></tr>
 <tr>
 <td align="center">b5</td>
 <td align="center">%3D%253D</td>
@@ -1557,11 +1527,11 @@ Parameters Normalization</h3>
 <br clear="all" />
 
 <p style='text-align: center'>
-                  Sorted:
+                  ソート済み
                 
 </p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
 <col align="center"><col align="center">
-<tr><th align="center">Name</th><th align="center">Value</th></tr>
+<tr><th align="center">名前</th><th align="center">値</th></tr>
 <tr>
 <td align="center">a2</td>
 <td align="center">r%20b</td>
@@ -1610,11 +1580,11 @@ Parameters Normalization</h3>
 <br clear="all" />
 
 <p style='text-align: center'>
-                  Concatenated Pairs:
+                  連結されたペア
                 
 </p><table class="full" align="center" border="0" cellpadding="2" cellspacing="2">
 <col align="center">
-<tr><th align="center">Name=Value</th></tr>
+<tr><th align="center">名前=値</th></tr>
 <tr>
 <td align="center">a2=r%20b</td>
 </tr>
@@ -1652,8 +1622,7 @@ Parameters Normalization</h3>
 <br clear="all" />
 
 <p>
-                  And concatenated together into a single string (line breaks are for display
-                  purposes only):
+                  ひとつの文字列に連結される (改行は掲載上の都合による)
                 
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
   a2=r%20b&amp;a3=2%20q&amp;a3=a&amp;b5=%3D%253D&amp;c%40=&amp;c2=&amp;oauth_consumer_key=9dj

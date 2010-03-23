@@ -1591,66 +1591,100 @@
             </figure>
           </section>
             
-          <section title="Request Parameters" anchor="collect_param">
+          <section title="リクエストパラメータ" anchor="collect_param">
+          <!--section title="Request Parameters" anchor="collect_param"-->
             <t>
+              リクエストパラメータの一貫性と再現性を保証するため、パラメータは集められ、元の形式にデコードされる。その後ソートを行い、元のエンコード方式とは異なる可能性の高い方法でエンコードされ、ひとつの文字列に連結される。
+            </t>
+            <!--t>
               In order to guarantee a consistent and reproducible representation of the request
               parameters, the parameters are collected and decoded to their original decoded form.
               They are then sorted and encoded in a particular manner which is often different from
               their original encoding scheme, and concatenated into a single string.
-            </t>
+            </t-->
 
             <section title="Parameter Sources">
               <t>
+                下記に含まれるパラメータ群は、名前と値のペアのリストにまとめられる。
+              <!--t>
                 The parameters from the following sources are collected into a single list of
                 name/value pairs:
+                -->
 
                 <list style="symbols">
                   <t>
+                    <xref target="RFC3986" /> 3.4節で定義されている HTTP リクエスト URI のクエリー部分。クエリー部分は <spanx style="verb">application/x-www-form-urlencoded</spanx> 文字列として名前と値が分割され、 <xref target="W3C.REC-html40-19980424" /> 17.13.4節で定義された方法でデコードし、名前と値のペアのリストに分解される。
+                  </t>
+                  <!--t>
                     The query component of the HTTP request URI as defined by <xref target="RFC3986" />
                     section 3.4. The query component is parsed into a list of name/value pairs by
                     treating it as an <spanx style="verb">application/x-www-form-urlencoded</spanx>
                     string, separating the names and values and decoding them as defined by
                     <xref target="W3C.REC-html40-19980424" /> section 17.13.4.
-                  </t>
+                  </t-->
                   <t>
+                    あれば OAuth HTTP Authorization ヘッダフィールド ( <xref target="auth_header" /> )。ヘッダーのコンテンツは <spanx style="verb">realm</spanx> パラメータを除き、すべて名前と値のペアに分解される。パラメータ値は <xref target="auth_header" /> で定義された方法でデコードされる。
+                  </t>
+                  <!--t>
                     The OAuth HTTP Authorization header field (<xref target="auth_header" />) if
                     present. The header's content is parsed into a list of name/value pairs
                     excluding the <spanx style="verb">realm</spanx> parameter if present. The
                     parameter values are decoded as defined by <xref target="auth_header" />.
-                  </t>
+                  </t-->
                   <t>
+                    以下の条件に見合う場合のみ、HTTP リクエストエンティティボディ。
+                  <!--t>
                     The HTTP request entity-body, but only if all of the following conditions are met:
+                    -->
 
                     <list style="symbols">
                       <t>
-                        The entity-body is single-part.
+                        エンティティボディがシングルパートである
                       </t>
+                      <!--t>
+                        The entity-body is single-part.
+                      </t-->
                       <t>
+                        エンティティボディが <xref target="W3C.REC-html40-19980424" /> で定義されたコンテンツタイプ <spanx style="verb">application/x-www-form-urlencoded</spanx> のエンコード要件を満たしている
+                      </t>
+                      <!--t>
                         The entity-body follows the encoding requirements of the
                         <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type as
                         defined by <xref target="W3C.REC-html40-19980424" />.
-                      </t>
+                      </t-->
                       <t>
+                        HTTP リクエスト エンティティヘッダが <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式の <spanx style="verb">Content-Type</spanx> ヘッダーフィールドセットを含む
+                      </t>
+                      <!--t>
                         The HTTP request entity-header includes the <spanx style="verb">Content-Type</spanx>
                         header field set to <spanx style="verb">application/x-www-form-urlencoded</spanx>.
-                      </t>
+                      </t-->
                     </list>
 
+                    エンティティボディが <xref target="W3C.REC-html40-19980424" /> 17.13.4節の方法でデコードされた名前と値のペアのリストに分解される。
+                    <!--
                     The entity-body is parsed into a list of decoded name/value pairs as described in
                     <xref target="W3C.REC-html40-19980424" /> section 17.13.4.
+                    -->
                   </t>
                 </list>
               </t>
               <t>
+                <spanx style="verb">oauth_signature</spanx> パラメータは、存在した場合、シグニチャベースストリングから除外されなければならない。明示的にリクエストに含まれたパラメータ以外は、シグニチャベースストリングから除外されなければならない (<spanx style="verb">oauth_version</spanx> パラメータが省略された場合等)。
+              </t>
+              <!--t>
                 The <spanx style="verb">oauth_signature</spanx> parameter MUST be excluded from the
                 signature base string if present. Parameters not explicitly included in the request
                 MUST be excluded from the signature base string (e.g. the
                 <spanx style="verb">oauth_version</spanx> parameter when omitted).
-              </t>
+              </t-->
               <figure>
                 <preamble>
-                  For example, the HTTP request:
+                  例えば下記のような HTTP リクエストの場合
                 </preamble>
+                <!--preamble>
+                  For example, the HTTP request:
+                </preamble-->
                 <artwork xml:space="preserve"><![CDATA[
     GET /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
     Host: example.com
@@ -1667,13 +1701,18 @@
   ]]>
                 </artwork>
                 <postamble>
+                  下記の (デコード済み) パラメータがシグニチャベースストリングに含まれる
+                </postamble>
+                <!--postamble>
                   Contains the following (fully decoded) parameters used in the signature base
                   sting:
-                </postamble>
+                </postamble-->
               </figure>
               <texttable>
-                <ttcol align='center'>Name</ttcol>
-                <ttcol align='center'>Value</ttcol>
+                <ttcol align='center'>名前</ttcol>
+                <!--ttcol align='center'>Name</ttcol-->
+                <ttcol align='center'>値</ttcol>
+                <!--ttcol align='center'>Value</ttcol-->
                 <c>b5</c><c>=%3D</c>
                 <c>a3</c><c>a</c>
                 <c>c@</c><c></c>
@@ -1687,6 +1726,9 @@
                 <c>a3</c><c>2 q</c>
               </texttable>
               <t>
+                <spanx style="verb">b5</spanx> の値は <spanx style="verb">=%3D</spanx> であり、 <spanx style="verb">==</spanx> ではないことに注意。<spanx style="verb">c@</spanx> と <spanx style="verb">c2</spanx> の値は空である。本仕様で定義しているシグニチャベースストリングの構築を目的としたエンコードルールでは、エンコードされたスペース (ASCII コード 32) を表す <spanx style="verb">+</spanx> 文字 (ASCII コード 43) を除外しているが、これは <spanx style="verb">application/x-www-form-urlencoded</spanx> でエンコードされた値では広く利用されており、<spanx style="verb">a3</spanx> パラメータインスタンスのひとつで示されるように (このリクエストでは <spanx style="verb">a3</spanx> は2回登場する)、正しくデコードされなければならない。
+              </t>
+              <!--t>
                 Note that the value of <spanx style="verb">b5</spanx> is <spanx style="verb">=%3D</spanx>
                 and not <spanx style="verb">==</spanx>. Both <spanx style="verb">c@</spanx> and
                 <spanx style="verb">c2</spanx> have empty values. While the encoding rules
@@ -1697,43 +1739,67 @@
                 values, and MUST be properly decoded, as demonstrated by one of the
                 <spanx style="verb">a3</spanx> parameter instances (the <spanx style="verb">a3</spanx>
                 parameter is used twice in this request).
-              </t>
+              </t-->
             </section>
 
-            <section title="Parameters Normalization" anchor="sig_norm_param">
+            <section title="パラメータのノーマライゼーション" anchor="sig_norm_param">
+            <!--section title="Parameters Normalization" anchor="sig_norm_param"-->
               <t>
+                <xref target="collect_param" /> で集められたパラメータは、以下のようにひとつの文字列にノーマライズされる
+                <!--
                 The parameters collected in <xref target="collect_param" /> are normalized into a
                 single string as follows:
+                -->
 
                 <list style="numbers">
                   <t>
-                    First, the name and value of each parameter are <xref target="encoding">encoded</xref>.
+                    まず、各パラメータの名前と値は <xref target="encoding">エンコードされる</xref>。
     							</t>
+                  <!--t>
+                    First, the name and value of each parameter are <xref target="encoding">encoded</xref>.
+    							</t-->
                   <t>
+                    パラメータはバイト値昇順を使い、名前でソートされる。2つかそれ以上のパラメータが同じ名前の場合、値でソートされる。
+                  </t>
+                  <!--t>
                     The parameters are sorted by name, using ascending byte value ordering. If
                     two or more parameters share the same name, they are sorted by their value.
-                  </t>
+                  </t-->
                   <t>
+                    各パラメータの名前は <spanx style="verb">=</spanx> 文字 (ASCII コード 61) をセパレータとして、対応する値と (値が空であっても) 連結される。
+                  </t>
+                  <!--t>
                     The name of each parameter is concatenated to its corresponding value using an
                     <spanx style="verb">=</spanx> character (ASCII code 61) as separator, even if the
                     value is empty.
-                  </t>
+                  </t-->
                   <t>
+                    ソート済みの名前と値のペアは、<spanx style="verb">&amp;</spanx> 文字 (ASCII コード 38) をセパレータとして、ひとつの文字列に連結される。
+                  </t>
+                  <!--t>
                     The sorted name/value pairs are concatenated together into a single string by
                     using an <spanx style="verb">&amp;</spanx> character (ASCII code 38) as separator.
-                  </t>
+                  </t-->
                 </list>
               </t>
               <t>
+                例えば前節から引き継いだパラメータは、以下のようにノーマライズされる。
+              </t>
+              <!--t>
                 For example, the list of parameters from the previous section would be normalized as
                 follows:
-              </t>
+              </t-->
               <texttable>
                 <preamble>
+                  エンコード済み
+                </preamble>
+                <!--preamble>
                   Encoded:
-                </preamble>
-                <ttcol align='center'>Name</ttcol>
-                <ttcol align='center'>Value</ttcol>
+                </preamble-->
+                <ttcol align='center'>名前</ttcol>
+                <!--ttcol align='center'>Name</ttcol-->
+                <ttcol align='center'>値</ttcol>
+                <!--ttcol align='center'>Value</ttcol-->
                 <c>b5</c><c>%3D%253D</c>
                 <c>a3</c><c>a</c>
                 <c>c%40</c><c></c>
@@ -1748,10 +1814,15 @@
               </texttable>
               <texttable>
                 <preamble>
+                  ソート済み
+                </preamble>
+                <!--preamble>
                   Sorted:
-                </preamble>
-                <ttcol align='center'>Name</ttcol>
-                <ttcol align='center'>Value</ttcol>
+                </preamble-->
+                <ttcol align='center'>名前</ttcol>
+                <!--ttcol align='center'>Name</ttcol-->
+                <ttcol align='center'>値</ttcol>
+                <!--ttcol align='center'>Value</ttcol-->
                 <c>a2</c><c>r%20b</c>
                 <c>a3</c><c>2%20q</c>
                 <c>a3</c><c>a</c>
@@ -1766,9 +1837,13 @@
               </texttable>
               <texttable>
                 <preamble>
-                  Concatenated Pairs:
+                  連結されたペア
                 </preamble>
-                <ttcol align='center'>Name=Value</ttcol>
+                <!--preamble>
+                  Concatenated Pairs:
+                </preamble-->
+                <ttcol align='center'>名前=値</ttcol>
+                <!--ttcol align='center'>Name=Value</ttcol-->
                 <c>a2=r%20b</c>
                 <c>a3=2%20q</c>
                 <c>a3=a</c>
@@ -1783,9 +1858,12 @@
               </texttable>
               <figure>
                 <preamble>
+                  ひとつの文字列に連結される (改行は掲載上の都合による)
+                </preamble>
+                <!--preamble>
                   And concatenated together into a single string (line breaks are for display
                   purposes only):
-                </preamble>
+                </preamble-->
                 <artwork xml:space="preserve"><![CDATA[
   a2=r%20b&a3=2%20q&a3=a&b5=%3D%253D&c%40=&c2=&oauth_consumer_key=9dj
   dj82h48djs9d2&oauth_nonce=7d8f3e4a&oauth_signature_method=HMAC-SHA1
