@@ -1653,7 +1653,7 @@
                         defined by <xref target="W3C.REC-html40-19980424" />.
                       </t-->
                       <t>
-                        HTTP リクエストエンティティヘッダが <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式の <spanx style="verb">Content-Type</spanx> ヘッダーフィールドセットを含む
+                        HTTP リクエストエンティティヘッダが <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式の <spanx style="verb">Content-Type</spanx> ヘッダーフィールドセットを含む。
                       </t>
                       <!--t>
                         The HTTP request entity-header includes the <spanx style="verb">Content-Type</spanx>
