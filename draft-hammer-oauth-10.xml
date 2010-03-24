@@ -2446,8 +2446,13 @@
 
     </section>
 
-    <section title="セキュリティに関する考慮事項" anchor="Security">
-    <!-- section title="Security Considerations" anchor="Security" -->
+    <!--
+      NOTICE:
+        For some reason, xml2rfc requires the section exactly titled "Security Considerations".
+        "missing Security Considerations" error will happen when translate it :(
+    -->
+    <!-- section title="セキュリティに関する考慮事項 " anchor="Security" -->
+    <section title="Security Considerations" anchor="Security">
       <t>
         <xref target="RFC2617" /> にあるように、一般的に最大のリスク要因は、プロトコルの本質ではなくそのプロトコルを利用する際のポリシーや手続きにあることが多い。実装者には、このプロトコルがどの程度自らのセキュリティ用件を満たすかを評価することが推奨される。
         <!--
