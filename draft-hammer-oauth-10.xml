@@ -41,31 +41,31 @@
   </front>
   <middle>
 
-    <section title="はじめに">
+		<section title="はじめに">
     <!-- section title="Introduction" -->
       <t>
-        OAuth はさまざまな Web サイトや Internet サービスの Developer からなる小さなコミュニティから生まれた。彼らは保護されたリソースへのアクセスを第三者に委任する際の共通の問題を解決する方法が必要だった。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
-        <!--
+      	OAuth はさまざまな Web サイトや Internet サービスの Developer からなる小さなコミュニティから生まれた。彼らは保護されたリソースへのアクセスを第三者に委任する際の共通の問題を解決する方法が必要だった。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
+	      <!--
         The OAuth protocol was originally created by a small community of web developers from a
         variety of websites and other Internet services, who wanted to solve the common problem of
         enabling delegated access to protected resources.  The resulting OAuth protocol was
         stabilized at version 1.0 in October 2007, revised in June 2009, and published as
         <xref target="OAuth Core 1.0 Revision A" />.
-        -->
+	      -->
       </t>
       <t>
-        この仕様書では改訂版 <xref target="OAuth Core 1.0 Revision A" /> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
-        <!--
+      	この仕様書では改訂版 <xref target="OAuth Core 1.0 Revision A" /> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
+      	<!--
         This specification provides an informational documentation of the OAuth 1.0 protocol as
         revised in <xref target="OAuth Core 1.0 Revision A" />, and includes several errata
         reported since that time, as well as numerous editorial clarifications. The publication
         of this specification represents the transfer of change control from the community to the
         IETF by the authors of the original work.
-         -->
+       	-->
       </t>
       <t>
-        従来のクライアント・サーバー型認証モデルでは、サーバー上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバー上リソースへのアクセス権を要求することになる。
-        <!--
+      	従来のクライアント・サーバー型認証モデルでは、サーバー上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバー上リソースへのアクセス権を要求することになる。
+      	<!--
         In the traditional client-server authentication model, the client uses its credentials to
         access its resources hosted by the server. With the increasing use of distributed web
         services and cloud computing, third-party applications require access to these
@@ -73,18 +73,18 @@
         -->
       </t>
       <t>
-        OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないが、リソースオーナーの代理として振る舞う) は、リソースオーナーが管理しながらもサーバーにホスティングされているリソースへのアクセス権を要求する。サーバーは、リソースオーナーの認可情報と同時に、リクエスト元であるクライアントの身元も検証することができる。
-        <!--
-        OAuth introduces a third role to the traditional client-server authentication model: the
+      	OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないが、リソースオーナーの代理として振る舞う) は、リソースオーナーが管理しながらもサーバーにホスティングされているリソースへのアクセス権を要求する。サーバーは、リソースオーナーの認可情報と同時に、リクエスト元であるクライアントの身元も検証することができる。
+      	<!--
+				OAuth introduces a third role to the traditional client-server authentication model: the
         resource owner. In the OAuth model, the client (which is not the resource owner, but
         is acting on its behalf) requests access to resources controlled by the resource owner, but
         hosted by the server. In addition, OAuth allows the server to verify not only the resource
         owner authorization, but also the identity of the client making the request.
-        -->
-      </t>
+  			-->
+  		</t>
       <t>
-        OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザ名およびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
-        <!--
+      	OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザ名およびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
+      	<!--
         OAuth provides a method for clients to access server resources on behalf of a resource
         owner (such as a different client or an end-user). It also provides a process for end-users
         to authorize third-party access to their server resources without sharing their credentials
@@ -92,8 +92,8 @@
         -->
       </t>
       <t>
-        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
-        <!--
+      	例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+      	<!--
         For example, a web user (resource owner) can grant a printing service (client) access to
         her private photos stored at a photo sharing service (server), without sharing her
         username and password with the printing service. Instead, she authenticates directly with
@@ -101,8 +101,8 @@
         -->
       </t>
       <t>
-        リソースアクセスのために、クライアントはまずはじめにリソースオーナーから許可を受ける必要がある。この許可情報はトークンと共有鍵の形で示される。トークンがあることでリソースオーナーはクライアントに自身の認証情報を共有する必要がなくなる。リソースオーナーの認証情報と異なり、トークンは特定の目的のために、かつ有効期限付きで発行することが可能であり、個別に破棄することができる。
-        <!--
+      	リソースアクセスのために、クライアントはまずはじめにリソースオーナーから許可を受ける必要がある。この許可情報はトークンと共有鍵の形で示される。トークンがあることでリソースオーナーはクライアントに自身の認証情報を共有する必要がなくなる。リソースオーナーの認証情報と異なり、トークンは特定の目的のために、かつ有効期限付きで発行することが可能であり、個別に破棄することができる。
+      	<!--
         In order for the client to access resources, it first has to obtain permission from the
         resource owner. This permission is expressed in the form of a token and matching
         shared-secret. The purpose of the token is to make it unnecessary for the resource owner to
@@ -111,8 +111,8 @@
         -->
       </t>
       <t>
-        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
-        <!--
+      	この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+      	<!--
         This specification consists of two parts. The first part defines a redirection-based
         user-agent process for end-users to authorize client access to their resources, by
         authenticating directly with the server and provisioning tokens to the client for use with
@@ -123,22 +123,22 @@
         -->
       </t>
       <t>
-        OAuth を <xref target="RFC2616" /> 以外の転送プロトコル上で用いる方法については定義されていない。
-        <!--
+      	OAuth を <xref target="RFC2616" /> 以外の転送プロトコル上で用いる方法については定義されていない。
+      	<!--
         The use of OAuth with any other transport protocol than <xref target="RFC2616" /> is
         undefined.
         -->
       </t>
 
-      <section title="用語定義">
+			<section title="用語定義">
       <!-- section title="Terminology" -->
         <t>
           <list style="hanging" hangIndent="6">
-            <t hangText="クライアント (client)">
+          	<t hangText="クライアント (client)">
               <vspace />
               <xref target="requests">OAuth 認証リクエスト</xref>を発行可能な HTTP クライアント (<xref target="RFC2616" /> 参照)
             </t>
-            <!--
+          	<!--
             <t hangText="client">
               <vspace />
               An HTTP client (per <xref target="RFC2616" />) capable of making
@@ -208,8 +208,8 @@
           </list>
         </t>
         <t>
-          オリジナルのコミュニティ仕様書では多少異なる用語が用いられていた。それらはこの仕様書では以下のように表記されている。(左側がオリジナル仕様書)
-          <!--
+        	オリジナルのコミュニティ仕様書では多少異なる用語が用いられていた。それらはこの仕様書では以下のように表記されている。(左側がオリジナル仕様書)
+        	<!--
           The original community specification used a somewhat different terminology which maps to
           this specifications as follows (original community terms provided on left):
           -->
@@ -349,7 +349,7 @@
           </artwork>
         </figure>
         <t>
-          クライアントは Jane から彼女のプライベートな写真へのアクセスに関して承認を得るため、彼女のユーザーエージェントをサーバーのリソースオーナー認可エンドポイントにリダイレクトする。
+        	クライアントは Jane から彼女のプライベートな写真へのアクセスに関して承認を得るため、彼女のユーザーエージェントをサーバーのリソースオーナー認可エンドポイントにリダイレクトする。
         </t>
         <!--t>
           The client redirects Jane's user-agent to the server's Resource Owner Authorization
@@ -618,7 +618,7 @@
           from the request and MUST use the empty string as the token secret value.
         </t-->
         <t>
-          リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
+        	リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
         </t>
         <!--t>
           Since the request results in the transmission of plain text credentials in the HTTP
@@ -712,15 +712,15 @@
   oauth_token=hdk48Djdsa&oauth_token_secret=xyz4992k83j47x0b&
   oauth_callback_confirmed=true
 ]]>
-          </artwork>
+		      </artwork>
         </figure>
       </section>
 
-      <section title="リソースオーナー認可" anchor="auth_step2">
+			<section title="リソースオーナー認可" anchor="auth_step2">
       <!-- section title="Resource Owner Authorization" anchor="auth_step2" -->
         <t>
-          クライアントは、サーバーにトークンクレデンシャルを要求する前に、ユーザをサーバーに移動させて要求に対する認可を得なければならない (MUST)。クライアントはリソースオーナー認可エンドポイント URI に以下の必須 (REQUIRED) クエリーパラメータを追加して、リクエスト URI を構成する。
-          <!--
+        	クライアントは、サーバーにトークンクレデンシャルを要求する前に、ユーザをサーバーに移動させて要求に対する認可を得なければならない (MUST)。クライアントはリソースオーナー認可エンドポイント URI に以下の必須 (REQUIRED) クエリーパラメータを追加して、リクエスト URI を構成する。
+        	<!--
           Before the client requests a set of token credentials from the server, it MUST send
           the user to the server to authorize the request. The client constructs a request URI by
           adding the following REQUIRED query parameter to the Resource Owner Authorization
@@ -744,8 +744,8 @@
           </list>
         </t>
         <t>
-          クライアントは、HTTP リダイレクトレスポンスもしくはリソースオーナーのユーザーエージェントがサポートする何らかの代替手段を用いて、リソースオーナーを前述の構成 URI にリダイレクトさせる。このリクエストでは HTTP <spanx style="verb">GET</spanx> メソッドを用いなければならない (MUST)。
-          <!--
+        	クライアントは、HTTP リダイレクトレスポンスもしくはリソースオーナーのユーザーエージェントがサポートする何らかの代替手段を用いて、リソースオーナーを前述の構成 URI にリダイレクトさせる。このリクエストでは HTTP <spanx style="verb">GET</spanx> メソッドを用いなければならない (MUST)。
+        	<!--
           The client directs the resource owner to the constructed URI using an HTTP redirection
           response, or by other means available to it via the resource owner's user-agent. The
           request MUST use the HTTP <spanx style="verb">GET</spanx> method.
@@ -753,8 +753,8 @@
         </t>
         <figure>
           <preamble>
-            例: クライアントはリソースオーナーのユーザーエージェントをリダイレクトさせ、以下の HTTPS リクエストを実行させる。
-            <!--
+          	例: クライアントはリソースオーナーのユーザーエージェントをリダイレクトさせ、以下の HTTPS リクエストを実行させる。
+          	<!--
             For example, the client redirects the resource owner's user-agent to make the following
             HTTPS request:
             -->
@@ -766,16 +766,16 @@
           </artwork>
         </figure>
         <t>
-          サーバーの認可リクエストの処理方法については、TLS や SSL などのセキュアチャネルの利用有無とともにこの仕様の範囲外であるが、サーバーはまず最初にリソースオーナーのアイデンティティを検証しなければならない (MUST)。
-          <!--
+        	サーバーの認可リクエストの処理方法については、TLS や SSL などのセキュアチャネルの利用有無とともにこの仕様の範囲外であるが、サーバーはまず最初にリソースオーナーのアイデンティティを検証しなければならない (MUST)。
+        	<!--
           The way in which the server handles the authorization request, including whether it uses
           a secure channel such as TLS/SSL is beyond the scope of this specification. However, the
           server MUST first verify the identity of the resource owner.
           -->
         </t>
         <t>
-          リソースオーナーに要求されたアクセス権の認可を求める際、サーバーはアクセス権を要求しているクライアントの情報をリソースオーナーに提示するべきである (SHOULD)。その際はクライアント識別子と関連付けられた一時的なクレデンシャルを利用する。このような情報を表示する際、サーバーはその情報が検証済みかどうか明示するべきである (SHOULD)。
-          <!--
+        	リソースオーナーに要求されたアクセス権の認可を求める際、サーバーはアクセス権を要求しているクライアントの情報をリソースオーナーに提示するべきである (SHOULD)。その際はクライアント識別子と関連付けられた一時的なクレデンシャルを利用する。このような情報を表示する際、サーバーはその情報が検証済みかどうか明示するべきである (SHOULD)。
+        	<!--
           When asking the resource owner to authorize the requested access, the server SHOULD
           present to the resource owner information about the client requesting access based on the
           association of the temporary credentials with the client identity. When displaying any
@@ -783,16 +783,16 @@
           -->
         </t>
         <t>
-          リソースオーナーから認可の可否を受け取った後、コールバック URI が <spanx style="verb">oauth_callback</spanx> パラメータもしくはその他の方法によって提供されている場合、サーバーはリソースオーナーをそのコールバック URI にリダイレクトさせる。
-          <!--
+        	リソースオーナーから認可の可否を受け取った後、コールバック URI が <spanx style="verb">oauth_callback</spanx> パラメータもしくはその他の方法によって提供されている場合、サーバーはリソースオーナーをそのコールバック URI にリダイレクトさせる。
+        	<!--
           After receiving an authorization decision from the resource owner, the server redirects
           the resource owner to the callback URI if one was provided in the
           <spanx style="verb">oauth_callback</spanx> parameter or by other means.
           -->
         </t>
         <t>
-          アクセス権を認可したリソースオーナーが、クライアントに戻されたリソースオーナーと同一であることを確認するため、サーバーは検証コードを生成しなければならない (MUST)。検証コードは推測困難な値であり、リソースオーナーを通じてクライアントに渡され、リソースオーナー認可プロセス完了のために必須となる (REQUIRED)。サーバーはコールバック URI のクエリーパラメータに以下の必須パラメータを追加して、リクエスト URI を構成する。
-          <!--
+        	アクセス権を認可したリソースオーナーが、クライアントに戻されたリソースオーナーと同一であることを確認するため、サーバーは検証コードを生成しなければならない (MUST)。検証コードは推測困難な値であり、リソースオーナーを通じてクライアントに渡され、リソースオーナー認可プロセス完了のために必須となる (REQUIRED)。サーバーはコールバック URI のクエリーパラメータに以下の必須パラメータを追加して、リクエスト URI を構成する。
+        	<!--
           To make sure that the resource owner granting access is the same resource owner returning
           back to the client to complete the process, the server MUST generate a verification code:
           an unguessable value passed to the client via the resource owner and REQUIRED to complete
@@ -802,7 +802,7 @@
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
-              クライアントから受け取った一時的なクレデンシャルの識別子。
+            	クライアントから受け取った一時的なクレデンシャルの識別子。
               <vspace />
               <!--
               The temporary credentials identifier received from the client.
@@ -817,16 +817,16 @@
             </t>
           </list>
 
-          コールバック URI が既にクエリーコンポーネントを含む場合、サーバーは既存のクエリーの後ろに OAuth パラメータを追加しなければならない (MUST)。
-          <!--
+					コールバック URI が既にクエリーコンポーネントを含む場合、サーバーは既存のクエリーの後ろに OAuth パラメータを追加しなければならない (MUST)。
+					<!--
           If the callback URI already includes a query component, the server MUST append the
           OAuth parameters to the end of the existing query.
           -->
         </t>
         <figure>
           <preamble>
-            例: サーバーはリソースオーナーのユーザーエージェントをリダイレクトさせ、以下の HTTP リクエストを実行させる。
-            <!--
+          	例: サーバーはリソースオーナーのユーザーエージェントをリダイレクトさせ、以下の HTTP リクエストを実行させる。
+          	<!--
             For example, the server redirects the resource owner's user-agent to make the following
             HTTP request:
             -->
@@ -835,11 +835,11 @@
   GET /cb?x=1&oauth_token=hdk48Djdsa&oauth_verifier=473f82d3 HTTP/1.1
   Host: client.example.net
 ]]>
-          </artwork>
+					</artwork>
         </figure>
         <t>
-          クライアントがコールバック URI を提示しない場合、サーバーは検証コードを表示し、リソースオーナーに対して手動でクライアントに認可処理の完了を伝えるよう指示すべきである (SHOULD)。クライアントが何らかの制約を持つデバイス上で動作していることを把握している場合、サーバーは検証コードを手入力に適した形式で提供すべきである (SHOULD)。
-          <!--
+        	クライアントがコールバック URI を提示しない場合、サーバーは検証コードを表示し、リソースオーナーに対して手動でクライアントに認可処理の完了を伝えるよう指示すべきである (SHOULD)。クライアントが何らかの制約を持つデバイス上で動作していることを把握している場合、サーバーは検証コードを手入力に適した形式で提供すべきである (SHOULD)。
+        	<!--
           If the client did not provide a callback URI, the server SHOULD display the value of the
           verification code, and instruct the resource owner to manually inform the client that
           authorization is completed. If the server knows a client to be running on a limited device
@@ -848,11 +848,11 @@
         </t>
       </section>
 
-      <section title="トークンクレデンシャル" anchor="auth_step3">
+			<section title="トークンクレデンシャル" anchor="auth_step3">
       <!-- section title="Token Credentials" anchor="auth_step3" -->
         <t>
-          クライアントは<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
-          <!--
+        	クライアントは<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+        	<!--
           The client obtains a set of token credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
           request to the Token Request endpoint (unless the server advertises another HTTP
@@ -872,8 +872,8 @@
           </list>
         </t>
         <t>
-          リクエストを行う際、クライアントは一時的なクレデンシャル同様クライアントクレデンシャルを用いて認証する。一時的なクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
-          <!--
+        	リクエストを行う際、クライアントは一時的なクレデンシャル同様クライアントクレデンシャルを用いて認証する。一時的なクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
+        	<!--
           When making the request, the client authenticates using the client credentials as well as
           the temporary credentials. The temporary credentials are used as a substitute for token
           credentials in the authenticated request and transmitted using the
@@ -881,8 +881,8 @@
           -->
         </t>
         <t>
-          リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
-          <!--
+        	リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
+        	<!--
           Since the request results in the transmission of plain text credentials in the HTTP
           response, the server MUST require the use of a transport-layer mechanisms such as TLS
           or SSL (or a secure channel with equivalent protections).
@@ -890,8 +890,8 @@
         </t>
         <figure>
           <preamble>
-            例: クライアントは以下の HTTPS リクエストを行う。
-            <!--
+          	例: クライアントは以下の HTTPS リクエストを行う。
+          	<!--
             For example, the client makes the following HTTPS request:
             -->
           </preamble>
@@ -908,8 +908,8 @@
           </artwork>
         </figure>
         <t>
-          サーバーはリクエストの妥当性を<xref target="verify_request">検証</xref>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式でトークンクレデンシャルを含める。
-          <!--
+        	サーバーはリクエストの妥当性を<xref target="verify_request">検証</xref>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式でトークンクレデンシャルを含める。
+        	<!--
           The server MUST <xref target="verify_request">verify</xref> the validity of the request,
           ensure that the resource owner has authorized the provisioning of token credentials to
           the client, and ensure that the temporary credentials have not expired or been used
@@ -921,8 +921,8 @@
           -->
         </t>
         <t>
-          レスポンスは以下の必須 (REQUIRED) パラメータを含む。
-          <!--
+        	レスポンスは以下の必須 (REQUIRED) パラメータを含む。
+        	<!--
           The response contains the following REQUIRED parameters:
           -->
 
@@ -945,8 +945,8 @@
         </t>
         <figure>
           <preamble>
-            例:
-            <!--
+          	例:
+          	<!--
             For example:
             -->
           </preamble>
@@ -959,16 +959,16 @@
           </artwork>
         </figure>
         <t>
-          サーバーはスコープ、有効期間、およびリソースオーナーが承認したその他の属性を保持し、クライアントが発行済トークンクレデンシャルを用いてリクエストを行う際にそれらの制限を実施しなければならない。
-          <!--
+        	サーバーはスコープ、有効期間、およびリソースオーナーが承認したその他の属性を保持し、クライアントが発行済トークンクレデンシャルを用いてリクエストを行う際にそれらの制限を実施しなければならない。
+        	<!--
           The server must retain the scope, duration, and other attributes approved by the resource
           owner, and enforce these restrictions when receiving a client request made with the token
           credentials issued.
           -->
         </t>
         <t>
-          ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<xref target="requests">認可済みリクエスト</xref>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
-          <!--
+        	ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<xref target="requests">認可済みリクエスト</xref>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
+        	<!--
           Once the client receives and stores the token credentials, it can proceed to access
           protected resources on behalf of the resource owner by making
           <xref target="requests">authenticated requests</xref> using the client credentials
@@ -1018,7 +1018,7 @@
       <!--t>
         Making authenticated requests requires prior knowledge of the server's configuration.
         OAuth includes multiple methods for transmitting protocol parameters with requests
-        (<xref target="param_include" />), as well as multiple methods for the client to
+				(<xref target="param_include" />), as well as multiple methods for the client to
         prove its rightful ownership of the credentials used (<xref target="signature" />).
         The way in which clients discover the required configuration is outside the scope of
         this specification.
@@ -1359,11 +1359,11 @@
           the <spanx style="verb">oauth_signature</spanx> parameter.
         </t-->
 
-        <section title="シグニチャベースストリング">
+				<section title="シグニチャベースストリング">
         <!-- section title="Signature Base String" -->
           <t>
-            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> シグニチャ方式における入力の1つとなる。
-            <!--
+          	シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> シグニチャ方式における入力の1つとなる。
+          	<!--
             The signature base string is a consistent, reproducible concatenation of several
             of the HTTP request elements into a single string. The string is used as an input to
             the <spanx style="verb">HMAC-SHA1</spanx> and <spanx style="verb">RSA-SHA1</spanx>
@@ -1371,42 +1371,42 @@
             -->
           </t>
           <t>
-            シグニチャベースストリングは HTTP リクエストの構成要素を含む。
-            <!--
+          	シグニチャベースストリングは HTTP リクエストの構成要素を含む。
+          	<!--
             The signature base string includes the following components of the HTTP request:
             -->
             
             <list style="symbols">
               <t>
-                HTTP リクエストメソッド (例: <spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等)
-                <!--
+              	HTTP リクエストメソッド (例: <spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等)
+              	<!--
                 The HTTP request method (e.g. <spanx style="verb">GET</spanx>,
                 <spanx style="verb">POST</spanx>, etc.).
                 -->
               </t>
               <t>
-                リクエストの HTTP <spanx style="verb">Host</spanx> ヘッダーで示されるオーソリティ。
-                <!--
+              	リクエストの HTTP <spanx style="verb">Host</spanx> ヘッダーで示されるオーソリティ。
+              	<!--
                 The authority as declared by the HTTP <spanx style="verb">Host</spanx> request
                 header field.
                 -->
               </t>
               <t>
-                リクエスト URI 中のパスとクエリー要素。
-                <!--
+              	リクエスト URI 中のパスとクエリー要素。
+              	<!--
                 The path and query components of the request resource URI.
                 -->
               </t>
               <t>
-                <spanx style="verb">oauth_signature</spanx> を除くプロトコルパラメータ。
-                <!--
+              	<spanx style="verb">oauth_signature</spanx> を除くプロトコルパラメータ。
+              	<!--
                 The protocol parameters excluding the
                 <spanx style="verb">oauth_signature</spanx>.
                 -->
               </t>
               <t>
-                リクエストのエンティティボディー中に含まれる、<xref target="collect_param" /> で定義されている厳格な制約を満たすパラメータ。
-                <!--
+              	リクエストのエンティティボディー中に含まれる、<xref target="collect_param" /> で定義されている厳格な制約を満たすパラメータ。
+              	<!--
                 Parameters included in the request entity-body if they comply with the strict
                 restrictions defined in <xref target="collect_param" />.
                 -->
@@ -1414,8 +1414,8 @@
             </list>
           </t>
           <t>
-            シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に、多くのリクエストにおいてエンティティボディーが含まれず、HTTP エンティティヘッダーもその多くが含まれない。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
-            <!--
+          	シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に、多くのリクエストにおいてエンティティボディーが含まれず、HTTP エンティティヘッダーもその多くが含まれない。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
+          	<!--
             The signature base string does not cover the entire HTTP request. Most notably, it
             does not include the entity-body in most requests, nor does it include most HTTP
             entity-headers. It is important to note that the server cannot verify the authenticity
@@ -1427,43 +1427,43 @@
           <section title="シグニチャベースストリングの構築" anchor="base_string">
           <!-- section title="String Construction" anchor="base_string" -->
             <t>
-              シグニチャベースストリングは以下の HTTP リクエスト要素を順番に連結して構築される。
-              <!--
+            	シグニチャベースストリングは以下の HTTP リクエスト要素を順番に連結して構築される。
+            	<!--
               The signature base string is constructed by concatenating together, in order, the
               following HTTP request elements:
               -->
 
               <list style="numbers">
                 <t>
-                  HTTP リクエストメソッド (大文字)。例: <spanx style="verb">HEAD</spanx>、<spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等。独自の HTTP メソッドを利用する場合は、<xref target="encoding">エンコーディング</xref>しなければならない (MUST)。
-                  <!--
+                	HTTP リクエストメソッド (大文字)。例: <spanx style="verb">HEAD</spanx>、<spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等。独自の HTTP メソッドを利用する場合は、<xref target="encoding">エンコーディング</xref>しなければならない (MUST)。
+                	<!--
                   The HTTP request method in uppercase. For example: <spanx style="verb">HEAD</spanx>,
                   <spanx style="verb">GET</spanx>, <spanx style="verb">POST</spanx>, etc. If the
                   request uses a custom HTTP method, it MUST be <xref target="encoding">encoded</xref>.
                   -->
                 </t>
                 <t>
-                  文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
-                  <!--
+                	文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
+                	<!--
                   An <spanx style="verb">&amp;</spanx> character (ASCII code 38).
                   -->
                 </t>
                 <t>
-                  <xref target="sig_uri" /> に示されるベースストリング URI を <xref target="encoding">encoded</xref> した文字列。
-                  <!--
+                	<xref target="sig_uri" /> に示されるベースストリング URI を <xref target="encoding">encoded</xref> した文字列。
+                	<!--
                   The base string URI from <xref target="sig_uri" />, after being
                   <xref target="encoding">encoded</xref>.
                   -->
                 </t>
                 <t>
-                  文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
-                  <!--
+                	文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
+                	<!--
                   An <spanx style="verb">&amp;</spanx> character (ASCII code 38).
                   -->
                 </t>
                 <t>
-                  <xref target="sig_norm_param" /> に示される正規化されたリクエストパラメータを <xref target="encoding">encoded</xref> した文字列。
-                  <!--
+                	<xref target="sig_norm_param" /> に示される正規化されたリクエストパラメータを <xref target="encoding">encoded</xref> した文字列。
+                	<!--
                   The request parameters as normalized in <xref target="sig_norm_param" />, after
                   being <xref target="encoding">encoded</xref>.
                   -->
@@ -1472,8 +1472,8 @@
             </t>
             <figure>
               <preamble>
-                例えば、以下のような HTTP リクエストがあったとする。
-                <!--
+              	例えば、以下のような HTTP リクエストがあったとする。
+              	<!--
                 For example, the HTTP request:
                 -->
               </preamble>
@@ -1495,8 +1495,8 @@
             </figure>
             <figure>
               <preamble>
-                この時、このリクエストに対するシグニチャベースストリングは以下のようになる。(改行は掲載上の都合による)
-                <!--
+              	この時、このリクエストに対するシグニチャベースストリングは以下のようになる。(改行は掲載上の都合による)
+              	<!--
                 Is represented by the following signature base string (line breaks are for display
                 purposes only):
                 -->
@@ -1512,11 +1512,11 @@
             </figure>
           </section>
 
-          <section title="ベースストリング URI" anchor="sig_uri">
+					<section title="ベースストリング URI" anchor="sig_uri">
           <!-- section title="Base String URI" anchor="sig_uri" -->
             <t>
-              ベースストリング URI には、リクエスト対象リソースを示す <spanx style="verb">http</spanx> もしくは <spanx style="verb">https</spanx> URI を構築した上で、リクエスト URI のスキーム、オーソリティおよびパス <xref target="RFC3986" /> を以下のように含める。
-              <!--
+            	ベースストリング URI には、リクエスト対象リソースを示す <spanx style="verb">http</spanx> もしくは <spanx style="verb">https</spanx> URI を構築した上で、リクエスト URI のスキーム、オーソリティおよびパス <xref target="RFC3986" /> を以下のように含める。
+            	<!--
               The scheme, authority, and path of the request resource URI <xref target="RFC3986" />
               are included by constructing an <spanx style="verb">http</spanx> or
               <spanx style="verb">https</spanx> URI representing the request resource (without the
@@ -1525,21 +1525,21 @@
 
               <list style="numbers">
                 <t>
-                  スキームおよびホストは小文字でなくてはならない (MUST)。
-                  <!--
+                	スキームおよびホストは小文字でなくてはならない (MUST)。
+                	<!--
                   The scheme and host MUST be in lowercase.
                   -->
                 </t>
                 <t>
-                  ホストとポート番号はリクエスト中の HTTP <spanx style="verb">Host</spanx> ヘッダーの値と同一でなければならない (MUST)。
-                  <!--
+                	ホストとポート番号はリクエスト中の HTTP <spanx style="verb">Host</spanx> ヘッダーの値と同一でなければならない (MUST)。
+                	<!--
                   The host and port values MUST match the content of the HTTP request
                   <spanx style="verb">Host</spanx> header field.
                   -->
                 </t>
                 <t>
-                  ポート番号がそのスキームのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <xref target="RFC2616" /> の場合にはポート80、HTTPS リクエスト <xref target="RFC2818" /> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
-                  <!--
+                	ポート番号がそのスキームのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <xref target="RFC2616" /> の場合にはポート80、HTTPS リクエスト <xref target="RFC2818" /> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
+                	<!--
                   The port MUST be included if it is not the default port for the scheme, and MUST
                   be excluded if it is the default. Specifically, the port MUST be excluded when
                   making an HTTP request <xref target="RFC2616" /> to port 80 or when making an
@@ -1551,8 +1551,8 @@
             </t>
             <figure>
               <preamble>
-                例えば、以下のような HTTP リクエストがあったとする。
-                <!--
+              	例えば、以下のような HTTP リクエストがあったとする。
+              	<!--
                 For example, the HTTP request:
                 -->
               </preamble>
@@ -1562,8 +1562,8 @@
 ]]>
               </artwork>
               <postamble>
-                このときベースストリング URI は次のようになる。
-                <!--
+              	このときベースストリング URI は次のようになる。
+              	<!--
                 is represented by the base string URI:
                 -->
                 <spanx style="verb">http://example.com/r%20v/X</spanx>.
@@ -1571,8 +1571,8 @@
             </figure>
             <figure>
               <preamble>
-                また以下のような HTTPS リクエストがあったとする。
-                <!--
+              	また以下のような HTTPS リクエストがあったとする。
+              	<!--
                 In another example, the HTTPS request:
                 -->
               </preamble>
@@ -1582,8 +1582,8 @@
 ]]>
               </artwork>
               <postamble>
-                この場合のベースストリング URI は次のようになる。
-                <!--
+              	この場合のベースストリング URI は次のようになる。
+              	<!--
                 is represented by the base string URI:
                 -->
                 <spanx style="verb">https://www.example.net:8080/</spanx>.
@@ -1754,10 +1754,10 @@
                 <list style="numbers">
                   <t>
                     まず、各パラメータの名前と値を<xref target="encoding">エンコード</xref>する。
-                  </t>
+    							</t>
                   <!--t>
                     First, the name and value of each parameter are <xref target="encoding">encoded</xref>.
-                  </t-->
+    							</t-->
                   <t>
                     パラメータはバイト値昇順を使い、名前でソートされる。2つ以上のパラメータが同じ名前を持つ場合、値でソートされる。
                   </t>
@@ -2139,8 +2139,8 @@
       <section title="パラメータの送信" anchor="param_include">  
       <!-- section title="Parameter Transmission" anchor="param_include" -->
         <t>
-          OAuth 認可リクエストを行う際、プロトコルパラメータおよび <spanx style="verb">oauth_</spanx> プレフィックスを含むその他全てのパラメータは、以下のいずれか1ヶ所を用いてリクエストに含まれるであろう (SHALL)。以下、好ましい順に挙げる。
-          <!--
+        	OAuth 認可リクエストを行う際、プロトコルパラメータおよび <spanx style="verb">oauth_</spanx> プレフィックスを含むその他全てのパラメータは、以下のいずれか1ヶ所を用いてリクエストに含まれるであろう (SHALL)。以下、好ましい順に挙げる。
+        	<!--
           When making an OAuth-authenticated request, protocol parameters as well as any other
           parameter using the <spanx style="verb">oauth_</spanx> prefix SHALL be included in the
           request using one and only one of the following locations, listed in order of decreasing
@@ -2149,39 +2149,39 @@
 
           <list style="numbers">
             <t>
-              HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールド。(<xref target="auth_header" /> 参照)
-              <!--
+            	HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールド。(<xref target="auth_header" /> 参照)
+            	<!--
               The HTTP <spanx style="verb">Authorization</spanx> header field as described in
               <xref target="auth_header" />.
               -->
             </t>
             <t>
-              HTTP リクエストエンティティボディー。(<xref target="auth_body" /> 参照)
-              <!--
+            	HTTP リクエストエンティティボディー。(<xref target="auth_body" /> 参照)
+            	<!--
               The HTTP request entity-body as described in <xref target="auth_body" />.
               -->
             </t>
             <t>
-              HTTP リクエスト URI クエリー。（<xref target="auth_query" /> 参照)
-              <!--
+            	HTTP リクエスト URI クエリー。（<xref target="auth_query" /> 参照)
+            	<!--
               The HTTP request URI query as described in <xref target="auth_query" />.
               -->
             </t>
           </list>
         </t>
         <t>
-          これら3つの方法に加え、今後の拡張仕様によってプロトコルパラメータをリクエストに含めるその他の手法が定義されることもある (MAY)。
-          <!--
+        	これら3つの方法に加え、今後の拡張仕様によってプロトコルパラメータをリクエストに含めるその他の手法が定義されることもある (MAY)。
+        	<!--
           In addition to these three methods, future extensions MAY define other methods for
           including protocol parameters in the request.
           -->
         </t>
 
-        <section title="Authorization ヘッダー" anchor="auth_header">
+				<section title="Authorization ヘッダー" anchor="auth_header">
         <!-- section title="Authorization Header" anchor="auth_header" -->
           <t>
-            プロトコルパラメータは、<xref target="RFC2617" /> で定義される HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールドを用いて送信される。その際 auth-scheme 名を <spanx style="verb">OAuth</spanx> (大文字/小文字を区別) とする。
-            <!--
+          	プロトコルパラメータは、<xref target="RFC2617" /> で定義される HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールドを用いて送信される。その際 auth-scheme 名を <spanx style="verb">OAuth</spanx> (大文字/小文字を区別) とする。
+          	<!--
             Protocol parameters can be transmitted using the HTTP
             <spanx style="verb">Authorization</spanx> header field as defined by <xref target="RFC2617" />
             with the auth-scheme name set to <spanx style="verb">OAuth</spanx> (case-insensitive).
@@ -2189,7 +2189,7 @@
           </t>
           <figure>
             <preamble>
-              例:
+            	例:
               <!--
               For example:
               -->
@@ -2207,23 +2207,23 @@
             </artwork>
           </figure>
           <t>
-            プロトコルパラメータは以下のように <spanx style="verb">Authorization</spanx> ヘッダーフィールドに含まれるものとする (SHALL)。
-            <!--
+          	プロトコルパラメータは以下のように <spanx style="verb">Authorization</spanx> ヘッダーフィールドに含まれるものとする (SHALL)。
+          	<!--
             Protocol parameters SHALL be included in the <spanx style="verb">Authorization</spanx>
             header field as follows:
             -->
 
             <list style="numbers">
               <t>
-                パラメータ名と値は<xref target="encoding">パラメータエンコーディング</xref>に従いエンコーディングされる。
-                <!--
+              	パラメータ名と値は<xref target="encoding">パラメータエンコーディング</xref>に従いエンコーディングされる。
+              	<!--
                 Parameter names and values are encoded per
                 <xref target="encoding">Parameter Encoding</xref>.
                 -->
               </t>
               <t>
-                各パラメータ名の直後には、<spanx style="verb">=</spanx> (ASCII code 61)、<spanx style="verb">"</spanx> (ASCII code 34)、パラメータ値 (空白も可 (MAY))、そして <spanx style="verb">"</spanx> (ASCII code 34) が続く。
-                <!--
+              	各パラメータ名の直後には、<spanx style="verb">=</spanx> (ASCII code 61)、<spanx style="verb">"</spanx> (ASCII code 34)、パラメータ値 (空白も可 (MAY))、そして <spanx style="verb">"</spanx> (ASCII code 34) が続く。
+              	<!--
                 Each parameter's name is immediately followed by an <spanx style="verb">=</spanx>
                 character (ASCII code 61), a <spanx style="verb">"</spanx> character (ASCII code 34),
                 the parameter value (MAY be empty), and another <spanx style="verb">"</spanx> character
@@ -2231,15 +2231,15 @@
                 -->
               </t>
               <t>
-                パラメータは <spanx style="verb">,</spanx> (ASCII code 44) で区切られる。この際オプションとして <xref target="RFC2617" /> にある "linear whitespace" を用いることもできる (OPTIONAL)。
-                <!--
+              	パラメータは <spanx style="verb">,</spanx> (ASCII code 44) で区切られる。この際オプションとして <xref target="RFC2617" /> にある "linear whitespace" を用いることもできる (OPTIONAL)。
+              	<!--
                 Parameters are separated by a <spanx style="verb">,</spanx> character (ASCII code 44)
                 and OPTIONAL linear whitespace per <xref target="RFC2617" />.
                 -->
               </t>
               <t>
-                オプションで <spanx style="verb">realm</spanx> パラメータを追加することができる (OPTIONAL)。(<xref target="RFC2617" /> セクション1.2参照)
-                <!--
+              	オプションで <spanx style="verb">realm</spanx> パラメータを追加することができる (OPTIONAL)。(<xref target="RFC2617" /> セクション1.2参照)
+              	<!--
                 The OPTIONAL <spanx style="verb">realm</spanx> parameter MAY be added and
                 interpreted per <xref target="RFC2617" /> section 1.2.
                 -->
@@ -2247,8 +2247,8 @@
             </list>
           </t>
           <t>
-            サーバーは、クライアントからの保護されたリソースへのリクエストに対して HTTP <spanx style="verb">WWW-Authenticate</spanx> レスポンスヘッダーフィールドを返すことで、 <spanx style="verb">OAuth</spanx> auth-scheme をサポートしていることを示すことができる (MAY)。<xref target="RFC2617" /> にあるように、そのようなレスポンスは HTTP <spanx style="verb">WWW-Authenticate</spanx> ヘッダーフィールドを含むことができる (MAY)。
-            <!--
+          	サーバーは、クライアントからの保護されたリソースへのリクエストに対して HTTP <spanx style="verb">WWW-Authenticate</spanx> レスポンスヘッダーフィールドを返すことで、 <spanx style="verb">OAuth</spanx> auth-scheme をサポートしていることを示すことができる (MAY)。<xref target="RFC2617" /> にあるように、そのようなレスポンスは HTTP <spanx style="verb">WWW-Authenticate</spanx> ヘッダーフィールドを含むことができる (MAY)。
+          	<!--
             Servers MAY indicate their support for the <spanx style="verb">OAuth</spanx>
             auth-scheme by returning the HTTP <spanx style="verb">WWW-Authenticate</spanx>
             response header field upon client requests for protected resources. As per
@@ -2258,8 +2258,8 @@
           </t>
           <figure>
             <preamble>
-              例:
-              <!--
+            	例:
+            	<!--
               For example:
               -->
             </preamble>
@@ -2269,41 +2269,41 @@
             </artwork>
           </figure>
           <t>
-            この realm パラメータは保護領域を示す。(<xref target="RFC2617" /> セクション1.2参照)
-            <!--
+          	この realm パラメータは保護領域を示す。(<xref target="RFC2617" /> セクション1.2参照)
+          	<!--
             The realm parameter defines a protection realm per <xref target="RFC2617" />
             section 1.2.
             -->
           </t>
         </section>
 
-        <section title="フォームエンコードボディー" anchor="auth_body">
+				<section title="フォームエンコードボディー" anchor="auth_body">
         <!-- section title="Form-Encoded Body" anchor="auth_body" -->
           <t>
-            プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の必須条件を満たす必要がある (REQUIRED)。
-            <!--
+          	プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の必須条件を満たす必要がある (REQUIRED)。
+          	<!--
             Protocol parameters can be transmitted in the HTTP request entity-body, but only if the
             following REQUIRED conditions are met:
             -->
 
             <list style="symbols">
               <t>
-                エンティティボディーが single-part である。
-                <!--
+              	エンティティボディーが single-part である。
+              	<!--
                 The entity-body is single-part.
                 -->
               </t>
               <t>
-                エンティティボディーが <xref target="W3C.REC-html40-19980424" /> で定義される <spanx style="verb">application/x-www-form-urlencoded</spanx> コンテントタイプのエンコーディング条件を満たす。
-                <!--
+              	エンティティボディーが <xref target="W3C.REC-html40-19980424" /> で定義される <spanx style="verb">application/x-www-form-urlencoded</spanx> コンテントタイプのエンコーディング条件を満たす。
+              	<!--
                 The entity-body follows the encoding requirements of the
                 <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type as
                 defined by <xref target="W3C.REC-html40-19980424" />.
                 -->
               </t>
               <t>
-                HTTP リクエストエンティティヘッダーが <spanx style="verb">Content-Type</spanx> ヘッダーフィールドを含み、その値が <spanx style="verb">application/x-www-form-urlencoded</spanx> である。
-                <!--
+              	HTTP リクエストエンティティヘッダーが <spanx style="verb">Content-Type</spanx> ヘッダーフィールドを含み、その値が <spanx style="verb">application/x-www-form-urlencoded</spanx> である。
+              	<!--
                 The HTTP request entity-header includes the <spanx style="verb">Content-Type</spanx>
                 header field set to <spanx style="verb">application/x-www-form-urlencoded</spanx>.
                 -->
@@ -2312,8 +2312,8 @@
 
             <figure>
               <preamble>
-                例 (改行は掲載上の都合による)
-                <!--
+              	例 (改行は掲載上の都合による)
+              	<!--
                 For example (line breaks are for display purposes only):
                 -->
               </preamble>
@@ -2338,16 +2338,16 @@
         <section title="リクエスト URI クエリー" anchor="auth_query">
         <!-- section title="Request URI Query" anchor="auth_query" -->
           <t>
-            プロトコルパラメータは、HTTP リクエスト URI に <xref target="RFC3986" /> セクション3で定義されるクエリーパラメータとして付与し、送信することができる。
-            <!--
+          	プロトコルパラメータは、HTTP リクエスト URI に <xref target="RFC3986" /> セクション3で定義されるクエリーパラメータとして付与し、送信することができる。
+          	<!--
             Protocol parameters can be transmitted by being added to the HTTP request URI as a
             query parameter as defined by <xref target="RFC3986" /> section 3.
             -->
 
             <figure>
               <preamble>
-                例 (改行は掲載上の都合による)
-                <!--
+              	例 (改行は掲載上の都合による)
+              	<!--
                 For example (line breaks are for display purposes only):
                 -->
               </preamble>
@@ -2375,8 +2375,8 @@
       <section title="パーセントエンコーディング" anchor="encoding">
       <!-- section title="Percent Encoding" anchor="encoding" -->
         <t>
-          既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。いかに示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">authorization ヘッダーフィールド</xref>のエンコーディングにのみ用いられるものである。
-          <!--
+        	既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。いかに示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">authorization ヘッダーフィールド</xref>のエンコーディングにのみ用いられるものである。
+        	<!--
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
           the existing encoding methods defined by <xref target="RFC3986" /> and
@@ -2385,44 +2385,44 @@
           -->
         </t>
         <t>
-          この仕様書では以下のようにパーセントエンコーディング手法を定義する。
-          <!--
+        	この仕様書では以下のようにパーセントエンコーディング手法を定義する。
+        	<!--
           This specification defines the following method for percent-encoding strings:
           -->
 
           <list style="numbers">
             <t>
-              テキスト値がまだ <xref target="RFC3629" /> で定義される UTF-8 オクテットにエンコードされていない場合は、そのようにエンコードする。人間に利用されないバイナリ値は、この行程をスキップする。
-              <!--
+            	テキスト値がまだ <xref target="RFC3629" /> で定義される UTF-8 オクテットにエンコードされていない場合は、そのようにエンコードする。人間に利用されないバイナリ値は、この行程をスキップする。
+            	<!--
               Text values are first encoded as UTF-8 octets per <xref target="RFC3629" /> if they are
               not already. This does not include binary values which are not intended for human
               consumption.
               -->
             </t>
             <t>
-              値を以下の <xref target="RFC3986" /> で定義されたパーセントエンコーディング手法に従ってエスケープする。
-              <!--
+            	値を以下の <xref target="RFC3986" /> で定義されたパーセントエンコーディング手法に従ってエスケープする。
+            	<!--
               The values are then escaped using the <xref target="RFC3986" /> percent-encoding
               (%XX) mechanism as follows:
               -->
 
               <list style="symbols">
                 <t>
-                  <xref target="RFC3986" /> のセクション2.3で定義された予約済みでない文字　(アルファベット, 数字, "-", ".", "_", "~")　はエンコードしてはならない (MUST NOT)。
-                  <!--
+                	<xref target="RFC3986" /> のセクション2.3で定義された予約済みでない文字　(アルファベット, 数字, "-", ".", "_", "~")　はエンコードしてはならない (MUST NOT)。
+                	<!--
                   Characters in the unreserved character set as defined by <xref target="RFC3986" />
                   section 2.3 (ALPHA, DIGIT, "-", ".", "_", "~") MUST NOT be encoded.
                   -->
                 </t>
                 <t>
-                  その他の文字は全てエンコードしなければならない (MUST)。
-                  <!--
+                	その他の文字は全てエンコードしなければならない (MUST)。
+                	<!--
                   All other characters MUST be encoded.
                   -->
                 </t>
                 <t>
-                  エンコード文字を示す2文字の16進数値は大文字でなければならない (MUST)。
-                  <!--
+                	エンコード文字を示す2文字の16進数値は大文字でなければならない (MUST)。
+                	<!--
                   The two hexadecimal characters used to represent encoded characters MUST be
                   upper case.
                   -->
@@ -2432,8 +2432,8 @@
           </list>
         </t>
         <t>
-          この手法は <spanx style="verb">application/x-www-form-urlencoded</spanx> で用いられるエンコード方式とは異なる。(例えばこの手法ではスペースは <spanx style="verb">+</spanx> ではなく <spanx style="verb">%20</spanx> とエンコードされる) この手法は Web デベロップメントフレームワークが提供するパーセントエンコーディングとも異なる可能性がある (MAY)。(異なる文字をエンコードしたり、小文字の16進数文字を使うことなどが想定される)
-          <!--
+        	この手法は <spanx style="verb">application/x-www-form-urlencoded</spanx> で用いられるエンコード方式とは異なる。(例えばこの手法ではスペースは <spanx style="verb">+</spanx> ではなく <spanx style="verb">%20</spanx> とエンコードされる) この手法は Web デベロップメントフレームワークが提供するパーセントエンコーディングとも異なる可能性がある (MAY)。(異なる文字をエンコードしたり、小文字の16進数文字を使うことなどが想定される)
+        	<!--
           This method is different from the encoding scheme used by the
           <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type (for example,
           it encodes space characters as <spanx style="verb">%20</spanx> and not using the 
@@ -2446,78 +2446,56 @@
 
     </section>
 
-    <section title="セキュリティに関する考慮事項" anchor="Security">
-    <!-- section title="Security Considerations" anchor="Security" -->
+    <section title="Security Considerations" anchor="Security">
       <t>
-        <xref target="RFC2617" /> にあるように、一般的に最大のリスク要因は、プロトコルの本質ではなくそのプロトコルを利用する際のポリシーや手続きにあることが多い。実装者には、このプロトコルがどの程度自らのセキュリティ用件を満たすかを評価することが推奨される。
-        <!--
         As stated in <xref target="RFC2617" />, the greatest sources of risks are usually found not
         in the core protocol itself but in policies and procedures surrounding its use. Implementers
         are strongly encouraged to assess how this protocol addresses their security requirements.
-        -->
       </t>
 
-      <section title="RSA-SHA1 署名方式">
-      <!-- section title="RSA-SHA1 Signature Method" -->
+      <section title="RSA-SHA1 Signature Method">
         <t>
-          <spanx style="verb">RSA-SHA1</spanx> 署名を用いた認可リクエストでは、トークン共有鍵やクライアント共有鍵は利用されない。そのためこのリクエストは、完全にクライアントが署名生成に使用する秘密鍵の秘匿性に依存する。
-          <!--
           Authenticated requests made with <spanx style="verb">RSA-SHA1</spanx> signatures do not
           use the token shared-secret, or any provisioned client shared-secret. This means the request
           relies completely on the secrecy of the private key used by the client to sign requests.
-          -->
         </t>
       </section>
 
-      <section title="リクエストの機密性">
-      <!-- section title="Confidentiality of Requests" -->
+      <section title="Confidentiality of Requests">
         <t>
-          このプロトコルはリクエストの完全性検証のメカニズムを提供するが、リクエストの機密性は保証されない。その他の予防策が施されていない場合、盗聴者はリクエストコンテンツ全体を傍受することができる。サーバーはリクエスト中で送信されているデータの性質を熟慮し、機密情報を含むリソースを保護するために TLS メカニズムを採用するべきである。
-          <!--
           While this protocol provides a mechanism for verifying the integrity of requests, it
           provides no guarantee of request confidentiality. Unless further precautions are taken,
           eavesdroppers will have full access to request content. Servers should carefully consider
           the kinds of data likely to be sent as part of such requests, and should employ
           transport-layer security mechanisms to protect sensitive resources.
-          -->
         </t>
       </section>
 
-      <section title="サーバーのなりすまし">
-      <!-- section title="Spoofing by Counterfeit Servers" -->
+      <section title="Spoofing by Counterfeit Servers">
         <t>
-          このプロトコルはサーバーの信憑性を検証するものではない。敵意を持つ第三者がこの点を悪用し、クライアントのリクエストを傍受して改竄もしくは不正なレスポンスを返す可能性がある。サービスプロバイダーはサービス構築時にこのような攻撃を想定し、サーバーやリクエストレスポンスの信憑性が求められるリクエストでは TLS を採用するべきである。
-          <!--
           This protocol makes no attempt to verify the authenticity of the server. A hostile party
           could take advantage of this by intercepting the client's requests and returning
           misleading or otherwise incorrect responses. Service providers should consider such
           attacks when developing services using this protocol, and should require transport-layer
           security for any requests where the authenticity of the server or of request responses is
           an issue.
-          -->
         </t>
       </section>
 
       <section title="Proxying and Caching of Authenticated Content">
         <t>
-          <xref target="auth_header">HTTP Authorization スキーム</xref>はオプションであるが、<xref target="RFC2616" /> は <spanx style="verb">Authorization</spanx> および <spanx style="verb">WWW-Authenticate</spanx> ヘッダーフィールドを元に要認証コンテンツの識別を行う。特にこれらのヘッダーフィールドを用いない場合、プロキシやキャッシュが原因となりリクエストの保護が機能しなくなる可能性がある。
-          <!--
           The <xref target="auth_header">HTTP Authorization scheme</xref> is optional. However,
           <xref target="RFC2616" /> relies on the <spanx style="verb">Authorization</spanx> and
           <spanx style="verb">WWW-Authenticate</spanx> header fields to distinguish authenticated content
           so that it can be protected. Proxies and caches, in particular, may fail to adequately
           protect requests not using these header fields.
-          -->
         </t>
         <t>
-          例えば、プライベートな要認証コンテンツは公開アクセス可能な形でキャッシュされる可能性がある。<xref target="auth_header">HTTP Authorization ヘッダーフィールド</xref>を用いないサーバーは、<spanx style="verb">Cache-Control</spanx> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
-          <!--
           For example, private authenticated content may be stored in (and thus retrievable from)
           publicly-accessible caches. Servers not using the
           <xref target="auth_header">HTTP Authorization header field</xref> should take care to use other
           mechanisms, such as the <spanx style="verb">Cache-Control</spanx> header field, to ensure that
           authenticated content is protected.
-          -->
         </t>
       </section>
 
@@ -2659,75 +2637,75 @@
         </t>
       </section>
 
-      <section title="Cross-Site Request Forgery (CSRF)">
-        <t>
-          Cross-Site Request Forgery (CSRF) is a web-based attack whereby HTTP requests are
+			<section title="Cross-Site Request Forgery (CSRF)">
+				<t>
+					Cross-Site Request Forgery (CSRF) is a web-based attack whereby HTTP requests are
           transmitted from a user that the website trusts or has authenticated. CSRF attacks on
           authorization approvals can allow an attacker to obtain authorization to protected
           resources without the consent of the User. Servers SHOULD strongly consider best
           practices in CSRF prevention at all the protocol authorization endpoints.
-        </t>
-        <t>
-          CSRF attacks on OAuth callback URIs hosted by clients are also possible. Clients should
+				</t>
+				<t>
+					CSRF attacks on OAuth callback URIs hosted by clients are also possible. Clients should
           prevent CSRF attacks on OAuth callback URIs by verifying that the resource owner at the
           client site intended to complete the OAuth negotiation with the server. The methods for
           preventing such CSRF attacks are beyond the scope of this specification.
-        </t>
-      </section>
+				</t>
+			</section>
 
-      <section title="User Interface Redress">
-        <t>
-          Servers should protect the authorization process against UI Redress attacks (also known
+			<section title="User Interface Redress">
+				<t>
+					Servers should protect the authorization process against UI Redress attacks (also known
           as "clickjacking"). As of the time of this writing, no complete defenses against UI
           redress are available. Servers can mitigate the risk of UI redress attacks through the
           following techniques:
 
-          <list style="symbols">
-            <t>
+					<list style="symbols">
+						<t>
               Javascript frame busting.
             </t>
-            <t>
+						<t>
               Javascript frame busting, and requiring that browsers have javascript enabled on the
               authorization page.
             </t>
-            <t>
+						<t>
               Browser-specific anti-framing techniques.
             </t>
-            <t>
+						<t>
               Requiring password reentry before issuing OAuth tokens.
             </t>
-          </list>
-        </t>
-      </section>
+					</list>
+				</t>
+			</section>
 
-      <section title="Automatic Processing of Repeat Authorizations">
-        <t>
-          Servers may wish to automatically process authorization requests
-          (<xref target="auth_step2" />) from clients which have been previously
-          authorized by the resource owner. When the resource owner is redirected to the server
-          to grant access, the server detects that the resource owner has already granted
-          access to that particular client. Instead of prompting the resource owner for approval,
-          the server automatically redirects the resource owner back to the client.
-        </t>
-        <t>
-          If the client credentials are compromised, automatic processing creates additional
-          security risks. An attacker can use the stolen client credentials to redirect
-          the resource owner to the server with an authorization request. The server
-          will then grant access to the resource owner's data without the resource owner's
-          explicit approval, or even awareness of an attack. If no automatic approval is
-          implemented, an attacker must use social engineering to convince the resource owner to
-          approve access.
-        </t>
-        <t>
-          Servers can mitigate the risks associated with automatic processing by
-          limiting the scope of token credentials obtained through automated approvals. Tokens
-          credentials obtained through explicit resource owner consent can remain unaffected. Clients
-          can mitigate the risks associated with automatic processing by protecting their client
-          credentials.
-        </t>
-      </section>
+			<section title="Automatic Processing of Repeat Authorizations">
+				<t>
+					Servers may wish to automatically process authorization requests
+					(<xref target="auth_step2" />) from clients which have been previously
+					authorized by the resource owner. When the resource owner is redirected to the server
+					to grant access, the server detects that the resource owner has already granted
+					access to that particular client. Instead of prompting the resource owner for approval,
+					the server automatically redirects the resource owner back to the client.
+				</t>
+				<t>
+					If the client credentials are compromised, automatic processing creates additional
+					security risks. An attacker can use the stolen client credentials to redirect
+					the resource owner to the server with an authorization request. The server
+					will then grant access to the resource owner's data without the resource owner's
+					explicit approval, or even awareness of an attack. If no automatic approval is
+					implemented, an attacker must use social engineering to convince the resource owner to
+					approve access.
+				</t>
+				<t>
+					Servers can mitigate the risks associated with automatic processing by
+					limiting the scope of token credentials obtained through automated approvals. Tokens
+					credentials obtained through explicit resource owner consent can remain unaffected. Clients
+					can mitigate the risks associated with automatic processing by protecting their client
+					credentials.
+				</t>
+			</section>
 
-    </section>
+		</section>
 
     <section title="IANA Considerations" anchor="IANA">
       <t>
@@ -2757,12 +2735,12 @@
     </section>
     
     <appendix title="Differences from the Community Edition">
-      <t>
-        This specification includes the following changes made to the original community document
-        <xref target="OAuth Core 1.0 Revision A" /> in order to correct mistakes and omissions
+			<t>
+				This specification includes the following changes made to the original community document
+				<xref target="OAuth Core 1.0 Revision A" /> in order to correct mistakes and omissions
         identified since the document has been published:
-        
-        <list style="symbols">
+				
+				<list style="symbols">
           <t>
             Changed using TLS/SSL when sending or requesting plain text credentials from SHOULD
             to MUST. This change affects any use of the <spanx style="verb">PLAINTEXT</spanx>
@@ -2770,8 +2748,8 @@
             and <xref target="auth_step3">obtaining token credentials</xref>.
           </t>
           <t>
-            Adjusted nonce language to indicate it is unique per token/timestamp/client combination.
-          </t>
+						Adjusted nonce language to indicate it is unique per token/timestamp/client combination.
+					</t>
           <t>
             Removed the requirement for timestamps to be equal to or greater than the timestamp
             used in the previous request.
@@ -2780,16 +2758,16 @@
             Changed the nonce and timestamp parameters to OPTIONAL when using the
             <spanx style="verb">PLAINTEXT</spanx> signature method.
           </t>
-          <t>
-            Extended signature base string coverage which includes <spanx style="verb">application/x-www-form-urlencoded</spanx>
-            entity-body parameters when the HTTP method used is other than <spanx style="verb">POST</spanx> and URI query
-            parameters when the HTTP method used is other than <spanx style="verb">GET</spanx>.
-          </t>
-          <t>
-            Incorporated corrections to the instructions in each signature method to encode the signature
+					<t>
+						Extended signature base string coverage which includes <spanx style="verb">application/x-www-form-urlencoded</spanx>
+						entity-body parameters when the HTTP method used is other than <spanx style="verb">POST</spanx> and URI query
+						parameters when the HTTP method used is other than <spanx style="verb">GET</spanx>.
+					</t>
+					<t>
+						Incorporated corrections to the instructions in each signature method to encode the signature
             value before inserting it into the <spanx style="verb">oauth_signature</spanx> parameter,
             removing errors which would have caused double-encoded values.
-          </t>
+					</t>
           <t>
             Allowed omitting the <spanx style="verb">oauth_token</spanx> parameter when empty.
           </t>
@@ -2801,9 +2779,9 @@
             Removed the restrictions from defining additional <spanx style="verb">oauth_</spanx>
             parameters.
           </t>
-        </list>
-      </t>
-    </appendix>
+				</list>
+			</t>
+		</appendix>
 
     <appendix title="Document History" anchor="history">
       <t>
@@ -2950,28 +2928,28 @@
           </t>
         </list>
       </t>
-      <t>
-        -03
+			<t>
+				-03
 
-        <list style="symbols">
-          <t>
-            Updated draft with changes from OAuth Core 1.0 Revision A to fix a session fixation exploit.
-          </t>
-          <t>
-            Small editorial corrections.
-          </t>
-          <t>
-            Removed confusing language from 'Denial of Service / Resource Exhaustion Attacks'.
-          </t>
-          <t>
-            Added new 'Differences from the Community Edition' appendix.
-          </t>
-          <t>
-            Updated acknowledgements section.
-          </t>
-        </list>
-      </t>
-      <t>
+				<list style="symbols">
+					<t>
+						Updated draft with changes from OAuth Core 1.0 Revision A to fix a session fixation exploit.
+					</t>
+					<t>
+						Small editorial corrections.
+					</t>
+					<t>
+						Removed confusing language from 'Denial of Service / Resource Exhaustion Attacks'.
+					</t>
+					<t>
+						Added new 'Differences from the Community Edition' appendix.
+					</t>
+					<t>
+						Updated acknowledgements section.
+					</t>
+				</list>
+			</t>
+			<t>
         -02
 
         <list style="symbols">
