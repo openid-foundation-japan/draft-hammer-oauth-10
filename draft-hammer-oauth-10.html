@@ -246,13 +246,13 @@ RSA-SHA1 署名方式<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor14">4.4.</a>&nbsp;
 Proxying and Caching of Authenticated Content<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor15">4.5.</a>&nbsp;
-Plaintext Storage of Credentials<br />
+認証情報のプレインテキストストレージ<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#client_cred_sec">4.6.</a>&nbsp;
-Secrecy of the Client Credentials<br />
+クライアントクレデンシャルの秘匿性<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor16">4.7.</a>&nbsp;
-Phishing Attacks<br />
+フィッシング攻撃<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor17">4.8.</a>&nbsp;
-Scoping of Access Requests<br />
+アクセスリクエストのスコープ<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor18">4.9.</a>&nbsp;
 Entropy of Secrets<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor19">4.10.</a>&nbsp;
@@ -918,7 +918,7 @@ Author's Address<br />
       
 </p>
 <p>
-        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証リクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>Secrecy of the Client Credentials</span><span>)</span></a> に記載している。
+        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証リクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>クライアントクレデンシャルの秘匿性</span><span>)</span></a> に記載している。
       
 </p>
 <p>
@@ -2085,79 +2085,53 @@ Proxying and Caching of Authenticated Content</h3>
 <a name="anchor15"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.5"></a><h3>4.5.&nbsp;
-Plaintext Storage of Credentials</h3>
+認証情報のプレインテキストストレージ</h3>
 
 <p>
-          The client shared-secret and token shared-secret function the same way passwords do in
-          traditional authentication systems. In order to compute the signatures used in methods
-          other than <tt>RSA-SHA1</tt>, the server must have access to these
-          secrets in plaintext form. This is in contrast, for example, to modern operating systems,
-          which store only a one-way hash of user credentials.
+          クライアント共有鍵およびトークン共有鍵は、従来の認証システムにおけるパスワードと同様の機能を持つ。<tt>RSA-SHA1</tt>以外の方法で使用される署名を計算するには、サーバーがそれらの鍵にプレインテキスト形式でアクセスできなければならない。これはユーザーの認証情報を不可逆なハッシュでのみ保存する、例えばモダンOSのようなものとは対照的なものと言える。
         
 </p>
 <p>
-          If an attacker were to gain access to these secrets - or worse, to the server's database
-          of all such secrets - he or she would be able to perform any action on behalf of any
-          resource owner. Accordingly, it is critical that servers protect these secrets from
-          unauthorized access.
+          もし攻撃者がこれらの鍵のアクセス権、もしくはサーバーの持つすべての鍵データベースへのアクセス権を奪い取った場合、攻撃者はリソースオーナーを装い、あらゆるアクションを起こすことが可能となる。そのため、サーバーはこれらの鍵を権限のない者から厳重に守らなければならない。
         
 </p>
 <a name="client_cred_sec"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.6"></a><h3>4.6.&nbsp;
-Secrecy of the Client Credentials</h3>
+クライアントクレデンシャルの秘匿性</h3>
 
 <p>
-          In many cases, the client application will be under the control of potentially untrusted
-          parties. For example, if the client is a desktop application with freely available
-          source code or an executable binary, an attacker may be able to download a copy for
-          analysis. In such cases, attackers will be able to recover the client credentials.
+          クライアントアプリケーションが信頼性の低い組織の管理下に置かれるケースは少なくない。例えばクライアントがデスクトップアプリケーションで、ソースコードや実行形式のバイナリが公開されている場合、攻撃者が分析のためにコピーをダウンロードし、クライアントクレデンシャルを見付けてしまう可能性がある。
         
 </p>
 <p>
-          Accordingly, servers should not use the client credentials alone to verify the identity
-          of the client. Where possible, other factors such as IP address should be used as well.
+          そういった場合、サーバーはクライアントのアイデンティティを検証する際、クライアントクレデンシャルのみを使うべきではない。可能であれば、IPアドレスのような他の要素も用いるべきである。
         
 </p>
 <a name="anchor16"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.7"></a><h3>4.7.&nbsp;
-Phishing Attacks</h3>
+フィッシング攻撃</h3>
 
 <p>
-          Wide deployment of this and similar protocols may cause resource owners to become inured
-          to the practice of being redirected to websites where they are asked to enter their
-          passwords. If resource owners are not careful to verify the authenticity of these
-          websites before entering their credentials, it will be possible for attackers to exploit
-          this practice to steal resource owners' passwords.
+          本仕様や類似したプロトコルが広く実用化されると、リソースオーナーがパスワードを入力するウェブサイトにリダイレクトされることに慣れてくる可能性がある。これらのウェブサイトの信頼性を注意深く検証せず、リソースオーナーが認証情報を入力してしまうと、リソースオーナーのパスワードが攻撃者に盗まれてしまう可能性もある。
         
 </p>
 <p>
-          Servers should attempt to educate resource owners about the risks phishing attacks pose,
-          and should provide mechanisms that make it easy for resource owners to confirm the
-          authenticity of their sites. Client developers should consider the security implications
-          of how they interact with a user-agent (e.g. separate window, embedded), and the ability
-          of the end-user to verify the authenticity of the server website.
+          サーバーは、リソースオーナーにフィッシング攻撃のリスクについて情報提供を行い、簡単にウェブサイトの信頼性を検証できる手段を提供すべきである。クライアント開発者はユーザーエージェントとのやりとり (別窓や埋め込み等) におけるセキュリティ上の影響と、エンドユーザーがサーバーウェブサイトの信頼性を検証する能力について考慮すべきである。
         
 </p>
 <a name="anchor17"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.8"></a><h3>4.8.&nbsp;
-Scoping of Access Requests</h3>
+アクセスリクエストのスコープ</h3>
 
 <p>
-          By itself, this protocol does not provide any method for scoping the access rights
-          granted to a client. However, most applications do require greater granularity of access
-          rights. For example, servers may wish to make it possible to grant access to some
-          protected resources but not others, or to grant only limited access (such as read-only
-          access) to those protected resources.
+          このプロトコルは、それ自体ではクライアントに許可するアクセス権限のスコープを定める方法を提供していない。しかし、ほとんどのアプリケーションは、アクセス権の細分化を必要としている。例えば、サーバーが特定の保護されたリソースへのアクセスを許可しても、他を許可しなかったり、制限のあるアクセス (読み取り専用等) のみ許可したい場合がある。
         
 </p>
 <p>
-          When implementing this protocol, servers should consider the types of access resource
-          owners may wish to grant clients, and should provide mechanisms to do so. Servers should
-          also take care to ensure that resource owners understand the access they are granting, as
-          well as any risks that may be involved.
+          このプロトコルを実装する際、サーバーは、リソースオーナーがクライアントに対して許可したいアクセスの形式について考慮し、それを実現する機構を提供すべきである。サーバーは、リソースオーナーが自分の許可しようとしているアクセス権と、それがどんなリスクを持っているかについて理解していることを、注意深く確認すべきである。
         
 </p>
 <a name="anchor18"></a><br /><hr />

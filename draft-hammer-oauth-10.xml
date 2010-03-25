@@ -2526,66 +2526,94 @@
         </t>
       </section>
 
-      <section title="Plaintext Storage of Credentials">
+      <section title="認証情報のプレインテキストストレージ">
+      <!--section title="Plaintext Storage of Credentials"-->
         <t>
+          クライアント共有鍵およびトークン共有鍵は、従来の認証システムにおけるパスワードと同様の機能を持つ。<spanx style="verb">RSA-SHA1</spanx>以外の方法で使用される署名を計算するには、サーバーがそれらの鍵にプレインテキスト形式でアクセスできなければならない。これはユーザーの認証情報を不可逆なハッシュでのみ保存する、例えばモダンOSのようなものとは対照的なものと言える。
+        </t>
+        <!--t>
           The client shared-secret and token shared-secret function the same way passwords do in
           traditional authentication systems. In order to compute the signatures used in methods
           other than <spanx style="verb">RSA-SHA1</spanx>, the server must have access to these
           secrets in plaintext form. This is in contrast, for example, to modern operating systems,
           which store only a one-way hash of user credentials.
-        </t>
+        </t-->
         <t>
+          もし攻撃者がこれらの鍵のアクセス権、もしくはサーバーの持つすべての鍵データベースへのアクセス権を奪い取った場合、攻撃者はリソースオーナーを装い、あらゆるアクションを起こすことが可能となる。そのため、サーバーはこれらの鍵を権限のない者から厳重に守らなければならない。
+        </t>
+        <!--t>
           If an attacker were to gain access to these secrets - or worse, to the server's database
           of all such secrets - he or she would be able to perform any action on behalf of any
           resource owner. Accordingly, it is critical that servers protect these secrets from
           unauthorized access.
-        </t>
+        </t-->
       </section>
 
-      <section title="Secrecy of the Client Credentials" anchor="client_cred_sec">
+      <section title="クライアントクレデンシャルの秘匿性" anchor="client_cred_sec">
+      <!--section title="Secrecy of the Client Credentials" anchor="client_cred_sec"-->
         <t>
+          クライアントアプリケーションが信頼性の低い組織の管理下に置かれるケースは少なくない。例えばクライアントがデスクトップアプリケーションで、ソースコードや実行形式のバイナリが公開されている場合、攻撃者が分析のためにコピーをダウンロードし、クライアントクレデンシャルを見付けてしまう可能性がある。
+        </t>
+        <!--t>
           In many cases, the client application will be under the control of potentially untrusted
           parties. For example, if the client is a desktop application with freely available
           source code or an executable binary, an attacker may be able to download a copy for
           analysis. In such cases, attackers will be able to recover the client credentials.
-        </t>
+        </t-->
         <t>
+          そういった場合、サーバーはクライアントのアイデンティティを検証する際、クライアントクレデンシャルのみを使うべきではない。可能であれば、IPアドレスのような他の要素も用いるべきである。
+        </t>
+        <!--t>
           Accordingly, servers should not use the client credentials alone to verify the identity
           of the client. Where possible, other factors such as IP address should be used as well.
-        </t>
+        </t-->
       </section>
 
-      <section title="Phishing Attacks">
+      <section title="フィッシング攻撃">
+      <!--section title="Phishing Attacks"-->
         <t>
+          本仕様や類似したプロトコルが広く実用化されると、リソースオーナーがパスワードを入力するウェブサイトにリダイレクトされることに慣れてくる可能性がある。これらのウェブサイトの信頼性を注意深く検証せず、リソースオーナーが認証情報を入力してしまうと、リソースオーナーのパスワードが攻撃者に盗まれてしまう可能性もある。
+        </t>
+        <!--t>
           Wide deployment of this and similar protocols may cause resource owners to become inured
           to the practice of being redirected to websites where they are asked to enter their
           passwords. If resource owners are not careful to verify the authenticity of these
           websites before entering their credentials, it will be possible for attackers to exploit
           this practice to steal resource owners' passwords.
-        </t>
+        </t-->
         <t>
+          サーバーは、リソースオーナーにフィッシング攻撃のリスクについて情報提供を行い、簡単にウェブサイトの信頼性を検証できる手段を提供すべきである。クライアント開発者はユーザーエージェントとのやりとり (別窓や埋め込み等) におけるセキュリティ上の影響と、エンドユーザーがサーバーウェブサイトの信頼性を検証する能力について考慮すべきである。
+        </t>
+        <!--t>
           Servers should attempt to educate resource owners about the risks phishing attacks pose,
           and should provide mechanisms that make it easy for resource owners to confirm the
           authenticity of their sites. Client developers should consider the security implications
           of how they interact with a user-agent (e.g. separate window, embedded), and the ability
           of the end-user to verify the authenticity of the server website.
-        </t>
+        </t-->
       </section>
 
-      <section title="Scoping of Access Requests">
+      <section title="アクセスリクエストのスコープ">
+      <!--section title="Scoping of Access Requests"-->
         <t>
+          このプロトコルは、それ自体ではクライアントに許可するアクセス権限のスコープを定める方法を提供していない。しかし、ほとんどのアプリケーションは、アクセス権の細分化を必要としている。例えば、サーバーが特定の保護されたリソースへのアクセスを許可しても、他を許可しなかったり、制限のあるアクセス (読み取り専用等) のみ許可したい場合がある。
+        </t>
+        <!--t>
           By itself, this protocol does not provide any method for scoping the access rights
           granted to a client. However, most applications do require greater granularity of access
           rights. For example, servers may wish to make it possible to grant access to some
           protected resources but not others, or to grant only limited access (such as read-only
           access) to those protected resources.
-        </t>
+        </t-->
         <t>
+          このプロトコルを実装する際、サーバーは、リソースオーナーがクライアントに対して許可したいアクセスの形式について考慮し、それを実現する機構を提供すべきである。サーバーは、リソースオーナーが自分の許可しようとしているアクセス権と、それがどんなリスクを持っているかについて理解していることを、注意深く確認すべきである。
+        </t>
+        <!--t>
           When implementing this protocol, servers should consider the types of access resource
           owners may wish to grant clients, and should provide mechanisms to do so. Servers should
           also take care to ensure that resource owners understand the access they are granting, as
           well as any risks that may be involved.
-        </t>
+        </t-->
       </section>
 
       <section title="Entropy of Secrets">
