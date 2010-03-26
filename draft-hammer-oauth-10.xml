@@ -2616,31 +2616,45 @@
         </t-->
       </section>
 
-      <section title="Entropy of Secrets">
+      <section title="認証情報のエントロピー">
+      <!--section title="Entropy of Secrets"-->
         <t>
+          トランスポート層のセキュリティプロトコルを使用しない場合、盗聴者は認証リクエストとシグニチャにアクセスし、クレデンシャルを暴くためにブルートフォース攻撃を仕掛けられる可能性がある。サーバーは、そのような攻撃に対して、少なくとも有効期間中は共有鍵が暴かれないよう、十分な長さでランダムな共有鍵にすべきである。
+        </t>
+        <!--t>
           Unless a transport-layer security protocol is used, eavesdroppers will have full access
           to authenticated requests and signatures, and will thus be able to mount offline brute-force
           attacks to recover the credentials used. Servers should be careful to assign
           shared-secrets which are long enough, and random enough, to resist such attacks for at
           least the length of time that the shared-secrets are valid.
-        </t>
+        </t-->
         <t>
+          例えば、2週間共有鍵を有効にした場合、サーバーは、2週間以内にブルートフォース攻撃が共有鍵を暴くことが不可能であることを確認すべきである。勿論、サーバーは、十分な長さの鍵を用いて対処すべきである。
+        </t>
+        <!--t>
           For example, if shared-secrets are valid for two weeks, servers should ensure that it is
           not possible to mount a brute force attack that recovers the shared-secret in less than
           two weeks. Of course, servers are urged to err on the side of caution, and use the longest
           secrets reasonable.
-        </t>
+        </t-->
         <t>
+          鍵を生成する Pseudo-Random Number Generator (疑似乱数生成器) が高い品質であることは重要である。ランダムな数列を生成していても、暗号解読やブルートフォース攻撃を容易にするようなパターンや脆弱性を持つ PRNG 実装は多い。実装者はこうした問題の無い安全な PRNG を使用すべきである。
+        </t>
+        <!--t>
           It is equally important that the pseudo-random number generator (PRNG) used to generate
           these secrets be of sufficiently high quality. Many PRNG implementations generate number
           sequences that may appear to be random, but which nevertheless exhibit patterns or other
           weaknesses which make cryptanalysis or brute force attacks easier. Implementers should be
           careful to use cryptographically secure PRNGs to avoid these problems.
-        </t>
+        </t-->
       </section>
 
-      <section title="Denial of Service / Resource Exhaustion Attacks">
+      <section title="DoS 攻撃 / リソース枯渇攻撃">
+      <!--section title="Denial of Service / Resource Exhaustion Attacks"-->
         <t>
+          この仕様には、サーバーリソースを枯渇させる攻撃を可能にする特徴が多くある。例えば、サーバーにノンス値が使用済みかを検査するよう要求している。攻撃者が瞬時に多数のノンス値を使用できる場合、それらを検査するのにサーバーはリソースを枯渇させてしまうだろう。更に、リクエストの署名を検証するためにサーバーに高い計算能力を要求している。攻撃者は、不正なリクエストを大量に送る DoS 攻撃でこの計算能力を使い尽くそうとするだろう。
+        </t>
+        <!--t>
           This specification includes a number of features which may make resource exhaustion
           attacks against servers possible. For example, this protocol requires servers to track
           used nonces. If an attacker is able to use many nonces quickly, the resources required to
@@ -2648,8 +2662,11 @@
           to perform potentially expensive computations in order to verify the signature on
           incoming requests. An attacker may exploit this to perform a denial of service attack by
           sending a large number of invalid requests to the server.
-        </t>
+        </t-->
         <t>
+          リソース枯渇攻撃は決してこの仕様だけの特有のものではないが、実装者はこの仕様が枯渇攻撃の方法を顕在化させていることに考慮し十分な設計を行うべきである。例えば、エントロピーの不足は、得てして、新たなエントロピーを待つ間に DoS や弱い (推測しやすい) 鍵をもたらすことになる。実装に当たりサーバーは、これらがアプリケーションに深刻なリスクをもたらすことを考慮して十分に設計すべきである。
+        </t>
+        <!--t>
           Resource Exhaustion attacks are by no means specific to this specification. However,
           implementers should be careful to consider the additional avenues of attack that this
           protocol exposes, and design their implementations accordingly. For example, entropy
@@ -2657,11 +2674,15 @@
           waits for new entropy or else in weak (easily guessable) secrets. When implementing this
           protocol, servers should consider which of these presents a more serious risk for their
           application and design accordingly.
-        </t>
+        </t-->
       </section>
 
-      <section title="SHA-1 Cryptographic Attacks">
+      <section title="SHA-1 攻撃">
+      <!--section title="SHA-1 Cryptographic Attacks"-->
         <t>
+          <spanx style="verb">HMAC-SHA1</spanx> 署名方式、<spanx style="verb">RSA-SHA1</spanx> 署名方式で使用されている SHA-1 はコリジョン攻撃に対して多くの脆弱性を持つことが分かっている。この脆弱性は、<spanx style="verb">HMAC-SHA1</spanx> 署名方式の利用には影響無いようであるが、<spanx style="verb">RSA-SHA1</spanx> 署名方式には影響がある。NISTは、電子署名として SHA-1 を用いることを 2010 年までに段階的に廃止していくよう案内している。<xref target="NIST SHA-1 Comments" />
+        </t>
+        <!--t>
           SHA-1, the hash algorithm used in <spanx style="verb">HMAC-SHA1</spanx> and
           <spanx style="verb">RSA-SHA1</spanx> signature methods, has been shown to have a number
           of cryptographic weaknesses that significantly reduce its resistance to collision
@@ -2670,13 +2691,16 @@
           <spanx style="verb">HMAC-SHA1</spanx> signature method, it may affect the use of the
           <spanx style="verb">RSA-SHA1</spanx> signature method. NIST has announced that it will
           phase out use of SHA-1 in digital signtures by 2010 <xref target="NIST SHA-1 Comments" />.
-        </t>
+        </t-->
         <t>
+          実際のところ、この脆弱性を利用するのは難しく、利用者に重大なリスクをもたらすことはないが、より効率的な攻撃が可能になるかも知れず、サーバーは、SHA-1 が十分なレベルのセキュリティをアプリケーションにもたらすかを考える時、このことを留意しておくべきである。
+        </t>
+        <!--t>
           Practically speaking, these weaknesses are difficult to exploit, and by themselves do not
           pose a significant risk to users of this protocol. They may, however, make more efficient
           attacks possible, and  Servers should take this into account when considering whether
           SHA-1 provides an adequate level of security for their applications.
-        </t>
+        </t-->
       </section>
 
       <section title="Signature Base String Limitations">
