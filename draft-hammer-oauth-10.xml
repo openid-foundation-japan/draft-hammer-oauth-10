@@ -2824,78 +2824,123 @@
 
     </section>
 
-    <section title="IANA Considerations" anchor="IANA">
+    <section title="IANA に関する考察" anchor="IANA">
+    <!--section title="IANA Considerations" anchor="IANA"-->
       <t>
-        This memo includes no request to IANA.
+        このメモは IANA へのリクエストを含まない。
       </t>
+      <!--t>
+        This memo includes no request to IANA.
+      </t-->
     </section>
 
-    <section title="Acknowledgments">
+    <section title="謝辞">
+    <!--section title="Acknowledgments"-->
       <t>
+        この仕様は、複数の企業により個別に実装された、既存の独自プロトコルおよびベストプラクティスを元にして作成された、コミュニティ仕様 OAuth Core 1.0 Revision A に、直接的に基づくものである。
+      </t>
+      <!--t>
         This specification is directly based on the OAuth Core 1.0 Revision A community
         specification which in turn was modeled after existing proprietary protocols and best
         practices that have been independently implemented by various companies.
-      </t>
+      </t-->
       <t>
+        コミュニティ仕様は Eran Hammer-Lahav による編集、Mark Atwood、Dirk Balfanz、Darren Bounds、Richard M. Conlan、Blaine Cook、Leah Culver、Breno de Medeiros、Brian Eaton、Kellan Elliott-McCrea、Larry Halff、Eran Hammer-Lahav、Ben Laurie、Chris Messina、John Panzer、Sam Quigley、David Recordon、Eran Sandler、Jonathan Sergent、Todd Sieling、Brian Slesinsky、Andy Smith による著作である.
+      </t>
+      <!--t>
         The community specification was edited by Eran Hammer-Lahav and authored by: Mark Atwood,
         Dirk Balfanz, Darren Bounds, Richard M. Conlan, Blaine Cook, Leah Culver,
         Breno de Medeiros, Brian Eaton, Kellan Elliott-McCrea, Larry Halff, Eran Hammer-Lahav,
         Ben Laurie, Chris Messina, John Panzer, Sam Quigley, David Recordon, Eran Sandler,
         Jonathan Sergent, Todd Sieling, Brian Slesinsky, and Andy Smith.
-      </t>
+      </t-->
       <t>
+        編集者は、本エディションの公開について、多大な貢献を行った次の人々に感謝する。Lisa Dusseault、Justin Hart、Avshalom Houri、Chris Messina、Mark Nottingham、Tim Polk、Peter Saint-Andre、Joseph Smarr、Paul Walker。
+      </t>
+      <!--t>
         The editor would like to thank the following individuals for their invaluable contribution
         to the publication of this edition of the protocol: Lisa Dusseault, Justin Hart,
         Avshalom Houri, Chris Messina, Mark Nottingham, Tim Polk, Peter Saint-Andre, Joseph Smarr,
         and Paul Walker.
-      </t>
+      </t-->
     </section>
     
-    <appendix title="Differences from the Community Edition">
+    <appendix title="コミュニティ版との違い">
+    <!--appendix title="Differences from the Community Edition"-->
       <t>
+        本仕様は、元のコミュニティ仕様 <xref target="OAuth Core 1.0 Revision A" /> が公開されてから発見された、以下の間違いや欠落を修正するための変更点を含む。
+        <!--
         This specification includes the following changes made to the original community document
         <xref target="OAuth Core 1.0 Revision A" /> in order to correct mistakes and omissions
         identified since the document has been published:
+        -->
         
         <list style="symbols">
           <t>
+            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">一時的なクレデンシャルのリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx>署名方式の利用が影響を受ける。
+          </t>
+          <!--t>
             Changed using TLS/SSL when sending or requesting plain text credentials from SHOULD
             to MUST. This change affects any use of the <spanx style="verb">PLAINTEXT</spanx>
             signature method, as well as <xref target="auth_step1">requesting temporary credentials</xref>
             and <xref target="auth_step3">obtaining token credentials</xref>.
-          </t>
+          </t-->
           <t>
+            トークン／タイムスタンプ／クライアントの組み合わせごとにユニークになるよう、ノンス言語を調整。
+          </t>
+          <!--t>
             Adjusted nonce language to indicate it is unique per token/timestamp/client combination.
-          </t>
+          </t-->
           <t>
+            タイムスタンプが、前回のリクエストで利用されたものよりも大きいか、同等である必要がある旨を削除。
+          </t>
+          <!--t>
             Removed the requirement for timestamps to be equal to or greater than the timestamp
             used in the previous request.
-          </t>
+          </t-->
           <t>
+            <spanx style="verb">PLAINTEXT</spanx>署名方式利用時のノンスおよびタイムスタンプパラメータを、オプションに変更。
+          </t>
+          <!--t>
             Changed the nonce and timestamp parameters to OPTIONAL when using the
             <spanx style="verb">PLAINTEXT</spanx> signature method.
-          </t>
+          </t-->
           <t>
+            利用されるHTTP メソッドが<spanx style="verb">POST</spanx>以外の場合の<spanx style="verb">application/x-www-form-urlencoded</spanx>エンティティボディパラメータを含むシグニチャベースストリングを拡張。また、HTTP メソッドが<spanx style="verb">GET</spanx>以外の場合のURI クエリパラメータを拡張。
+          </t>
+          <!--t>
             Extended signature base string coverage which includes <spanx style="verb">application/x-www-form-urlencoded</spanx>
             entity-body parameters when the HTTP method used is other than <spanx style="verb">POST</spanx> and URI query
             parameters when the HTTP method used is other than <spanx style="verb">GET</spanx>.
-          </t>
+          </t-->
           <t>
-            Incorporated corrections to the instructions in each signature method to encode the signature
+            二重エンコードによるエラーを防ぐため、各署名方式の解説に、<spanx style="verb">oauth_signature</spanx>パラメータにシグニチャ値を挿入する前に、エンコードする旨を追加。
+          </t>
+          <!--t>
+            incorporated corrections to the instructions in each signature method to encode the signature
             value before inserting it into the <spanx style="verb">oauth_signature</spanx> parameter,
             removing errors which would have caused double-encoded values.
-          </t>
+          </t-->
           <t>
-            Allowed omitting the <spanx style="verb">oauth_token</spanx> parameter when empty.
+            <spanx style="verb">oauth_token</spanx>パラメータが空の場合、省略可能とした。
           </t>
+          <!--t>
+            allowed omitting the <spanx style="verb">oauth_token</spanx> parameter when empty.
+          </t-->
           <t>
+            空の<spanx style="verb">oauth_token</spanx>パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
+          </t>
+          <!--t>
             Permitted sending requests for temporary credentials with an empty
             <spanx style="verb">oauth_token</spanx> parameter.
-          </t>
+          </t-->
           <t>
+            <spanx style="verb">oauth_</spanx>パラメータの追加定義を制限する記述を削除。
+          </t>
+          <!--t>
             Removed the restrictions from defining additional <spanx style="verb">oauth_</spanx>
             parameters.
-          </t>
+          </t-->
         </list>
       </t>
     </appendix>

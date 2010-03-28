@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 24, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 28, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 25, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 29, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 25, 2010.</p>
+This Internet-Draft will expire on September 29, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -254,11 +254,11 @@ Proxying and Caching of Authenticated Content<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor17">4.8.</a>&nbsp;
 アクセスリクエストのスコープ<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor18">4.9.</a>&nbsp;
-Entropy of Secrets<br />
+認証情報のエントロピー<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor19">4.10.</a>&nbsp;
-Denial of Service / Resource Exhaustion Attacks<br />
+DoS 攻撃 / リソース枯渇攻撃<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor20">4.11.</a>&nbsp;
-SHA-1 Cryptographic Attacks<br />
+SHA-1 攻撃<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor21">4.12.</a>&nbsp;
 Signature Base String Limitations<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor22">4.13.</a>&nbsp;
@@ -268,11 +268,11 @@ User Interface Redress<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor24">4.15.</a>&nbsp;
 Automatic Processing of Repeat Authorizations<br />
 <a href="#IANA">5.</a>&nbsp;
-IANA Considerations<br />
+IANA に関する考察<br />
 <a href="#anchor25">6.</a>&nbsp;
-Acknowledgments<br />
+謝辞<br />
 <a href="#anchor26">Appendix&nbsp;A.</a>&nbsp;
-Differences from the Community Edition<br />
+コミュニティ版との違い<br />
 <a href="#history">Appendix&nbsp;B.</a>&nbsp;
 Document History<br />
 <a href="#rfc.references1">7.</a>&nbsp;
@@ -2137,77 +2137,44 @@ Proxying and Caching of Authenticated Content</h3>
 <a name="anchor18"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.9"></a><h3>4.9.&nbsp;
-Entropy of Secrets</h3>
+認証情報のエントロピー</h3>
 
 <p>
-          Unless a transport-layer security protocol is used, eavesdroppers will have full access
-          to authenticated requests and signatures, and will thus be able to mount offline brute-force
-          attacks to recover the credentials used. Servers should be careful to assign
-          shared-secrets which are long enough, and random enough, to resist such attacks for at
-          least the length of time that the shared-secrets are valid.
+          トランスポート層のセキュリティプロトコルを使用しない場合、盗聴者は認証リクエストとシグニチャにアクセスし、クレデンシャルを暴くためにブルートフォース攻撃を仕掛けられる可能性がある。サーバーは、そのような攻撃に対して、少なくとも有効期間中は共有鍵が暴かれないよう、十分な長さでランダムな共有鍵にすべきである。
         
 </p>
 <p>
-          For example, if shared-secrets are valid for two weeks, servers should ensure that it is
-          not possible to mount a brute force attack that recovers the shared-secret in less than
-          two weeks. Of course, servers are urged to err on the side of caution, and use the longest
-          secrets reasonable.
+          例えば、2週間共有鍵を有効にした場合、サーバーは、2週間以内にブルートフォース攻撃が共有鍵を暴くことが不可能であることを確認すべきである。勿論、サーバーは、十分な長さの鍵を用いて対処すべきである。
         
 </p>
 <p>
-          It is equally important that the pseudo-random number generator (PRNG) used to generate
-          these secrets be of sufficiently high quality. Many PRNG implementations generate number
-          sequences that may appear to be random, but which nevertheless exhibit patterns or other
-          weaknesses which make cryptanalysis or brute force attacks easier. Implementers should be
-          careful to use cryptographically secure PRNGs to avoid these problems.
+          鍵を生成する Pseudo-Random Number Generator (疑似乱数生成器) が高い品質であることは重要である。ランダムな数列を生成していても、暗号解読やブルートフォース攻撃を容易にするようなパターンや脆弱性を持つ PRNG 実装は多い。実装者はこうした問題の無い安全な PRNG を使用すべきである。
         
 </p>
 <a name="anchor19"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.10"></a><h3>4.10.&nbsp;
-Denial of Service / Resource Exhaustion Attacks</h3>
+DoS 攻撃 / リソース枯渇攻撃</h3>
 
 <p>
-          This specification includes a number of features which may make resource exhaustion
-          attacks against servers possible. For example, this protocol requires servers to track
-          used nonces. If an attacker is able to use many nonces quickly, the resources required to
-          track them may exhaust available capacity. And again, this protocol can require servers
-          to perform potentially expensive computations in order to verify the signature on
-          incoming requests. An attacker may exploit this to perform a denial of service attack by
-          sending a large number of invalid requests to the server.
+          この仕様には、サーバーリソースを枯渇させる攻撃を可能にする特徴が多くある。例えば、サーバーにノンス値が使用済みかを検査するよう要求している。攻撃者が瞬時に多数のノンス値を使用できる場合、それらを検査するのにサーバーはリソースを枯渇させてしまうだろう。更に、リクエストの署名を検証するためにサーバーに高い計算能力を要求している。攻撃者は、不正なリクエストを大量に送る DoS 攻撃でこの計算能力を使い尽くそうとするだろう。
         
 </p>
 <p>
-          Resource Exhaustion attacks are by no means specific to this specification. However,
-          implementers should be careful to consider the additional avenues of attack that this
-          protocol exposes, and design their implementations accordingly. For example, entropy
-          starvation typically results in either a complete denial of service while the system
-          waits for new entropy or else in weak (easily guessable) secrets. When implementing this
-          protocol, servers should consider which of these presents a more serious risk for their
-          application and design accordingly.
+          リソース枯渇攻撃は決してこの仕様だけの特有のものではないが、実装者はこの仕様が枯渇攻撃の方法を顕在化させていることに考慮し十分な設計を行うべきである。例えば、エントロピーの不足は、得てして、新たなエントロピーを待つ間に DoS や弱い (推測しやすい) 鍵をもたらすことになる。実装に当たりサーバーは、これらがアプリケーションに深刻なリスクをもたらすことを考慮して十分に設計すべきである。
         
 </p>
 <a name="anchor20"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.11"></a><h3>4.11.&nbsp;
-SHA-1 Cryptographic Attacks</h3>
+SHA-1 攻撃</h3>
 
 <p>
-          SHA-1, the hash algorithm used in <tt>HMAC-SHA1</tt> and
-          <tt>RSA-SHA1</tt> signature methods, has been shown to have a number
-          of cryptographic weaknesses that significantly reduce its resistance to collision
-          attacks. While these weaknesses do not seem to affect the use of SHA-1 with the
-          Hash-based Message Authentication Code (HMAC) and should not affect the
-          <tt>HMAC-SHA1</tt> signature method, it may affect the use of the
-          <tt>RSA-SHA1</tt> signature method. NIST has announced that it will
-          phase out use of SHA-1 in digital signtures by 2010 <a class='info' href='#NIST SHA-1 Comments'>[NIST SHA&#8209;1 Comments]<span> (</span><span class='info'>Burr, W., &ldquo;NIST Comments on Cryptanalytic Attacks on SHA-1,&rdquo; .</span><span>)</span></a>.
+          <tt>HMAC-SHA1</tt> 署名方式、<tt>RSA-SHA1</tt> 署名方式で使用されている SHA-1 はコリジョン攻撃に対して多くの脆弱性を持つことが分かっている。この脆弱性は、<tt>HMAC-SHA1</tt> 署名方式の利用には影響無いようであるが、<tt>RSA-SHA1</tt> 署名方式には影響がある。NISTは、電子署名として SHA-1 を用いることを 2010 年までに段階的に廃止していくよう案内している。<a class='info' href='#NIST SHA-1 Comments'>[NIST SHA&#8209;1 Comments]<span> (</span><span class='info'>Burr, W., &ldquo;NIST Comments on Cryptanalytic Attacks on SHA-1,&rdquo; .</span><span>)</span></a>
         
 </p>
 <p>
-          Practically speaking, these weaknesses are difficult to exploit, and by themselves do not
-          pose a significant risk to users of this protocol. They may, however, make more efficient
-          attacks possible, and  Servers should take this into account when considering whether
-          SHA-1 provides an adequate level of security for their applications.
+          実際のところ、この脆弱性を利用するのは難しく、利用者に重大なリスクをもたらすことはないが、より効率的な攻撃が可能になるかも知れず、サーバーは、SHA-1 が十分なレベルのセキュリティをアプリケーションにもたらすかを考える時、このことを留意しておくべきである。
         
 </p>
 <a name="anchor21"></a><br /><hr />
@@ -2315,95 +2282,74 @@ Automatic Processing of Repeat Authorizations</h3>
 <a name="IANA"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.5"></a><h3>5.&nbsp;
-IANA Considerations</h3>
+IANA に関する考察</h3>
 
 <p>
-        This memo includes no request to IANA.
+        このメモは IANA へのリクエストを含まない。
       
 </p>
 <a name="anchor25"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.6"></a><h3>6.&nbsp;
-Acknowledgments</h3>
+謝辞</h3>
 
 <p>
-        This specification is directly based on the OAuth Core 1.0 Revision A community
-        specification which in turn was modeled after existing proprietary protocols and best
-        practices that have been independently implemented by various companies.
+        この仕様は、複数の企業により個別に実装された、既存の独自プロトコルおよびベストプラクティスを元にして作成された、コミュニティ仕様 OAuth Core 1.0 Revision A に、直接的に基づくものである。
       
 </p>
 <p>
-        The community specification was edited by Eran Hammer-Lahav and authored by: Mark Atwood,
-        Dirk Balfanz, Darren Bounds, Richard M. Conlan, Blaine Cook, Leah Culver,
-        Breno de Medeiros, Brian Eaton, Kellan Elliott-McCrea, Larry Halff, Eran Hammer-Lahav,
-        Ben Laurie, Chris Messina, John Panzer, Sam Quigley, David Recordon, Eran Sandler,
-        Jonathan Sergent, Todd Sieling, Brian Slesinsky, and Andy Smith.
+        コミュニティ仕様は Eran Hammer-Lahav による編集、Mark Atwood、Dirk Balfanz、Darren Bounds、Richard M. Conlan、Blaine Cook、Leah Culver、Breno de Medeiros、Brian Eaton、Kellan Elliott-McCrea、Larry Halff、Eran Hammer-Lahav、Ben Laurie、Chris Messina、John Panzer、Sam Quigley、David Recordon、Eran Sandler、Jonathan Sergent、Todd Sieling、Brian Slesinsky、Andy Smith による著作である.
       
 </p>
 <p>
-        The editor would like to thank the following individuals for their invaluable contribution
-        to the publication of this edition of the protocol: Lisa Dusseault, Justin Hart,
-        Avshalom Houri, Chris Messina, Mark Nottingham, Tim Polk, Peter Saint-Andre, Joseph Smarr,
-        and Paul Walker.
+        編集者は、本エディションの公開について、多大な貢献を行った次の人々に感謝する。Lisa Dusseault、Justin Hart、Avshalom Houri、Chris Messina、Mark Nottingham、Tim Polk、Peter Saint-Andre、Joseph Smarr、Paul Walker。
       
 </p>
 <a name="anchor26"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.A"></a><h3>Appendix A.&nbsp;
-Differences from the Community Edition</h3>
+コミュニティ版との違い</h3>
 
 <p>
-        This specification includes the following changes made to the original community document
-        <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> in order to correct mistakes and omissions
-        identified since the document has been published:
+        本仕様は、元のコミュニティ仕様 <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> が公開されてから発見された、以下の間違いや欠落を修正するための変更点を含む。
+        
         
         </p>
 <ul class="text">
 <li>
-            Changed using TLS/SSL when sending or requesting plain text credentials from SHOULD
-            to MUST. This change affects any use of the <tt>PLAINTEXT</tt>
-            signature method, as well as <a class='info' href='#auth_step1'>requesting temporary credentials<span> (</span><span class='info'>一時的なクレデンシャル</span><span>)</span></a>
-            and <a class='info' href='#auth_step3'>obtaining token credentials<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a>.
+            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<a class='info' href='#auth_step1'>一時的なクレデンシャルのリクエスト<span> (</span><span class='info'>一時的なクレデンシャル</span><span>)</span></a>および<a class='info' href='#auth_step3'>トークンクレデンシャルの取得<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a>だけでなく、<tt>PLAINTEXT</tt>署名方式の利用が影響を受ける。
           
 </li>
 <li>
-            Adjusted nonce language to indicate it is unique per token/timestamp/client combination.
+            トークン／タイムスタンプ／クライアントの組み合わせごとにユニークになるよう、ノンス言語を調整。
           
 </li>
 <li>
-            Removed the requirement for timestamps to be equal to or greater than the timestamp
-            used in the previous request.
+            タイムスタンプが、前回のリクエストで利用されたものよりも大きいか、同等である必要がある旨を削除。
           
 </li>
 <li>
-            Changed the nonce and timestamp parameters to OPTIONAL when using the
-            <tt>PLAINTEXT</tt> signature method.
+            <tt>PLAINTEXT</tt>署名方式利用時のノンスおよびタイムスタンプパラメータを、オプションに変更。
           
 </li>
 <li>
-            Extended signature base string coverage which includes <tt>application/x-www-form-urlencoded</tt>
-            entity-body parameters when the HTTP method used is other than <tt>POST</tt> and URI query
-            parameters when the HTTP method used is other than <tt>GET</tt>.
+            利用されるHTTP メソッドが<tt>POST</tt>以外の場合の<tt>application/x-www-form-urlencoded</tt>エンティティボディパラメータを含むシグニチャベースストリングを拡張。また、HTTP メソッドが<tt>GET</tt>以外の場合のURI クエリパラメータを拡張。
           
 </li>
 <li>
-            Incorporated corrections to the instructions in each signature method to encode the signature
-            value before inserting it into the <tt>oauth_signature</tt> parameter,
-            removing errors which would have caused double-encoded values.
+            二重エンコードによるエラーを防ぐため、各署名方式の解説に、<tt>oauth_signature</tt>パラメータにシグニチャ値を挿入する前に、エンコードする旨を追加。
           
 </li>
 <li>
-            Allowed omitting the <tt>oauth_token</tt> parameter when empty.
+            <tt>oauth_token</tt>パラメータが空の場合、省略可能とした。
           
 </li>
 <li>
-            Permitted sending requests for temporary credentials with an empty
-            <tt>oauth_token</tt> parameter.
+            空の<tt>oauth_token</tt>パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
           
 </li>
 <li>
-            Removed the restrictions from defining additional <tt>oauth_</tt>
-            parameters.
+            <tt>oauth_</tt>パラメータの追加定義を制限する記述を削除。
           
 </li>
 </ul><p>
@@ -2725,23 +2671,23 @@ References</h3>
 <h3>7.1.&nbsp;Normative References</h3>
 <table width="99%" border="0">
 <tr><td class="author-text" valign="top"><a name="RFC2045">[RFC2045]</a></td>
-<td class="author-text"><a href="mailto:ned@innosoft.com">Freed, N.</a> and <a href="mailto:nsb@nsb.fv.com">N. Borenstein</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2045">Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies</a>,&rdquo; RFC&nbsp;2045, November&nbsp;1996 (<a href="ftp://ftp.isi.edu/in-notes/rfc2045.txt">TXT</a>).</td></tr>
+<td class="author-text"><a href="mailto:ned@innosoft.com">Freed, N.</a> and <a href="mailto:nsb@nsb.fv.com">N. Borenstein</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2045">Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies</a>,&rdquo; RFC&nbsp;2045, November&nbsp;1996 (<a href="http://www.rfc-editor.org/rfc/rfc2045.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2104">[RFC2104]</a></td>
-<td class="author-text"><a href="mailto:hugo@watson.ibm.com">Krawczyk, H.</a>, <a href="mailto:mihir@cs.ucsd.edu">Bellare, M.</a>, and <a href="mailto:canetti@watson.ibm.com">R. Canetti</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2104">HMAC: Keyed-Hashing for Message Authentication</a>,&rdquo; RFC&nbsp;2104, February&nbsp;1997 (<a href="ftp://ftp.isi.edu/in-notes/rfc2104.txt">TXT</a>).</td></tr>
+<td class="author-text"><a href="mailto:hugo@watson.ibm.com">Krawczyk, H.</a>, <a href="mailto:mihir@cs.ucsd.edu">Bellare, M.</a>, and <a href="mailto:canetti@watson.ibm.com">R. Canetti</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2104">HMAC: Keyed-Hashing for Message Authentication</a>,&rdquo; RFC&nbsp;2104, February&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2104.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
-<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="ftp://ftp.isi.edu/in-notes/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
+<td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2616">[RFC2616]</a></td>
-<td class="author-text"><a href="mailto:fielding@ics.uci.edu">Fielding, R.</a>, <a href="mailto:jg@w3.org">Gettys, J.</a>, <a href="mailto:mogul@wrl.dec.com">Mogul, J.</a>, <a href="mailto:frystyk@w3.org">Frystyk, H.</a>, <a href="mailto:masinter@parc.xerox.com">Masinter, L.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, and <a href="mailto:timbl@w3.org">T. Berners-Lee</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616, June&nbsp;1999 (<a href="ftp://ftp.isi.edu/in-notes/rfc2616.txt">TXT</a>, <a href="ftp://ftp.isi.edu/in-notes/rfc2616.ps">PS</a>, <a href="ftp://ftp.isi.edu/in-notes/rfc2616.pdf">PDF</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2616.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2616.xml">XML</a>).</td></tr>
+<td class="author-text"><a href="mailto:fielding@ics.uci.edu">Fielding, R.</a>, <a href="mailto:jg@w3.org">Gettys, J.</a>, <a href="mailto:mogul@wrl.dec.com">Mogul, J.</a>, <a href="mailto:frystyk@w3.org">Frystyk, H.</a>, <a href="mailto:masinter@parc.xerox.com">Masinter, L.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, and <a href="mailto:timbl@w3.org">T. Berners-Lee</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a>,&rdquo; RFC&nbsp;2616, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2616.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc2616.pdf">PDF</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2616.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2616.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2617">[RFC2617]</a></td>
-<td class="author-text"><a href="mailto:john@math.nwu.edu">Franks, J.</a>, <a href="mailto:pbaker@verisign.com">Hallam-Baker, P.</a>, <a href="mailto:jeff@AbiSource.com">Hostetler, J.</a>, <a href="mailto:lawrence@agranat.com">Lawrence, S.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, Luotonen, A., and <a href="mailto:stewart@OpenMarket.com">L. Stewart</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2617">HTTP Authentication: Basic and Digest Access Authentication</a>,&rdquo; RFC&nbsp;2617, June&nbsp;1999 (<a href="ftp://ftp.isi.edu/in-notes/rfc2617.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2617.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2617.xml">XML</a>).</td></tr>
+<td class="author-text"><a href="mailto:john@math.nwu.edu">Franks, J.</a>, <a href="mailto:pbaker@verisign.com">Hallam-Baker, P.</a>, <a href="mailto:jeff@AbiSource.com">Hostetler, J.</a>, <a href="mailto:lawrence@agranat.com">Lawrence, S.</a>, <a href="mailto:paulle@microsoft.com">Leach, P.</a>, Luotonen, A., and <a href="mailto:stewart@OpenMarket.com">L. Stewart</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2617">HTTP Authentication: Basic and Digest Access Authentication</a>,&rdquo; RFC&nbsp;2617, June&nbsp;1999 (<a href="http://www.rfc-editor.org/rfc/rfc2617.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2617.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2617.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2818">[RFC2818]</a></td>
-<td class="author-text">Rescorla, E., &ldquo;<a href="http://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>,&rdquo; RFC&nbsp;2818, May&nbsp;2000 (<a href="ftp://ftp.rfc-editor.org/in-notes/rfc2818.txt">TXT</a>).</td></tr>
+<td class="author-text">Rescorla, E., &ldquo;<a href="http://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>,&rdquo; RFC&nbsp;2818, May&nbsp;2000 (<a href="http://www.rfc-editor.org/rfc/rfc2818.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3447">[RFC3447]</a></td>
-<td class="author-text">Jonsson, J. and B. Kaliski, &ldquo;<a href="http://tools.ietf.org/html/rfc3447">Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1</a>,&rdquo; RFC&nbsp;3447, February&nbsp;2003 (<a href="ftp://ftp.rfc-editor.org/in-notes/rfc3447.txt">TXT</a>).</td></tr>
+<td class="author-text">Jonsson, J. and B. Kaliski, &ldquo;<a href="http://tools.ietf.org/html/rfc3447">Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1</a>,&rdquo; RFC&nbsp;3447, February&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3447.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3629">[RFC3629]</a></td>
-<td class="author-text">Yergeau, F., &ldquo;<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, November&nbsp;2003 (<a href="ftp://ftp.rfc-editor.org/in-notes/rfc3629.txt">TXT</a>).</td></tr>
+<td class="author-text">Yergeau, F., &ldquo;<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>,&rdquo; STD&nbsp;63, RFC&nbsp;3629, November&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3629.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3986">[RFC3986]</a></td>
-<td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="ftp://ftp.isi.edu/in-notes/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
+<td class="author-text"><a href="mailto:timbl@w3.org">Berners-Lee, T.</a>, <a href="mailto:fielding@gbiv.com">Fielding, R.</a>, and <a href="mailto:LMM@acm.org">L. Masinter</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>,&rdquo; STD&nbsp;66, RFC&nbsp;3986, January&nbsp;2005 (<a href="http://www.rfc-editor.org/rfc/rfc3986.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc3986.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc3986.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="W3C.REC-html40-19980424">[W3C.REC-html40-19980424]</a></td>
 <td class="author-text">Hors, A., Jacobs, I., and D. Raggett, &ldquo;<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML 4.0 Specification</a>,&rdquo; World Wide Web Consortium Recommendation&nbsp;REC-html40-19980424, April&nbsp;1998 (<a href="http://www.w3.org/TR/1998/REC-html40-19980424">HTML</a>).</td></tr>
 </table>
