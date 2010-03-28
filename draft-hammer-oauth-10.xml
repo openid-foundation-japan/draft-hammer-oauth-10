@@ -2703,70 +2703,104 @@
         </t-->
       </section>
 
-      <section title="Signature Base String Limitations">
+      <section title="シグニチャベースストリングの制約">
+      <!-- section title="Signature Base String Limitations" -->
         <t>
+          シグニチャベースストリングはこの仕様で定義された署名方式をサポートするために設計された。今後署名方式を追加する設計者は、シグニチャベースストリングの互換性、および設計におけるセキュリティ要件を評価すべきである。
+          <!--
           The signature base string has been designed to support the signature methods defined in
           this specification. Those designing additional signature methods, should evaluated the
           compatibility of the signature base string with their security requirements.
+          -->
         </t>
         <t>
+          多くのリクエストエンティティボディーおよびエンティティヘッダー、パラメータの出現順序などの情報は、シグニチャベースストリングには含まれない。このようにシグニチャベースストリングは HTTP リクエスト全体をカバーするものではないため、サーバーはシグニチャベースストリングに含まれない要素を保護するメカニズムを追加導入すべきである。
+          <!--
           Since the signature base string does not cover the entire HTTP request, such as most
           request entity-body, most entity-headers, and the order in which parameters are sent,
           servers should employ additional mechanisms to protect such elements.
+          -->
         </t>
       </section>
 
       <section title="Cross-Site Request Forgery (CSRF)">
         <t>
+          Cross-Site Request Forgery (CSRF) は HTTP リクエストが信頼されたもしくは認証済のユーザから送信される Web ベースの攻撃である。認可取得時に攻撃者が CSRF 攻撃をしかけることで、攻撃者はユーザの同意無しに保護されたリソースへの認可を得ることができる。サーバーはすべてのプロトコル認可エンドポイントにおいて、CSRF 対策のベストプラクティスを熟慮するべきである (SHOULD)。
+          <!--
           Cross-Site Request Forgery (CSRF) is a web-based attack whereby HTTP requests are
           transmitted from a user that the website trusts or has authenticated. CSRF attacks on
           authorization approvals can allow an attacker to obtain authorization to protected
           resources without the consent of the User. Servers SHOULD strongly consider best
           practices in CSRF prevention at all the protocol authorization endpoints.
+          -->
         </t>
         <t>
+          CSRF 攻撃は、クライアントの OAuth コールバック URI においても可能である。クライアントは OAuth コールバック URI で、クライアントサイトにおけるリソースオーナーがサーバーと OAuth 通信を完了させる意思のあることを検証することで、CSRF 攻撃を防ぐべきである。この種の CSRF 攻撃の防御策はこの仕様の範囲外である。
+          <!--
           CSRF attacks on OAuth callback URIs hosted by clients are also possible. Clients should
           prevent CSRF attacks on OAuth callback URIs by verifying that the resource owner at the
           client site intended to complete the OAuth negotiation with the server. The methods for
           preventing such CSRF attacks are beyond the scope of this specification.
+          -->
         </t>
       </section>
 
       <section title="User Interface Redress">
         <t>
+          サーバーは認可プロセスにおける UI Redress 攻撃 ("クリックジャッキング" としても知られる) を防ぐべきである。この仕様執筆時においては、完全な UI redress の対策法は存在しない。サーバーは以下の技術により UI redress のリスクを軽減することができる。
+          <!--
           Servers should protect the authorization process against UI Redress attacks (also known
           as "clickjacking"). As of the time of this writing, no complete defenses against UI
           redress are available. Servers can mitigate the risk of UI redress attacks through the
           following techniques:
+          -->
 
           <list style="symbols">
             <t>
+              Javascript によるフレーム解除。
+              <!--
               Javascript frame busting.
+              -->
             </t>
             <t>
+              Javascript によるフレーム解除、および認可ページでブラウザの Javascript を有効にすることを要求。
+              <!--
               Javascript frame busting, and requiring that browsers have javascript enabled on the
               authorization page.
+              -->
             </t>
             <t>
+              ブラウザ固有のフレーム対策技術。
+              <!--
               Browser-specific anti-framing techniques.
+              -->
             </t>
             <t>
+              OAuth token 発行前にパスワード再入力を要求。
+              <!--
               Requiring password reentry before issuing OAuth tokens.
+              -->
             </t>
           </list>
         </t>
       </section>
 
-      <section title="Automatic Processing of Repeat Authorizations">
+      <section title="再認可の自動処理">
+      <!-- section title="Automatic Processing of Repeat Authorizations" -->
         <t>
+          サーバーは既にリソースオーナーの認可を得たクライアントからの認可リクエスト (<xref target="auth_step2" />) を自動的に処理することを望むかもしれない。リソースオーナーがアクセス承認のためにサーバーにリダイレクトされる時、サーバーはリソースーオーナーが既にそのクライアントからのアクセスを承認していることを検知したとする。その場合サーバーはリソースオーナーに承認を求める代わりに、リソースオーナーを自動的にクライアントにリダイレクトさせる。
+          <!--
           Servers may wish to automatically process authorization requests
           (<xref target="auth_step2" />) from clients which have been previously
           authorized by the resource owner. When the resource owner is redirected to the server
           to grant access, the server detects that the resource owner has already granted
           access to that particular client. Instead of prompting the resource owner for approval,
           the server automatically redirects the resource owner back to the client.
+          -->
         </t>
         <t>
+          クライアントクレデンシャルが漏洩している場合、自動処理はさらなるセキュリティリスクを生み出す。攻撃者は漏洩したクライアントクレデンシャルを使ってリソースオーナーをサーバーにリダイレクトさせ、認可リクエストを行うことができる。そうするとサーバーはリソースオーナーに承認を求めずに、リソースオーナーへのアクセスを承認することになる。もちろん攻撃への注意喚起なども行わない。自動承認が実装されていなければ、攻撃者はリソースオーナーにアクセスを承認させるためにソーシャルエンジニアリングを用いなければならなくなる。
+          <!--
           If the client credentials are compromised, automatic processing creates additional
           security risks. An attacker can use the stolen client credentials to redirect
           the resource owner to the server with an authorization request. The server
@@ -2774,13 +2808,17 @@
           explicit approval, or even awareness of an attack. If no automatic approval is
           implemented, an attacker must use social engineering to convince the resource owner to
           approve access.
+          -->
         </t>
         <t>
+          サーバーは自動処理に由来するリスクを軽減するため、自動承認プロセスを通じて発行されるトークンクレデンシャルのスコープを限定することができる。リソースオーナーの同意を得て発行されたトークンクレデンシャルに対して影響を与える必要はない。クライアントはクライアントクレデンシャルを保護することで、自動処理に由来するリスクを軽減することができる。
+          <!--
           Servers can mitigate the risks associated with automatic processing by
           limiting the scope of token credentials obtained through automated approvals. Tokens
           credentials obtained through explicit resource owner consent can remain unaffected. Clients
           can mitigate the risks associated with automatic processing by protecting their client
           credentials.
+          -->
         </t>
       </section>
 
