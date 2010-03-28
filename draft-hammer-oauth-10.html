@@ -260,13 +260,13 @@ DoS 攻撃 / リソース枯渇攻撃<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor20">4.11.</a>&nbsp;
 SHA-1 攻撃<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor21">4.12.</a>&nbsp;
-Signature Base String Limitations<br />
+シグニチャベースストリングの制約<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor22">4.13.</a>&nbsp;
 Cross-Site Request Forgery (CSRF)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor23">4.14.</a>&nbsp;
 User Interface Redress<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor24">4.15.</a>&nbsp;
-Automatic Processing of Repeat Authorizations<br />
+再認可の自動処理<br />
 <a href="#IANA">5.</a>&nbsp;
 IANA に関する考察<br />
 <a href="#anchor25">6.</a>&nbsp;
@@ -2180,18 +2180,16 @@ SHA-1 攻撃</h3>
 <a name="anchor21"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.12"></a><h3>4.12.&nbsp;
-Signature Base String Limitations</h3>
+シグニチャベースストリングの制約</h3>
 
 <p>
-          The signature base string has been designed to support the signature methods defined in
-          this specification. Those designing additional signature methods, should evaluated the
-          compatibility of the signature base string with their security requirements.
+          シグニチャベースストリングはこの仕様で定義された署名方式をサポートするために設計された。今後署名方式を追加する設計者は、シグニチャベースストリングの互換性、および設計におけるセキュリティ要件を評価すべきである。
+          
         
 </p>
 <p>
-          Since the signature base string does not cover the entire HTTP request, such as most
-          request entity-body, most entity-headers, and the order in which parameters are sent,
-          servers should employ additional mechanisms to protect such elements.
+          多くのリクエストエンティティボディーおよびエンティティヘッダー、パラメータの出現順序などの情報は、シグニチャベースストリングには含まれない。このようにシグニチャベースストリングは HTTP リクエスト全体をカバーするものではないため、サーバーはシグニチャベースストリングに含まれない要素を保護するメカニズムを追加導入すべきである。
+          
         
 </p>
 <a name="anchor22"></a><br /><hr />
@@ -2200,18 +2198,13 @@ Signature Base String Limitations</h3>
 Cross-Site Request Forgery (CSRF)</h3>
 
 <p>
-          Cross-Site Request Forgery (CSRF) is a web-based attack whereby HTTP requests are
-          transmitted from a user that the website trusts or has authenticated. CSRF attacks on
-          authorization approvals can allow an attacker to obtain authorization to protected
-          resources without the consent of the User. Servers SHOULD strongly consider best
-          practices in CSRF prevention at all the protocol authorization endpoints.
+          Cross-Site Request Forgery (CSRF) は HTTP リクエストが信頼されたもしくは認証済のユーザから送信される Web ベースの攻撃である。認可取得時に攻撃者が CSRF 攻撃をしかけることで、攻撃者はユーザの同意無しに保護されたリソースへの認可を得ることができる。サーバーはすべてのプロトコル認可エンドポイントにおいて、CSRF 対策のベストプラクティスを熟慮するべきである (SHOULD)。
+          
         
 </p>
 <p>
-          CSRF attacks on OAuth callback URIs hosted by clients are also possible. Clients should
-          prevent CSRF attacks on OAuth callback URIs by verifying that the resource owner at the
-          client site intended to complete the OAuth negotiation with the server. The methods for
-          preventing such CSRF attacks are beyond the scope of this specification.
+          CSRF 攻撃は、クライアントの OAuth コールバック URI においても可能である。クライアントは OAuth コールバック URI で、クライアントサイトにおけるリソースオーナーがサーバーと OAuth 通信を完了させる意思のあることを検証することで、CSRF 攻撃を防ぐべきである。この種の CSRF 攻撃の防御策はこの仕様の範囲外である。
+          
         
 </p>
 <a name="anchor23"></a><br /><hr />
@@ -2220,28 +2213,29 @@ Cross-Site Request Forgery (CSRF)</h3>
 User Interface Redress</h3>
 
 <p>
-          Servers should protect the authorization process against UI Redress attacks (also known
-          as "clickjacking"). As of the time of this writing, no complete defenses against UI
-          redress are available. Servers can mitigate the risk of UI redress attacks through the
-          following techniques:
+          サーバーは認可プロセスにおける UI Redress 攻撃 ("クリックジャッキング" としても知られる) を防ぐべきである。この仕様執筆時においては、完全な UI redress の対策法は存在しない。サーバーは以下の技術により UI redress のリスクを軽減することができる。
+          
 
           </p>
 <ul class="text">
 <li>
-              Javascript frame busting.
+              Javascript によるフレーム解除。
+              
             
 </li>
 <li>
-              Javascript frame busting, and requiring that browsers have javascript enabled on the
-              authorization page.
+              Javascript によるフレーム解除、および認可ページでブラウザの Javascript を有効にすることを要求。
+              
             
 </li>
 <li>
-              Browser-specific anti-framing techniques.
+              ブラウザ固有のフレーム対策技術。
+              
             
 </li>
 <li>
-              Requiring password reentry before issuing OAuth tokens.
+              OAuth token 発行前にパスワード再入力を要求。
+              
             
 </li>
 </ul><p>
@@ -2250,33 +2244,21 @@ User Interface Redress</h3>
 <a name="anchor24"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.15"></a><h3>4.15.&nbsp;
-Automatic Processing of Repeat Authorizations</h3>
+再認可の自動処理</h3>
 
 <p>
-          Servers may wish to automatically process authorization requests
-          (<a class='info' href='#auth_step2'>Section&nbsp;2.2<span> (</span><span class='info'>リソースオーナー認可</span><span>)</span></a>) from clients which have been previously
-          authorized by the resource owner. When the resource owner is redirected to the server
-          to grant access, the server detects that the resource owner has already granted
-          access to that particular client. Instead of prompting the resource owner for approval,
-          the server automatically redirects the resource owner back to the client.
+          サーバーは既にリソースオーナーの認可を得たクライアントからの認可リクエスト (<a class='info' href='#auth_step2'>Section&nbsp;2.2<span> (</span><span class='info'>リソースオーナー認可</span><span>)</span></a>) を自動的に処理することを望むかもしれない。リソースオーナーがアクセス承認のためにサーバーにリダイレクトされる時、サーバーはリソースーオーナーが既にそのクライアントからのアクセスを承認していることを検知したとする。その場合サーバーはリソースオーナーに承認を求める代わりに、リソースオーナーを自動的にクライアントにリダイレクトさせる。
+          
         
 </p>
 <p>
-          If the client credentials are compromised, automatic processing creates additional
-          security risks. An attacker can use the stolen client credentials to redirect
-          the resource owner to the server with an authorization request. The server
-          will then grant access to the resource owner's data without the resource owner's
-          explicit approval, or even awareness of an attack. If no automatic approval is
-          implemented, an attacker must use social engineering to convince the resource owner to
-          approve access.
+          クライアントクレデンシャルが漏洩している場合、自動処理はさらなるセキュリティリスクを生み出す。攻撃者は漏洩したクライアントクレデンシャルを使ってリソースオーナーをサーバーにリダイレクトさせ、認可リクエストを行うことができる。そうするとサーバーはリソースオーナーに承認を求めずに、リソースオーナーへのアクセスを承認することになる。もちろん攻撃への注意喚起なども行わない。自動承認が実装されていなければ、攻撃者はリソースオーナーにアクセスを承認させるためにソーシャルエンジニアリングを用いなければならなくなる。
+          
         
 </p>
 <p>
-          Servers can mitigate the risks associated with automatic processing by
-          limiting the scope of token credentials obtained through automated approvals. Tokens
-          credentials obtained through explicit resource owner consent can remain unaffected. Clients
-          can mitigate the risks associated with automatic processing by protecting their client
-          credentials.
+          サーバーは自動処理に由来するリスクを軽減するため、自動承認プロセスを通じて発行されるトークンクレデンシャルのスコープを限定することができる。リソースオーナーの同意を得て発行されたトークンクレデンシャルに対して影響を与える必要はない。クライアントはクライアントクレデンシャルを保護することで、自動処理に由来するリスクを軽減することができる。
+          
         
 </p>
 <a name="IANA"></a><br /><hr />
