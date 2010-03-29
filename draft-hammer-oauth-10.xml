@@ -1362,7 +1362,7 @@
         <section title="シグニチャベースストリング">
         <!-- section title="Signature Base String" -->
           <t>
-            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> シグニチャ方式における入力の1つとなる。
+            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> 署名方式における入力の1つとなる。
             <!--
             The signature base string is a consistent, reproducible concatenation of several
             of the HTTP request elements into a single string. The string is used as an input to
@@ -1435,7 +1435,7 @@
 
               <list style="numbers">
                 <t>
-                  HTTP リクエストメソッド (大文字)。例: <spanx style="verb">HEAD</spanx>、<spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等。独自の HTTP メソッドを利用する場合は、<xref target="encoding">エンコーディング</xref>しなければならない (MUST)。
+                  HTTP リクエストメソッド (大文字)。例: <spanx style="verb">HEAD</spanx>、<spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等。独自の HTTP メソッドを利用する場合は、<xref target="encoding">エンコード</xref>しなければならない (MUST)。
                   <!--
                   The HTTP request method in uppercase. For example: <spanx style="verb">HEAD</spanx>,
                   <spanx style="verb">GET</spanx>, <spanx style="verb">POST</spanx>, etc. If the
@@ -1449,7 +1449,7 @@
                   -->
                 </t>
                 <t>
-                  <xref target="sig_uri" /> に示されるベースストリング URI を <xref target="encoding">encoded</xref> した文字列。
+                  <xref target="sig_uri" /> に示されるベースストリング URI を<xref target="encoding">エンコード</xref>した文字列。
                   <!--
                   The base string URI from <xref target="sig_uri" />, after being
                   <xref target="encoding">encoded</xref>.
@@ -1462,7 +1462,7 @@
                   -->
                 </t>
                 <t>
-                  <xref target="sig_norm_param" /> に示される正規化されたリクエストパラメータを <xref target="encoding">encoded</xref> した文字列。
+                  <xref target="sig_norm_param" /> に示される正規化されたリクエストパラメータを<xref target="encoding">エンコード</xref>した文字列。
                   <!--
                   The request parameters as normalized in <xref target="sig_norm_param" />, after
                   being <xref target="encoding">encoded</xref>.
@@ -1566,7 +1566,7 @@
                 <!--
                 is represented by the base string URI:
                 -->
-                <spanx style="verb">http://example.com/r%20v/X</spanx>.
+                <spanx style="verb">http://example.com/r%20v/X</spanx>
               </postamble>
             </figure>
             <figure>
@@ -1586,7 +1586,7 @@
                 <!--
                 is represented by the base string URI:
                 -->
-                <spanx style="verb">https://www.example.net:8080/</spanx>.
+                <spanx style="verb">https://www.example.net:8080/</spanx>
               </postamble>
             </figure>
           </section>
@@ -1966,7 +1966,7 @@
 
         <section title="RSA-SHA1">
           <t>
-            <spanx style="verb">RSA-SHA1</spanx> 署名方式は、<xref target="RFC3447" /> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
+            <spanx style="verb">RSA-SHA1</spanx> 署名方式は、<xref target="RFC3447" /> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA 公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
           </t>
           <!--t>
             The <spanx style="verb">RSA-SHA1</spanx> signature method uses the RSASSA-PKCS1-v1_5
@@ -1984,8 +1984,6 @@
 ]]>
               </artwork>
             </figure>
-
-            Where:
 
             <list style="hanging" hangIndent="6">
               <t hangText="K">
@@ -2042,8 +2040,6 @@
               </artwork>
             </figure>
 
-            Where:
-
             <list style="hanging" hangIndent="6">
               <t hangText="(n, e)">
                 <vspace />
@@ -2091,7 +2087,7 @@
 
         <section title="PLAINTEXT">
           <t>
-            <spanx style="verb">PLAINTEXT</spanx> 方式は、シグニチャアルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<spanx style="verb">oauth_timestamp</spanx> と <spanx style="verb">oauth_nonce</spanx> パラメータを使用しない。
+            <spanx style="verb">PLAINTEXT</spanx> 方式は、署名アルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<spanx style="verb">oauth_timestamp</spanx> と <spanx style="verb">oauth_nonce</spanx> パラメータを使用しない。
           </t>
           <!--t>
             The <spanx style="verb">PLAINTEXT</spanx> method does not employ a signature algorithm.
@@ -2288,7 +2284,7 @@
 
             <list style="symbols">
               <t>
-                エンティティボディーが single-part である。
+                エンティティボディーがシングルパートである。
                 <!--
                 The entity-body is single-part.
                 -->
@@ -2375,7 +2371,7 @@
       <section title="パーセントエンコーディング" anchor="encoding">
       <!-- section title="Percent Encoding" anchor="encoding" -->
         <t>
-          既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。いかに示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">authorization ヘッダーフィールド</xref>のエンコーディングにのみ用いられるものである。
+          既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。以下に示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">authorization ヘッダーフィールド</xref>のエンコーディングにのみ用いられるものである。
           <!--
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
@@ -2503,7 +2499,8 @@
         </t>
       </section>
 
-      <section title="Proxying and Caching of Authenticated Content">
+      <section title="要認証コンテンツに対するプロキシおよびキャッシュ">
+      <!-- section title="Proxying and Caching of Authenticated Content" -->
         <t>
           <xref target="auth_header">HTTP Authorization スキーム</xref>はオプションであるが、<xref target="RFC2616" /> は <spanx style="verb">Authorization</spanx> および <spanx style="verb">WWW-Authenticate</spanx> ヘッダーフィールドを元に要認証コンテンツの識別を行う。特にこれらのヘッダーフィールドを用いない場合、プロキシやキャッシュが原因となりリクエストの保護が機能しなくなる可能性がある。
           <!--
@@ -2529,7 +2526,7 @@
       <section title="認証情報のプレインテキストストレージ">
       <!--section title="Plaintext Storage of Credentials"-->
         <t>
-          クライアント共有鍵およびトークン共有鍵は、従来の認証システムにおけるパスワードと同様の機能を持つ。<spanx style="verb">RSA-SHA1</spanx>以外の方法で使用される署名を計算するには、サーバーがそれらの鍵にプレインテキスト形式でアクセスできなければならない。これはユーザーの認証情報を不可逆なハッシュでのみ保存する、例えばモダンOSのようなものとは対照的なものと言える。
+          クライアント共有鍵およびトークン共有鍵は、従来の認証システムにおけるパスワードと同様の機能を持つ。<spanx style="verb">RSA-SHA1</spanx> 以外の方法で使用される署名を計算するには、サーバーがそれらの鍵にプレインテキスト形式でアクセスできなければならない。最近の OS がユーザーの認証情報を不可逆なハッシュでのみ保存するのと比べると、これは対照的である。
         </t>
         <!--t>
           The client shared-secret and token shared-secret function the same way passwords do in
@@ -2561,7 +2558,7 @@
           analysis. In such cases, attackers will be able to recover the client credentials.
         </t-->
         <t>
-          そういった場合、サーバーはクライアントのアイデンティティを検証する際、クライアントクレデンシャルのみを使うべきではない。可能であれば、IPアドレスのような他の要素も用いるべきである。
+          そういった場合、サーバーはクライアントのアイデンティティを検証する際、クライアントクレデンシャルのみを使うべきではない。可能であれば、IP アドレスのような他の要素も用いるべきである。
         </t>
         <!--t>
           Accordingly, servers should not use the client credentials alone to verify the identity
@@ -2877,7 +2874,7 @@
         
         <list style="symbols">
           <t>
-            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">一時的なクレデンシャルのリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx>署名方式の利用が影響を受ける。
+            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">一時的なクレデンシャルのリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx> 署名方式の利用が影響を受ける。
           </t>
           <!--t>
             Changed using TLS/SSL when sending or requesting plain text credentials from SHOULD
@@ -2886,7 +2883,7 @@
             and <xref target="auth_step3">obtaining token credentials</xref>.
           </t-->
           <t>
-            トークン／タイムスタンプ／クライアントの組み合わせごとにユニークになるよう、ノンス言語を調整。
+            トークン／タイムスタンプ／クライアントの組み合わせごとにユニークになるよう、ノンスの表現を調整。
           </t>
           <!--t>
             Adjusted nonce language to indicate it is unique per token/timestamp/client combination.
@@ -2899,14 +2896,14 @@
             used in the previous request.
           </t-->
           <t>
-            <spanx style="verb">PLAINTEXT</spanx>署名方式利用時のノンスおよびタイムスタンプパラメータを、オプションに変更。
+            <spanx style="verb">PLAINTEXT</spanx> 署名方式利用時のノンスおよびタイムスタンプパラメータを、オプションに変更。
           </t>
           <!--t>
             Changed the nonce and timestamp parameters to OPTIONAL when using the
             <spanx style="verb">PLAINTEXT</spanx> signature method.
           </t-->
           <t>
-            利用されるHTTP メソッドが<spanx style="verb">POST</spanx>以外の場合の<spanx style="verb">application/x-www-form-urlencoded</spanx>エンティティボディパラメータを含むシグニチャベースストリングを拡張。また、HTTP メソッドが<spanx style="verb">GET</spanx>以外の場合のURI クエリパラメータを拡張。
+            利用される HTTP メソッドが <spanx style="verb">POST</spanx> 以外の場合の <spanx style="verb">application/x-www-form-urlencoded</spanx> エンティティボディパラメータを含むシグニチャベースストリングを拡張。また、HTTP メソッドが <spanx style="verb">GET</spanx> 以外の場合の URI クエリパラメータを拡張。
           </t>
           <!--t>
             Extended signature base string coverage which includes <spanx style="verb">application/x-www-form-urlencoded</spanx>
@@ -2914,7 +2911,7 @@
             parameters when the HTTP method used is other than <spanx style="verb">GET</spanx>.
           </t-->
           <t>
-            二重エンコードによるエラーを防ぐため、各署名方式の解説に、<spanx style="verb">oauth_signature</spanx>パラメータにシグニチャ値を挿入する前に、エンコードする旨を追加。
+            二重エンコードによるエラーを防ぐため、各署名方式の解説に、<spanx style="verb">oauth_signature</spanx> パラメータにシグニチャ値を挿入する前に、エンコードする旨を追加。
           </t>
           <!--t>
             incorporated corrections to the instructions in each signature method to encode the signature
@@ -2922,20 +2919,20 @@
             removing errors which would have caused double-encoded values.
           </t-->
           <t>
-            <spanx style="verb">oauth_token</spanx>パラメータが空の場合、省略可能とした。
+            <spanx style="verb">oauth_token</spanx> パラメータが空の場合、省略可能とした。
           </t>
           <!--t>
             allowed omitting the <spanx style="verb">oauth_token</spanx> parameter when empty.
           </t-->
           <t>
-            空の<spanx style="verb">oauth_token</spanx>パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
+            空の <spanx style="verb">oauth_token</spanx> パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
           </t>
           <!--t>
             Permitted sending requests for temporary credentials with an empty
             <spanx style="verb">oauth_token</spanx> parameter.
           </t-->
           <t>
-            <spanx style="verb">oauth_</spanx>パラメータの追加定義を制限する記述を削除。
+            <spanx style="verb">oauth_</spanx> パラメータの追加定義を制限する記述を削除。
           </t>
           <!--t>
             Removed the restrictions from defining additional <spanx style="verb">oauth_</spanx>
