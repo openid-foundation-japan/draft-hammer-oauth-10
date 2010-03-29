@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 28, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 29, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 29, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: September 30, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 29, 2010.</p>
+This Internet-Draft will expire on September 30, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -244,7 +244,7 @@ RSA-SHA1 署名方式<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor13">4.3.</a>&nbsp;
 サーバーのなりすまし<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor14">4.4.</a>&nbsp;
-Proxying and Caching of Authenticated Content<br />
+要認証コンテンツに対するプロキシおよびキャッシュ<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor15">4.5.</a>&nbsp;
 認証情報のプレインテキストストレージ<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#client_cred_sec">4.6.</a>&nbsp;
@@ -1133,7 +1133,7 @@ Author's Address<br />
 シグニチャベースストリング</h3>
 
 <p>
-            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <tt>HMAC-SHA1</tt> および <tt>RSA-SHA1</tt> シグニチャ方式における入力の1つとなる。
+            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <tt>HMAC-SHA1</tt> および <tt>RSA-SHA1</tt> 署名方式における入力の1つとなる。
             
           
 </p>
@@ -1188,7 +1188,7 @@ Author's Address<br />
               </p>
 <ol class="text">
 <li>
-                  HTTP リクエストメソッド (大文字)。例: <tt>HEAD</tt>、<tt>GET</tt>、<tt>POST</tt> 等。独自の HTTP メソッドを利用する場合は、<a class='info' href='#encoding'>エンコーディング<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>しなければならない (MUST)。
+                  HTTP リクエストメソッド (大文字)。例: <tt>HEAD</tt>、<tt>GET</tt>、<tt>POST</tt> 等。独自の HTTP メソッドを利用する場合は、<a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>しなければならない (MUST)。
                   
                 
 </li>
@@ -1198,7 +1198,7 @@ Author's Address<br />
                 
 </li>
 <li>
-                  <a class='info' href='#sig_uri'>Section&nbsp;3.4.1.2<span> (</span><span class='info'>ベースストリング URI</span><span>)</span></a> に示されるベースストリング URI を <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a> した文字列。
+                  <a class='info' href='#sig_uri'>Section&nbsp;3.4.1.2<span> (</span><span class='info'>ベースストリング URI</span><span>)</span></a> に示されるベースストリング URI を<a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>した文字列。
                   
                 
 </li>
@@ -1208,7 +1208,7 @@ Author's Address<br />
                 
 </li>
 <li>
-                  <a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>パラメータのノーマライゼーション</span><span>)</span></a> に示される正規化されたリクエストパラメータを <a class='info' href='#encoding'>encoded<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a> した文字列。
+                  <a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>パラメータのノーマライゼーション</span><span>)</span></a> に示される正規化されたリクエストパラメータを<a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>した文字列。
                   
                 
 </li>
@@ -1287,7 +1287,7 @@ Author's Address<br />
 <p>
                 このときベースストリング URI は次のようになる。
                 
-                <tt>http://example.com/r%20v/X</tt>.
+                <tt>http://example.com/r%20v/X</tt>
               
 </p>
 <p>
@@ -1302,7 +1302,7 @@ Author's Address<br />
 <p>
                 この場合のベースストリング URI は次のようになる。
                 
-                <tt>https://www.example.net:8080/</tt>.
+                <tt>https://www.example.net:8080/</tt>
               
 </p>
 <a name="collect_param"></a><br /><hr />
@@ -1694,7 +1694,7 @@ HMAC-SHA1</h3>
 RSA-SHA1</h3>
 
 <p>
-            <tt>RSA-SHA1</tt> 署名方式は、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
+            <tt>RSA-SHA1</tt> 署名方式は、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA 公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
           
 </p>
 <p>
@@ -1706,8 +1706,6 @@ RSA-SHA1</h3>
 
 </pre></div><p>
 
-
-            Where:
 
             </p>
 <blockquote class="text"><dl>
@@ -1742,8 +1740,6 @@ RSA-SHA1</h3>
 </pre></div><p>
 
 
-            Where:
-
             </p>
 <blockquote class="text"><dl>
 <dt>(n, e)</dt>
@@ -1773,7 +1769,7 @@ RSA-SHA1</h3>
 PLAINTEXT</h3>
 
 <p>
-            <tt>PLAINTEXT</tt> 方式は、シグニチャアルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<tt>oauth_timestamp</tt> と <tt>oauth_nonce</tt> パラメータを使用しない。
+            <tt>PLAINTEXT</tt> 方式は、署名アルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<tt>oauth_timestamp</tt> と <tt>oauth_nonce</tt> パラメータを使用しない。
           
 </p>
 <p>
@@ -1914,7 +1910,7 @@ Authorization ヘッダー</h3>
             </p>
 <ul class="text">
 <li>
-                エンティティボディーが single-part である。
+                エンティティボディーがシングルパートである。
                 
               
 </li>
@@ -1980,7 +1976,7 @@ Authorization ヘッダー</h3>
 パーセントエンコーディング</h3>
 
 <p>
-          既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。いかに示すパーセントエンコーディング手法は <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> および <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <a class='info' href='#auth_header'>authorization ヘッダーフィールド<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>のエンコーディングにのみ用いられるものである。
+          既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。以下に示すパーセントエンコーディング手法は <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> および <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <a class='info' href='#auth_header'>authorization ヘッダーフィールド<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>のエンコーディングにのみ用いられるものである。
           
         
 </p>
@@ -2070,7 +2066,7 @@ RSA-SHA1 署名方式</h3>
 <a name="anchor14"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.4.4"></a><h3>4.4.&nbsp;
-Proxying and Caching of Authenticated Content</h3>
+要認証コンテンツに対するプロキシおよびキャッシュ</h3>
 
 <p>
           <a class='info' href='#auth_header'>HTTP Authorization スキーム<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>はオプションであるが、<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> は <tt>Authorization</tt> および <tt>WWW-Authenticate</tt> ヘッダーフィールドを元に要認証コンテンツの識別を行う。特にこれらのヘッダーフィールドを用いない場合、プロキシやキャッシュが原因となりリクエストの保護が機能しなくなる可能性がある。
@@ -2088,7 +2084,7 @@ Proxying and Caching of Authenticated Content</h3>
 認証情報のプレインテキストストレージ</h3>
 
 <p>
-          クライアント共有鍵およびトークン共有鍵は、従来の認証システムにおけるパスワードと同様の機能を持つ。<tt>RSA-SHA1</tt>以外の方法で使用される署名を計算するには、サーバーがそれらの鍵にプレインテキスト形式でアクセスできなければならない。これはユーザーの認証情報を不可逆なハッシュでのみ保存する、例えばモダンOSのようなものとは対照的なものと言える。
+          クライアント共有鍵およびトークン共有鍵は、従来の認証システムにおけるパスワードと同様の機能を持つ。<tt>RSA-SHA1</tt> 以外の方法で使用される署名を計算するには、サーバーがそれらの鍵にプレインテキスト形式でアクセスできなければならない。最近の OS がユーザーの認証情報を不可逆なハッシュでのみ保存するのと比べると、これは対照的である。
         
 </p>
 <p>
@@ -2105,7 +2101,7 @@ Proxying and Caching of Authenticated Content</h3>
         
 </p>
 <p>
-          そういった場合、サーバーはクライアントのアイデンティティを検証する際、クライアントクレデンシャルのみを使うべきではない。可能であれば、IPアドレスのような他の要素も用いるべきである。
+          そういった場合、サーバーはクライアントのアイデンティティを検証する際、クライアントクレデンシャルのみを使うべきではない。可能であれば、IP アドレスのような他の要素も用いるべきである。
         
 </p>
 <a name="anchor16"></a><br /><hr />
@@ -2299,11 +2295,11 @@ IANA に関する考察</h3>
         </p>
 <ul class="text">
 <li>
-            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<a class='info' href='#auth_step1'>一時的なクレデンシャルのリクエスト<span> (</span><span class='info'>一時的なクレデンシャル</span><span>)</span></a>および<a class='info' href='#auth_step3'>トークンクレデンシャルの取得<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a>だけでなく、<tt>PLAINTEXT</tt>署名方式の利用が影響を受ける。
+            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<a class='info' href='#auth_step1'>一時的なクレデンシャルのリクエスト<span> (</span><span class='info'>一時的なクレデンシャル</span><span>)</span></a>および<a class='info' href='#auth_step3'>トークンクレデンシャルの取得<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a>だけでなく、<tt>PLAINTEXT</tt> 署名方式の利用が影響を受ける。
           
 </li>
 <li>
-            トークン／タイムスタンプ／クライアントの組み合わせごとにユニークになるよう、ノンス言語を調整。
+            トークン／タイムスタンプ／クライアントの組み合わせごとにユニークになるよう、ノンスの表現を調整。
           
 </li>
 <li>
@@ -2311,27 +2307,27 @@ IANA に関する考察</h3>
           
 </li>
 <li>
-            <tt>PLAINTEXT</tt>署名方式利用時のノンスおよびタイムスタンプパラメータを、オプションに変更。
+            <tt>PLAINTEXT</tt> 署名方式利用時のノンスおよびタイムスタンプパラメータを、オプションに変更。
           
 </li>
 <li>
-            利用されるHTTP メソッドが<tt>POST</tt>以外の場合の<tt>application/x-www-form-urlencoded</tt>エンティティボディパラメータを含むシグニチャベースストリングを拡張。また、HTTP メソッドが<tt>GET</tt>以外の場合のURI クエリパラメータを拡張。
+            利用される HTTP メソッドが <tt>POST</tt> 以外の場合の <tt>application/x-www-form-urlencoded</tt> エンティティボディパラメータを含むシグニチャベースストリングを拡張。また、HTTP メソッドが <tt>GET</tt> 以外の場合の URI クエリパラメータを拡張。
           
 </li>
 <li>
-            二重エンコードによるエラーを防ぐため、各署名方式の解説に、<tt>oauth_signature</tt>パラメータにシグニチャ値を挿入する前に、エンコードする旨を追加。
+            二重エンコードによるエラーを防ぐため、各署名方式の解説に、<tt>oauth_signature</tt> パラメータにシグニチャ値を挿入する前に、エンコードする旨を追加。
           
 </li>
 <li>
-            <tt>oauth_token</tt>パラメータが空の場合、省略可能とした。
+            <tt>oauth_token</tt> パラメータが空の場合、省略可能とした。
           
 </li>
 <li>
-            空の<tt>oauth_token</tt>パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
+            空の <tt>oauth_token</tt> パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
           
 </li>
 <li>
-            <tt>oauth_</tt>パラメータの追加定義を制限する記述を削除。
+            <tt>oauth_</tt> パラメータの追加定義を制限する記述を削除。
           
 </li>
 </ul><p>
