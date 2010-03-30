@@ -142,9 +142,9 @@
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
 <tr><td class="header">Network Working Group</td><td class="header">E. Hammer-Lahav, Ed.</td></tr>
-<tr><td class="header">Internet-Draft</td><td class="header">March 29, 2010</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">March 30, 2010</td></tr>
 <tr><td class="header">Intended status: Informational</td><td class="header">&nbsp;</td></tr>
-<tr><td class="header">Expires: September 30, 2010</td><td class="header">&nbsp;</td></tr>
+<tr><td class="header">Expires: October 1, 2010</td><td class="header">&nbsp;</td></tr>
 </table></td></tr></table>
 <h1><br />The OAuth 1.0 Protocol<br />draft-hammer-oauth-10</h1>
 
@@ -176,7 +176,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on September 30, 2010.</p>
+This Internet-Draft will expire on October 1, 2010.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -210,7 +210,7 @@ rights and restrictions with respect to this document.</p>
 <a href="#requests">3.</a>&nbsp;
 認証リクエスト<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">3.1.</a>&nbsp;
-リクエストを行う<br />
+リクエストの実行<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#verify_request">3.2.</a>&nbsp;
 リクエストの妥当性検証<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#nonce">3.3.</a>&nbsp;
@@ -297,7 +297,7 @@ Author's Address<br />
       
 </p>
 <p>
-        この仕様書では改訂版 <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
+        この仕様書では改訂版 <a class='info' href='#OAuth Core 1.0 Revision A'>[OAuth Core 1.0 Revision A]<span> (</span><span class='info'>OAuth, OAuth Community., &ldquo;OAuth Core 1.0 Revision A,&rdquo; .</span><span>)</span></a> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
         
       
 </p>
@@ -389,22 +389,22 @@ Author's Address<br />
           
           </p>
 <blockquote class="text"><dl>
-<dt>Consumer:</dt>
+<dt>Consumer</dt>
 <dd>クライアント (client)
 </dd>
-<dt>Service Provider:</dt>
+<dt>Service Provider</dt>
 <dd>サーバー (server)
 </dd>
-<dt>User:</dt>
+<dt>User</dt>
 <dd>リソースオーナー (resource owner)
 </dd>
-<dt>Consumer Key and Secret:</dt>
+<dt>Consumer Key and Secret</dt>
 <dd>クライアントクレデンシャル (client credentials)
 </dd>
-<dt>Request Token and Secret:</dt>
+<dt>Request Token and Secret</dt>
 <dd>一時的なクレデンシャル (temporary credentials)
 </dd>
-<dt>Access Token and Secret:</dt>
+<dt>Access Token and Secret</dt>
 <dd>トークンクレデンシャル (token credentials)
 </dd>
 </dl></blockquote><p>
@@ -432,7 +432,7 @@ Author's Address<br />
               dpf43f3p2l4k3l03
             
 </dd>
-<dt>クライアント共有鍵:</dt>
+<dt>クライアント共有鍵</dt>
 <dd>
               
               kd94hf93k423kf44
@@ -451,13 +451,13 @@ Author's Address<br />
               https://photos.example.net/initiate
             
 </dd>
-<dt>リソースオーナー認可URI:</dt>
+<dt>リソースオーナー認可URI</dt>
 <dd>
               
               https://photos.example.net/authorize
             
 </dd>
-<dt>トークンリクエストURI:</dt>
+<dt>トークンリクエストURI</dt>
 <dd>
               
               https://photos.example.net/token
@@ -594,7 +594,7 @@ Author's Address<br />
       
 </p>
 <p>
-        クライアントが、これらのステップを行うために、サーバーは URI に以下の3つのエンドポイントを知らせる必要がある。
+        クライアントがこれらのステップを行えるように、サーバーは以下の3つのエンドポイント URI を知らせる必要がある。
 
         </p>
 <blockquote class="text"><dl>
@@ -633,10 +633,10 @@ Author's Address<br />
 一時的なクレデンシャル</h3>
 
 <p>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<a class='info' href='#requests'>認証<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルリクエストのエンドポイントに、<a class='info' href='#requests'>認証<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           </p>
 <blockquote class="text"><dl>
-<dt>oauth_callback:</dt>
+<dt>oauth_callback</dt>
 <dd>
               リソースオーナー認証手順 (<a class='info' href='#auth_step2'>Section&nbsp;2.2<span> (</span><span class='info'>リソースオーナー認可</span><span>)</span></a>) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <tt>oob</tt> (大文字小文字を区別) をセットしなければならない (MUST)。
             
@@ -649,7 +649,7 @@ Author's Address<br />
         
 </p>
 <p>
-          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。そして、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
+          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。またその場合は、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
         
 </p>
 <p>
@@ -671,7 +671,6 @@ Author's Address<br />
 </pre></div>
 <p>
           サーバーは、必ずリクエストを<a class='info' href='#verify_request'>検証<span> (</span><span class='info'>リクエストの妥当性検証</span><span>)</span></a>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Jacobs, I., and D. Raggett, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された <tt>application/x-www-form-urlencoded</tt> 形式で含められる。
-          。
         
 </p>
 <p>
@@ -691,7 +690,7 @@ Author's Address<br />
               一時的なクレデンシャルの共有鍵
             
 </dd>
-<dt>oauth_callback_confirmed:</dt>
+<dt>oauth_callback_confirmed</dt>
 <dd>
               必ず存在しなければならない (MUST)、かつ <tt>true</tt> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
             
@@ -928,7 +927,7 @@ Author's Address<br />
 <a name="anchor5"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
-リクエストを行う</h3>
+リクエストの実行</h3>
 
 <p>
           認証リクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <tt>oauth_</tt> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証リクエストを行う。

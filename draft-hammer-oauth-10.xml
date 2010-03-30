@@ -54,7 +54,7 @@
         -->
       </t>
       <t>
-        この仕様書では改訂版 <xref target="OAuth Core 1.0 Revision A" /> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も同時に行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
+        この仕様書では改訂版 <xref target="OAuth Core 1.0 Revision A" /> を OAuth 1.0 として扱い、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も行っている。なおこの仕様書の公開をもって、オリジナルの OAuth 仕様の執筆者達の手による OAuth 仕様策定権限は、コミュニティから IETF に移管される。
         <!--
         This specification provides an informational documentation of the OAuth 1.0 protocol as
         revised in <xref target="OAuth Core 1.0 Revision A" />, and includes several errata
@@ -215,12 +215,12 @@
           -->
           
           <list style="hanging">
-            <t hangText="Consumer:">クライアント (client)</t>
-            <t hangText="Service Provider:">サーバー (server)</t>
-            <t hangText="User:">リソースオーナー (resource owner)</t>
-            <t hangText="Consumer Key and Secret:">クライアントクレデンシャル (client credentials)</t>
-            <t hangText="Request Token and Secret:">一時的なクレデンシャル (temporary credentials)</t>
-            <t hangText="Access Token and Secret:">トークンクレデンシャル (token credentials)</t>
+            <t hangText="Consumer">クライアント (client)</t>
+            <t hangText="Service Provider">サーバー (server)</t>
+            <t hangText="User">リソースオーナー (resource owner)</t>
+            <t hangText="Consumer Key and Secret">クライアントクレデンシャル (client credentials)</t>
+            <t hangText="Request Token and Secret">一時的なクレデンシャル (temporary credentials)</t>
+            <t hangText="Access Token and Secret">トークンクレデンシャル (token credentials)</t>
           </list>
           <!--
           <list style="hanging">
@@ -264,7 +264,7 @@
               <vspace />
               dpf43f3p2l4k3l03
             </t-->
-            <t hangText="クライアント共有鍵:">
+            <t hangText="クライアント共有鍵">
               <vspace />
               kd94hf93k423kf44
             </t>
@@ -290,7 +290,7 @@
               <vspace />
               https://photos.example.net/initiate
             </t-->
-            <t hangText="リソースオーナー認可URI:">
+            <t hangText="リソースオーナー認可URI">
               <vspace />
               https://photos.example.net/authorize
             </t>
@@ -298,7 +298,7 @@
               <vspace />
               https://photos.example.net/authorize
             </t-->
-            <t hangText="トークンリクエストURI:">
+            <t hangText="トークンリクエストURI">
               <vspace />
               https://photos.example.net/token
             </t>
@@ -517,7 +517,7 @@
         issued to clients.
       </t-->
       <t>
-        クライアントが、これらのステップを行うために、サーバーは URI に以下の3つのエンドポイントを知らせる必要がある。
+        クライアントがこれらのステップを行えるように、サーバーは以下の3つのエンドポイント URI を知らせる必要がある。
 
         <list style="hanging" hangIndent="6">
           <t hangText="一時的なクレデンシャルリクエスト">
@@ -580,9 +580,9 @@
       <section title="一時的なクレデンシャル" anchor="auth_step1">
       <!--section title="Temporary Credentials" anchor="auth_step1"-->
         <t>
-          クライアントは、サーバーから、一時的なクレデンシャルのリクエストのエンドポイントに、<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、一時的なクレデンシャルリクエストのエンドポイントに、<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           <list style="hanging" hangIndent="6">
-            <t hangText="oauth_callback:">
+            <t hangText="oauth_callback">
               リソースオーナー認証手順 (<xref target="auth_step2" />) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST)。
             </t>
             <t hangText="サーバーは、追加パラメータを指定してもよい (MAY)。">
@@ -610,7 +610,7 @@
           </list>
         </t-->
         <t>
-          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。そして、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
+          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。またその場合は、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
         </t>
         <!--t>
           When making the request, the client authenticates using only the client credentials. The
@@ -645,7 +645,6 @@
         </figure>
         <t>
           サーバーは、必ずリクエストを<xref target="verify_request">検証</xref>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式で含められる。
-          。
         </t>
         <!--t>
           The server MUST <xref target="verify_request">verify</xref> the request and if valid,
@@ -667,7 +666,7 @@
               <vspace />
               一時的なクレデンシャルの共有鍵
             </t>
-            <t hangText="oauth_callback_confirmed:">
+            <t hangText="oauth_callback_confirmed">
               必ず存在しなければならない (MUST)、かつ <spanx style="verb">true</spanx> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
             </t>
           </list>
@@ -1024,7 +1023,7 @@
         this specification.
       </t-->
 
-      <section title="リクエストを行う">
+      <section title="リクエストの実行">
       <!-- section title="Making Requests" -->
         <t>
           認証リクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <spanx style="verb">oauth_</spanx> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証リクエストを行う。
