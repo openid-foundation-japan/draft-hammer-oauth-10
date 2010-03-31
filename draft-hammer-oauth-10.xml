@@ -238,7 +238,7 @@
       <section title="例">
       <!-- section title="Example" -->
         <t>
-          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
+          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずである。
         </t>
         <!--t>
           Jane (resource owner) has recently uploaded some private vacation photos (protected
@@ -274,7 +274,7 @@
             </t-->
           </list>
 
-          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みだ。
+          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みである。
           <!--
           The 'printer.example.com' website has also configured its application to use the protocol
           endpoints listed in the 'photos.example.net' API documentation, which use the
