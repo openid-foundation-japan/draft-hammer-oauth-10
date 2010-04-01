@@ -44,7 +44,7 @@
     <section title="はじめに">
     <!-- section title="Introduction" -->
       <t>
-        OAuthは、保護されたリソースに対するアクセス権限を第三者へ委譲する際の共通の問題について、その解決方法を必要としていたさまざまなWebサイトやインターネットサービスの開発者からなるコミュニティから生まれた。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
+        OAuth は、保護されたリソースに対するアクセス権限を第三者へ委譲する際の共通の問題について、その解決方法を必要としていたさまざまなWebサイトやインターネットサービスの開発者からなるコミュニティから生まれた。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
         <!--
         The OAuth protocol was originally created by a small community of web developers from a
         variety of websites and other Internet services, who wanted to solve the common problem of
