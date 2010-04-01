@@ -219,7 +219,7 @@
             <t hangText="Service Provider">サーバー (server)</t>
             <t hangText="User">リソースオーナー (resource owner)</t>
             <t hangText="Consumer Key and Secret">クライアントクレデンシャル (client credentials)</t>
-            <t hangText="Request Token and Secret">一時的なクレデンシャル (temporary credentials)</t>
+            <t hangText="Request Token and Secret">テンポラリクレデンシャル (temporary credentials)</t>
             <t hangText="Access Token and Secret">トークンクレデンシャル (token credentials)</t>
           </list>
           <!--
@@ -282,7 +282,7 @@
           -->
 
           <list style="hanging" hangIndent="6">
-            <t hangText="一時的クレデンシャルリクエスト">
+            <t hangText="テンポラリクレデンシャルリクエスト">
               <vspace />
               https://photos.example.net/initiate
             </t>
@@ -309,7 +309,7 @@
           </list>
         </t>
         <t>
-          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、一時的なクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <xref target="RFC2818" /> リクエストをサーバーに送信する。
+          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、テンポラリクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <xref target="RFC2818" /> リクエストをサーバーに送信する。
         </t>
         <!--t>
           Before 'printer.example.com' can ask Jane to grant it access to the photos, it must
@@ -332,7 +332,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) に一時的なクレデンシャルを持たせた応答を行う。
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) にテンポラリクレデンシャルを持たせた応答を行う。
         </t>
         <!--t>
           The server validates the request and replies with a set of temporary credentials in the
@@ -378,7 +378,7 @@
           </artwork>
         </figure>
         <t>
-          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、一時的なクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する。
+          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、テンポラリクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する。
         </t>
         <!--t>
           The callback request informs the client that Jane completed the authorization process.
@@ -476,13 +476,13 @@
         サーバーがトークンクレデンシャルを容易に提供するには多くの方法がある。このセクションは、HTTP リダイレクションについて定義している。リダイレクション・ベースの認可方法には、3つのステップがある。
         <list style="numbers">
           <t>
-            クライアントは、サーバーから (識別子と共有鍵の形式で) 一時的なクレデンシャルを得る。一時的なクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
+            クライアントは、サーバーから (識別子と共有鍵の形式で) テンポラリクレデンシャルを得る。テンポラリクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
           </t>
           <t>
-            リソースオーナーは、サーバーが (一時的なクレデンシャルによって識別される) クライアントのアクセス要求を承認することを認可する。
+            リソースオーナーは、サーバーが (テンポラリクレデンシャルによって識別される) クライアントのアクセス要求を承認することを認可する。
           </t>
           <t>
-            クライアントは、サーバーにトークンクレデンシャルをリクエストするために一時的なクレデンシャルを用いる。トークンクレデンシャルを用いることで、リソースオーナーの保護されたリソースへのアクセスが可能になる。
+            クライアントは、サーバーにトークンクレデンシャルをリクエストするためにテンポラリクレデンシャルを用いる。トークンクレデンシャルを用いることで、リソースオーナーの保護されたリソースへのアクセスが可能になる。
           </t>
         </list>
       </t>
@@ -508,7 +508,7 @@
         </list>
       </t-->
       <t>
-        サーバーは、トークンクレデンシャルを利用した後に、一時的なクレデンシャルを破棄しなければならない (MUST)。一時的なクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
+        サーバーは、トークンクレデンシャルを利用した後に、テンポラリクレデンシャルを破棄しなければならない (MUST)。テンポラリクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
       </t>
       <!--t>
         The server MUST revoke the temporary credentials after being used once to obtain the token
@@ -520,9 +520,9 @@
         クライアントがこれらのステップを行えるように、サーバーは以下の3つのエンドポイント URI を知らせる必要がある。
 
         <list style="hanging" hangIndent="6">
-          <t hangText="一時的なクレデンシャルリクエスト">
+          <t hangText="テンポラリクレデンシャルリクエスト">
             <vspace />
-            一時的なクレデンシャルを得るために、クライアントに用いられるエンドポイント。(<xref target="auth_step1" /> 参照)
+            テンポラリクレデンシャルを得るために、クライアントに用いられるエンドポイント。(<xref target="auth_step1" /> 参照)
           </t>
           <t hangText="リソースオーナー認可">
             <vspace />
@@ -530,7 +530,7 @@
           </t>
           <t hangText="トークンリクエスト">
             <vspace />
-            一時的なクレデンシャルを使用してトークンクレデンシャルを要求するために、クライアントに用いられるエンドポイント。(<xref target="auth_step3" /> 参照)
+            テンポラリクレデンシャルを使用してトークンクレデンシャルを要求するために、クライアントに用いられるエンドポイント。(<xref target="auth_step3" /> 参照)
           </t>
         </list>
       </t>
@@ -577,10 +577,10 @@
         their values.
       </t-->
 
-      <section title="一時的なクレデンシャル" anchor="auth_step1">
+      <section title="テンポラリクレデンシャル" anchor="auth_step1">
       <!--section title="Temporary Credentials" anchor="auth_step1"-->
         <t>
-          クライアントは、サーバーから、一時的なクレデンシャルリクエストのエンドポイントに、<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、サーバーから、テンポラリクレデンシャルリクエストのエンドポイントに、<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、テンポラリクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_callback">
               リソースオーナー認証手順 (<xref target="auth_step2" />) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST)。
@@ -644,7 +644,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーは、必ずリクエストを<xref target="verify_request">検証</xref>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式で含められる。
+          サーバーは、必ずリクエストを<xref target="verify_request">検証</xref>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) テンポラリクレデンシャルを返す。テンポラリクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式で含められる。
         </t>
         <!--t>
           The server MUST <xref target="verify_request">verify</xref> the request and if valid,
@@ -660,11 +660,11 @@
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
-              一時的なクレデンシャルの識別子
+              テンポラリクレデンシャルの識別子
             </t>
             <t hangText="oauth_token_secret">
               <vspace />
-              一時的なクレデンシャルの共有鍵
+              テンポラリクレデンシャルの共有鍵
             </t>
             <t hangText="oauth_callback_confirmed">
               必ず存在しなければならない (MUST)、かつ <spanx style="verb">true</spanx> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
@@ -729,7 +729,7 @@
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
-              <xref target="auth_step1" />で <spanx style="verb">oauth_token</spanx> パラメータの値として得られる一時的なクレデンシャルの識別子。サーバーはこのパラメータを任意とすることもできるが、その場合はリソースオーナーの識別子を示す代替手段を提供しなければならない (MUST)。
+              <xref target="auth_step1" />で <spanx style="verb">oauth_token</spanx> パラメータの値として得られるテンポラリクレデンシャルの識別子。サーバーはこのパラメータを任意とすることもできるが、その場合はリソースオーナーの識別子を示す代替手段を提供しなければならない (MUST)。
               <!--
               The temporary credentials identifier obtained in <xref target="auth_step1" />
               in the <spanx style="verb">oauth_token</spanx> parameter. Servers MAY declare this
@@ -773,7 +773,7 @@
           -->
         </t>
         <t>
-          リソースオーナーに要求されたアクセス権の認可を求める際、サーバーはアクセス権を要求しているクライアントの情報をリソースオーナーに提示するべきである (SHOULD)。その際はクライアント識別子と関連付けられた一時的なクレデンシャルを利用する。このような情報を表示する際、サーバーはその情報が検証済みかどうか明示するべきである (SHOULD)。
+          リソースオーナーに要求されたアクセス権の認可を求める際、サーバーはアクセス権を要求しているクライアントの情報をリソースオーナーに提示するべきである (SHOULD)。その際はクライアント識別子と関連付けられたテンポラリクレデンシャルを利用する。このような情報を表示する際、サーバーはその情報が検証済みかどうか明示するべきである (SHOULD)。
           <!--
           When asking the resource owner to authorize the requested access, the server SHOULD
           present to the resource owner information about the client requesting access based on the
@@ -801,7 +801,7 @@
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
-              クライアントから受け取った一時的なクレデンシャルの識別子。
+              クライアントから受け取ったテンポラリクレデンシャルの識別子。
               <vspace />
               <!--
               The temporary credentials identifier received from the client.
@@ -871,7 +871,7 @@
           </list>
         </t>
         <t>
-          リクエストを行う際、クライアントは一時的なクレデンシャル同様クライアントクレデンシャルを用いて認証する。一時的なクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
+          リクエストを行う際、クライアントはテンポラリクレデンシャル同様クライアントクレデンシャルを用いて認証する。テンポラリクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
           <!--
           When making the request, the client authenticates using the client credentials as well as
           the temporary credentials. The temporary credentials are used as a substitute for token
@@ -907,7 +907,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーはリクエストの妥当性を<xref target="verify_request">検証</xref>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式でトークンクレデンシャルを含める。
+          サーバーはリクエストの妥当性を<xref target="verify_request">検証</xref>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、テンポラリクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式でトークンクレデンシャルを含める。
           <!--
           The server MUST <xref target="verify_request">verify</xref> the validity of the request,
           ensure that the resource owner has authorized the provisioning of token credentials to
@@ -2873,7 +2873,7 @@
         
         <list style="symbols">
           <t>
-            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">一時的なクレデンシャルのリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx> 署名方式の利用が影響を受ける。
+            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">テンポラリクレデンシャルリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx> 署名方式の利用が影響を受ける。
           </t>
           <!--t>
             Changed using TLS/SSL when sending or requesting plain text credentials from SHOULD
@@ -2924,7 +2924,7 @@
             allowed omitting the <spanx style="verb">oauth_token</spanx> parameter when empty.
           </t-->
           <t>
-            空の <spanx style="verb">oauth_token</spanx> パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
+            空の <spanx style="verb">oauth_token</spanx> パラメータを使ったテンポラリクレデンシャルのリクエスト送信を許可。
           </t>
           <!--t>
             Permitted sending requests for temporary credentials with an empty
