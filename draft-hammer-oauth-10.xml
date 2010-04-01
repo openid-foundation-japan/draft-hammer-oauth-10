@@ -44,7 +44,7 @@
     <section title="はじめに">
     <!-- section title="Introduction" -->
       <t>
-        OAuth は、保護されたリソースに対するアクセス権限を第三者へ委譲する際の共通の問題について、その解決方法を必要としていたさまざまなWebサイトやインターネットサービスの開発者からなるコミュニティから生まれた。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
+        OAuth は、保護されたリソースに対するアクセス権限を第三者へ委譲する際の共通の問題について、その解決方法を必要としていたさまざまな Web サイトやインターネットサービスの開発者からなるコミュニティから生まれた。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
         <!--
         The OAuth protocol was originally created by a small community of web developers from a
         variety of websites and other Internet services, who wanted to solve the common problem of
@@ -557,7 +557,7 @@
         </list>
       </t-->
       <t>
-        通達された3つの URI は、クエリー要素を含んでもよい (MAY)。(<xref target="RFC3986" /> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコルパラメータとの競合を防ぐため、クエリーには <spanx style="verb">oauth_</spanx>  で始まるパラメータを含んではならない (MUST NOT)。
+        通達された3つの URI は、クエリー要素を含んでもよい (MAY)。(<xref target="RFC3986" /> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコルパラメータとの競合を防ぐため、クエリーには <spanx style="verb">oauth_</spanx> で始まるパラメータを含んではならない (MUST NOT)。
       </t>
       <!--t>
         The three URIs advertised by the server MAY include a query component as defined by
@@ -1915,7 +1915,7 @@
                     <xref target="encoding">エンコード</xref>されたクライアント共有鍵。
                   </t>
                   <t>
-                    <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
+                    <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))
                   </t>
                   <t>
                     <xref target="encoding">エンコード</xref>済みのトークン共有鍵。
@@ -2103,7 +2103,7 @@
                 <xref target="encoding">エンコード</xref>済みのクライアント共有鍵
               </t>
               <t>
-                <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
+                <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))
               </t>
               <t>
                 <xref target="encoding">エンコード</xref>済みのトークン共有鍵
@@ -2676,7 +2676,7 @@
       <section title="SHA-1 攻撃">
       <!--section title="SHA-1 Cryptographic Attacks"-->
         <t>
-          <spanx style="verb">HMAC-SHA1</spanx> 署名方式、<spanx style="verb">RSA-SHA1</spanx> 署名方式で使用されている SHA-1 はコリジョン攻撃に対して多くの脆弱性を持つことが分かっている。この脆弱性は、<spanx style="verb">HMAC-SHA1</spanx> 署名方式の利用には影響無いようであるが、<spanx style="verb">RSA-SHA1</spanx> 署名方式には影響がある。NISTは、電子署名として SHA-1 を用いることを 2010 年までに段階的に廃止していくよう案内している。<xref target="NIST SHA-1 Comments" />
+          <spanx style="verb">HMAC-SHA1</spanx> 署名方式、<spanx style="verb">RSA-SHA1</spanx> 署名方式で使用されている SHA-1 はコリジョン攻撃に対して多くの脆弱性を持つことが分かっている。この脆弱性は、<spanx style="verb">HMAC-SHA1</spanx> 署名方式の利用には影響無いようであるが、<spanx style="verb">RSA-SHA1</spanx> 署名方式には影響がある。NIST は、電子署名として SHA-1 を用いることを 2010 年までに段階的に廃止していくよう案内している。<xref target="NIST SHA-1 Comments" />
         </t>
         <!--t>
           SHA-1, the hash algorithm used in <spanx style="verb">HMAC-SHA1</spanx> and
@@ -2841,7 +2841,7 @@
         practices that have been independently implemented by various companies.
       </t-->
       <t>
-        コミュニティ仕様は Eran Hammer-Lahav による編集、Mark Atwood、Dirk Balfanz、Darren Bounds、Richard M. Conlan、Blaine Cook、Leah Culver、Breno de Medeiros、Brian Eaton、Kellan Elliott-McCrea、Larry Halff、Eran Hammer-Lahav、Ben Laurie、Chris Messina、John Panzer、Sam Quigley、David Recordon、Eran Sandler、Jonathan Sergent、Todd Sieling、Brian Slesinsky、Andy Smith による著作である.
+        コミュニティ仕様は Eran Hammer-Lahav による編集、Mark Atwood、Dirk Balfanz、Darren Bounds、Richard M. Conlan、Blaine Cook、Leah Culver、Breno de Medeiros、Brian Eaton、Kellan Elliott-McCrea、Larry Halff、Eran Hammer-Lahav、Ben Laurie、Chris Messina、John Panzer、Sam Quigley、David Recordon、Eran Sandler、Jonathan Sergent、Todd Sieling、Brian Slesinsky、Andy Smith による著作である。
       </t>
       <!--t>
         The community specification was edited by Eran Hammer-Lahav and authored by: Mark Atwood,
