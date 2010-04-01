@@ -317,11 +317,7 @@ Author's Address<br />
       
 </p>
 <p>
-<<<<<<< HEAD
-        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有するプライベートな写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
-=======
-        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を委譲することを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりにユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委譲専用のユーザー証明書を発行する。
->>>>>>> 523f3d9a6528a377730f2cd1163b6b208adab100
+        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有するプライベートな写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりにユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委譲専用のユーザー証明書を発行する。
         
       
 </p>
@@ -421,11 +417,7 @@ Author's Address<br />
 例</h3>
 
 <p>
-<<<<<<< HEAD
-          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバー) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
-=======
-          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずである。
->>>>>>> 523f3d9a6528a377730f2cd1163b6b208adab100
+          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバー) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずである。
         
 </p>
 <p>
@@ -583,7 +575,6 @@ Author's Address<br />
         </p>
 <ol class="text">
 <li>
-<<<<<<< HEAD
             クライアントは、サーバーから (識別子と共有鍵の形式で) テンポラリクレデンシャルを取得する。テンポラリクレデンシャルは、認可プロセス中のアクセス要求を識別するために利用される。
           
 </li>
@@ -593,17 +584,6 @@ Author's Address<br />
 </li>
 <li>
             クライアントはテンポラリクレデンシャルを用い、サーバーに対してトークンクレデンシャルをリクエストする。これにより、リソースオーナーの保護されたリソースへのアクセスが可能になる。
-=======
-            クライアントは、サーバーから (識別子と共有鍵の形式で) テンポラリクレデンシャルを得る。テンポラリクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
-          
-</li>
-<li>
-            リソースオーナーは、サーバーが (テンポラリクレデンシャルによって識別される) クライアントのアクセス要求を承認することを認可する。
-          
-</li>
-<li>
-            クライアントは、サーバーにトークンクレデンシャルをリクエストするためにテンポラリクレデンシャルを用いる。トークンクレデンシャルを用いることで、リソースオーナーの保護されたリソースへのアクセスが可能になる。
->>>>>>> 523f3d9a6528a377730f2cd1163b6b208adab100
           
 </li>
 </ol><p>
@@ -621,11 +601,7 @@ Author's Address<br />
 <dt>テンポラリクレデンシャルリクエスト</dt>
 <dd>
             
-<<<<<<< HEAD
             テンポラリクレデンシャルを取得するため、クライアントに用いられるエンドポイント。(<a class='info' href='#auth_step1'>Section&nbsp;2.1<span> (</span><span class='info'>テンポラリクレデンシャル</span><span>)</span></a> 参照)
-=======
-            テンポラリクレデンシャルを得るために、クライアントに用いられるエンドポイント。(<a class='info' href='#auth_step1'>Section&nbsp;2.1<span> (</span><span class='info'>テンポラリクレデンシャル</span><span>)</span></a> 参照)
->>>>>>> 523f3d9a6528a377730f2cd1163b6b208adab100
           
 </dd>
 <dt>リソースオーナー認可</dt>
@@ -637,18 +613,14 @@ Author's Address<br />
 <dt>トークンリクエスト</dt>
 <dd>
             
-<<<<<<< HEAD
             テンポラリクレデンシャルを使ってトークンクレデンシャルを要求するため、クライアントに用いられるエンドポイント。(<a class='info' href='#auth_step3'>Section&nbsp;2.3<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a> 参照)
-=======
-            テンポラリクレデンシャルを使用してトークンクレデンシャルを要求するために、クライアントに用いられるエンドポイント。(<a class='info' href='#auth_step3'>Section&nbsp;2.3<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a> 参照)
->>>>>>> 523f3d9a6528a377730f2cd1163b6b208adab100
           
 </dd>
 </dl></blockquote><p>
       
 </p>
 <p>
-        通達された3つの URI は、クエリー部分を含んでもよい (MAY)。(<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコルパラメータとの競合を防ぐため、クエリーには <tt>oauth_</tt>  で始まるパラメータを含んではならない (MUST NOT)。
+        通達された3つの URI は、クエリー要素を含んでもよい (MAY)。(<a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコルパラメータとの競合を防ぐため、クエリーには <tt>oauth_</tt>  で始まるパラメータを含んではならない (MUST NOT)。
       
 </p>
 <p>
@@ -661,11 +633,7 @@ Author's Address<br />
 テンポラリクレデンシャル</h3>
 
 <p>
-<<<<<<< HEAD
           クライアントは、テンポラリクレデンシャルリクエストのエンドポイントに、<a class='info' href='#requests'>認証済みの<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストを行うことによって、サーバーからテンポラリクレデンシャルを取得する (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須 (REQUIRED) パラメータをリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
-=======
-          クライアントは、サーバーから、テンポラリクレデンシャルリクエストのエンドポイントに、<a class='info' href='#requests'>認証<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをすることによって、テンポラリクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
->>>>>>> 523f3d9a6528a377730f2cd1163b6b208adab100
           </p>
 <blockquote class="text"><dl>
 <dt>oauth_callback</dt>
@@ -822,7 +790,7 @@ Author's Address<br />
 </dd>
 </dl></blockquote><p>
 
-          コールバック URI が既にクエリー部分を含む場合、サーバーは既存のクエリーの後ろに OAuth パラメータを追加しなければならない (MUST)。
+          コールバック URI が既にクエリー要素を含む場合、サーバーは既存のクエリーの後ろに OAuth パラメータを追加しなければならない (MUST)。
           
         
 </p>
@@ -1147,15 +1115,15 @@ Author's Address<br />
         
 </p>
 <p>
-          各実装がそれぞれの要件を保てるよう、OAuth では特定の署名方式を強制しない。サーバーは独自の方式を実装したり、規定することができる。特定の方式の推奨は、本仕様の範囲外である。実装者はサポートする方式を決定する前に、<a class='info' href='#Security'>セキュリティに関する考慮事項<span> (</span><span class='info'>Security Considerations</span><span>)</span></a>を精査するべきである。
+          各実装がそれぞれの要件を保てるよう、OAuth では特定の署名方式を強制しない。サーバーは独自の方式を実装したり、規定することができる。本仕様の範囲外であるため、特定の方式の推奨はしない。実装者はサポートする方式を決定する前に、<a class='info' href='#Security'>セキュリティに関する考慮事項<span> (</span><span class='info'>Security Considerations</span><span>)</span></a>を精査するべきである。
         
 </p>
 <p>
-          クライアントは、どの署名方式を使用するかを <tt>oauth_signature_method</tt> パラメータを用いて宣言する。クライアントは署名 (またはそれと等価なもの) を生成し、<tt>oauth_signature</tt> パラメータにそれを含める。サーバーは各方式で規定されている方法で署名を検証する。
+          クライアントは、どの署名方式を使用するかを <tt>oauth_signature_method</tt> パラメータを用いて宣言する。生成した署名 (またはそれと等価なもの) は、<tt>oauth_signature</tt> パラメータに含める。サーバーは各方式で規定されている方法で署名を検証する。
         
 </p>
 <p>
-          署名のプロセスでは、<tt>oauth_signature</tt> パラメータを除いては、リクエストやパラメータが変更されることはない。
+          <tt>oauth_signature</tt> パラメータを除き、署名のプロセスでリクエストやパラメータが変更されることはない。
         
 </p>
 <a name="anchor6"></a><br /><hr />
@@ -1164,12 +1132,12 @@ Author's Address<br />
 シグニチャベースストリング</h3>
 
 <p>
-            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <tt>HMAC-SHA1</tt> および <tt>RSA-SHA1</tt> 署名方式における入力の1つとなる。
+            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫し、かつ再現可能な形で連結した単一の文字列である。この文字列は <tt>HMAC-SHA1</tt> および <tt>RSA-SHA1</tt> 署名方式への入力値となる。
             
           
 </p>
 <p>
-            シグニチャベースストリングは HTTP リクエストの構成要素を含む。
+            シグニチャベースストリングは HTTP リクエストにおける以下の構成要素を含む。
             
             
             </p>
@@ -1195,7 +1163,7 @@ Author's Address<br />
               
 </li>
 <li>
-                リクエストのエンティティボディー中に含まれる、<a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>リクエストパラメータ</span><span>)</span></a> で定義されている厳格な制約を満たすパラメータ。
+                リクエストのエンティティボディーに含まれる、<a class='info' href='#collect_param'>Section&nbsp;3.4.1.3<span> (</span><span class='info'>リクエストパラメータ</span><span>)</span></a> で定義された厳格な制約を満たすパラメータ。
                 
               
 </li>
@@ -1203,7 +1171,7 @@ Author's Address<br />
           
 </p>
 <p>
-            シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に、多くのリクエストにおいてエンティティボディーが含まれず、HTTP エンティティヘッダーもその多くが含まれない。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
+            シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に注意すべきは、多くのリクエストにおいて、エンティティボディーや HTTP エンティティヘッダーが含まれないことである。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
             
           
 </p>
@@ -1239,7 +1207,7 @@ Author's Address<br />
                 
 </li>
 <li>
-                  <a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>パラメータのノーマライゼーション</span><span>)</span></a> に示される正規化されたリクエストパラメータを<a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>した文字列。
+                  <a class='info' href='#sig_norm_param'>Section&nbsp;3.4.1.3.2<span> (</span><span class='info'>パラメータのノーマライゼーション</span><span>)</span></a> に示されるノーマライズされたリクエストパラメータを<a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>した文字列。
                   
                 
 </li>
@@ -1283,13 +1251,13 @@ Author's Address<br />
 ベースストリング URI</h3>
 
 <p>
-              ベースストリング URI には、リクエスト対象リソースを示す <tt>http</tt> もしくは <tt>https</tt> URI を構築した上で、リクエスト URI のスキーム、オーソリティおよびパス <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> を以下のように含める。
+              ベースストリング URI には、リクエスト対象リソースを示す <tt>http</tt> もしくは <tt>https</tt> URI を構築した上で、リクエスト URI のスキーマ、オーソリティおよびパス <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> を以下のように含める。
               
 
               </p>
 <ol class="text">
 <li>
-                  スキームおよびホストは小文字でなくてはならない (MUST)。
+                  スキーマおよびホストは小文字でなければならない (MUST)。
                   
                 
 </li>
@@ -1299,7 +1267,7 @@ Author's Address<br />
                 
 </li>
 <li>
-                  ポート番号がそのスキームのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> の場合にはポート80、HTTPS リクエスト <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
+                  ポート番号がそのスキーマのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> の場合にはポート80、HTTPS リクエスト <a class='info' href='#RFC2818'>[RFC2818]<span> (</span><span class='info'>Rescorla, E., &ldquo;HTTP Over TLS,&rdquo; May&nbsp;2000.</span><span>)</span></a> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
                   
                 
 </li>
@@ -1342,7 +1310,7 @@ Author's Address<br />
 リクエストパラメータ</h3>
 
 <p>
-              リクエストパラメータの一貫性と再現性を保証するため、パラメータは集められ、元の形式にデコードされる。その後ソートを行い、元のエンコード方式とは異なる可能性の高い方法でエンコードされ、ひとつの文字列に連結される。
+              リクエストパラメータの一貫性と再現性を保証するため、パラメータは集められ、元の形式にデコードされる。その後ソートを行い、元のエンコード方式と異なる場合のある方法でエンコードされ、ひとつの文字列に連結される。
             
 </p>
 <a name="anchor7"></a><br /><hr />
@@ -1357,7 +1325,7 @@ Parameter Sources</h3>
                 </p>
 <ul class="text">
 <li>
-                    <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 3.4節で定義されている HTTP リクエスト URI のクエリー部分。クエリー部分は <tt>application/x-www-form-urlencoded</tt> 文字列として名前と値が分割され、 <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> 17.13.4節で定義された方法でデコードし、名前と値のペアのリストに分解される。
+                    <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> 3.4節で定義されている HTTP リクエスト URI のクエリー要素。クエリー要素は <tt>application/x-www-form-urlencoded</tt> 文字列として名前と値が分割され、<a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> 17.13.4節で定義された方法でデコードし、名前と値のペアのリストに分解される。
                   
 </li>
 <li>
@@ -1365,7 +1333,7 @@ Parameter Sources</h3>
                   
 </li>
 <li>
-                    以下の条件に見合う場合のみ、HTTP リクエストエンティティボディ。
+                    以下の条件を満たす場合のみ、HTTP リクエストエンティティボディ。
                   
 
                     
@@ -1704,7 +1672,7 @@ HMAC-SHA1</h3>
                   
 </li>
 <li>
-                    <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>されたトークン共有鍵。
+                    <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>済みのトークン共有鍵。
                   
 </li>
 </ol>
@@ -1725,11 +1693,11 @@ HMAC-SHA1</h3>
 RSA-SHA1</h3>
 
 <p>
-            <tt>RSA-SHA1</tt> 署名方式は、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA 公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
+            <tt>RSA-SHA1</tt> 署名方式は、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、クライアントは、サーバーに RSA 公開鍵 (この仕様では範囲外) を含むクライアントクレデンシャルを発行してもらわなければならない (MUST)。
           
 </p>
 <p>
-            シグニチャベースストリングは、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2.1節 に基づいた、RSA 秘密鍵を使用して署名される。
+            シグニチャベースストリングは、<a class='info' href='#RFC3447'>[RFC3447]<span> (</span><span class='info'>Jonsson, J. and B. Kaliski, &ldquo;Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1,&rdquo; February&nbsp;2003.</span><span>)</span></a> 8.2.1節に基づき、RSA 秘密鍵を使用して署名される。
 
             </p>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
@@ -1788,7 +1756,7 @@ RSA-SHA1</h3>
 <dt>S</dt>
 <dd>
                 
-                クライアントが受け取った、<tt>oauth_signature</tt> プロトコルパラメータのバイト文字列を設定。
+                クライアントから受け取った、<tt>oauth_signature</tt> プロトコルパラメータのバイト文字列を設定。
               
 </dd>
 </dl></blockquote><p>
@@ -1800,7 +1768,7 @@ RSA-SHA1</h3>
 PLAINTEXT</h3>
 
 <p>
-            <tt>PLAINTEXT</tt> 方式は、署名アルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<tt>oauth_timestamp</tt> と <tt>oauth_nonce</tt> パラメータを使用しない。
+            <tt>PLAINTEXT</tt> 方式は、署名アルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリングや、<tt>oauth_timestamp</tt>、<tt>oauth_nonce</tt> パラメータを使用しない。
           
 </p>
 <p>
@@ -1809,7 +1777,7 @@ PLAINTEXT</h3>
             </p>
 <ol class="text">
 <li>
-                <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>されたクライアント共有鍵
+                <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>済みのクライアント共有鍵
               
 </li>
 <li>
@@ -1817,7 +1785,7 @@ PLAINTEXT</h3>
               
 </li>
 <li>
-                <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>されたトークン共有鍵
+                <a class='info' href='#encoding'>エンコード<span> (</span><span class='info'>パーセントエンコーディング</span><span>)</span></a>済みのトークン共有鍵
               
 </li>
 </ol><p>
@@ -1829,7 +1797,7 @@ PLAINTEXT</h3>
 パラメータの送信</h3>
 
 <p>
-          OAuth 認可リクエストを行う際、プロトコルパラメータおよび <tt>oauth_</tt> プレフィックスを含むその他全てのパラメータは、以下のいずれか1ヶ所を用いてリクエストに含まれるであろう (SHALL)。以下、好ましい順に挙げる。
+          OAuth 認可リクエストを行う際、プロトコルパラメータおよび <tt>oauth_</tt> プレフィックスを含むその他全てのパラメータは、リクエスト中の、以下好ましい順に挙げたいずれか一カ所に含まれる (SHALL)。
           
 
           </p>
@@ -1853,7 +1821,7 @@ PLAINTEXT</h3>
         
 </p>
 <p>
-          これら3つの方法に加え、今後の拡張仕様によってプロトコルパラメータをリクエストに含めるその他の手法が定義されることもある (MAY)。
+          これら3つの方法に加え、プロトコルパラメータをリクエストに含める別の方法が、今後の拡張仕様で定義される場合がある (MAY)。
           
         
 </p>
@@ -1935,7 +1903,7 @@ Authorization ヘッダー</h3>
 フォームエンコードボディー</h3>
 
 <p>
-            プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の必須条件を満たす必要がある (REQUIRED)。
+            プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の条件を満たす必要がある (REQUIRED)。
             
 
             </p>
@@ -2007,7 +1975,7 @@ Authorization ヘッダー</h3>
 パーセントエンコーディング</h3>
 
 <p>
-          既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。以下に示すパーセントエンコーディング手法は <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> および <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <a class='info' href='#auth_header'>authorization ヘッダーフィールド<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>のエンコーディングにのみ用いられるものである。
+          既存のパーセントエンコーディング手法では、一貫したシグニチャベースストリングの構成は保証されない。以下に示すパーセントエンコーディング手法は <a class='info' href='#RFC3986'>[RFC3986]<span> (</span><span class='info'>Berners-Lee, T., Fielding, R., and L. Masinter, &ldquo;Uniform Resource Identifier (URI): Generic Syntax,&rdquo; January&nbsp;2005.</span><span>)</span></a> および <a class='info' href='#W3C.REC-html40-19980424'>[W3C.REC&#8209;html40&#8209;19980424]<span> (</span><span class='info'>Hors, A., Raggett, D., and I. Jacobs, &ldquo;HTML 4.0 Specification,&rdquo; April&nbsp;1998.</span><span>)</span></a> で定義されたパーセントエンコーディング手法を置き換えるために定義されたものではない。この手法はシグニチャベースストリングおよび <a class='info' href='#auth_header'>authorization ヘッダーフィールド<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>のエンコーディングにのみ用いられるものである。
           
         
 </p>
@@ -2080,7 +2048,7 @@ RSA-SHA1 署名方式</h3>
 リクエストの機密性</h3>
 
 <p>
-          このプロトコルはリクエストの完全性検証のメカニズムを提供するが、リクエストの機密性は保証されない。その他の予防策が施されていない場合、盗聴者はリクエストコンテンツ全体を傍受することができる。サーバーはリクエスト中で送信されているデータの性質を熟慮し、機密情報を含むリソースを保護するために TLS メカニズムを採用するべきである。
+          このプロトコルはリクエストの正当性検証のメカニズムを提供するが、リクエストの機密性は保証されない。その他の予防策が施されていない場合、盗聴者はリクエストコンテンツ全体を傍受することができる。サーバーはリクエスト中で送信されているデータの性質を熟慮し、機密情報を含むリソースを保護するために TLS メカニズムを採用するべきである。
           
         
 </p>
@@ -2105,7 +2073,7 @@ RSA-SHA1 署名方式</h3>
         
 </p>
 <p>
-          例えば、プライベートな要認証コンテンツは公開アクセス可能な形でキャッシュされる可能性がある。<a class='info' href='#auth_header'>HTTP Authorization ヘッダーフィールド<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>を用いないサーバーは、<tt>Cache-Control</tt> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
+          例えば、プライベートな要認証コンテンツは公開アクセスできる形でキャッシュされる可能性がある。<a class='info' href='#auth_header'>HTTP Authorization ヘッダーフィールド<span> (</span><span class='info'>Authorization ヘッダー</span><span>)</span></a>を用いないサーバーは、<tt>Cache-Control</tt> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
           
         
 </p>
@@ -2326,11 +2294,7 @@ IANA に関する考察</h3>
         </p>
 <ul class="text">
 <li>
-<<<<<<< HEAD
             プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<a class='info' href='#auth_step1'>テンポラリクレデンシャルのリクエスト<span> (</span><span class='info'>テンポラリクレデンシャル</span><span>)</span></a>および<a class='info' href='#auth_step3'>トークンクレデンシャルの取得<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a>だけでなく、<tt>PLAINTEXT</tt> 署名方式の利用が影響を受ける。
-=======
-            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<a class='info' href='#auth_step1'>テンポラリクレデンシャルリクエスト<span> (</span><span class='info'>テンポラリクレデンシャル</span><span>)</span></a>および<a class='info' href='#auth_step3'>トークンクレデンシャルの取得<span> (</span><span class='info'>トークンクレデンシャル</span><span>)</span></a>だけでなく、<tt>PLAINTEXT</tt> 署名方式の利用が影響を受ける。
->>>>>>> 523f3d9a6528a377730f2cd1163b6b208adab100
           
 </li>
 <li>
