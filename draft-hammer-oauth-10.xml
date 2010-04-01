@@ -111,7 +111,7 @@
         -->
       </t>
       <t>
-        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントを識別するために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証済み HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントを識別するために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
         <!--
         This specification consists of two parts. The first part defines a redirection-based
         user-agent process for end-users to authorize client access to their resources, by
@@ -136,7 +136,7 @@
           <list style="hanging" hangIndent="6">
             <t hangText="クライアント (client)">
               <vspace />
-              <xref target="requests">OAuth 認証リクエスト</xref>を発行可能な HTTP クライアント (<xref target="RFC2616" /> 参照)
+              <xref target="requests">OAuth 認証済みリクエスト</xref>を発行可能な HTTP クライアント (<xref target="RFC2616" /> 参照)
             </t>
             <!--
             <t hangText="client">
@@ -147,7 +147,7 @@
             -->
             <t hangText="サーバー (server)">
               <vspace />
-              <xref target="requests">OAuth 認証リクエスト</xref>を受入可能な HTTP サーバー (<xref target="RFC2616" /> 参照)
+              <xref target="requests">OAuth 認証済みリクエスト</xref>を受入可能な HTTP サーバー (<xref target="RFC2616" /> 参照)
             </t>
             <!--
             <t hangText="server">
@@ -158,7 +158,7 @@
             -->
             <t hangText="保護されたリソース (protected resource)">
               <vspace />
-              アクセス制限下にあるリソースで、<xref target="requests">OAuth 認証リクエスト</xref>を用いて取得可能なもの。
+              アクセス制限下にあるリソースで、<xref target="requests">OAuth 認証済みリクエスト</xref>を用いて取得可能なもの。
             </t>
             <!--
             <t hangText="protected resource">
@@ -193,7 +193,7 @@
             -->
             <t hangText="トークン (token)">
               <vspace />
-              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証リクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
+              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証済みリクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
             </t>
             <!--
             <t hangText="token">
@@ -508,7 +508,7 @@
         </list>
       </t-->
       <t>
-        サーバーは、トークンクレデンシャルを利用した後に、テンポラリクレデンシャルを破棄しなければならない (MUST)。テンポラリクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
+        サーバーは、トークンクレデンシャル発行後、テンポラリクレデンシャルを破棄しなければならない (MUST)。テンポラリクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
       </t>
       <!--t>
         The server MUST revoke the temporary credentials after being used once to obtain the token
@@ -850,7 +850,7 @@
       <section title="トークンクレデンシャル" anchor="auth_step3">
       <!-- section title="Token Credentials" anchor="auth_step3" -->
         <t>
-          クライアントは<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+          クライアントは<xref target="requests">認証済み</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
           <!--
           The client obtains a set of token credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
@@ -871,7 +871,7 @@
           </list>
         </t>
         <t>
-          リクエストを行う際、クライアントはテンポラリクレデンシャル同様クライアントクレデンシャルを用いて認証する。テンポラリクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
+          リクエストを行う際、クライアントはテンポラリクレデンシャル同様クライアントクレデンシャルを用いて認証する。テンポラリクレデンシャルは、認証済みリクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
           <!--
           When making the request, the client authenticates using the client credentials as well as
           the temporary credentials. The temporary credentials are used as a substitute for token
@@ -966,7 +966,7 @@
           -->
         </t>
         <t>
-          ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<xref target="requests">認可済みリクエスト</xref>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
+          ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<xref target="requests">認証済みリクエスト</xref>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
           <!--
           Once the client receives and stores the token credentials, it can proceed to access
           protected resources on behalf of the resource owner by making
@@ -978,10 +978,10 @@
 
     </section>
     
-    <section title="認証リクエスト" anchor="requests">
+    <section title="認証済みリクエスト" anchor="requests">
     <!-- section title="Authenticated Requests" anchor="requests" -->
       <t>
-        クライアントは <xref target="RFC2617" /> で定義されている HTTP 認証メソッドにより、認証 HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+        クライアントは <xref target="RFC2617" /> で定義されている HTTP 認証メソッドにより、認証済み HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
       </t>
       <!--t>
         The HTTP authentication methods defined by <xref target="RFC2617" />, enable clients
@@ -991,7 +991,7 @@
         the client to assume the role of the resource owner.
       </t-->
       <t>
-        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証リクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<xref target="redirect_workflow" /> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
+        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<xref target="redirect_workflow" /> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
       </t>
       <!--t>
         OAuth provides a method designed to include two sets of credentials with each request, one
@@ -1001,7 +1001,7 @@
         method through which the client can obtain a token authorized by the resource owner.
       </t-->
       <t>
-        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証リクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様の範囲外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <xref target="client_cred_sec" /> に記載している。
+        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様の範囲外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <xref target="client_cred_sec" /> に記載している。
       </t>
       <!--t>
         The client credentials take the form of a unique identifier, and an associated shared-secret
@@ -1012,7 +1012,7 @@
         <xref target="client_cred_sec" />.
       </t-->
       <t>
-        認証リクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<xref target="param_include" />) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<xref target="signature" />) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様の範囲外とする。
+        認証済みリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<xref target="param_include" />) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<xref target="signature" />) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様の範囲外とする。
       </t>
       <!--t>
         Making authenticated requests requires prior knowledge of the server's configuration.
@@ -1026,7 +1026,7 @@
       <section title="リクエストの実行">
       <!-- section title="Making Requests" -->
         <t>
-          認証リクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <spanx style="verb">oauth_</spanx> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証リクエストを行う。
+          認証済みリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <spanx style="verb">oauth_</spanx> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みリクエストを行う。
           <!--
           An authenticated request includes several protocol parameters. Each parameter name
           begins with the <spanx style="verb">oauth_</spanx> prefix, and the parameter names and
@@ -1119,7 +1119,7 @@
               request using the same method used in the previous step.
             </t-->
             <t>
-              クライアントが認証リクエストをサーバーに送信する。
+              クライアントが認証済みリクエストをサーバーに送信する。
             </t>
             <!--t>
               The client sends the authenticated HTTP request to the server.
@@ -1209,7 +1209,7 @@
       <section title="リクエストの妥当性検証" anchor="verify_request">
       <!--section title="Verifying Requests" anchor="verify_request"-->
         <t>
-          認証リクエストを受け取ったサーバーは、以下のようにその妥当性を検証しなければならない (MUST)。
+          認証済みリクエストを受け取ったサーバーは、以下のようにその妥当性を検証しなければならない (MUST)。
 
           <list style="symbols">
             <t>
@@ -1309,7 +1309,7 @@
       <section title="署名" anchor="signature">
       <!--section title="Signature" anchor="signature"-->
         <t>
-          OAuth 認証リクエストは、<spanx style="verb">oauth_consumer_key</spanx> と <spanx style="verb">oauth_token</spanx> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正当性を検証し、認可されていないアクセスを阻止するため、クライアントはクレデンシャルの正当なオーナーであることを証明する必要がある。これはクレデンシャルの共有鍵 (または RSA 鍵) 部分を使用することにより実現される。
+          OAuth 認証済みリクエストは、<spanx style="verb">oauth_consumer_key</spanx> と <spanx style="verb">oauth_token</spanx> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正当性を検証し、認可されていないアクセスを阻止するため、クライアントはクレデンシャルの正当なオーナーであることを証明する必要がある。これはクレデンシャルの共有鍵 (または RSA 鍵) 部分を使用することにより実現される。
         </t>
         <!--t>
           OAuth-authenticated requests can have two sets of credentials: those passed via the
@@ -2615,7 +2615,7 @@
       <section title="認証情報のエントロピー">
       <!--section title="Entropy of Secrets"-->
         <t>
-          トランスポート層のセキュリティプロトコルを使用しない場合、盗聴者は認証リクエストとシグニチャにアクセスし、クレデンシャルを暴くためにブルートフォース攻撃を仕掛けられる可能性がある。サーバーは、そのような攻撃に対して、少なくとも有効期間中は共有鍵が暴かれないよう、十分な長さでランダムな共有鍵にすべきである。
+          トランスポート層のセキュリティプロトコルを使用しない場合、盗聴者は認証済みリクエストとシグニチャにアクセスし、クレデンシャルを暴くためにブルートフォース攻撃を仕掛けられる可能性がある。サーバーは、そのような攻撃に対して、少なくとも有効期間中は共有鍵が暴かれないよう、十分な長さでランダムな共有鍵にすべきである。
         </t>
         <!--t>
           Unless a transport-layer security protocol is used, eavesdroppers will have full access
@@ -2721,7 +2721,7 @@
 
       <section title="Cross-Site Request Forgery (CSRF)">
         <t>
-          Cross-Site Request Forgery (CSRF) は HTTP リクエストが信頼されたもしくは認証済のユーザから送信される Web ベースの攻撃である。認可取得時に攻撃者が CSRF 攻撃をしかけることで、攻撃者はユーザの同意無しに保護されたリソースへの認可を得ることができる。サーバーはすべてのプロトコル認可エンドポイントにおいて、CSRF 対策のベストプラクティスを熟慮するべきである (SHOULD)。
+          Cross-Site Request Forgery (CSRF) は HTTP リクエストが信頼されたもしくは認証済みのユーザから送信される Web ベースの攻撃である。認可取得時に攻撃者が CSRF 攻撃をしかけることで、攻撃者はユーザの同意無しに保護されたリソースへの認可を得ることができる。サーバーはすべてのプロトコル認可エンドポイントにおいて、CSRF 対策のベストプラクティスを熟慮するべきである (SHOULD)。
           <!--
           Cross-Site Request Forgery (CSRF) is a web-based attack whereby HTTP requests are
           transmitted from a user that the website trusts or has authenticated. CSRF attacks on

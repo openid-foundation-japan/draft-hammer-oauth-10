@@ -208,7 +208,7 @@ rights and restrictions with respect to this document.</p>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#auth_step3">2.3.</a>&nbsp;
 トークンクレデンシャル<br />
 <a href="#requests">3.</a>&nbsp;
-認証リクエスト<br />
+認証済みリクエスト<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">3.1.</a>&nbsp;
 リクエストの実行<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#verify_request">3.2.</a>&nbsp;
@@ -327,7 +327,7 @@ Author's Address<br />
       
 </p>
 <p>
-        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントを識別するために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証済み HTTP <a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントを識別するために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
         
       
 </p>
@@ -347,19 +347,19 @@ Author's Address<br />
 <dt>クライアント (client)</dt>
 <dd>
               
-              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a>を発行可能な HTTP クライアント (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
+              <a class='info' href='#requests'>OAuth 認証済みリクエスト<span> (</span><span class='info'>認証済みリクエスト</span><span>)</span></a>を発行可能な HTTP クライアント (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
 <dt>サーバー (server)</dt>
 <dd>
               
-              <a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a>を受入可能な HTTP サーバー (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
+              <a class='info' href='#requests'>OAuth 認証済みリクエスト<span> (</span><span class='info'>認証済みリクエスト</span><span>)</span></a>を受入可能な HTTP サーバー (<a class='info' href='#RFC2616'>[RFC2616]<span> (</span><span class='info'>Fielding, R., Gettys, J., Mogul, J., Frystyk, H., Masinter, L., Leach, P., and T. Berners-Lee, &ldquo;Hypertext Transfer Protocol -- HTTP/1.1,&rdquo; June&nbsp;1999.</span><span>)</span></a> 参照)
             
 </dd>
 <dt>保護されたリソース (protected resource)</dt>
 <dd>
               
-              アクセス制限下にあるリソースで、<a class='info' href='#requests'>OAuth 認証リクエスト<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a>を用いて取得可能なもの。
+              アクセス制限下にあるリソースで、<a class='info' href='#requests'>OAuth 認証済みリクエスト<span> (</span><span class='info'>認証済みリクエスト</span><span>)</span></a>を用いて取得可能なもの。
             
 </dd>
 <dt>リソースオーナー (resource owner)</dt>
@@ -377,7 +377,7 @@ Author's Address<br />
 <dt>トークン (token)</dt>
 <dd>
               
-              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証リクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
+              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証済みリクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
             
 </dd>
 </dl></blockquote><p>
@@ -590,7 +590,7 @@ Author's Address<br />
       
 </p>
 <p>
-        サーバーは、トークンクレデンシャルを利用した後に、テンポラリクレデンシャルを破棄しなければならない (MUST)。テンポラリクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
+        サーバーは、トークンクレデンシャル発行後、テンポラリクレデンシャルを破棄しなければならない (MUST)。テンポラリクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
       
 </p>
 <p>
@@ -633,7 +633,7 @@ Author's Address<br />
 テンポラリクレデンシャル</h3>
 
 <p>
-          クライアントは、テンポラリクレデンシャルリクエストのエンドポイントに、<a class='info' href='#requests'>認証済みの<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストを行うことによって、サーバーからテンポラリクレデンシャルを取得する (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須 (REQUIRED) パラメータをリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、テンポラリクレデンシャルリクエストのエンドポイントに、<a class='info' href='#requests'>認証済みの<span> (</span><span class='info'>認証済みリクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストを行うことによって、サーバーからテンポラリクレデンシャルを取得する (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須 (REQUIRED) パラメータをリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           </p>
 <blockquote class="text"><dl>
 <dt>oauth_callback</dt>
@@ -814,7 +814,7 @@ Author's Address<br />
 トークンクレデンシャル</h3>
 
 <p>
-          クライアントは<a class='info' href='#requests'>認証<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+          クライアントは<a class='info' href='#requests'>認証済み<span> (</span><span class='info'>認証済みリクエスト</span><span>)</span></a> HTTP <tt>POST</tt> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
           
 
           </p>
@@ -830,7 +830,7 @@ Author's Address<br />
         
 </p>
 <p>
-          リクエストを行う際、クライアントはテンポラリクレデンシャル同様クライアントクレデンシャルを用いて認証する。テンポラリクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<tt>oauth_token</tt> パラメータの値として渡される。
+          リクエストを行う際、クライアントはテンポラリクレデンシャル同様クライアントクレデンシャルを用いて認証する。テンポラリクレデンシャルは、認証済みリクエスト中でトークンクレデンシャルの代わりに用いられ、<tt>oauth_token</tt> パラメータの値として渡される。
           
         
 </p>
@@ -899,29 +899,29 @@ Author's Address<br />
         
 </p>
 <p>
-          ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<a class='info' href='#requests'>認可済みリクエスト<span> (</span><span class='info'>認証リクエスト</span><span>)</span></a>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
+          ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<a class='info' href='#requests'>認証済みリクエスト<span> (</span><span class='info'>認証済みリクエスト</span><span>)</span></a>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
           
         
 </p>
 <a name="requests"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3"></a><h3>3.&nbsp;
-認証リクエスト</h3>
+認証済みリクエスト</h3>
 
 <p>
-        クライアントは <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されている HTTP 認証メソッドにより、認証 HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+        クライアントは <a class='info' href='#RFC2617'>[RFC2617]<span> (</span><span class='info'>Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S., Leach, P., Luotonen, A., and L. Stewart, &ldquo;HTTP Authentication: Basic and Digest Access Authentication,&rdquo; June&nbsp;1999.</span><span>)</span></a> で定義されている HTTP 認証メソッドにより、認証済み HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
       
 </p>
 <p>
-        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証リクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<a class='info' href='#redirect_workflow'>Section&nbsp;2<span> (</span><span class='info'>リダイレクション・ベースの認可</span><span>)</span></a> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
+        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<a class='info' href='#redirect_workflow'>Section&nbsp;2<span> (</span><span class='info'>リダイレクション・ベースの認可</span><span>)</span></a> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
       
 </p>
 <p>
-        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証リクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様の範囲外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>クライアントクレデンシャルの秘匿性</span><span>)</span></a> に記載している。
+        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様の範囲外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <a class='info' href='#client_cred_sec'>Section&nbsp;4.6<span> (</span><span class='info'>クライアントクレデンシャルの秘匿性</span><span>)</span></a> に記載している。
       
 </p>
 <p>
-        認証リクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>パラメータの送信</span><span>)</span></a>) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a>) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様の範囲外とする。
+        認証済みリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<a class='info' href='#param_include'>Section&nbsp;3.5<span> (</span><span class='info'>パラメータの送信</span><span>)</span></a>) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<a class='info' href='#signature'>Section&nbsp;3.4<span> (</span><span class='info'>署名</span><span>)</span></a>) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様の範囲外とする。
       
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -930,7 +930,7 @@ Author's Address<br />
 リクエストの実行</h3>
 
 <p>
-          認証リクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <tt>oauth_</tt> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証リクエストを行う。
+          認証済みリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <tt>oauth_</tt> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みリクエストを行う。
           
 
           </p>
@@ -989,7 +989,7 @@ Author's Address<br />
             
 </li>
 <li>
-              クライアントが認証リクエストをサーバーに送信する。
+              クライアントが認証済みリクエストをサーバーに送信する。
             
 </li>
 </ol><p>
@@ -1053,7 +1053,7 @@ Author's Address<br />
 リクエストの妥当性検証</h3>
 
 <p>
-          認証リクエストを受け取ったサーバーは、以下のようにその妥当性を検証しなければならない (MUST)。
+          認証済みリクエストを受け取ったサーバーは、以下のようにその妥当性を検証しなければならない (MUST)。
 
           </p>
 <ul class="text">
@@ -1107,7 +1107,7 @@ Author's Address<br />
 署名</h3>
 
 <p>
-          OAuth 認証リクエストは、<tt>oauth_consumer_key</tt> と <tt>oauth_token</tt> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正当性を検証し、認可されていないアクセスを阻止するため、クライアントはクレデンシャルの正当なオーナーであることを証明する必要がある。これはクレデンシャルの共有鍵 (または RSA 鍵) 部分を使用することにより実現される。
+          OAuth 認証済みリクエストは、<tt>oauth_consumer_key</tt> と <tt>oauth_token</tt> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正当性を検証し、認可されていないアクセスを阻止するため、クライアントはクレデンシャルの正当なオーナーであることを証明する必要がある。これはクレデンシャルの共有鍵 (または RSA 鍵) 部分を使用することにより実現される。
         
 </p>
 <p>
@@ -2135,7 +2135,7 @@ RSA-SHA1 署名方式</h3>
 認証情報のエントロピー</h3>
 
 <p>
-          トランスポート層のセキュリティプロトコルを使用しない場合、盗聴者は認証リクエストとシグニチャにアクセスし、クレデンシャルを暴くためにブルートフォース攻撃を仕掛けられる可能性がある。サーバーは、そのような攻撃に対して、少なくとも有効期間中は共有鍵が暴かれないよう、十分な長さでランダムな共有鍵にすべきである。
+          トランスポート層のセキュリティプロトコルを使用しない場合、盗聴者は認証済みリクエストとシグニチャにアクセスし、クレデンシャルを暴くためにブルートフォース攻撃を仕掛けられる可能性がある。サーバーは、そのような攻撃に対して、少なくとも有効期間中は共有鍵が暴かれないよう、十分な長さでランダムな共有鍵にすべきである。
         
 </p>
 <p>
@@ -2193,7 +2193,7 @@ SHA-1 攻撃</h3>
 Cross-Site Request Forgery (CSRF)</h3>
 
 <p>
-          Cross-Site Request Forgery (CSRF) は HTTP リクエストが信頼されたもしくは認証済のユーザから送信される Web ベースの攻撃である。認可取得時に攻撃者が CSRF 攻撃をしかけることで、攻撃者はユーザの同意無しに保護されたリソースへの認可を得ることができる。サーバーはすべてのプロトコル認可エンドポイントにおいて、CSRF 対策のベストプラクティスを熟慮するべきである (SHOULD)。
+          Cross-Site Request Forgery (CSRF) は HTTP リクエストが信頼されたもしくは認証済みのユーザから送信される Web ベースの攻撃である。認可取得時に攻撃者が CSRF 攻撃をしかけることで、攻撃者はユーザの同意無しに保護されたリソースへの認可を得ることができる。サーバーはすべてのプロトコル認可エンドポイントにおいて、CSRF 対策のベストプラクティスを熟慮するべきである (SHOULD)。
           
         
 </p>
