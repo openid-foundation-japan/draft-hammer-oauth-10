@@ -44,7 +44,7 @@
     <section title="はじめに">
     <!-- section title="Introduction" -->
       <t>
-        OAuth はさまざまな Web サイトや Internet サービスの Developer からなる小さなコミュニティから生まれた。彼らは保護されたリソースへのアクセスを第三者に委任する際の共通の問題を解決する方法が必要だった。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
+        OAuthは、保護されたリソースに対するアクセス権限を第三者へ委譲する際の共通の問題について、その解決方法を必要としていたさまざまなWebサイトやインターネットサービスの開発者からなるコミュニティから生まれた。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され <xref target="OAuth Core 1.0 Revision A" /> となった。
         <!--
         The OAuth protocol was originally created by a small community of web developers from a
         variety of websites and other Internet services, who wanted to solve the common problem of
@@ -64,7 +64,7 @@
          -->
       </t>
       <t>
-        従来のクライアント・サーバー型認証モデルでは、サーバー上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバー上リソースへのアクセス権を要求することになる。
+        従来のクライアント・サーバー型認証モデルでは、サーバー上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバー上リソースへのアクセス権を必要とすることになる。
         <!--
         In the traditional client-server authentication model, the client uses its credentials to
         access its resources hosted by the server. With the increasing use of distributed web
@@ -92,7 +92,7 @@
         -->
       </t>
       <t>
-        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を委譲することを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりにユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委譲専用のユーザー証明書を発行する。
         <!--
         For example, a web user (resource owner) can grant a printing service (client) access to
         her private photos stored at a photo sharing service (server), without sharing her
@@ -101,7 +101,7 @@
         -->
       </t>
       <t>
-        リソースアクセスのために、クライアントはまずはじめにリソースオーナーから許可を受ける必要がある。この許可情報はトークンと共有鍵の形で示される。トークンがあることでリソースオーナーはクライアントに自身の認証情報を共有する必要がなくなる。リソースオーナーの認証情報と異なり、トークンは特定の目的のために、かつ有効期限付きで発行することが可能であり、個別に破棄することができる。
+        リソースアクセスのために、クライアントはまずはじめにリソースオーナーから許可を受ける必要がある。この許可情報はトークンと共有鍵の形で示される。トークンがあることでリソースオーナーはクライアントに自身の認証情報を共有する必要がなくなる。リソースオーナーの認証情報と異なり、トークンは限定的な用途でかつ有効期限付きで発行することが可能であり、個別に破棄することができる。
         <!--
         In order for the client to access resources, it first has to obtain permission from the
         resource owner. This permission is expressed in the form of a token and matching
@@ -111,7 +111,7 @@
         -->
       </t>
       <t>
-        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントの識別のために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証 HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントを識別するために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
         <!--
         This specification consists of two parts. The first part defines a redirection-based
         user-agent process for end-users to authorize client access to their resources, by
@@ -180,7 +180,7 @@
             -->
             <t hangText="クレデンシャル (credentials)">
               <vspace />
-              ここでいうクレデンシャルとはユニークな識別子と共有鍵のペアを指す。OAuth では「クライアント」「テンポラリ」「トークン」の3種類のクレデンシャルが定義され、リクエストを行うクライアントの識別および認証時、認可リクエスト時、アクセス権受け渡し時にそれぞれ用いられる。
+              ここでいうクレデンシャルとはユニークな識別子と共有鍵のペアを指す。OAuth では「クライアント」「テンポラリ」「トークン」の3種類のクレデンシャルが定義され、リクエストを行うクライアントの識別および認証、認可リクエスト、アクセス権受け渡しの際にそれぞれ用いられる。
             </t>
             <!--
             <t hangText="credentials">
@@ -238,7 +238,7 @@
       <section title="例">
       <!-- section title="Example" -->
         <t>
-          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
+          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずである。
         </t>
         <!--t>
           Jane (resource owner) has recently uploaded some private vacation photos (protected
@@ -274,7 +274,7 @@
             </t-->
           </list>
 
-          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みだ。
+          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みである。
           <!--
           The 'printer.example.com' website has also configured its application to use the protocol
           endpoints listed in the 'photos.example.net' API documentation, which use the
