@@ -92,7 +92,7 @@
         -->
       </t>
       <t>
-        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有する個人的な写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
+        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有するプライベートな写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりとして、ユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委任専用の認証情報を発行する。
         <!--
         For example, a web user (resource owner) can grant a printing service (client) access to
         her private photos stored at a photo sharing service (server), without sharing her
@@ -219,7 +219,7 @@
             <t hangText="Service Provider">サーバー (server)</t>
             <t hangText="User">リソースオーナー (resource owner)</t>
             <t hangText="Consumer Key and Secret">クライアントクレデンシャル (client credentials)</t>
-            <t hangText="Request Token and Secret">一時的なクレデンシャル (temporary credentials)</t>
+            <t hangText="Request Token and Secret">テンポラリクレデンシャル (temporary credentials)</t>
             <t hangText="Access Token and Secret">トークンクレデンシャル (token credentials)</t>
           </list>
           <!--
@@ -238,7 +238,7 @@
       <section title="例">
       <!-- section title="Example" -->
         <t>
-          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバ) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
+          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバー) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずだ。
         </t>
         <!--t>
           Jane (resource owner) has recently uploaded some private vacation photos (protected
@@ -282,7 +282,7 @@
           -->
 
           <list style="hanging" hangIndent="6">
-            <t hangText="一時的クレデンシャルリクエスト">
+            <t hangText="テンポラリクレデンシャルリクエスト">
               <vspace />
               https://photos.example.net/initiate
             </t>
@@ -309,7 +309,7 @@
           </list>
         </t>
         <t>
-          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、一時的なクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <xref target="RFC2818" /> リクエストをサーバーに送信する。
+          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、テンポラリクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <xref target="RFC2818" /> リクエストをサーバーに送信する。
         </t>
         <!--t>
           Before 'printer.example.com' can ask Jane to grant it access to the photos, it must
@@ -332,7 +332,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) に一時的なクレデンシャルを持たせた応答を行う。
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) にテンポラリクレデンシャルを持たせた応答を行う。
         </t>
         <!--t>
           The server validates the request and replies with a set of temporary credentials in the
@@ -378,7 +378,7 @@
           </artwork>
         </figure>
         <t>
-          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、一時的なクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する。
+          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、テンポラリクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する。
         </t>
         <!--t>
           The callback request informs the client that Jane completed the authorization process.
@@ -473,16 +473,16 @@
         password).
       </t-->
       <t>
-        サーバーがトークンクレデンシャルを容易に提供するには多くの方法がある。このセクションは、HTTP リダイレクションについて定義している。リダイレクション・ベースの認可方法には、3つのステップがある。
+        サーバーがトークンクレデンシャルの提供を行う方法は複数存在する。このセクションでは、HTTP リダイレクションとリソースオーナーのユーザーエージェントを使った、ひとつの方法を定義している。このリダイレクション・ベースの認可方法には、3つのステップがある。
         <list style="numbers">
           <t>
-            クライアントは、サーバーから (識別子と共有鍵の形式で) 一時的なクレデンシャルを得る。一時的なクレデンシャルは、認可プロセスを通してアクセス要求を識別するのに用いられる。
+            クライアントは、サーバーから (識別子と共有鍵の形式で) テンポラリクレデンシャルを取得する。テンポラリクレデンシャルは、認可プロセス中のアクセス要求を識別するために利用される。
           </t>
           <t>
-            リソースオーナーは、サーバーが (一時的なクレデンシャルによって識別される) クライアントのアクセス要求を承認することを認可する。
+            リソースオーナーは、クライアントからの (テンポラリクレデンシャルによって識別される) アクセス要求をサーバーが許可することについて、承認を行う。
           </t>
           <t>
-            クライアントは、サーバーにトークンクレデンシャルをリクエストするために一時的なクレデンシャルを用いる。トークンクレデンシャルを用いることで、リソースオーナーの保護されたリソースへのアクセスが可能になる。
+            クライアントはテンポラリクレデンシャルを用い、サーバーに対してトークンクレデンシャルをリクエストする。これにより、リソースオーナーの保護されたリソースへのアクセスが可能になる。
           </t>
         </list>
       </t>
@@ -508,7 +508,7 @@
         </list>
       </t-->
       <t>
-        サーバーは、トークンクレデンシャルを利用した後に、一時的なクレデンシャルを破棄しなければならない (MUST)。一時的なクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
+        サーバーは、トークンクレデンシャルを利用した後に、テンポラリクレデンシャルを破棄しなければならない (MUST)。テンポラリクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
       </t>
       <!--t>
         The server MUST revoke the temporary credentials after being used once to obtain the token
@@ -520,17 +520,17 @@
         クライアントがこれらのステップを行えるように、サーバーは以下の3つのエンドポイント URI を知らせる必要がある。
 
         <list style="hanging" hangIndent="6">
-          <t hangText="一時的なクレデンシャルリクエスト">
+          <t hangText="テンポラリクレデンシャルリクエスト">
             <vspace />
-            一時的なクレデンシャルを得るために、クライアントに用いられるエンドポイント。(<xref target="auth_step1" /> 参照)
+            テンポラリクレデンシャルを取得するため、クライアントに用いられるエンドポイント。(<xref target="auth_step1" /> 参照)
           </t>
           <t hangText="リソースオーナー認可">
             <vspace />
-            リソースオーナーが認可を与えるためにリダイレクトされるエンドポイント。(<xref target="auth_step2" /> 参照)
+            認可を与えるため、リソースオーナーがリダイレクトされるエンドポイント。(<xref target="auth_step2" /> 参照)
           </t>
           <t hangText="トークンリクエスト">
             <vspace />
-            一時的なクレデンシャルを使用してトークンクレデンシャルを要求するために、クライアントに用いられるエンドポイント。(<xref target="auth_step3" /> 参照)
+            テンポラリクレデンシャルを使ってトークンクレデンシャルを要求するため、クライアントに用いられるエンドポイント。(<xref target="auth_step3" /> 参照)
           </t>
         </list>
       </t>
@@ -557,7 +557,7 @@
         </list>
       </t-->
       <t>
-        通達された3つの URI はクエリーコンポーネントを含んでもよい (MAY)。(<xref target="RFC3986" /> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコル・パラメータとの競合を防ぐため、クエリーには <spanx style="verb">oauth_</spanx> プリフィックスを伴ったパラメータを含んではならない (MUST NOT)。
+        通達された3つの URI は、クエリー要素を含んでもよい (MAY)。(<xref target="RFC3986" /> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコルパラメータとの競合を防ぐため、クエリーには <spanx style="verb">oauth_</spanx>  で始まるパラメータを含んではならない (MUST NOT)。
       </t>
       <!--t>
         The three URIs advertised by the server MAY include a query component as defined by
@@ -566,7 +566,7 @@
         with the protocol parameters added to the URIs when used.
       </t-->
       <t>
-        サーバーがその3つのエンドポイントを通達し、文書化する方法は、この仕様の範囲外となる。クライアントはトークンのサイズや他のサーバーで生成された値について、仮定をすることを避ける必要がある。これは、この仕様書では未定義となる。プロトコル・パラメータは、送信時に符号化が必要な値を含むことがある (MAY)。クライアントとサーバーは、その値のスコープについての仮定をしてはならない。
+        サーバーが3つのエンドポイントを通達、ドキュメント化する方法は、この仕様の範囲外である。クライアントは、本仕様で未定義な、トークンのサイズや他のサーバーで生成された値について、仮定をすべきではない。プロトコルパラメータは、転送時にエンコードが必要な値を含む場合がある (MAY)。クライアントとサーバーは、値の範囲を仮定してはならない。
       </t>
       <!--t>
         The methods in which the server advertises and documents its three endpoints are beyond the
@@ -577,10 +577,10 @@
         their values.
       </t-->
 
-      <section title="一時的なクレデンシャル" anchor="auth_step1">
+      <section title="テンポラリクレデンシャル" anchor="auth_step1">
       <!--section title="Temporary Credentials" anchor="auth_step1"-->
         <t>
-          クライアントは、サーバーから、一時的なクレデンシャルリクエストのエンドポイントに、<xref target="requests">認証</xref> HTTP <spanx style="verb">POST</spanx> リクエストをすることによって、一時的なクレデンシャルのセットを得る (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須パラメータ (REQUIRED) をリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          クライアントは、テンポラリクレデンシャルリクエストのエンドポイントに、<xref target="requests">認証済みの</xref> HTTP <spanx style="verb">POST</spanx> リクエストを行うことによって、サーバーからテンポラリクレデンシャルを取得する (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須 (REQUIRED) パラメータをリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_callback">
               リソースオーナー認証手順 (<xref target="auth_step2" />) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST)。
@@ -610,7 +610,7 @@
           </list>
         </t-->
         <t>
-          クライアントは、クライアントクレデンシャルを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。またその場合は、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
+          クライアントは、クライアントクレデンシャルのみを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。またその場合は、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
         </t>
         <!--t>
           When making the request, the client authenticates using only the client credentials. The
@@ -618,7 +618,7 @@
           from the request and MUST use the empty string as the token secret value.
         </t-->
         <t>
-          リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
+          結果は HTTP レスポンス中にプレーンテキスト形式のクレデンシャルとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
         </t>
         <!--t>
           Since the request results in the transmission of plain text credentials in the HTTP
@@ -644,7 +644,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーは、必ずリクエストを<xref target="verify_request">検証</xref>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) 一時的なクレデンシャルを返す。一時的なクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式で含められる。
+          サーバーは、必ずリクエストを<xref target="verify_request">検証</xref>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) テンポラリクレデンシャルを返す。テンポラリクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式で含められる。
         </t>
         <!--t>
           The server MUST <xref target="verify_request">verify</xref> the request and if valid,
@@ -655,16 +655,16 @@
           code (OK).
         </t-->
         <t>
-          レスポンスには次の必須パラメータ (REQUIRED) が含まれる。
+          レスポンスには次の必須 (REQUIRED) パラメータが含まれる。
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
-              一時的なクレデンシャルの識別子
+              テンポラリクレデンシャルの識別子
             </t>
             <t hangText="oauth_token_secret">
               <vspace />
-              一時的なクレデンシャルの共有鍵
+              テンポラリクレデンシャルの共有鍵
             </t>
             <t hangText="oauth_callback_confirmed">
               必ず存在しなければならない (MUST)、かつ <spanx style="verb">true</spanx> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
@@ -690,7 +690,7 @@
           </list>
         </t-->
         <t>
-          パラメータ名に 'token' が含まれる場合があるが、そのクレデンシャルは、トークンクレデンシャルではないことに注意する。しかし、次の2つのステップで、トークンクレデンシャルと同様の方法で使用される。
+          パラメータ名に 'token' が含まれていても、このクレデンシャルはトークンクレデンシャルではないが、次の2つのステップで、トークンクレデンシャルと同様の使い方がされることに注意。
         </t>
         <!--t>
           Note that even though the parameter names include the term 'token', these credentials are
@@ -729,7 +729,7 @@
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
-              <xref target="auth_step1" />で <spanx style="verb">oauth_token</spanx> パラメータの値として得られる一時的なクレデンシャルの識別子。サーバーはこのパラメータを任意とすることもできるが、その場合はリソースオーナーの識別子を示す代替手段を提供しなければならない (MUST)。
+              <xref target="auth_step1" />で <spanx style="verb">oauth_token</spanx> パラメータの値として得られるテンポラリクレデンシャルの識別子。サーバーはこのパラメータを任意とすることもできるが、その場合はリソースオーナーの識別子を示す代替手段を提供しなければならない (MUST)。
               <!--
               The temporary credentials identifier obtained in <xref target="auth_step1" />
               in the <spanx style="verb">oauth_token</spanx> parameter. Servers MAY declare this
@@ -743,7 +743,7 @@
           </list>
         </t>
         <t>
-          クライアントは、HTTP リダイレクトレスポンスもしくはリソースオーナーのユーザーエージェントがサポートする何らかの代替手段を用いて、リソースオーナーを前述の構成 URI にリダイレクトさせる。このリクエストでは HTTP <spanx style="verb">GET</spanx> メソッドを用いなければならない (MUST)。
+          クライアントは、HTTP リダイレクトレスポンスもしくはリソースオーナーのユーザーエージェントがサポートする何らかの代替手段を用いて、リソースオーナーを前述で構成された URI にリダイレクトさせる。このリクエストでは HTTP <spanx style="verb">GET</spanx> メソッドを用いなければならない (MUST)。
           <!--
           The client directs the resource owner to the constructed URI using an HTTP redirection
           response, or by other means available to it via the resource owner's user-agent. The
@@ -773,7 +773,7 @@
           -->
         </t>
         <t>
-          リソースオーナーに要求されたアクセス権の認可を求める際、サーバーはアクセス権を要求しているクライアントの情報をリソースオーナーに提示するべきである (SHOULD)。その際はクライアント識別子と関連付けられた一時的なクレデンシャルを利用する。このような情報を表示する際、サーバーはその情報が検証済みかどうか明示するべきである (SHOULD)。
+          リソースオーナーに要求されたアクセス権の認可を求める際、サーバーはアクセス権を要求しているクライアントの情報をリソースオーナーに提示するべきである (SHOULD)。その際はクライアント識別子と関連付けられたテンポラリクレデンシャルを利用する。このような情報を表示する際、サーバーはその情報が検証済みかどうか明示するべきである (SHOULD)。
           <!--
           When asking the resource owner to authorize the requested access, the server SHOULD
           present to the resource owner information about the client requesting access based on the
@@ -801,7 +801,7 @@
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
-              クライアントから受け取った一時的なクレデンシャルの識別子。
+              クライアントから受け取ったテンポラリクレデンシャルの識別子。
               <vspace />
               <!--
               The temporary credentials identifier received from the client.
@@ -816,7 +816,7 @@
             </t>
           </list>
 
-          コールバック URI が既にクエリーコンポーネントを含む場合、サーバーは既存のクエリーの後ろに OAuth パラメータを追加しなければならない (MUST)。
+          コールバック URI が既にクエリー要素を含む場合、サーバーは既存のクエリーの後ろに OAuth パラメータを追加しなければならない (MUST)。
           <!--
           If the callback URI already includes a query component, the server MUST append the
           OAuth parameters to the end of the existing query.
@@ -871,7 +871,7 @@
           </list>
         </t>
         <t>
-          リクエストを行う際、クライアントは一時的なクレデンシャル同様クライアントクレデンシャルを用いて認証する。一時的なクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
+          リクエストを行う際、クライアントはテンポラリクレデンシャル同様クライアントクレデンシャルを用いて認証する。テンポラリクレデンシャルは、認証リクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
           <!--
           When making the request, the client authenticates using the client credentials as well as
           the temporary credentials. The temporary credentials are used as a substitute for token
@@ -907,7 +907,7 @@
           </artwork>
         </figure>
         <t>
-          サーバーはリクエストの妥当性を<xref target="verify_request">検証</xref>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、一時的なクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式でトークンクレデンシャルを含める。
+          サーバーはリクエストの妥当性を<xref target="verify_request">検証</xref>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、テンポラリクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式でトークンクレデンシャルを含める。
           <!--
           The server MUST <xref target="verify_request">verify</xref> the validity of the request,
           ensure that the resource owner has authorized the provisioning of token credentials to
@@ -1001,7 +1001,7 @@
         method through which the client can obtain a token authorized by the resource owner.
       </t-->
       <t>
-        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証リクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様のスコープ外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <xref target="client_cred_sec" /> に記載している。
+        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証リクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様の範囲外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <xref target="client_cred_sec" /> に記載している。
       </t>
       <!--t>
         The client credentials take the form of a unique identifier, and an associated shared-secret
@@ -1012,7 +1012,7 @@
         <xref target="client_cred_sec" />.
       </t-->
       <t>
-        認証リクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<xref target="param_include" />) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<xref target="signature" />) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様のスコープ外とする。
+        認証リクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<xref target="param_include" />) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<xref target="signature" />) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様の範囲外とする。
       </t>
       <!--t>
         Making authenticated requests requires prior knowledge of the server's configuration.
@@ -1036,7 +1036,7 @@
 
           <list style="numbers">
             <t>
-              クライアントは下記の (特に指定されていない限り) 必須であるプロトコルパラメータに、それぞれ値を割り当てる。
+              クライアントは下記の (特に指定されていない限り) 必須な (REQUIRED) プロトコルパラメータに、それぞれ値を割り当てる。
               <!--
               The client assigns value to each of these REQUIRED (unless specified otherwise)
               protocol parameters:
@@ -1128,7 +1128,7 @@
         </t>
         <figure>
           <preamble>
-            例えば、下記のような HTTP リクエストを認証付きで実行するとする (<spanx style="verb">c2&amp;a3=2+q</spanx> はフォームエンコードされたエンティティボディを強調するために使用する)
+            例えば、下記のような HTTP リクエストを認証付きで実行するとする (<spanx style="verb">c2&amp;a3=2+q</spanx> はフォームエンコードされたエンティティボディを強調するために使用)
           </preamble>
           <!--preamble>
             For example, to make the following HTTP request authenticated (the
@@ -1146,7 +1146,7 @@
         </figure>
         <figure>
           <preamble>
-            クライアントはクライアントクレデンシャル、トークンクレデンシャル、現在のタイムスタンプ、ユニークなノンス、署名メソッドとして <spanx style="verb">HMAC-SHA1</spanx> を使用することを示し、下記プロトコルパラメータに値を割り当てる。
+            クライアントはクライアントクレデンシャル、トークンクレデンシャル、現在のタイムスタンプ、ユニークなノンス、署名メソッドとして <spanx style="verb">HMAC-SHA1</spanx> を使用することを示し、プロトコルパラメータに値を割り当てる。
           </preamble>
           <!--preamble>
             The client assigns values to the following protocol parameters using its client
@@ -1213,13 +1213,13 @@
 
           <list style="symbols">
             <t>
-              リクエスト署名を独力で再計算し (<xref target="signature" />)、それと <spanx style="verb">ooauth_signature</spanx> パラメータ経由でクライアントから受け取った値とを比較すること。
+              リクエスト署名を独自に再計算し (<xref target="signature" />)、<spanx style="verb">ooauth_signature</spanx> パラメータとしてクライアントから受け取った値と比較を行う。
             </t>
             <t>
-              <spanx style="verb">HMAC-SHA1</spanx> または <spanx style="verb">RSA-SHA1</spanx> 署名方式を使用している場合、クライアントから受け取ったノンス値 / タイムスタンプ / トークン (存在する場合のみ) の組合せが以前のリクエストで使用されたものではないことを検証すること。(サーバーは古いタイムスタンプを持ったリクエストを拒否してもよい (MAY) (<xref target="nonce" />))
+              <spanx style="verb">HMAC-SHA1</spanx> または <spanx style="verb">RSA-SHA1</spanx> 署名方式を使用している場合、クライアントから受け取ったノンス値 / タイムスタンプ / トークン (存在する場合のみ) の組合せが以前のリクエストで使用されたものではないことを検証すること。(サーバーはタイムスタンプが古いままのリクエストを拒否してもよい (MAY) (<xref target="nonce" />))
             </t>
             <t>
-              トークンが存在する場合、トークンで表されたクライアントの認可情報の範囲とステータスを検証すること。(サーバーはクライアントがクライアント自身向けに発行されたトークンだけを使うよう制限してもよい (MAY))
+              トークンが存在する場合、トークンの示すクライアントの認可情報の範囲とステータスを検証すること。(サーバーは トークンの使用を、発行対象となったクライアントのみに制限してもよい (MAY))
             </t>
             <t>
               <spanx style="verb">oauth_version</spanx> パラメータが存在する場合、その値が <spanx style="verb">1.0</spanx> であるか検証すること。
@@ -1254,7 +1254,7 @@
           </list>
         </t-->
         <t>
-          リクエストの妥当性検証に失敗した場合、サーバーは適切な HTTP ステータスコードを返すべきである (SHOULD)。その際、リクエストボディーで詳細なリクエスト拒否理由を通知することもできる (MAY)。
+          リクエストの妥当性検証に失敗した場合、サーバーは適切な HTTP ステータスコードを返すべきである (SHOULD)。その際、リクエストボディーで詳細なリクエスト拒否理由を通知してもよい (MAY)。
         </t>
         <!--t>
           If the request fails verification, the server SHOULD respond with the appropriate HTTP
@@ -1262,7 +1262,7 @@
           rejected in the response body.
         </t-->
         <t>
-          サーバーは、サポート外のパラメータ、サポート外の署名方式、パラメータ不足、重複したプロトコルパラメータを持ったリクエストを受け取った場合、ステータスコード 400 (正しくないリクエスト) を返すべきである (SHOULD)。サーバーは、不正なクライアントクレデンシャル、不正または期限切れのトークン、不正または使用済みのノンス値を持ったリクエストを受け取った場合、ステータスコード 401 (認可されていないリクエスト) を応答すべきである (SHOULD)。
+          サーバーは、サポート外のパラメータ、サポート外の署名方式、パラメータ不足、重複したプロトコルパラメータを持ったリクエストを受け取った場合、ステータスコード 400 (Bad Request) を返すべきである (SHOULD)。サーバーは、不正なクライアントクレデンシャル、不正または期限切れのトークン、不正または使用済みのノンス値を含むリクエストを受け取った場合、ステータスコード 401 (Unauthorized) を返すべきである (SHOULD)。
         </t>
         <!--t>
           The server SHOULD return a 400 (bad request) status code
@@ -1284,7 +1284,7 @@
           January 1, 1970 00:00:00 GMT.
         </t-->
         <t>
-          ノンス値はランダムな文字列であり、クライアントによってユニークに生成される。ノンス値によりサーバーは、リクエストが以前に実行されたものかどうかを検証可能となり、リクエストが安全でない通信チャネル経由でなされた場合にリプレイ攻撃を阻止するために有効である。ノンス値は同じタイムスタンプ、クライアントクレデンシャル、トークンの組に対してユニークでなければならない (MUST)。
+          ノンス値はクライアントによってユニークに生成されたランダムな文字列である。ノンス値があることでサーバーは、リクエストが過去に実行されていないことの検証や、安全でない通信チャネルを使ってリクエストされた場合の再現攻撃を防ぐことができる。ノンス値は同じタイムスタンプ、クライアントクレデンシャル、トークンの組み合わせを持ったすべてのリクエストに対し、ユニークでなければならない (MUST)。
         </t>
         <!--t>
           A nonce is a random string, uniquely generated by the client to allow the server to
@@ -1293,7 +1293,7 @@
           requests with the same timestamp, client credentials, and token combinations.
         </t-->
         <t>
-          将来のチェックのために無限の数のノンス値を維持する必要がないように、サーバーは期間を制限して、期間を過ぎた古いタイムスタンプを持ったリクエストを拒否してもよい (MAY)。この制限はクライアントとサーバーのクロックの同期が一定の水準にある前提としていることに注意する。サーバーはクライアントがサーバーのクロックと同期するための方法を提供してもよいし (MAY)、別途、信頼の置けるタイムサービスを利用して双方のシステムを同期させることも可能である。クロック同期方式の詳細についてはこの仕様書では未定義とする。
+          サーバーは、チェック目的でノンス値を永久に保持しておく必要がないよう、タイムスタンプの古いリクエストを拒否する期間的制限を設けてもよい (MAY)。ただし、この制限はクライアントとサーバーのクロック同期が一定の水準にある前提であることに注意すること。サーバーはクライアントがサーバーのクロックと同期する方法を提供してもよいし (MAY)、別途、信頼の置けるタイムサービスを利用して双方のシステムを同期させてもよい。クロック同期方式の詳細については、この仕様書の範囲外とする。
         </t>
         <!--t>
           To avoid the need to retain an infinite number of nonce values for future checks, servers
@@ -1309,7 +1309,7 @@
       <section title="署名" anchor="signature">
       <!--section title="Signature" anchor="signature"-->
         <t>
-          OAuth 認証リクエストは、<spanx style="verb">oauth_consumer_key</spanx> と <spanx style="verb">oauth_token</spanx> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正真性を検証し、認可されていないアクセスを阻止するために、クライアントはクレデンシャル情報の正当なオーナーであることを証明する必要がある。それは共有鍵 (または RSA 鍵) を使用することにより行うことができる。
+          OAuth 認証リクエストは、<spanx style="verb">oauth_consumer_key</spanx> と <spanx style="verb">oauth_token</spanx> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正当性を検証し、認可されていないアクセスを阻止するため、クライアントはクレデンシャルの正当なオーナーであることを証明する必要がある。これはクレデンシャルの共有鍵 (または RSA 鍵) 部分を使用することにより実現される。
         </t>
         <!--t>
           OAuth-authenticated requests can have two sets of credentials: those passed via the
@@ -1320,7 +1320,7 @@
           shared-secret (or RSA key) part of each set of credentials.
         </t-->
         <t>
-          OAuth はクライアントがクレデンシャル情報の正当なオーナーであることを証明するために <spanx style="verb">HMAC-SHA</spanx>、<spanx style="verb">RSA-SHA1</spanx>、<spanx style="verb">PLAINTEXT</spanx> という、3つの方法を提供する。署名ではない <spanx style="verb">PLAINTEXT</spanx> も含めて、これらは一般的には署名の方式としてみなされている。加えて、<spanx style="verb">RSA-SHA1</spanx> は、クライアントのクレデンシャル情報と結びついた共有鍵の代わりに RSA 鍵を利用する。
+          OAuth はクライアントがクレデンシャルの正当なオーナーであることを証明する方法として <spanx style="verb">HMAC-SHA</spanx>、<spanx style="verb">RSA-SHA1</spanx>、<spanx style="verb">PLAINTEXT</spanx> の3つを提供する。<spanx style="verb">PLAINTEXT</spanx> に署名は含まれないが、これらは一般的に署名方式とみなされている。加えて、<spanx style="verb">RSA-SHA1</spanx> では、クライアントクレデンシャルにおける共有鍵の代替として、RSA 鍵が利用される。
         </t>
         <!--t>
           OAuth provides three methods for the client to prove its rightful ownership of the
@@ -1331,7 +1331,7 @@
           of the shared-secrets associated with the client credentials.
         </t-->
         <t>
-          各実装でそれぞれの要件が持てるように、OAuth では特定の署名方式を強制しない。サーバーはそれ独自の方式を実装したり、規定しても構わない。特定の方式を薦めることはこの仕様書では範囲外となる。実装者はサポートする方式を決定する前に<xref target="Security">セキュリティに関する考慮事項</xref>を精査するべきである。
+          各実装がそれぞれの要件を保てるよう、OAuth では特定の署名方式を強制しない。サーバーは独自の方式を実装したり、規定することができる。本仕様の範囲外であるため、特定の方式の推奨はしない。実装者はサポートする方式を決定する前に、<xref target="Security">セキュリティに関する考慮事項</xref>を精査するべきである。
         </t>
         <!--t>
           OAuth does not mandate a particular signature method, as each implementation can have its
@@ -1341,7 +1341,7 @@
           before deciding on which method to support.
         </t-->
         <t>
-          クライアントは、どの署名方式を使用するかを <spanx style="verb">oauth_signature_method</spanx> パラメータを用いて宣言する。クライアントは署名 (またはそれと等価なもの) を生成し、<spanx style="verb">oauth_signature</spanx> パラメータにそれを含める。サーバーは各方式で規定されている方法で署名を検証する。
+          クライアントは、どの署名方式を使用するかを <spanx style="verb">oauth_signature_method</spanx> パラメータを用いて宣言する。生成した署名 (またはそれと等価なもの) は、<spanx style="verb">oauth_signature</spanx> パラメータに含める。サーバーは各方式で規定されている方法で署名を検証する。
         </t>
         <!--t>
           The client declares which signature method is used via the
@@ -1351,7 +1351,7 @@
           as specified for each method.
         </t-->
         <t>
-          署名のプロセスでは、<spanx style="verb">oauth_signature</spanx> パラメータを除いては、リクエストやパラメータが変更されることはない。
+          <spanx style="verb">oauth_signature</spanx> パラメータを除き、署名のプロセスでリクエストやパラメータが変更されることはない。
         </t>
         <!--t>
           The signature process does not change the request or its parameters, with the exception of
@@ -1361,7 +1361,7 @@
         <section title="シグニチャベースストリング">
         <!-- section title="Signature Base String" -->
           <t>
-            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫して再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> 署名方式における入力の1つとなる。
+            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫し、かつ再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> 署名方式への入力値となる。
             <!--
             The signature base string is a consistent, reproducible concatenation of several
             of the HTTP request elements into a single string. The string is used as an input to
@@ -1370,7 +1370,7 @@
             -->
           </t>
           <t>
-            シグニチャベースストリングは HTTP リクエストの構成要素を含む。
+            シグニチャベースストリングは HTTP リクエストにおける以下の構成要素を含む。
             <!--
             The signature base string includes the following components of the HTTP request:
             -->
@@ -1404,7 +1404,7 @@
                 -->
               </t>
               <t>
-                リクエストのエンティティボディー中に含まれる、<xref target="collect_param" /> で定義されている厳格な制約を満たすパラメータ。
+                リクエストのエンティティボディーに含まれる、<xref target="collect_param" /> で定義された厳格な制約を満たすパラメータ。
                 <!--
                 Parameters included in the request entity-body if they comply with the strict
                 restrictions defined in <xref target="collect_param" />.
@@ -1413,7 +1413,7 @@
             </list>
           </t>
           <t>
-            シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に、多くのリクエストにおいてエンティティボディーが含まれず、HTTP エンティティヘッダーもその多くが含まれない。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
+            シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に注意すべきは、多くのリクエストにおいて、エンティティボディーや HTTP エンティティヘッダーが含まれないことである。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
             <!--
             The signature base string does not cover the entire HTTP request. Most notably, it
             does not include the entity-body in most requests, nor does it include most HTTP
@@ -1461,7 +1461,7 @@
                   -->
                 </t>
                 <t>
-                  <xref target="sig_norm_param" /> に示される正規化されたリクエストパラメータを<xref target="encoding">エンコード</xref>した文字列。
+                  <xref target="sig_norm_param" /> に示されるノーマライズされたリクエストパラメータを<xref target="encoding">エンコード</xref>した文字列。
                   <!--
                   The request parameters as normalized in <xref target="sig_norm_param" />, after
                   being <xref target="encoding">encoded</xref>.
@@ -1514,7 +1514,7 @@
           <section title="ベースストリング URI" anchor="sig_uri">
           <!-- section title="Base String URI" anchor="sig_uri" -->
             <t>
-              ベースストリング URI には、リクエスト対象リソースを示す <spanx style="verb">http</spanx> もしくは <spanx style="verb">https</spanx> URI を構築した上で、リクエスト URI のスキーム、オーソリティおよびパス <xref target="RFC3986" /> を以下のように含める。
+              ベースストリング URI には、リクエスト対象リソースを示す <spanx style="verb">http</spanx> もしくは <spanx style="verb">https</spanx> URI を構築した上で、リクエスト URI のスキーマ、オーソリティおよびパス <xref target="RFC3986" /> を以下のように含める。
               <!--
               The scheme, authority, and path of the request resource URI <xref target="RFC3986" />
               are included by constructing an <spanx style="verb">http</spanx> or
@@ -1524,7 +1524,7 @@
 
               <list style="numbers">
                 <t>
-                  スキームおよびホストは小文字でなくてはならない (MUST)。
+                  スキーマおよびホストは小文字でなければならない (MUST)。
                   <!--
                   The scheme and host MUST be in lowercase.
                   -->
@@ -1537,7 +1537,7 @@
                   -->
                 </t>
                 <t>
-                  ポート番号がそのスキームのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <xref target="RFC2616" /> の場合にはポート80、HTTPS リクエスト <xref target="RFC2818" /> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
+                  ポート番号がそのスキーマのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <xref target="RFC2616" /> の場合にはポート80、HTTPS リクエスト <xref target="RFC2818" /> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
                   <!--
                   The port MUST be included if it is not the default port for the scheme, and MUST
                   be excluded if it is the default. Specifically, the port MUST be excluded when
@@ -1593,7 +1593,7 @@
           <section title="リクエストパラメータ" anchor="collect_param">
           <!--section title="Request Parameters" anchor="collect_param"-->
             <t>
-              リクエストパラメータの一貫性と再現性を保証するため、パラメータは集められ、元の形式にデコードされる。その後ソートを行い、元のエンコード方式とは異なる可能性の高い方法でエンコードされ、ひとつの文字列に連結される。
+              リクエストパラメータの一貫性と再現性を保証するため、パラメータは集められ、元の形式にデコードされる。その後ソートを行い、元のエンコード方式と異なる場合のある方法でエンコードされ、ひとつの文字列に連結される。
             </t>
             <!--t>
               In order to guarantee a consistent and reproducible representation of the request
@@ -1612,7 +1612,7 @@
 
                 <list style="symbols">
                   <t>
-                    <xref target="RFC3986" /> 3.4節で定義されている HTTP リクエスト URI のクエリー部分。クエリー部分は <spanx style="verb">application/x-www-form-urlencoded</spanx> 文字列として名前と値が分割され、 <xref target="W3C.REC-html40-19980424" /> 17.13.4節で定義された方法でデコードし、名前と値のペアのリストに分解される。
+                    <xref target="RFC3986" /> 3.4節で定義されている HTTP リクエスト URI のクエリー要素。クエリー要素は <spanx style="verb">application/x-www-form-urlencoded</spanx> 文字列として名前と値が分割され、<xref target="W3C.REC-html40-19980424" /> 17.13.4節で定義された方法でデコードし、名前と値のペアのリストに分解される。
                   </t>
                   <!--t>
                     The query component of the HTTP request URI as defined by <xref target="RFC3986" />
@@ -1631,7 +1631,7 @@
                     parameter values are decoded as defined by <xref target="auth_header" />.
                   </t-->
                   <t>
-                    以下の条件に見合う場合のみ、HTTP リクエストエンティティボディ。
+                    以下の条件を満たす場合のみ、HTTP リクエストエンティティボディ。
                   <!--t>
                     The HTTP request entity-body, but only if all of the following conditions are met:
                     -->
@@ -1918,7 +1918,7 @@
                     <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
                   </t>
                   <t>
-                    <xref target="encoding">エンコード</xref>されたトークン共有鍵。
+                    <xref target="encoding">エンコード</xref>済みのトークン共有鍵。
                   </t>
                 </list>
               </t>
@@ -1965,7 +1965,7 @@
 
         <section title="RSA-SHA1">
           <t>
-            <spanx style="verb">RSA-SHA1</spanx> 署名方式は、<xref target="RFC3447" /> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、確立されたサーバーとクライアントのクレデンシャルを RSA 公開鍵 (この仕様では範囲外) に含めなければならない (MUST)。
+            <spanx style="verb">RSA-SHA1</spanx> 署名方式は、<xref target="RFC3447" /> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、クライアントは、サーバーに RSA 公開鍵 (この仕様では範囲外) を含むクライアントクレデンシャルを発行してもらわなければならない (MUST)。
           </t>
           <!--t>
             The <spanx style="verb">RSA-SHA1</spanx> signature method uses the RSASSA-PKCS1-v1_5
@@ -1975,7 +1975,7 @@
             public key (in a manner which is beyond the scope of this specification).
           </t-->
           <t>
-            シグニチャベースストリングは、<xref target="RFC3447" /> 8.2.1節 に基づいた、RSA 秘密鍵を使用して署名される。
+            シグニチャベースストリングは、<xref target="RFC3447" /> 8.2.1節に基づき、RSA 秘密鍵を使用して署名される。
 
             <figure>
               <artwork xml:space="preserve"><![CDATA[
@@ -2050,7 +2050,7 @@
               </t>
               <t hangText="S">
                 <vspace />
-                クライアントが受け取った、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータのバイト文字列を設定。
+                クライアントから受け取った、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータのバイト文字列を設定。
               </t>
             </list>
           </t>
@@ -2086,7 +2086,7 @@
 
         <section title="PLAINTEXT">
           <t>
-            <spanx style="verb">PLAINTEXT</spanx> 方式は、署名アルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリング、<spanx style="verb">oauth_timestamp</spanx> と <spanx style="verb">oauth_nonce</spanx> パラメータを使用しない。
+            <spanx style="verb">PLAINTEXT</spanx> 方式は、署名アルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリングや、<spanx style="verb">oauth_timestamp</spanx>、<spanx style="verb">oauth_nonce</spanx> パラメータを使用しない。
           </t>
           <!--t>
             The <spanx style="verb">PLAINTEXT</spanx> method does not employ a signature algorithm.
@@ -2100,13 +2100,13 @@
 
             <list style="numbers">
               <t>
-                <xref target="encoding">エンコード</xref>されたクライアント共有鍵
+                <xref target="encoding">エンコード</xref>済みのクライアント共有鍵
               </t>
               <t>
                 <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))。
               </t>
               <t>
-                <xref target="encoding">エンコード</xref>されたトークン共有鍵
+                <xref target="encoding">エンコード</xref>済みのトークン共有鍵
               </t>
             </list>
           </t>
@@ -2134,7 +2134,7 @@
       <section title="パラメータの送信" anchor="param_include">  
       <!-- section title="Parameter Transmission" anchor="param_include" -->
         <t>
-          OAuth 認可リクエストを行う際、プロトコルパラメータおよび <spanx style="verb">oauth_</spanx> プレフィックスを含むその他全てのパラメータは、以下のいずれか1ヶ所を用いてリクエストに含まれるであろう (SHALL)。以下、好ましい順に挙げる。
+          OAuth 認可リクエストを行う際、プロトコルパラメータおよび <spanx style="verb">oauth_</spanx> プレフィックスを含むその他全てのパラメータは、リクエスト中の、以下好ましい順に挙げたいずれか一カ所に含まれる (SHALL)。
           <!--
           When making an OAuth-authenticated request, protocol parameters as well as any other
           parameter using the <spanx style="verb">oauth_</spanx> prefix SHALL be included in the
@@ -2165,7 +2165,7 @@
           </list>
         </t>
         <t>
-          これら3つの方法に加え、今後の拡張仕様によってプロトコルパラメータをリクエストに含めるその他の手法が定義されることもある (MAY)。
+          これら3つの方法に加え、プロトコルパラメータをリクエストに含める別の方法が、今後の拡張仕様で定義される場合がある (MAY)。
           <!--
           In addition to these three methods, future extensions MAY define other methods for
           including protocol parameters in the request.
@@ -2275,7 +2275,7 @@
         <section title="フォームエンコードボディー" anchor="auth_body">
         <!-- section title="Form-Encoded Body" anchor="auth_body" -->
           <t>
-            プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の必須条件を満たす必要がある (REQUIRED)。
+            プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の条件を満たす必要がある (REQUIRED)。
             <!--
             Protocol parameters can be transmitted in the HTTP request entity-body, but only if the
             following REQUIRED conditions are met:
@@ -2370,7 +2370,7 @@
       <section title="パーセントエンコーディング" anchor="encoding">
       <!-- section title="Percent Encoding" anchor="encoding" -->
         <t>
-          既存のパーセントエンコーディング手法では、首尾一貫したシグニチャベースストリングの構成は保証されない。以下に示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義された既存のパーセントエンコーディング手法を置き換える目的で定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">authorization ヘッダーフィールド</xref>のエンコーディングにのみ用いられるものである。
+          既存のパーセントエンコーディング手法では、一貫したシグニチャベースストリングの構成は保証されない。以下に示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義されたパーセントエンコーディング手法を置き換えるために定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">authorization ヘッダーフィールド</xref>のエンコーディングにのみ用いられるものである。
           <!--
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
@@ -2447,7 +2447,8 @@
         "missing Security Considerations" error will happen when translate it :(
     -->
     <!-- section title="セキュリティに関する考慮事項 " anchor="Security" -->
-    <section title="Security Considerations" anchor="Security">
+    <section title="セキュリティに関する考察" anchor="Security">
+    <!--section title="Security Considerations" anchor="Security"-->
       <t>
         <xref target="RFC2617" /> にあるように、一般的に最大のリスク要因は、プロトコルの本質ではなくそのプロトコルを利用する際のポリシーや手続きにあることが多い。実装者には、このプロトコルがどの程度自らのセキュリティ用件を満たすかを評価することが推奨される。
         <!--
@@ -2472,7 +2473,7 @@
       <section title="リクエストの機密性">
       <!-- section title="Confidentiality of Requests" -->
         <t>
-          このプロトコルはリクエストの完全性検証のメカニズムを提供するが、リクエストの機密性は保証されない。その他の予防策が施されていない場合、盗聴者はリクエストコンテンツ全体を傍受することができる。サーバーはリクエスト中で送信されているデータの性質を熟慮し、機密情報を含むリソースを保護するために TLS メカニズムを採用するべきである。
+          このプロトコルはリクエストの正当性検証のメカニズムを提供するが、リクエストの機密性は保証されない。その他の予防策が施されていない場合、盗聴者はリクエストコンテンツ全体を傍受することができる。サーバーはリクエスト中で送信されているデータの性質を熟慮し、機密情報を含むリソースを保護するために TLS メカニズムを採用するべきである。
           <!--
           While this protocol provides a mechanism for verifying the integrity of requests, it
           provides no guarantee of request confidentiality. Unless further precautions are taken,
@@ -2511,7 +2512,7 @@
           -->
         </t>
         <t>
-          例えば、プライベートな要認証コンテンツは公開アクセス可能な形でキャッシュされる可能性がある。<xref target="auth_header">HTTP Authorization ヘッダーフィールド</xref>を用いないサーバーは、<spanx style="verb">Cache-Control</spanx> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
+          例えば、プライベートな要認証コンテンツは公開アクセスできる形でキャッシュされる可能性がある。<xref target="auth_header">HTTP Authorization ヘッダーフィールド</xref>を用いないサーバーは、<spanx style="verb">Cache-Control</spanx> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
           <!--
           For example, private authenticated content may be stored in (and thus retrievable from)
           publicly-accessible caches. Servers not using the
@@ -2873,7 +2874,7 @@
         
         <list style="symbols">
           <t>
-            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">一時的なクレデンシャルのリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx> 署名方式の利用が影響を受ける。
+            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">テンポラリクレデンシャルのリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx> 署名方式の利用が影響を受ける。
           </t>
           <!--t>
             Changed using TLS/SSL when sending or requesting plain text credentials from SHOULD
@@ -2924,7 +2925,7 @@
             allowed omitting the <spanx style="verb">oauth_token</spanx> parameter when empty.
           </t-->
           <t>
-            空の <spanx style="verb">oauth_token</spanx> パラメータを使った一時的なクレデンシャルのリクエスト送信を許可。
+            空の <spanx style="verb">oauth_token</spanx> パラメータを使ったテンポラリクレデンシャルのリクエスト送信を許可。
           </t>
           <!--t>
             Permitted sending requests for temporary credentials with an empty
