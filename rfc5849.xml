@@ -144,77 +144,59 @@ boilerplate as described in RFC 5741.
       <section title="Terminology">
         <t>
           <list style="hanging" hangIndent="6">
-            <t hangText="クライアント (client)">
-              <vspace />
-              <xref target="requests">OAuth 認証済みリクエスト</xref>を発行可能な HTTP クライアント (<xref target="RFC2616" /> 参照)
-            </t>
-            <!--
             <t hangText="client">
               <vspace />
+              <xref target="requests">OAuth 認証済みリクエスト</xref>を発行可能な HTTP クライアント (<xref target="RFC2616" /> 参照)
+              <!--
               An HTTP client (per <xref target="RFC2616" />) capable of making
               <xref target="requests">OAuth-authenticated requests</xref>.
+              -->
             </t>
-            -->
-            <t hangText="サーバー (server)">
-              <vspace />
-              <xref target="requests">OAuth 認証済みリクエスト</xref>を受入可能な HTTP サーバー (<xref target="RFC2616" /> 参照)
-            </t>
-            <!--
             <t hangText="server">
               <vspace />
+              <xref target="requests">OAuth 認証済みリクエスト</xref>を受入可能な HTTP サーバー (<xref target="RFC2616" /> 参照)
+              <!--
               An HTTP server (per <xref target="RFC2616" />) capable of accepting
               <xref target="requests">OAuth-authenticated requests</xref>.
+              -->
             </t>
-            -->
-            <t hangText="保護されたリソース (protected resource)">
-              <vspace />
-              アクセス制限下にあるリソースで、<xref target="requests">OAuth 認証済みリクエスト</xref>を用いて取得可能なもの。
-            </t>
-            <!--
             <t hangText="protected resource">
               <vspace />
+              アクセス制限下にあるリソースで、<xref target="requests">OAuth 認証済みリクエスト</xref>を用いて取得可能なもの。
+              <!--
               An access-restricted resource which can be obtained from the server using an
               <xref target="requests">OAuth-authenticated request</xref>.
+              -->
             </t>
-            -->
-            <t hangText="リソースオーナー (resource owner)">
-              <vspace />
-              サーバーに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
-            </t>
-            <!--
             <t hangText="resource owner">
               <vspace />
+              サーバーに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
+              <!--
               An entity capable of accessing and controlling protected resources by using credentials
               to authenticate with the server.
+              -->
             </t>
-            -->
-            <t hangText="クレデンシャル (credentials)">
-              <vspace />
-              ここでいうクレデンシャルとはユニークな識別子と共有鍵のペアを指す。OAuth では「クライアント」「テンポラリ」「トークン」の3種類のクレデンシャルが定義され、リクエストを行うクライアントの識別および認証、認可リクエスト、アクセス権受け渡しの際にそれぞれ用いられる。
-            </t>
-            <!--
             <t hangText="credentials">
               <vspace />
+              ここでいうクレデンシャルとはユニークな識別子と共有鍵のペアを指す。OAuth では「クライアント」「テンポラリ」「トークン」の3種類のクレデンシャルが定義され、リクエストを行うクライアントの識別および認証、認可リクエスト、アクセス権受け渡しの際にそれぞれ用いられる。
+              <!--
               Credentials are a pair of a unique identifier and a matching shared secret. OAuth
               defines three classes of credentials: client, temporary, and token, used to identify
               and authenticate the client making the request, the authorization request, and the
               access grant, respectively.
+              -->
             </t>
-            -->
-            <t hangText="トークン (token)">
-              <vspace />
-              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証済みリクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
-            </t>
-            <!--
             <t hangText="token">
               <vspace />
+              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証済みリクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
+              <!--
               A unique identifier issued by the server and used by the client to associate
               authenticated requests with the resource owner whose authorization is requested or
               has been obtained by the client. Tokens have a matching shared-secret that is used
               by the client to establish its ownership of the token, and its authority to represent
               the resource owner.
+              -->
             </t>
-            -->
           </list>
         </t>
         <t>
@@ -225,15 +207,6 @@ boilerplate as described in RFC 5741.
           -->
           
           <list style="hanging">
-            <t hangText="Consumer">クライアント (client)</t>
-            <t hangText="Service Provider">サーバー (server)</t>
-            <t hangText="User">リソースオーナー (resource owner)</t>
-            <t hangText="Consumer Key and Secret">クライアントクレデンシャル (client credentials)</t>
-            <t hangText="Request Token and Secret">テンポラリクレデンシャル (temporary credentials)</t>
-            <t hangText="Access Token and Secret">トークンクレデンシャル (token credentials)</t>
-          </list>
-          <!--
-          <list style="hanging">
             <t hangText="Consumer:">client</t>
             <t hangText="Service Provider:">server</t>
             <t hangText="User:">resource owner</t>
@@ -241,7 +214,6 @@ boilerplate as described in RFC 5741.
             <t hangText="Request Token and Secret:">temporary credentials</t>
             <t hangText="Access Token and Secret:">token credentials</t>
           </list>
-          -->
         </t>
       </section>
 
@@ -265,26 +237,14 @@ boilerplate as described in RFC 5741.
           -->
 
           <list style="hanging" hangIndent="6">
-            <t hangText="クライアント識別子">
-              <vspace />
-              dpf43f3p2l4k3l03
-            </t>
-            <!--
             <t hangText="Client Identifier">
               <vspace />
               dpf43f3p2l4k3l03
             </t>
-            -->
-            <t hangText="クライアント共有鍵">
-              <vspace />
-              kd94hf93k423kf44
-            </t>
-            <!--
             <t hangText="Client Shared-Secret:">
               <vspace />
               kd94hf93k423kf44
             </t>
-            -->
           </list>
 
           'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みである。
@@ -295,36 +255,18 @@ boilerplate as described in RFC 5741.
           -->
 
           <list style="hanging" hangIndent="6">
-            <t hangText="テンポラリクレデンシャルリクエスト">
-              <vspace />
-              https://photos.example.net/initiate
-            </t>
-            <!--
             <t hangText="Temporary Credential Request">
               <vspace />
               https://photos.example.net/initiate
             </t>
-            -->
-            <t hangText="リソースオーナー認可URI">
-              <vspace />
-              https://photos.example.net/authorize
-            </t>
-            <!--
             <t hangText="Resource Owner Authorization URI:">
               <vspace />
               https://photos.example.net/authorize
             </t>
-            -->
-            <t hangText="トークンリクエストURI">
-              <vspace />
-              https://photos.example.net/token
-            </t>
-            <!--
             <t hangText="Token Request URI:">
               <vspace />
               https://photos.example.net/token
             </t>
-            -->
           </list>
         </t>
         <t>
@@ -474,109 +416,164 @@ boilerplate as described in RFC 5741.
 
     <section title="Redirection-Based Authorization" anchor="redirect_workflow">
       <t>
+        OAuth はリソースオーナーがクライアントに認可を与える際にトークンを用いる。一般的にトークンクレデンシャルの発行は、リソースオーナーの要求を受けてサーバーが行う。その際、サーバーはトークン発行前にリソースオーナーのアイデンティティを (通常はユーザー名とパスワードを使用して) 認証する。
+        <!--
         OAuth uses tokens to represent the authorization granted to the client by the resource
         owner. Typically, token credentials are issued by the server at the resource owner's
         request, after authenticating the resource owner's identity (usually using a username and
         password).
+        -->
       </t>
       <t>
+        サーバーがトークンクレデンシャルの提供を行う方法は複数存在する。このセクションでは、HTTP リダイレクションとリソースオーナーのユーザーエージェントを使った、ひとつの方法を定義している。このリダイレクション・ベースの認可方法には、3つのステップがある。
+        <!--
         There are many ways in which a server can facilitate the provisioning of token credentials.
         This section defines one such way, using HTTP redirections and the resource owner's
         user-agent. This redirection-based authorization method includes three steps:
+        -->
 
         <list style="numbers">
           <t>
+            クライアントは、サーバーから (識別子と共有鍵の形式で) テンポラリクレデンシャルを取得する。テンポラリクレデンシャルは、認可プロセス中のアクセス要求を識別するために利用される。
+            <!--
             The client obtains a set of temporary credentials from the server (in the form of an
             identifier and shared-secret). The temporary credentials are used to identify the
             access request throughout the authorization process.
+            -->
           </t>
           <t>
+            リソースオーナーは、クライアントからの (テンポラリクレデンシャルによって識別される) アクセス要求をサーバーが許可することについて、承認を行う。
+            <!--
             The resource owner authorizes the server to grant the client's access request
             (identified by the temporary credentials).
+            -->
           </t>
           <t>
+            クライアントはテンポラリクレデンシャルを用い、サーバーに対してトークンクレデンシャルをリクエストする。これにより、リソースオーナーの保護されたリソースへのアクセスが可能になる。
+            <!--
             The client uses the temporary credentials to request a set of token credentials from
             the server, which will enable it to access the resource owner's protected resources.
+            -->
           </t>
         </list>
       </t>
       <t>
+        サーバーは、トークンクレデンシャル発行後、テンポラリクレデンシャルを破棄しなければならない (MUST)。テンポラリクレデンシャルには有効期限を設けることを推奨する (RECOMMENDED)。サーバーは、クライアントに対して発行済のトークンクレデンシャルを、リソースオーナーが破棄できるようにするべきである (SHOULD)。
+        <!--
         The server MUST revoke the temporary credentials after being used once to obtain the token
         credentials. It is RECOMMENDED that the temporary credentials have a limited lifetime.
         Servers SHOULD enable resource owners to revoke token credentials after they have been
         issued to clients.
+        -->
       </t>
       <t>
+        クライアントがこれらのステップを行えるように、サーバーは以下の3つのエンドポイント URI を知らせる必要がある。
+        <!--
         In order for the client to perform these steps, the server needs to advertise the URIs of
         the following three endpoints:
+        -->
 
         <list style="hanging" hangIndent="6">
           <t hangText="Temporary Credential Request">
             <vspace />
+            テンポラリクレデンシャルを取得するため、クライアントに用いられるエンドポイント。(<xref target="auth_step1" /> 参照)
+            <!--
             The endpoint used by the client to obtain a set of temporary credentials as described
             in <xref target="auth_step1" />.
+            -->
           </t>
           <t hangText="Resource Owner Authorization">
             <vspace />
+            認可を与えるため、リソースオーナーがリダイレクトされるエンドポイント。(<xref target="auth_step2" /> 参照)
+            <!--
             The endpoint to which the resource owner is redirected to grant authorization as
             described in <xref target="auth_step2" />.
+            -->
           </t>
           <t hangText="Token Request">
             <vspace />
+            テンポラリクレデンシャルを使ってトークンクレデンシャルを要求するため、クライアントに用いられるエンドポイント。(<xref target="auth_step3" /> 参照)
+            <!--
             The endpoint used by the client to request a set of token credentials using the
             set of temporary credentials as described in <xref target="auth_step3" />.
+            -->
           </t>
         </list>
       </t>
       <t>
+        通達された3つの URI は、クエリー要素を含んでもよい (MAY)。(<xref target="RFC3986" /> 3節参照) ただし、エンドポイント利用時に URI に追加されるプロトコルパラメータとの競合を防ぐため、クエリーには <spanx style="verb">oauth_</spanx> で始まるパラメータを含んではならない (MUST NOT)。
+        <!--
         The three URIs advertised by the server MAY include a query component as defined by
         <xref target="RFC3986" />, Section 3, but if present, the query MUST NOT contain any
         parameters beginning with the <spanx style="verb">oauth_</spanx> prefix, to avoid conflicts
         with the protocol parameters added to the URIs when used.
+        -->
       </t>
       <t>
+        サーバーが3つのエンドポイントを通達、ドキュメント化する方法は、この仕様の範囲外である。クライアントは、本仕様で未定義な、トークンのサイズや他のサーバーで生成された値について、仮定をすべきではない。プロトコルパラメータは、転送時にエンコードが必要な値を含む場合がある (MAY)。クライアントとサーバーは、値の範囲を仮定してはならない。
+        <!--
         The methods in which the server advertises and documents its three endpoints are beyond the
         scope of this specification. Clients should avoid making assumptions about the size of
         tokens and other server-generated values, which are left undefined by this specification.
         In addition, protocol parameters MAY include values that require encoding when
         transmitted. Clients and servers should not make assumptions about the possible range of
         their values.
+        -->
       </t>
       
       <section title="Temporary Credentials" anchor="auth_step1">
         <t>
+          クライアントは、テンポラリクレデンシャルリクエストのエンドポイントに、<xref target="requests">認証済みの</xref> HTTP <spanx style="verb">POST</spanx> リクエストを行うことによって、サーバーからテンポラリクレデンシャルを取得する (サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない)。クライアントは、次の必須 (REQUIRED) パラメータをリクエストに加えることにより、(同じメソッドを利用して、他のパラメータに加えることで) リクエスト URI を構成する。
+          <!--
           The client obtains a set of temporary credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
           request to the Temporary Credential Request endpoint (unless the server advertises
           another HTTP request method for the client to use). The client constructs a request URI
           by adding the following REQUIRED parameter to the request (in addition to the other
           protocol parameters, using the same parameter transmission method):
+          -->
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_callback:">
+              リソースオーナー認証手順 (<xref target="auth_step2" />) 完了時に、サーバーがリソースオーナーをリダイレクトさせる絶対 URI。もしクライアントがコールバックを受け取ることができない、もしくはコールバック URI が他の手段を介して確立されたなら、このパラメータを使用しないことを示すために <spanx style="verb">oob</spanx> (大文字小文字を区別) をセットしなければならない (MUST)。
+              <!--
               An absolute URI back to which the server will redirect the resource owner when the
               Resource Owner Authorization step (<xref target="auth_step2" />) is completed. If the
               client is unable to receive callbacks or a callback URI has been established via other
               means, the parameter value MUST be set to <spanx style="verb">oob</spanx> (case sensitive),
               to indicate an out-of-band configuration.
+              -->
             </t>
+            <t hangText="サーバーは、追加パラメータを指定してもよい (MAY)。">
+            </t>
+            <!--
             <t hangText="Servers MAY specify additional parameters.">
             </t>
+            -->
           </list>
         </t>
         <t>
+          クライアントは、クライアントクレデンシャルのみを使用して認証要求を行う。クライアントは、空の oauth_token パラメータをリクエストから省略してもよい (MAY)。またその場合は、トークンシークレットパラメータとして、空文字を使用しなければならない (MUST)。
+          <!--
           When making the request, the client authenticates using only the client credentials. The
           client MAY omit the empty <spanx style="verb">oauth_token</spanx> protocol parameter
           from the request and MUST use the empty string as the token secret value.
+          -->
         </t>
         <t>
+          結果は HTTP レスポンス中にプレーンテキスト形式のクレデンシャルとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
+          <!--
           Since the request results in the transmission of plain text credentials in the HTTP
           response, the server MUST require the use of a transport-layer mechanisms such as TLS
           or Secure Socket Layer (SSL) (or a secure channel with equivalent protections).
+          -->
         </t>
         <figure>
           <preamble>
+            たとえば、クライアントは以下のような HTTPS リクエストを行う。
+            <!--
             For example, the client makes the following HTTPS request:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   POST /request_temp_credentials HTTP/1.1
@@ -589,39 +586,60 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          サーバーは、必ずリクエストを<xref target="verify_request">検証</xref>しなければならない (MUST)。リクエストが有効な場合、サーバーはクライアントに (識別子と共有鍵の形式で) テンポラリクレデンシャルを返す。テンポラリクレデンシャルは、ステータスコード 200 (OK) とともに、レスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式で含められる。
+          <!--
           The server MUST <xref target="verify_request">verify</xref> the request and if valid,
           respond back to the client with a set of temporary credentials (in the form of an
           identifier and shared-secret). The temporary credentials are included in the HTTP
           response body using the <spanx style="verb">application/x-www-form-urlencoded</spanx>
           content type as defined by <xref target="W3C.REC-html40-19980424" /> with a 200 status
           code (OK).
+          -->
         </t>
         <t>
+          レスポンスには次の必須 (REQUIRED) パラメータが含まれる。
+          <!--
           The response contains the following REQUIRED parameters:
+          -->
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
+              テンポラリクレデンシャルの識別子
+              <!--
               The temporary credentials identifier.
+              -->
             </t>
             <t hangText="oauth_token_secret">
               <vspace />
+              テンポラリクレデンシャルの共有鍵
+              <!--
               The temporary credentials shared-secret.
+              -->
             </t>
             <t hangText="oauth_callback_confirmed:">
+              必ず存在しなければならない (MUST)、かつ <spanx style="verb">true</spanx> に設定する。このパラメータは、以前のバージョンと区別するために使用される。
+              <!--
               MUST be present and set to <spanx style="verb">true</spanx>. The parameter is used
               to differentiate from previous versions of the protocol.
+              -->
             </t>
           </list>
         </t>
         <t>
+          パラメータ名に 'token' が含まれていても、このクレデンシャルはトークンクレデンシャルではないが、次の2つのステップで、トークンクレデンシャルと同様の使い方がされることに注意。
+          <!--
           Note that even though the parameter names include the term 'token', these credentials are
           not token credentials, but are used in the next two steps in a similar manner to token
           credentials.
+          -->
         </t>
         <figure>
           <preamble>
+            例 (改行は掲載上の都合による)
+            <!--
             For example (line breaks are for display purposes only):
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   HTTP/1.1 200 OK
@@ -635,32 +653,48 @@ boilerplate as described in RFC 5741.
 
       <section title="Resource Owner Authorization" anchor="auth_step2">
         <t>
+          クライアントは、サーバーにトークンクレデンシャルを要求する前に、ユーザをサーバーに移動させて要求に対する認可を得なければならない (MUST)。クライアントはリソースオーナー認可エンドポイント URI に以下の必須 (REQUIRED) クエリーパラメータを追加して、リクエスト URI を構成する。
+          <!--
           Before the client requests a set of token credentials from the server, it MUST send
           the user to the server to authorize the request. The client constructs a request URI by
           adding the following REQUIRED query parameter to the Resource Owner Authorization
           endpoint URI:
+          -->
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
+              <xref target="auth_step1" />で <spanx style="verb">oauth_token</spanx> パラメータの値として得られるテンポラリクレデンシャルの識別子。サーバーはこのパラメータを任意とすることもできるが、その場合はリソースオーナーの識別子を示す代替手段を提供しなければならない (MUST)。
+              <!--
               The temporary credentials identifier obtained in <xref target="auth_step1" />
               in the <spanx style="verb">oauth_token</spanx> parameter. Servers MAY declare this
               parameter as OPTIONAL, in which case they MUST provide a way for the resource owner
               to indicate the identifier through other means.
+              -->
             </t>
+            <t hangText="サーバーは、追加パラメータを指定してもよい (MAY)。">
+            </t>
+            <!--
             <t hangText="Servers MAY specify additional parameters.">
             </t>
+            -->
           </list>
         </t>
         <t>
+          クライアントは、HTTP リダイレクトレスポンスもしくはリソースオーナーのユーザーエージェントがサポートする何らかの代替手段を用いて、リソースオーナーを前述で構成された URI にリダイレクトさせる。このリクエストでは HTTP <spanx style="verb">GET</spanx> メソッドを用いなければならない (MUST)。
+          <!--
           The client directs the resource owner to the constructed URI using an HTTP redirection
           response, or by other means available to it via the resource owner's user-agent. The
           request MUST use the HTTP <spanx style="verb">GET</spanx> method.
+          -->
         </t>
         <figure>
           <preamble>
+            例: クライアントはリソースオーナーのユーザーエージェントをリダイレクトさせ、以下の HTTPS リクエストを実行させる。
+            <!--
             For example, the client redirects the resource owner's user-agent to make the following
             HTTPS request:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   GET /authorize_access?oauth_token=hdk48Djdsa HTTP/1.1
@@ -668,46 +702,70 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          サーバーの認可リクエストの処理方法については、TLS や SSL などのセキュアチャネルの利用有無とともにこの仕様の範囲外であるが、サーバーはまず最初にリソースオーナーのアイデンティティを検証しなければならない (MUST)。
+          <!--
           The way in which the server handles the authorization request, including whether it uses
           a secure channel such as TLS/SSL is beyond the scope of this specification. However, the
           server MUST first verify the identity of the resource owner.
+          -->
         </t>
         <t>
+          リソースオーナーに要求されたアクセス権の認可を求める際、サーバーはアクセス権を要求しているクライアントの情報をリソースオーナーに提示するべきである (SHOULD)。その際はクライアント識別子と関連付けられたテンポラリクレデンシャルを利用する。このような情報を表示する際、サーバーはその情報が検証済みかどうか明示するべきである (SHOULD)。
+          <!--
           When asking the resource owner to authorize the requested access, the server SHOULD
           present to the resource owner information about the client requesting access based on the
           association of the temporary credentials with the client identity. When displaying any
           such information, the server SHOULD indicate if the information has been verified.
+          -->
         </t>
         <t>
+          リソースオーナーから認可の可否を受け取った後、コールバック URI が <spanx style="verb">oauth_callback</spanx> パラメータもしくはその他の方法によって提供されている場合、サーバーはリソースオーナーをそのコールバック URI にリダイレクトさせる。
+          <!--
           After receiving an authorization decision from the resource owner, the server redirects
           the resource owner to the callback URI if one was provided in the
           <spanx style="verb">oauth_callback</spanx> parameter or by other means.
+          -->
         </t>
         <t>
+          アクセス権を認可したリソースオーナーが、クライアントに戻されたリソースオーナーと同一であることを確認するため、サーバーは検証コードを生成しなければならない (MUST)。検証コードは推測困難な値であり、リソースオーナーを通じてクライアントに渡され、リソースオーナー認可プロセス完了のために必須となる (REQUIRED)。サーバーはコールバック URI のクエリーパラメータに以下の必須パラメータを追加して、リクエスト URI を構成する。
+          <!--
           To make sure that the resource owner granting access is the same resource owner returning
           back to the client to complete the process, the server MUST generate a verification code:
           an unguessable value passed to the client via the resource owner and REQUIRED to complete
           the process. The server constructs the request URI by adding the following REQUIRED
           parameters to the callback URI query component:
+          -->
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
+              クライアントから受け取ったテンポラリクレデンシャルの識別子。
+              <!--
               The temporary credentials identifier received from the client.
+              -->
             </t>
             <t hangText="oauth_verifier">
               <vspace />
+              検証コード。
+              <!--
               The verification code.
+              -->
             </t>
           </list>
 
+          コールバック URI が既にクエリー要素を含む場合、サーバーは既存のクエリーの後ろに OAuth パラメータを追加しなければならない (MUST)。
+          <!--
           If the callback URI already includes a query component, the server MUST append the
           OAuth parameters to the end of the existing query.
+          -->
         </t>
         <figure>
           <preamble>
+            例: サーバーはリソースオーナーのユーザーエージェントをリダイレクトさせ、以下の HTTP リクエストを実行させる。
+            <!--
             For example, the server redirects the resource owner's user-agent to make the following
             HTTP request:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   GET /cb?x=1&oauth_token=hdk48Djdsa&oauth_verifier=473f82d3 HTTP/1.1
@@ -715,43 +773,61 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          クライアントがコールバック URI を提示しない場合、サーバーは検証コードを表示し、リソースオーナーに対して手動でクライアントに認可処理の完了を伝えるよう指示すべきである (SHOULD)。クライアントが何らかの制約を持つデバイス上で動作していることを把握している場合、サーバーは検証コードを手入力に適した形式で提供すべきである (SHOULD)。
+          <!--
           If the client did not provide a callback URI, the server SHOULD display the value of the
           verification code, and instruct the resource owner to manually inform the client that
           authorization is completed. If the server knows a client to be running on a limited device,
           it SHOULD ensure that the verifier value is suitable for manual entry.
+          -->
         </t>
       </section>
 
       <section title="Token Credentials" anchor="auth_step3">
         <t>
+          クライアントは<xref target="requests">認証済み</xref> HTTP <spanx style="verb">POST</spanx> リクエストをトークンリクエストエンドポイントに送信し、サーバーからトークンクレデンシャルを取得する。(サーバーが他の HTTP リクエストメソッドを推奨する場合はこの限りではない) クライアントは (同じフィールドに格納される他プロトコルのパラメータに加え) 以下の必須 (REQUIRED) パラメータをリクエストに追加してリクエスト URI を構成する。
+          <!--
           The client obtains a set of token credentials from the server by making an
           <xref target="requests">authenticated</xref> HTTP <spanx style="verb">POST</spanx>
           request to the Token Request endpoint (unless the server advertises another HTTP
           request method for the client to use). The client constructs a request URI by adding the
           following REQUIRED parameter to the request (in addition to the other protocol
           parameters, using the same parameter transmission method):
+          -->
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_verifier">
               <vspace />
+              前ステップでサーバーから受け取った検証コード。
+              <!--
               The verification code received from the server in the previous step.
+              -->
             </t>
           </list>
         </t>
         <t>
+          リクエストを行う際、クライアントはテンポラリクレデンシャル同様クライアントクレデンシャルを用いて認証する。テンポラリクレデンシャルは、認証済みリクエスト中でトークンクレデンシャルの代わりに用いられ、<spanx style="verb">oauth_token</spanx> パラメータの値として渡される。
+          <!--
           When making the request, the client authenticates using the client credentials as well as
           the temporary credentials. The temporary credentials are used as a substitute for token
           credentials in the authenticated request and transmitted using the
           <spanx style="verb">oauth_token</spanx> parameter.
+          -->
         </t>
         <t>
+          リクエスト結果は HTTP レスポンス中のプレーンテキストとして返されるため、サーバーは TLS や SSL などのトランスポート層のメカニズム (もしくはそれらに相当するセキュアチャネル) を用いなければならない (MUST)。
+          <!--
           Since the request results in the transmission of plain text credentials in the HTTP
           response, the server MUST require the use of a transport-layer mechanism such as TLS
           or SSL (or a secure channel with equivalent protections).
+          -->
         </t>
         <figure>
           <preamble>
+            例: クライアントは以下の HTTPS リクエストを行う。
+            <!--
             For example, the client makes the following HTTPS request:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   POST /request_token HTTP/1.1
@@ -765,6 +841,8 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          サーバーはリクエストの妥当性を<xref target="verify_request">検証</xref>し、リソースオーナーがクライアントにトークンクレデンシャルを提供することを認可していることを確認し、テンポラリクレデンシャルが期限切れおよび使用済みでないことを確認しなければならない (MUST)。サーバーはさらにクライアントから受け取った検証コードも検証しなければならない (MUST)。リクエストが有効で認可済みの場合は、ステータスコード 200 (OK) とともにレスポンスボディーに <xref target="W3C.REC-html40-19980424" /> で定義された <spanx style="verb">application/x-www-form-urlencoded</spanx> 形式でトークンクレデンシャルを含める。
+          <!--
           The server MUST <xref target="verify_request">verify</xref> the validity of the request,
           ensure that the resource owner has authorized the provisioning of token credentials to
           the client, and ensure that the temporary credentials have not expired or been used
@@ -773,24 +851,37 @@ boilerplate as described in RFC 5741.
           response body using the <spanx style="verb">application/x-www-form-urlencoded</spanx>
           content type as defined by <xref target="W3C.REC-html40-19980424" /> with a 200 status
           code (OK).
+          -->
         </t>
         <t>
+          レスポンスは以下の必須 (REQUIRED) パラメータを含む。
+          <!--
           The response contains the following REQUIRED parameters:
+          -->
 
           <list style="hanging" hangIndent="6">
             <t hangText="oauth_token">
               <vspace />
+              トークン識別子
+              <!--
               The token identifier.
+              -->
             </t>
             <t hangText="oauth_token_secret">
               <vspace />
+              トークン共有鍵
+              <!--
               The token shared-secret.
+              -->
             </t>
           </list>
         </t>
         <figure>
           <preamble>
+            例:
+            <!--
             For example:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   HTTP/1.1 200 OK
@@ -800,15 +891,21 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          サーバーはスコープ、有効期間、およびリソースオーナーが承認したその他の属性を保持し、クライアントが発行済トークンクレデンシャルを用いてリクエストを行う際にそれらの制限を実施しなければならない。
+          <!--
           The server must retain the scope, duration, and other attributes approved by the resource
           owner, and enforce these restrictions when receiving a client request made with the token
           credentials issued.
+          -->
         </t>
         <t>
+          ひとたびトークンクレデンシャルを受け取ると、クライアントはリソースオーナーの代理として、<xref target="requests">認証済みリクエスト</xref>により保護されたリソースにアクセスし続けることができる。その際、取得したトークンクレデンシャルとともにクライアントクレデンシャルを用いる。
+          <!--
           Once the client receives and stores the token credentials, it can proceed to access
           protected resources on behalf of the resource owner by making
           <xref target="requests">authenticated requests</xref> using the client credentials
           together with the token credentials received.
+          -->
         </t>
       </section>
 
