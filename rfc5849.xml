@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="US-ASCII" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 <?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?>
 
@@ -36,10 +36,13 @@ boilerplate as described in RFC 5741.
 
     <abstract>
       <t>
+        OAuth は、リソースオーナー (別のクライアントやエンドユーザー) に代わって、サーバーリソースにアクセスするための方法を、クライアントに提供するものである。また、リダイレクトを利用することで、エンドユーザーはクライアントにユーザ名やパスワードを共有することなく、サーバーリソースへの第三者アクセスを認可することができる。
+        <!--
         OAuth provides a method for clients to access server resources on behalf of a resource
         owner (such as a different client or an end-user). It also provides a process for end-users
         to authorize third-party access to their server resources without sharing their credentials
         (typically, a username and password pair), using user-agent redirections.
+        -->
       </t>
     </abstract>
 
@@ -48,56 +51,79 @@ boilerplate as described in RFC 5741.
 
     <section title="Introduction">
       <t>
- The OAuth protocol was originally created by a small community of web
- developers from a variety of websites and other Internet services
- who wanted to solve the common problem of enabling delegated access
- to protected resources.  The resulting OAuth protocol was stabilized
- at version 1.0 in October 2007, and revised in June 2009 (Revision A)
- as published at &lt;http://oauth.net/core/1.0a&gt;.
+        OAuth は、保護されたリソースに対するアクセス権限を第三者へ委譲する際の共通の問題について、その解決方法を必要としていたさまざまな Web サイトやインターネットサービスの開発者からなるコミュニティから生まれた。その後 OAuth は2007年10月に安定版の version 1.0 となり、2009年9月に改訂され Revision A となり、&lt;http://oauth.net/core/1.0a&gt; で公開されている。
+        <!--
+        The OAuth protocol was originally created by a small community of web
+        developers from a variety of websites and other Internet services
+        who wanted to solve the common problem of enabling delegated access
+        to protected resources.  The resulting OAuth protocol was stabilized
+        at version 1.0 in October 2007, and revised in June 2009 (Revision A)
+        as published at &lt;http://oauth.net/core/1.0a&gt;.
+        -->
       </t>
       <t>
- This specification provides an informational documentation of OAuth
- Core 1.0 Revision A, addresses several errata reported since that
- time, and makes numerous editorial clarifications.  While this
- specification is not an item of the IETF's OAuth Working Group, which
- at the time of writing is working on an OAuth version that can be
- appropriate for publication on the standards track, it has been
- transferred to the IETF for change control by authors of the original
- work.
+        この仕様書では改訂版 OAuth Core 1.0 Revision A をもとに、大幅な文書の明瞭化と同時に改訂後に指摘された誤字修正も行っている。本仕様は OAuth IETF OAuth Working Group のアイテムではないが、オリジナルの OAuth 仕様執筆者から管理権限を IETF に移管するために、IETF より発行される。なお OAuth IETF WG は、本仕様執筆時点で OAuth 仕様の Standard Track での公開を目指している。
+        <!--
+        This specification provides an informational documentation of OAuth
+        Core 1.0 Revision A, addresses several errata reported since that
+        time, and makes numerous editorial clarifications.  While this
+        specification is not an item of the IETF's OAuth Working Group, which
+        at the time of writing is working on an OAuth version that can be
+        appropriate for publication on the standards track, it has been
+        transferred to the IETF for change control by authors of the original
+        work.
+      -->
       </t>
       <t>
+        従来のクライアント・サーバー型認証モデルでは、サーバー上のリソースにアクセスするためにクライアントは自身の認証情報を利用する。分散した Web サービスやクラウドコンピューティングの利用拡大により、ますます多くのサードパーティーアプリケーションがこれらのサーバー上リソースへのアクセス権を必要とすることになる。
+        <!--
         In the traditional client-server authentication model, the client uses its credentials to
         access its resources hosted by the server. With the increasing use of distributed web
         services and cloud computing, third-party applications require access to these
         server-hosted resources.
+        -->
       </t>
       <t>
+        OAuth は従来のクライアント・サーバー型認証モデルに加え、3つめの役割「リソースオーナー」を導入する。OAuth モデルでは、クライアント (リソースオーナーではないが、リソースオーナーの代理として振る舞う) は、リソースオーナーが管理しながらもサーバーにホスティングされているリソースへのアクセス権を要求する。サーバーは、リソースオーナーの認可情報と同時に、リクエスト元であるクライアントの身元も検証することができる。
+        <!--
         OAuth introduces a third role to the traditional client-server authentication model: the
         resource owner. In the OAuth model, the client (which is not the resource owner, but
         is acting on its behalf) requests access to resources controlled by the resource owner, but
         hosted by the server. In addition, OAuth allows the server to verify not only the resource
         owner authorization, but also the identity of the client making the request.
+        -->
       </t>
       <t>
+        OAuth はクライアントがリソースオーナー (異なるクライアントやエンドユーザーなど) の代理としてサーバーリソースにアクセスする方法を提供する。またエンドユーザーが自身の認証情報 (典型例: ユーザ名およびパスワード) を共有することなしに自身のサーバーリソースへのアクセスを許可する一連のプロセスも提供する。このプロセスではユーザーエージェントのリダイレクトを利用する。
+        <!--
         OAuth provides a method for clients to access server resources on behalf of a resource
         owner (such as a different client or an end-user). It also provides a process for end-users
         to authorize third-party access to their server resources without sharing their credentials
         (typically, a username and password pair), using user-agent redirections.
+        -->
       </t>
       <t>
+        例として、ユーザ (リソースオーナー) がプリントサービス (クライアント) に、自身が写真共有サービス (サーバー) 上に保有するプライベートな写真へのアクセス権を与えることを考える。ここではユーザ名とパスワードはプリントサービスに提示しない。その代わりにユーザは写真共有サービス上で直接認証を行い、写真共有サービスがプリントサービスへの委譲専用のユーザー証明書を発行する。
+        <!--
         For example, a web user (resource owner) can grant a printing service (client) access to
         her private photos stored at a photo sharing service (server), without sharing her
         username and password with the printing service. Instead, she authenticates directly with
         the photo sharing service which issues the printing service delegation-specific credentials.
+        -->
       </t>
       <t>
+        リソースアクセスのために、クライアントはまずはじめにリソースオーナーから許可を受ける必要がある。この許可情報はトークンと共有鍵の形で示される。トークンがあることでリソースオーナーはクライアントに自身の認証情報を共有する必要がなくなる。リソースオーナーの認証情報と異なり、トークンは限定的な用途でかつ有効期限付きで発行することが可能であり、個別に破棄することができる。
+        <!--
         In order for the client to access resources, it first has to obtain permission from the
         resource owner. This permission is expressed in the form of a token and matching
         shared-secret. The purpose of the token is to make it unnecessary for the resource owner to
         share its credentials with the client. Unlike the resource owner credentials, tokens can be
         issued with a restricted scope and limited lifetime, and revoked independently.
+        -->
       </t>
       <t>
+        この仕様書は2つの部分からなる。前半部ではエンドユーザーがクライアントにリソースへのアクセス権を認可する際の、リダイレクトベースのユーザーエージェント処理について定義する。後半部では2セットのクレデンシャルを用いて認証済み HTTP <xref target="RFC2616" /> リクエストを行う方法を定義する。この2セットのクレデンシャルは、1つはリクエストを行っているクライアントを識別するために用いられ、もう1つはそのリクエストでクライアントが代理となるリソースオーナーを識別するために用いられる。
+        <!--
         This specification consists of two parts. The first part defines a redirection-based
         user-agent process for end-users to authorize client access to their resources, by
         authenticating directly with the server and provisioning tokens to the client for use with
@@ -105,10 +131,14 @@ boilerplate as described in RFC 5741.
         <xref target="RFC2616" /> requests using two sets of credentials, one identifying the
         client making the request, and a second identifying the resource owner on whose behalf the
         request is being made.
+        -->
       </t>
       <t>
+        OAuth を <xref target="RFC2616" /> 以外の転送プロトコル上で用いる方法については定義されていない。
+        <!--
         The use of OAuth with any transport protocol other than <xref target="RFC2616" /> is
         undefined.
+        -->
       </t>
 
       <section title="Terminology">
