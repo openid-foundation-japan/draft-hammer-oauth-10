@@ -2328,7 +2328,7 @@ boilerplate as described in RFC 5741.
           -->
         </t>
         <t>
-          例えば、プライベートな要認証コンテンツは公開アクセスできる形でキャッシュされる可能性がある。<xref target="auth_header">HTTP Authorization</xref> ヘッダーフィールド</xref>を用いないサーバーは、<spanx style="verb">Cache-Control</spanx> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
+          例えば、プライベートな要認証コンテンツは公開アクセスできる形でキャッシュされる可能性がある。<xref target="auth_header">HTTP Authorization</xref> ヘッダーフィールドを用いないサーバーは、<spanx style="verb">Cache-Control</spanx> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
           <!--
           For example, private authenticated content may be stored in (and thus retrievable from)
           publicly accessible caches. Servers not using the HTTP <spanx style="verb">Authorization</spanx>
