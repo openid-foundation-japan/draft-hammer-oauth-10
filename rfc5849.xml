@@ -2270,144 +2270,197 @@ boilerplate as described in RFC 5741.
 
     <section title="Security Considerations" anchor="Security">
       <t>
+        <xref target="RFC2617" /> にあるように、一般的に最大のリスク要因は、プロトコルの本質ではなくそのプロトコルを利用する際のポリシーや手続きにあることが多い。実装者には、このプロトコルがどの程度自らのセキュリティ用件を満たすかを評価することが推奨される。
+        <!--
         As stated in <xref target="RFC2617" />, the greatest sources of risks are usually found not
         in the core protocol itself but in policies and procedures surrounding its use. Implementers
         are strongly encouraged to assess how this protocol addresses their security requirements.
+        -->
       </t>
 
       <section title="RSA-SHA1 Signature Method">
         <t>
+          <spanx style="verb">RSA-SHA1</spanx> 署名を用いた認可リクエストでは、トークン共有鍵やクライアント共有鍵は利用されない。そのためこのリクエストは、完全にクライアントが署名生成に使用する秘密鍵の秘匿性に依存する。
+          <!--
           Authenticated requests made with <spanx style="verb">RSA-SHA1</spanx> signatures do not
           use the token shared-secret, or any provisioned client shared-secret. This means the request
           relies completely on the secrecy of the private key used by the client to sign requests.
+          -->
         </t>
       </section>
 
       <section title="Confidentiality of Requests">
         <t>
+          このプロトコルはリクエストの正当性検証のメカニズムを提供するが、リクエストの機密性は保証されない。その他の予防策が施されていない場合、盗聴者はリクエストコンテンツ全体を傍受することができる。サーバーはリクエスト中で送信されているデータの性質を熟慮し、機密情報を含むリソースを保護するために TLS メカニズムを採用するべきである。
+          <!--
           While this protocol provides a mechanism for verifying the integrity of requests, it
           provides no guarantee of request confidentiality. Unless further precautions are taken,
           eavesdroppers will have full access to request content. Servers should carefully consider
           the kinds of data likely to be sent as part of such requests, and should employ
           transport-layer security mechanisms to protect sensitive resources.
+          -->
         </t>
       </section>
 
       <section title="Spoofing by Counterfeit Servers">
         <t>
+          このプロトコルはサーバーの信憑性を検証するものではない。敵意を持つ第三者がこの点を悪用し、クライアントのリクエストを傍受して改竄もしくは不正なレスポンスを返す可能性がある。サービスプロバイダーはサービス構築時にこのような攻撃を想定し、サーバーやリクエストレスポンスの信憑性が求められるリクエストでは TLS を採用するべきである。
+          <!--
           This protocol makes no attempt to verify the authenticity of the server. A hostile party
           could take advantage of this by intercepting the client's requests and returning
           misleading or otherwise incorrect responses. Service providers should consider such
           attacks when developing services using this protocol, and should require transport-layer
           security for any requests where the authenticity of the server or of request responses is
           an issue.
+          -->
         </t>
       </section>
 
       <section title="Proxying and Caching of Authenticated Content">
         <t>
+          <xref target="auth_header">HTTP Authorization スキーム</xref>はオプションであるが、<xref target="RFC2616" /> は <spanx style="verb">Authorization</spanx> および <spanx style="verb">WWW-Authenticate</spanx> ヘッダーフィールドを元に要認証コンテンツの識別を行う。特にこれらのヘッダーフィールドを用いない場合、プロキシやキャッシュが原因となりリクエストの保護が機能しなくなる可能性がある。
+          <!--
           The <xref target="auth_header">HTTP Authorization scheme</xref> is optional. However,
           <xref target="RFC2616" /> relies on the <spanx style="verb">Authorization</spanx> and
           <spanx style="verb">WWW-Authenticate</spanx> header fields to distinguish authenticated content
           so that it can be protected. Proxies and caches, in particular, may fail to adequately
           protect requests not using these header fields.
+          -->
         </t>
         <t>
+          例えば、プライベートな要認証コンテンツは公開アクセスできる形でキャッシュされる可能性がある。<xref target="auth_header">HTTP Authorization</xref> ヘッダーフィールド</xref>を用いないサーバーは、<spanx style="verb">Cache-Control</spanx> ヘッダーフィールドなどの他の手段を用いて、要認証コンテンツの保護を保証するべきである。
+          <!--
           For example, private authenticated content may be stored in (and thus retrievable from)
           publicly accessible caches. Servers not using the HTTP <spanx style="verb">Authorization</spanx>
           header field should take care to use other
           mechanisms, such as the <spanx style="verb">Cache-Control</spanx> header field, to ensure that
           authenticated content is protected.
+          -->
         </t>
       </section>
 
       <section title="Plaintext Storage of Credentials">
         <t>
+          クライアント共有鍵およびトークン共有鍵は、従来の認証システムにおけるパスワードと同様の機能を持つ。<spanx style="verb">RSA-SHA1</spanx> 以外の方法で使用される署名を計算するには、サーバーがそれらの鍵にプレインテキスト形式でアクセスできなければならない。最近の OS がユーザーの認証情報を不可逆なハッシュでのみ保存するのと比べると、これは対照的である。
+          <!--
           The client shared-secret and token shared-secret function the same way passwords do in
           traditional authentication systems. In order to compute the signatures used in methods
           other than <spanx style="verb">RSA-SHA1</spanx>, the server must have access to these
           secrets in plaintext form. This is in contrast, for example, to modern operating systems,
           which store only a one-way hash of user credentials.
+          -->
         </t>
         <t>
+          もし攻撃者がこれらの鍵のアクセス権、もしくはサーバーの持つすべての鍵データベースへのアクセス権を奪い取った場合、攻撃者はリソースオーナーを装い、あらゆるアクションを起こすことが可能となる。そのため、サーバーはこれらの鍵を権限のない者から厳重に守らなければならない。
+          <!--
           If an attacker were to gain access to these secrets -- or worse, to the server's database
           of all such secrets -- he or she would be able to perform any action on behalf of any
           resource owner. Accordingly, it is critical that servers protect these secrets from
           unauthorized access.
+          -->
         </t>
       </section>
 
       <section title="Secrecy of the Client Credentials" anchor="client_cred_sec">
         <t>
+          クライアントアプリケーションが信頼性の低い組織の管理下に置かれるケースは少なくない。例えばクライアントがデスクトップアプリケーションで、ソースコードや実行形式のバイナリが公開されている場合、攻撃者が分析のためにコピーをダウンロードし、クライアントクレデンシャルを見付けてしまう可能性がある。
+          <!--
           In many cases, the client application will be under the control of potentially untrusted
           parties. For example, if the client is a desktop application with freely available
           source code or an executable binary, an attacker may be able to download a copy for
           analysis. In such cases, attackers will be able to recover the client credentials.
+          -->
         </t>
         <t>
+          そういった場合、サーバーはクライアントのアイデンティティを検証する際、クライアントクレデンシャルのみを使うべきではない。可能であれば、IP アドレスのような他の要素も用いるべきである。
+          <!--
           Accordingly, servers should not use the client credentials alone to verify the identity
           of the client. Where possible, other factors such as IP address should be used as well.
+          -->
         </t>
       </section>
 
       <section title="Phishing Attacks">
         <t>
+          本仕様や類似したプロトコルが広く実用化されると、リソースオーナーがパスワードを入力するウェブサイトにリダイレクトされることに慣れてくる可能性がある。これらのウェブサイトの信頼性を注意深く検証せず、リソースオーナーが認証情報を入力してしまうと、リソースオーナーのパスワードが攻撃者に盗まれてしまう可能性もある。
+          <!--
           Wide deployment of this and similar protocols may cause resource owners to become inured
           to the practice of being redirected to websites where they are asked to enter their
           passwords. If resource owners are not careful to verify the authenticity of these
           websites before entering their credentials, it will be possible for attackers to exploit
           this practice to steal resource owners' passwords.
+          -->
         </t>
         <t>
+          サーバーは、リソースオーナーにフィッシング攻撃のリスクについて情報提供を行い、簡単にウェブサイトの信頼性を検証できる手段を提供すべきである。クライアント開発者はユーザーエージェントとのやりとり (別窓や埋め込み等) におけるセキュリティ上の影響と、エンドユーザーがサーバーウェブサイトの信頼性を検証する能力について考慮すべきである。
+          <!--
           Servers should attempt to educate resource owners about the risks phishing attacks pose,
           and should provide mechanisms that make it easy for resource owners to confirm the
           authenticity of their sites. Client developers should consider the security implications
           of how they interact with a user-agent (e.g., separate window, embedded), and the ability
           of the end-user to verify the authenticity of the server website.
+          -->
         </t>
       </section>
 
       <section title="Scoping of Access Requests">
         <t>
+          このプロトコルは、それ自体ではクライアントに許可するアクセス権限のスコープを定める方法を提供していない。しかし、ほとんどのアプリケーションは、アクセス権の細分化を必要としている。例えば、サーバーが特定の保護されたリソースへのアクセスを許可しても、他を許可しなかったり、制限のあるアクセス (読み取り専用等) のみ許可したい場合がある。
+          <!--
           By itself, this protocol does not provide any method for scoping the access rights
           granted to a client. However, most applications do require greater granularity of access
           rights. For example, servers may wish to make it possible to grant access to some
           protected resources but not others, or to grant only limited access (such as read-only
           access) to those protected resources.
+          -->
         </t>
         <t>
+          このプロトコルを実装する際、サーバーは、リソースオーナーがクライアントに対して許可したいアクセスの形式について考慮し、それを実現する機構を提供すべきである。サーバーは、リソースオーナーが自分の許可しようとしているアクセス権と、それがどんなリスクを持っているかについて理解していることを、注意深く確認すべきである。
+          <!--
           When implementing this protocol, servers should consider the types of access resource
           owners may wish to grant clients, and should provide mechanisms to do so. Servers should
           also take care to ensure that resource owners understand the access they are granting, as
           well as any risks that may be involved.
+          -->
         </t>
       </section>
 
       <section title="Entropy of Secrets">
         <t>
+          トランスポート層のセキュリティプロトコルを使用しない場合、盗聴者は認証済みリクエストとシグニチャにアクセスし、クレデンシャルを暴くためにブルートフォース攻撃を仕掛けられる可能性がある。サーバーは、そのような攻撃に対して、少なくとも有効期間中は共有鍵が暴かれないよう、十分な長さでランダムな共有鍵にすべきである。
+          <!--
           Unless a transport-layer security protocol is used, eavesdroppers will have full access
           to authenticated requests and signatures, and will thus be able to mount offline brute-force
           attacks to recover the credentials used. Servers should be careful to assign
           shared-secrets that are long enough, and random enough, to resist such attacks for at
           least the length of time that the shared-secrets are valid.
+          -->
         </t>
         <t>
+          例えば、2週間共有鍵を有効にした場合、サーバーは、2週間以内にブルートフォース攻撃が共有鍵を暴くことが不可能であることを確認すべきである。勿論、サーバーは、十分な長さの鍵を用いて対処すべきである。
+          <!--
           For example, if shared-secrets are valid for two weeks, servers should ensure that it is
           not possible to mount a brute force attack that recovers the shared-secret in less than
           two weeks. Of course, servers are urged to err on the side of caution, and use the longest
           secrets reasonable.
+          -->
         </t>
         <t>
+          鍵を生成する Pseudo-Random Number Generator (疑似乱数生成器) が高い品質であることは重要である。ランダムな数列を生成していても、暗号解読やブルートフォース攻撃を容易にするようなパターンや脆弱性を持つ PRNG 実装は多い。実装者はこうした問題の無い安全な PRNG を使用すべきである。
+          <!--
           It is equally important that the pseudo-random number generator (PRNG) used to generate
           these secrets be of sufficiently high quality. Many PRNG implementations generate number
           sequences that may appear to be random, but that nevertheless exhibit patterns or other
           weaknesses that make cryptanalysis or brute force attacks easier. Implementers should be
           careful to use cryptographically secure PRNGs to avoid these problems.
+          -->
         </t>
       </section>
 
       <section title="Denial-of-Service / Resource-Exhaustion Attacks">
         <t>
+          この仕様には、サーバーリソースを枯渇させる攻撃を可能にする特徴が多くある。例えば、サーバーにノンス値が使用済みかを検査するよう要求している。攻撃者が瞬時に多数のノンス値を使用できる場合、それらを検査するのにサーバーはリソースを枯渇させてしまうだろう。更に、リクエストの署名を検証するためにサーバーに高い計算能力を要求している。攻撃者は、不正なリクエストを大量に送る DoS 攻撃でこの計算能力を使い尽くそうとするだろう。
+          <!--
           This specification includes a number of features that may make resource exhaustion
           attacks against servers possible. For example, this protocol requires servers to track
           used nonces. If an attacker is able to use many nonces quickly, the resources required to
@@ -2415,8 +2468,11 @@ boilerplate as described in RFC 5741.
           to perform potentially expensive computations in order to verify the signature on
           incoming requests. An attacker may exploit this to perform a denial-of-service attack by
           sending a large number of invalid requests to the server.
+          -->
         </t>
         <t>
+          リソース枯渇攻撃は決してこの仕様だけの特有のものではないが、実装者はこの仕様が枯渇攻撃の方法を顕在化させていることに考慮し十分な設計を行うべきである。例えば、エントロピーの不足は、得てして、新たなエントロピーを待つ間に DoS や弱い (推測しやすい) 鍵をもたらすことになる。実装に当たりサーバーは、これらがアプリケーションに深刻なリスクをもたらすことを考慮して十分に設計すべきである。
+          <!--
           Resource Exhaustion attacks are by no means specific to this specification. However,
           implementers should be careful to consider the additional avenues of attack that this
           protocol exposes, and design their implementations accordingly. For example, entropy
@@ -2424,11 +2480,14 @@ boilerplate as described in RFC 5741.
           waits for new entropy or else in weak (easily guessable) secrets. When implementing this
           protocol, servers should consider which of these presents a more serious risk for their
           application and design accordingly.
+          -->
         </t>
       </section>
 
       <section title="SHA-1 Cryptographic Attacks">
         <t>
+          <spanx style="verb">HMAC-SHA1</spanx> 署名方式、<spanx style="verb">RSA-SHA1</spanx> 署名方式で使用されている SHA-1 はコリジョン攻撃に対して多くの脆弱性を持つことが分かっている。この脆弱性は、<spanx style="verb">HMAC-SHA1</spanx> 署名方式の利用には影響無いようであるが、<spanx style="verb">RSA-SHA1</spanx> 署名方式には影響がある。NIST は、電子署名として SHA-1 を用いることを 2010 年までに段階的に廃止していくよう案内している。<xref target="NIST_SHA-1Comments" />
+          <!--
           SHA-1, the hash algorithm used in <spanx style="verb">HMAC-SHA1</spanx> and
           <spanx style="verb">RSA-SHA1</spanx> signature methods, has been shown to have a number
           of cryptographic weaknesses that significantly reduce its resistance to collision
@@ -2437,67 +2496,98 @@ boilerplate as described in RFC 5741.
           <spanx style="verb">HMAC-SHA1</spanx> signature method, it may affect the use of the
           <spanx style="verb">RSA-SHA1</spanx> signature method. NIST has announced that it will
           phase out use of SHA-1 in digital signatures by 2010 <xref target="NIST_SHA-1Comments" />.
+          -->
 
 <!--[rfced] How should the above text be updated in light of the date? -->
         </t>
         <t>
+          実際のところ、この脆弱性を利用するのは難しく、利用者に重大なリスクをもたらすことはないが、より効率的な攻撃が可能になるかも知れず、サーバーは、SHA-1 が十分なレベルのセキュリティをアプリケーションにもたらすかを考える時、このことを留意しておくべきである。
+          <!--
           Practically speaking, these weaknesses are difficult to exploit, and by themselves do not
           pose a significant risk to users of this protocol. They may, however, make more efficient
           attacks possible, and  servers should take this into account when considering whether
           SHA-1 provides an adequate level of security for their applications.
+          -->
         </t>
       </section>
 
       <section title="Signature Base String Limitations">
         <t>
+          シグニチャベースストリングはこの仕様で定義された署名方式をサポートするために設計された。今後署名方式を追加する設計者は、シグニチャベースストリングの互換性、および設計におけるセキュリティ要件を評価すべきである。
+          <!--
           The signature base string has been designed to support the signature methods defined in
           this specification. Those designing additional signature methods, should evaluated the
           compatibility of the signature base string with their security requirements.
+          -->          
         </t>
         <t>
+          多くのリクエストエンティティボディーおよびエンティティヘッダー、パラメータの出現順序などの情報は、シグニチャベースストリングには含まれない。このようにシグニチャベースストリングは HTTP リクエスト全体をカバーするものではないため、サーバーはシグニチャベースストリングに含まれない要素を保護するメカニズムを追加導入すべきである。
+          <!--
           Since the signature base string does not cover the entire HTTP request, such as most
           request entity-body, most entity-headers, and the order in which parameters are sent,
           servers should employ additional mechanisms to protect such elements.
+          -->
         </t>
       </section>
 
 			<section title="Cross-Site Request Forgery (CSRF)">
 				<t>
-					Cross-Site Request Forgery (CSRF) is a web-based attack whereby HTTP requests are
+          Cross-Site Request Forgery (CSRF) は HTTP リクエストが信頼されたもしくは認証済みのユーザから送信される Web ベースの攻撃である。認可取得時に攻撃者が CSRF 攻撃をしかけることで、攻撃者はユーザの同意無しに保護されたリソースへの認可を得ることができる。サーバーはすべてのプロトコル認可エンドポイントにおいて、CSRF 対策のベストプラクティスを熟慮するべきである (SHOULD)。
+          <!--
+          Cross-Site Request Forgery (CSRF) is a web-based attack whereby HTTP requests are
           transmitted from a user that the website trusts or has authenticated. CSRF attacks on
           authorization approvals can allow an attacker to obtain authorization to protected
           resources without the consent of the User. Servers SHOULD strongly consider best
           practices in CSRF prevention at all the protocol authorization endpoints.
+          -->
 				</t>
 				<t>
-					CSRF attacks on OAuth callback URIs hosted by clients are also possible. Clients should
+          CSRF 攻撃は、クライアントの OAuth コールバック URI においても可能である。クライアントは OAuth コールバック URI で、クライアントサイトにおけるリソースオーナーがサーバーと OAuth 通信を完了させる意思のあることを検証することで、CSRF 攻撃を防ぐべきである。この種の CSRF 攻撃の防御策はこの仕様の範囲外である。
+          <!--
+          CSRF attacks on OAuth callback URIs hosted by clients are also possible. Clients should
           prevent CSRF attacks on OAuth callback URIs by verifying that the resource owner at the
           client site intended to complete the OAuth negotiation with the server. The methods for
           preventing such CSRF attacks are beyond the scope of this specification.
+          -->
 				</t>
 			</section>
 
 			<section title="User Interface Redress">
 				<t>
-					Servers should protect the
+          サーバーは認可プロセスにおける UI 改変攻撃 ("クリックジャッキング" としても知られる) を防ぐべきである。この仕様執筆時においては、完全な UI redress の対策法は存在しない。サーバーは以下の技術により UI redress のリスクを軽減することができる。
+          <!--
+          Servers should protect the
           authorization process against user interface (UI) redress attacks (also known
           as "clickjacking"). As of the time of this writing, no complete defenses against UI
           redress are available. Servers can mitigate the risk of UI redress attacks using the
           following techniques:
+          -->
 
 					<list style="symbols">
 						<t>
-              JavaScript frame busting.
+              Javascript によるフレーム解除。
+              <!--
+              Javascript frame busting.
+              -->
             </t>
 						<t>
-              JavaScript frame busting, and requiring that browsers have JavaScript enabled on the
+              Javascript によるフレーム解除、および認可ページでブラウザの Javascript を有効にすることを要求。
+              <!--
+              Javascript frame busting, and requiring that browsers have javascript enabled on the
               authorization page.
+              -->
             </t>
 						<t>
+              ブラウザ固有のフレーム対策技術。
+              <!--
               Browser-specific anti-framing techniques.
+              -->
             </t>
 						<t>
+              OAuth token 発行前にパスワード再入力を要求。
+              <!--
               Requiring password reentry before issuing OAuth tokens.
+              -->
             </t>
 					</list>
 				</t>
@@ -2505,28 +2595,37 @@ boilerplate as described in RFC 5741.
 
 			<section title="Automatic Processing of Repeat Authorizations">
 				<t>
-					Servers may wish to automatically process authorization requests
-					(<xref target="auth_step2" />) from clients that have been previously
-					authorized by the resource owner. When the resource owner is redirected to the server
-					to grant access, the server detects that the resource owner has already granted
-					access to that particular client. Instead of prompting the resource owner for approval,
-					the server automatically redirects the resource owner back to the client.
+          サーバーは既にリソースオーナーの認可を得たクライアントからの認可リクエスト (<xref target="auth_step2" />) を自動的に処理することを望むかもしれない。リソースオーナーがアクセス承認のためにサーバーにリダイレクトされる時、サーバーはリソースーオーナーが既にそのクライアントからのアクセスを承認していることを検知したとする。その場合サーバーはリソースオーナーに承認を求める代わりに、リソースオーナーを自動的にクライアントにリダイレクトさせる。
+          <!--
+          Servers may wish to automatically process authorization requests
+          (<xref target="auth_step2" />) from clients that have been previously
+          authorized by the resource owner. When the resource owner is redirected to the server
+          to grant access, the server detects that the resource owner has already granted
+          access to that particular client. Instead of prompting the resource owner for approval,
+          the server automatically redirects the resource owner back to the client.
+          -->
 				</t>
 				<t>
-					If the client credentials are compromised, automatic processing creates additional
-					security risks. An attacker can use the stolen client credentials to redirect
-					the resource owner to the server with an authorization request. The server
-					will then grant access to the resource owner's data without the resource owner's
-					explicit approval, or even awareness of an attack. If no automatic approval is
-					implemented, an attacker must use social engineering to convince the resource owner to
-					approve access.
+          クライアントクレデンシャルが漏洩している場合、自動処理はさらなるセキュリティリスクを生み出す。攻撃者は漏洩したクライアントクレデンシャルを使ってリソースオーナーをサーバーにリダイレクトさせ、認可リクエストを行うことができる。そうするとサーバーはリソースオーナーに承認を求めずに、リソースオーナーへのアクセスを承認することになる。もちろん攻撃への注意喚起なども行わない。自動承認が実装されていなければ、攻撃者はリソースオーナーにアクセスを承認させるためにソーシャルエンジニアリングを用いなければならなくなる。
+          <!--
+          If the client credentials are compromised, automatic processing creates additional
+          security risks. An attacker can use the stolen client credentials to redirect
+          the resource owner to the server with an authorization request. The server
+          will then grant access to the resource owner's data without the resource owner's
+          explicit approval, or even awareness of an attack. If no automatic approval is
+          implemented, an attacker must use social engineering to convince the resource owner to
+          approve access.
+          -->
 				</t>
 				<t>
-					Servers can mitigate the risks associated with automatic processing by
-					limiting the scope of token credentials obtained through automated approvals. Tokens
-					credentials obtained through explicit resource owner consent can remain unaffected. Clients
-					can mitigate the risks associated with automatic processing by protecting their client
-					credentials.
+          サーバーは自動処理に由来するリスクを軽減するため、自動承認プロセスを通じて発行されるトークンクレデンシャルのスコープを限定することができる。リソースオーナーの同意を得て発行されたトークンクレデンシャルに対して影響を与える必要はない。クライアントはクライアントクレデンシャルを保護することで、自動処理に由来するリスクを軽減することができる。
+          <!--
+          Servers can mitigate the risks associated with automatic processing by
+          limiting the scope of token credentials obtained through automated approvals. Tokens
+          credentials obtained through explicit resource owner consent can remain unaffected. Clients
+          can mitigate the risks associated with automatic processing by protecting their client
+          credentials.
+          -->
 				</t>
 			</section>
 
@@ -2535,69 +2634,108 @@ boilerplate as described in RFC 5741.
 
     <section title="Acknowledgments">
       <t>
+        この仕様は、複数の企業により個別に実装された、既存の独自プロトコルおよびベストプラクティスを元にして作成された、コミュニティ仕様 OAuth Core 1.0 Revision A に、直接的に基づくものである。
+        <!--
         This specification is directly based on the OAuth Core 1.0 Revision A community
         specification, which in turn was modeled after existing proprietary protocols and best
         practices that have been independently implemented by various companies.
+        -->
       </t>
       <t>
+        コミュニティ仕様は Eran Hammer-Lahav による編集、Mark Atwood、Dirk Balfanz、Darren Bounds、Richard M. Conlan、Blaine Cook、Leah Culver、Breno de Medeiros、Brian Eaton、Kellan Elliott-McCrea、Larry Halff、Eran Hammer-Lahav、Ben Laurie、Chris Messina、John Panzer、Sam Quigley、David Recordon、Eran Sandler、Jonathan Sergent、Todd Sieling、Brian Slesinsky、Andy Smith による著作である。
+        <!--
         The community specification was edited by Eran Hammer-Lahav and authored by: Mark Atwood,
         Dirk Balfanz, Darren Bounds, Richard M. Conlan, Blaine Cook, Leah Culver,
         Breno de Medeiros, Brian Eaton, Kellan Elliott-McCrea, Larry Halff, Eran Hammer-Lahav,
         Ben Laurie, Chris Messina, John Panzer, Sam Quigley, David Recordon, Eran Sandler,
         Jonathan Sergent, Todd Sieling, Brian Slesinsky, and Andy Smith.
+        -->
       </t>
       <t>
+        編集者は、本エディションの公開について、多大な貢献を行った次の人々に感謝する。Lisa Dusseault、Justin Hart、Avshalom Houri、Chris Messina、Mark Nottingham、Tim Polk、Peter Saint-Andre、Joseph Smarr、Paul Walker。
+        <!--
         The editor would like to thank the following individuals for their invaluable contribution
         to the publication of this edition of the protocol: Lisa Dusseault, Justin Hart,
         Avshalom Houri, Chris Messina, Mark Nottingham, Tim Polk, Peter Saint-Andre, Joseph Smarr,
         and Paul Walker.
+        -->
       </t>
     </section>
     
     <appendix title="Differences from the Community Edition">
 			<t>
-				This specification includes the following changes made to the original community document
-				<xref target="OAuthCore1.0_RevisionA" /> in order to correct mistakes and omissions
+        本仕様は、元のコミュニティ仕様 <xref target="OAuthCore1.0_RevisionA" /> が &lt;http://oauth.net&gt; に公開されてから発見された、以下の間違いや欠落を修正するための変更点を含む。
+        <!--
+        This specification includes the following changes made to the original community document
+        <xref target="OAuthCore1.0_RevisionA" /> in order to correct mistakes and omissions
         identified since the document has been published on &lt;http://oauth.net&gt;.
+        -->
 				
 				<list style="symbols">
           <t>
+            プレインテキストクレデンシャル送信時の TLS/SSL 利用を SHOULD から MUST に変更。この変更により<xref target="auth_step1">テンポラリクレデンシャルのリクエスト</xref>および<xref target="auth_step3">トークンクレデンシャルの取得</xref>だけでなく、<spanx style="verb">PLAINTEXT</spanx> 署名方式の利用が影響を受ける。
+            <!--
             Changed using TLS/SSL when sending or requesting plain text credentials from SHOULD
             to MUST. This change affects any use of the <spanx style="verb">PLAINTEXT</spanx>
             signature method, as well as <xref target="auth_step1">requesting temporary credentials</xref>
             and <xref target="auth_step3">obtaining token credentials</xref>.
+            -->
           </t>
           <t>
+            トークン／タイムスタンプ／クライアントの組み合わせごとにユニークになるよう、ノンスの表現を調整。
+            <!--
 						Adjusted nonce language to indicate it is unique per token/timestamp/client combination.
+            -->
 					</t>
           <t>
+            タイムスタンプが、前回のリクエストで利用されたものよりも大きいか、同等である必要がある旨を削除。
+            <!--
             Removed the requirement for timestamps to be equal to or greater than the timestamp
             used in the previous request.
+            -->
           </t>
           <t>
+            <spanx style="verb">PLAINTEXT</spanx> 署名方式利用時のノンスおよびタイムスタンプパラメータを、オプションに変更。
+            <!--
             Changed the nonce and timestamp parameters to OPTIONAL when using the
             <spanx style="verb">PLAINTEXT</spanx> signature method.
+            -->
           </t>
 					<t>
-						Extended signature base string coverage that includes <spanx style="verb">application/x-www-form-urlencoded</spanx>
+						利用される HTTP メソッドが <spanx style="verb">POST</spanx> 以外の場合の <spanx style="verb">application/x-www-form-urlencoded</spanx> エンティティボディパラメータを含むシグニチャベースストリングを拡張。また、HTTP メソッドが <spanx style="verb">GET</spanx> 以外の場合の URI クエリパラメータを拡張。
+            <!--
+            Extended signature base string coverage that includes <spanx style="verb">application/x-www-form-urlencoded</spanx>
 						entity-body parameters when the HTTP method used is other than <spanx style="verb">POST</spanx> and URI query
 						parameters when the HTTP method used is other than <spanx style="verb">GET</spanx>.
+            -->
 					</t>
 					<t>
-						Incorporated corrections to the instructions in each signature method to encode the signature
+						二重エンコードによるエラーを防ぐため、各署名方式の解説に、<spanx style="verb">oauth_signature</spanx> パラメータにシグニチャ値を挿入する前に、エンコードする旨を追加。
+            <!--
+            Incorporated corrections to the instructions in each signature method to encode the signature
             value before inserting it into the <spanx style="verb">oauth_signature</spanx> parameter,
             removing errors that would have caused double-encoded values.
+            -->
 					</t>
           <t>
+            <spanx style="verb">oauth_token</spanx> パラメータが空の場合、省略可能とした。
+            <!--
             Allowed omitting the <spanx style="verb">oauth_token</spanx> parameter when empty.
+            -->
           </t>
           <t>
+            空の <spanx style="verb">oauth_token</spanx> パラメータを使ったテンポラリクレデンシャルのリクエスト送信を許可。
+            <!--
             Permitted sending requests for temporary credentials with an empty
             <spanx style="verb">oauth_token</spanx> parameter.
+            -->
           </t>
           <t>
+            <spanx style="verb">oauth_</spanx> パラメータの追加定義を制限する記述を削除。
+            <!--
             Removed the restrictions from defining additional <spanx style="verb">oauth_</spanx>
             parameters.
+            -->
           </t>
 				</list>
 			</t>
