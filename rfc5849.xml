@@ -144,26 +144,55 @@ boilerplate as described in RFC 5741.
       <section title="Terminology">
         <t>
           <list style="hanging" hangIndent="6">
+            <t hangText="クライアント (client)">
+              <vspace />
+              <xref target="requests">OAuth 認証済みリクエスト</xref>を発行可能な HTTP クライアント (<xref target="RFC2616" /> 参照)
+            </t>
+            <!--
             <t hangText="client">
               <vspace />
               An HTTP client (per <xref target="RFC2616" />) capable of making
               <xref target="requests">OAuth-authenticated requests</xref>.
             </t>
+            -->
+            <t hangText="サーバー (server)">
+              <vspace />
+              <xref target="requests">OAuth 認証済みリクエスト</xref>を受入可能な HTTP サーバー (<xref target="RFC2616" /> 参照)
+            </t>
+            <!--
             <t hangText="server">
               <vspace />
               An HTTP server (per <xref target="RFC2616" />) capable of accepting
               <xref target="requests">OAuth-authenticated requests</xref>.
             </t>
+            -->
+            <t hangText="保護されたリソース (protected resource)">
+              <vspace />
+              アクセス制限下にあるリソースで、<xref target="requests">OAuth 認証済みリクエスト</xref>を用いて取得可能なもの。
+            </t>
+            <!--
             <t hangText="protected resource">
               <vspace />
-              An access-restricted resource that can be obtained from the server using an
+              An access-restricted resource which can be obtained from the server using an
               <xref target="requests">OAuth-authenticated request</xref>.
             </t>
+            -->
+            <t hangText="リソースオーナー (resource owner)">
+              <vspace />
+              サーバーに対して自身の認証情報を用いて認証し、保護されたリソースへのアクセスおよびコントロールを行えるもの。
+            </t>
+            <!--
             <t hangText="resource owner">
               <vspace />
               An entity capable of accessing and controlling protected resources by using credentials
               to authenticate with the server.
             </t>
+            -->
+            <t hangText="クレデンシャル (credentials)">
+              <vspace />
+              ここでいうクレデンシャルとはユニークな識別子と共有鍵のペアを指す。OAuth では「クライアント」「テンポラリ」「トークン」の3種類のクレデンシャルが定義され、リクエストを行うクライアントの識別および認証、認可リクエスト、アクセス権受け渡しの際にそれぞれ用いられる。
+            </t>
+            <!--
             <t hangText="credentials">
               <vspace />
               Credentials are a pair of a unique identifier and a matching shared secret. OAuth
@@ -171,6 +200,12 @@ boilerplate as described in RFC 5741.
               and authenticate the client making the request, the authorization request, and the
               access grant, respectively.
             </t>
+            -->
+            <t hangText="トークン (token)">
+              <vspace />
+              サーバーが発行するユニークな識別子。クライアントは認可要求を行ったもしくは認可を受けたリソースオーナーと、認証済みリクエストを結びつけるためにトークンを利用する。トークンには共有鍵がセットになっており、クライアントはトークン所有権およびリソースオーナーの代理権を証明するために共有鍵を用いる。
+            </t>
+            <!--
             <t hangText="token">
               <vspace />
               A unique identifier issued by the server and used by the client to associate
@@ -179,13 +214,25 @@ boilerplate as described in RFC 5741.
               by the client to establish its ownership of the token, and its authority to represent
               the resource owner.
             </t>
-
+            -->
           </list>
         </t>
         <t>
+          オリジナルのコミュニティ仕様書では多少異なる用語が用いられていた。それらはこの仕様書では以下のように表記されている。(左側がオリジナル仕様書)
+          <!--
           The original community specification used a somewhat different terminology that maps to
           this specifications as follows (original community terms provided on left):
+          -->
           
+          <list style="hanging">
+            <t hangText="Consumer">クライアント (client)</t>
+            <t hangText="Service Provider">サーバー (server)</t>
+            <t hangText="User">リソースオーナー (resource owner)</t>
+            <t hangText="Consumer Key and Secret">クライアントクレデンシャル (client credentials)</t>
+            <t hangText="Request Token and Secret">テンポラリクレデンシャル (temporary credentials)</t>
+            <t hangText="Access Token and Secret">トークンクレデンシャル (token credentials)</t>
+          </list>
+          <!--
           <list style="hanging">
             <t hangText="Consumer:">client</t>
             <t hangText="Service Provider:">server</t>
@@ -194,57 +241,100 @@ boilerplate as described in RFC 5741.
             <t hangText="Request Token and Secret:">temporary credentials</t>
             <t hangText="Access Token and Secret:">token credentials</t>
           </list>
+          -->
         </t>
       </section>
 
       <section title="Example">
         <t>
+          Jane (リソースオーナー) が写真共有サイト 'photos.example.net' (サーバー) に休暇中の写真 (保護されたリソース) をアップロードしたものとする。彼女は 'printer.example.com' (クライアント) を使って写真を現像したい。通常であれば、Jane は 'photos.example.net' にユーザ名とパスワードを使ってログインするはずである。
+        </t>
+        <!--t>
           Jane (resource owner) has recently uploaded some private vacation photos (protected
           resources) to her photo sharing site 'photos.example.net' (server). She would like to use
           the 'printer.example.com' website (client) to print one of these photos. Typically, Jane
           signs into 'photos.example.net' using her username and password.
-        </t>
+        </t-->
         <t>
+          しかし、Jane は写真を現像するためとはいえ 'printer.example.com' に対してユーザ名とパスワードを提示したくない。そこで 'printer.example.com' では、ユーザによりよいサービスを提供するため、事前に 'photos.example.net' の提供するクライアントクレデンシャルを取得している。
+          <!--
           However, Jane does not wish to share her username and password with the 'printer.example.com'
           website, which needs to access the photo in order to print it. In order to provide its
           users with better service, 'printer.example.com' has signed up for a set of 'photos.example.net'
           client credentials ahead of time:
+          -->
 
           <list style="hanging" hangIndent="6">
+            <t hangText="クライアント識別子">
+              <vspace />
+              dpf43f3p2l4k3l03
+            </t>
+            <!--
             <t hangText="Client Identifier">
               <vspace />
               dpf43f3p2l4k3l03
             </t>
+            -->
+            <t hangText="クライアント共有鍵">
+              <vspace />
+              kd94hf93k423kf44
+            </t>
+            <!--
             <t hangText="Client Shared-Secret:">
               <vspace />
               kd94hf93k423kf44
             </t>
+            -->
           </list>
 
+          'printer.example.com' はまた、'photos.example.net' の API ドキュメントに記載された <spanx style="verb">HMAC-SHA1</spanx> 署名方式を用いたプロトコルエンドポイントを使うよう、アプリケーションを設定済みである。
+          <!--
           The 'printer.example.com' website has also configured its application to use the protocol
           endpoints listed in the 'photos.example.net' API documentation, which use the
           <spanx style="verb">HMAC-SHA1</spanx> signature method:
+          -->
 
           <list style="hanging" hangIndent="6">
+            <t hangText="テンポラリクレデンシャルリクエスト">
+              <vspace />
+              https://photos.example.net/initiate
+            </t>
+            <!--
             <t hangText="Temporary Credential Request">
               <vspace />
               https://photos.example.net/initiate
             </t>
+            -->
+            <t hangText="リソースオーナー認可URI">
+              <vspace />
+              https://photos.example.net/authorize
+            </t>
+            <!--
             <t hangText="Resource Owner Authorization URI:">
               <vspace />
               https://photos.example.net/authorize
             </t>
+            -->
+            <t hangText="トークンリクエストURI">
+              <vspace />
+              https://photos.example.net/token
+            </t>
+            <!--
             <t hangText="Token Request URI:">
               <vspace />
               https://photos.example.net/token
             </t>
+            -->
           </list>
         </t>
         <t>
+          'printer.example.com' が Jane に写真へのアクセス許可を求めるには、まず代理でのリクエストを認識するため、'photos.example.net' に対し、テンポラリクレデンシャルの発行を求めなければならない。これを行うため、クライアントは下記のような HTTPS <xref target="RFC2818" /> リクエストをサーバーに送信する。
+          <!--
           Before 'printer.example.com' can ask Jane to grant it access to the photos, it must
           first establish a set of temporary credentials with 'photos.example.net' to identify
           the delegation request. To do so, the client sends the following HTTPS
           <xref target="RFC2818" /> request to the server:
+          -->
         </t>
         <figure>
           <artwork xml:space="preserve"><![CDATA[
@@ -260,8 +350,11 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディ (改行は掲載上の都合による) にテンポラリクレデンシャルを持たせた応答を行う。
+          <!--
           The server validates the request and replies with a set of temporary credentials in the
           body of the HTTP response (line breaks are for display purposes only):
+          -->
         </t>
         <figure>
           <artwork xml:space="preserve"><![CDATA[
@@ -273,8 +366,11 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          クライアントは Jane から彼女のプライベートな写真へのアクセスに関して承認を得るため、彼女のユーザーエージェントをサーバーのリソースオーナー認可エンドポイントにリダイレクトする。
+          <!--
           The client redirects Jane's user-agent to the server's Resource Owner Authorization
           endpoint to obtain Jane's approval for accessing her private photos:
+          -->
         </t>
         <figure>
           <artwork xml:space="preserve"><![CDATA[
@@ -282,10 +378,13 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          サーバーは Jane にユーザ名とパスワードを使ったログインを要求し、成功した場合は、'printer.example.com' が写真にアクセスしてよいか尋ねる。Jane が承認を行うと、ユーザーエージェントは、先のリクエスト (改行は掲載上の都合による) で提供されたコールバック URI にクライアントをリダイレクトする。
+          <!--
           The server requests Jane to sign in using her username and password and if successful,
           asks her to approve granting 'printer.example.com' access to her private photos. Jane
           approves the request and her user-agent is redirected to the callback URI provided by
           the client in the previous request (line breaks are for display purposes only):
+          -->
         </t>
         <figure>
           <artwork xml:space="preserve"><![CDATA[
@@ -294,9 +393,12 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          コールバックリクエストは、Jane の認可プロセス完了をクライアントに通知する。クライアントはその後、テンポラリクレデンシャルを用いて、(安全な TLS チャネル上で) トークンクレデンシャルを要求する。
+          <!--
           The callback request informs the client that Jane completed the authorization process.
           The client then requests a set of token credentials using its temporary credentials
           (over a secure Transport Layer Security (TLS) channel):
+          -->
         </t>
         <figure>
           <artwork xml:space="preserve"><![CDATA[
@@ -313,8 +415,11 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          サーバーはリクエストの正当性を確認し、HTTP レスポンスボディにトークンクレデンシャルを持たせた応答を行う。
+          <!--
           The server validates the request and replies with a set of token credentials in the body
           of the HTTP response:
+          -->
         </t>
         <figure>
           <artwork xml:space="preserve"><![CDATA[
@@ -325,7 +430,10 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          トークンクレデンシャルの取得により、クライアントがプライベートな写真を要求するための準備は整う。
+          <!--
           With a set of token credentials, the client is now ready to request the private photo:
+          -->
         </t>
         <figure>
           <artwork xml:space="preserve"><![CDATA[
@@ -341,18 +449,24 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
         </figure>
         <t>
+          'photos.example.net' サーバーはリクエストの正当性を確認し、要求された写真を返す。'printer.example.com' は Jane の認可の有効期間が終了するか、Jane がアクセスを無効にするまで、同じトークンクレデンシャルを使って、Jane の写真にアクセスし続けることができる。
+          <!--
           The 'photos.example.net' server validates the request and responds with the requested
           photo. 'printer.example.com' is able to continue accessing Jane's private photos using
           the same set of token credentials for the duration of Jane's authorization, or until
           Jane revokes access.
+          -->
         </t>
       </section>
 
       <section title="Notational Conventions">
         <t>
+          用いられる各キーワード「MUST (しなければならない) 」、「MUST NOT (してはならない) 」、「REQUIRED (必須である) 」、「SHALL (するものとする) 」、「SHALL NOT (しないものとする) 」、「SHOULD (すべきである) 」、「SHOULD NOT (すべきではない) 」、「RECOMMENDED (推奨される) 」、「MAY (してもよい) 」、「OPTIONAL (任意である) 」は <xref target="RFC2119" /> で述べられている通りに解釈されるべきものである。
+          <!--
           The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
           "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in
           <xref target="RFC2119" />.
+          -->
         </t>
       </section>
       
