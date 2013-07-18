@@ -913,104 +913,152 @@ boilerplate as described in RFC 5741.
     
     <section title="Authenticated Requests" anchor="requests">
       <t>
+        クライアントは <xref target="RFC2617" /> で定義されている HTTP 認証メソッドにより、認証済み HTTP リクエストを行うことができる。これらのメソッドを使うクライアントは、クレデンシャル (ユーザ名とパスワード等) を使うことで、保護されたリソースへのアクセスが可能となり、サーバーはその権限の妥当性を検証することができる。代理リクエストとしてこれらのメソッドを利用する場合、クライアントはリソースオーナーの役割を担うものと仮定される必要がある。
+        <!--
         The HTTP authentication methods defined by <xref target="RFC2617" /> enable clients
         to make authenticated HTTP requests. Clients using these methods gain access to protected
         resources by using their credentials (typically, a username and password pair), which
         allow the server to verify their authenticity. Using these methods for delegation requires
         the client to assume the role of the resource owner.
+        -->
       </t>
       <t>
+        OAuth は各リクエストに際し、クライアントを識別するものと、リソースオーナーを識別するもの、2つのクレデンシャルを含むようにデザインされたメソッドを提供する。クライアントは、リソースオーナーの代理として認証済みリクエストを行う前に、まずリソースオーナーによって認可済みのトークンを取得しなければならない。<xref target="redirect_workflow" /> は、クライアントがリソースオーナーにより認可されたトークンを取得するひとつの方法である。
+        <!--
         OAuth provides a method designed to include two sets of credentials with each request, one
         to identify the client, and another to identify the resource owner. Before a client can
         make authenticated requests on behalf of the resource owner, it must obtain a token
         authorized by the resource owner. <xref target="redirect_workflow" /> provides one such
         method through which the client can obtain a token authorized by the resource owner.
+        -->
       </t>
       <t>
+        クライアントクレデンシャルはユニークな識別子および、識別子に紐付けられた共有鍵、もしくは RSA 鍵ペアの形式をとる。認証済みリクエストを送信するに先立ち、クライアントはサーバーとのクレデンシャルを確立する。ただし、その手順や要件については、本仕様の範囲外のため論じない。実装者は、クライアントの認証情報を使うセキュリティ上の影響をよく考えるべきである。いくつかの懸念点については <xref target="client_cred_sec" /> に記載している。
+        <!--
         The client credentials take the form of a unique identifier and an associated shared-secret
         or RSA key pair. Prior to making authenticated requests, the client establishes a set of
         credentials with the server. The process and requirements for provisioning these are
         outside the scope of this specification. Implementers are urged to consider the security
         ramifications of using client credentials, some of which are described in
         <xref target="client_cred_sec" />.
+        -->
       </t>
       <t>
+        認証済みリクエストを送信するに当たり、サーバーの設定に関する知識が必要となる。OAuth ではリクエスト上でプロトコルパラメータを送信するメソッド (<xref target="param_include" />) と、クライアントがクレデンシャルの所有権を証明するために利用する方法 (<xref target="signature" />) が、それぞれ複数存在する。クライアントがこれらの設定を検知する方法については、本仕様の範囲外とする。
+        <!--
         Making authenticated requests requires prior knowledge of the server's configuration.
         OAuth includes multiple methods for transmitting protocol parameters with requests
 				(<xref target="param_include" />), as well as multiple methods for the client to
         prove its rightful ownership of the credentials used (<xref target="signature" />).
         The way in which clients discover the required configuration is outside the scope of
         this specification.
+        -->
       </t>
 
       <section title="Making Requests">
         <t>
+          認証済みリクエストには、いくつかのプロトコルパラメータが含まれる。各パラメータ名は <spanx style="verb">oauth_</spanx> で始まり、パラメータ名は大文字小文字を区別する。クライアントは、一連のプロトコルパラメータ値を計算し、下記のようにして HTTP リクエストに追加することで、認証済みリクエストを行う。
+          <!--
           An authenticated request includes several protocol parameters. Each parameter name
           begins with the <spanx style="verb">oauth_</spanx> prefix, and the parameter names and
           values are case sensitive. Clients make authenticated requests by calculating the values
           of a set of protocol parameters and adding them to the HTTP request as follows:
+          -->
 
           <list style="numbers">
             <t>
+              クライアントは下記の (特に指定されていない限り) 必須な (REQUIRED) プロトコルパラメータに、それぞれ値を割り当てる。
+              <!--
               The client assigns value to each of these REQUIRED (unless specified otherwise)
               protocol parameters:
+              -->
 
               <list style="hanging" hangIndent="6">
                 <t hangText="oauth_consumer_key">
                   <vspace />
+                  クライアントクレデンシャルの識別子部分 (ユーザ名に当たる)。パラメータ名は本仕様の以前のバージョンで使用されていた用語 (Consumer Key) を反映しており、後方互換のためにそのまま使用する。
+                  <!--
                   The identifier portion of the client credentials (equivalent to a username). The
                   parameter name reflects a deprecated term (Consumer Key) used in previous
                   revisions of the specification, and has been retained to maintain backward
                   compatibility.
+                  -->
                 </t>
                 <t hangText="oauth_token">
                   <vspace />
+                  リソースオーナーとリクエストを関連付けるトークン値。リクエストがリソースオーナーと関連付けられていない場合 (トークンが利用できない場合)、パラメータを省略することができる。
+                  <!--
                   The token value used to associate the request with the resource owner. If the
                   request is not associated with a resource owner (no token available), clients
                   MAY omit the parameter.
+                  -->
                 </t>
                 <t hangText="oauth_signature_method">
                   <vspace />
+                  <xref target="signature" /> で定義されている、クライアントがリクエストに署名するために使用する署名メソッドの名前。
+                  <!--
                   The name of the signature method used by the client to sign the request,
                   as defined in <xref target="signature" />.
+                  -->
                 </t>
                 <t hangText="oauth_timestamp">
                   <vspace />
+                  <xref target="nonce" /> で定義されているタイムスタンプ値。署名メソッドとして <spanx style="verb">PLAINTEXT</spanx> を使用している場合、省略することができる。
+                  <!--
                   The timestamp value as defined in <xref target="nonce" />. The parameter MAY
                   be omitted when using the <spanx style="verb">PLAINTEXT</spanx> signature method.
+                  -->
                 </t>
                 <t hangText="oauth_nonce">
                   <vspace />
+                  <xref target="nonce" /> で定義されているノンス値。署名メソッドとして <spanx style="verb">PLAINTEXT</spanx> を使用している場合、省略することができる。
+                  <!--
                   The nonce value as defined in <xref target="nonce" />. The parameter MAY be
                   omitted when using the <spanx style="verb">PLAINTEXT</spanx> signature method.
+                  -->
                 </t>
                 <t hangText="oauth_version">
                   <vspace />
+                  オプション (OPTIONAL)。追加する場合、<spanx style="verb">1.0</spanx>でなければならない。本仕様で定義された認可手順のバージョンを示す。
+                  <!--
                   OPTIONAL. If present, MUST be set to <spanx style="verb">1.0</spanx>. Provides
                   the version of the authentication process as defined in this specification.
+                  -->
                 </t>
               </list>
             </t>
             <t>
+              プロトコルパラメータは <xref target="param_include" /> に記載された転送メソッドのいずれかを使い、リクエストに追加される。各パラメータはリクエストにつき、二度以上含まれてはならない。
+              <!--
               The protocol parameters are added to the request using one of the transmission
               methods listed in <xref target="param_include" />. Each parameter MUST NOT appear
               more than once per request.
+              -->
             </t>
             <t>
+              クライアントは <xref target="signature" /> に記載されている通り、<spanx style="verb">oauth_signature</spanx> パラメータの値を計算し、割り当てる。このパラメータは前のステップと同じ方法で、リクエストに追加する。
+              <!--
               The client calculates and assigns the value of the <spanx style="verb">oauth_signature</spanx>
               parameter as described in <xref target="signature" /> and adds the parameter to the
               request using the same method as in the previous step.
+              -->
             </t>
             <t>
+              クライアントが認証済みリクエストをサーバーに送信する。
+              <!--
               The client sends the authenticated HTTP request to the server.
+              -->
             </t>
           </list>
         </t>
         <figure>
           <preamble>
+            例えば、下記のような HTTP リクエストを認証付きで実行するとする (<spanx style="verb">c2&amp;a3=2+q</spanx> はフォームエンコードされたエンティティボディを強調するために使用)
+            <!--
             For example, to make the following HTTP request authenticated (the
             <spanx style="verb">c2&amp;a3=2+q</spanx> string in the following examples is used to
             illustrate the impact of a form-encoded entity-body):
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   POST /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
@@ -1022,9 +1070,12 @@ boilerplate as described in RFC 5741.
         </figure>
         <figure>
           <preamble>
+            クライアントはクライアントクレデンシャル、トークンクレデンシャル、現在のタイムスタンプ、ユニークなノンス、署名メソッドとして <spanx style="verb">HMAC-SHA1</spanx> を使用することを示し、プロトコルパラメータに値を割り当てる。
+            <!--
             The client assigns values to the following protocol parameters using its client
             credentials, token credentials, the current timestamp, a uniquely generated nonce, and
             indicates that it will use the <spanx style="verb">HMAC-SHA1</spanx> signature method:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   oauth_consumer_key:     9djdj82h48djs9d2
@@ -1036,8 +1087,11 @@ boilerplate as described in RFC 5741.
         </figure>
         <figure>
           <preamble>
+            クライアントが OAuth HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールドを使って、リクエストにプロトコルパラメータを追加する。
+            <!--
             The client adds the protocol parameters to the request using the OAuth HTTP
             <spanx style="verb">Authorization</spanx> header field:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   Authorization: OAuth realm="Example",
@@ -1050,10 +1104,14 @@ boilerplate as described in RFC 5741.
         </figure>
         <figure>
           <preamble>
+            その後 <spanx style="verb">oauth_signature</spanx> パラメータの値を計算し、リクエストに追加。そして HTTP リクエストをサーバーに送信する。
+            (client secret は <spanx style="verb">j49sk3j29djd</spanx>、token secret は <spanx style="verb">dh893hdasih9</spanx> とする)
+            <!--
             Then, it calculates the value of the <spanx style="verb">oauth_signature</spanx> parameter
             (using client secret <spanx style="verb">j49sk3j29djd</spanx> and token secret
             <spanx style="verb">dh893hdasih9</spanx>), adds it to the request, and sends the HTTP
             request to the server:
+            -->
           </preamble>
           <artwork xml:space="preserve"><![CDATA[
   POST /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
@@ -1074,59 +1132,88 @@ boilerplate as described in RFC 5741.
       
       <section title="Verifying Requests" anchor="verify_request">
         <t>
+          認証済みリクエストを受け取ったサーバーは、以下のようにその妥当性を検証しなければならない (MUST)。
+          <!--
           Servers receiving an authenticated request MUST validate it by:
+          -->
 
           <list style="symbols">
             <t>
+              リクエスト署名を独自に再計算し (<xref target="signature" />)、<spanx style="verb">ooauth_signature</spanx> パラメータとしてクライアントから受け取った値と比較を行う。
+              <!--
               Recalculating the request signature independently as described in
               <xref target="signature" /> and comparing it to the value received from the client via
               the <spanx style="verb">oauth_signature</spanx> parameter.
+              -->
             </t>
             <t>
+              <spanx style="verb">HMAC-SHA1</spanx> または <spanx style="verb">RSA-SHA1</spanx> 署名方式を使用している場合、クライアントから受け取ったノンス値 / タイムスタンプ / トークン (存在する場合のみ) の組合せが以前のリクエストで使用されたものではないことを検証すること。(サーバーはタイムスタンプが古いままのリクエストを拒否してもよい (MAY) (<xref target="nonce" />))
+              <!--
               If using the <spanx style="verb">HMAC-SHA1</spanx> or
               <spanx style="verb">RSA-SHA1</spanx> signature methods, ensuring that the combination
               of nonce/timestamp/token (if present) received from the client has not been used
               before in a previous request (the server MAY reject requests with stale timestamps as
               described in <xref target="nonce" />).
+              -->
             </t>
             <t>
+              トークンが存在する場合、トークンの示すクライアントの認可情報の範囲とステータスを検証すること。(サーバーは トークンの使用を、発行対象となったクライアントのみに制限してもよい (MAY))
+              <!--
               If a token is present, verifying the scope and status of the client authorization as
               represented by the token (the server MAY choose to restrict token usage to the client
               to which it was issued).
+              -->
             </t>
             <t>
+              <spanx style="verb">oauth_version</spanx> パラメータが存在する場合、その値が <spanx style="verb">1.0</spanx> であるか検証すること。
+              <!--
               If the <spanx style="verb">oauth_version</spanx> parameter is present, ensuring its
               value is <spanx style="verb">1.0</spanx>.
+              -->
             </t>
           </list>
         </t>
         <t>
+          リクエストの妥当性検証に失敗した場合、サーバーは適切な HTTP ステータスコードを返すべきである (SHOULD)。その際、リクエストボディーで詳細なリクエスト拒否理由を通知してもよい (MAY)。
+          <!--
           If the request fails verification, the server SHOULD respond with the appropriate HTTP
           response status code. The server MAY include further details about why the request was
           rejected in the response body.
+          -->
         </t>
         <t>
+          サーバーは、サポート外のパラメータ、サポート外の署名方式、パラメータ不足、重複したプロトコルパラメータを持ったリクエストを受け取った場合、ステータスコード 400 (Bad Request) を返すべきである (SHOULD)。サーバーは、不正なクライアントクレデンシャル、不正または期限切れのトークン、不正または使用済みのノンス値を含むリクエストを受け取った場合、ステータスコード 401 (Unauthorized) を返すべきである (SHOULD)。
+          <!--
           The server SHOULD return a 400 (Bad Request) status code
           when receiving a request with unsupported parameters, an unsupported signature method,
           missing parameters, or duplicated protocol parameters. The server SHOULD return a 401
           (Unauthorized) status code when receiving a request with invalid client credentials,
           an invalid or expired token, an invalid signature, or an invalid or used nonce.
+          -->
         </t>
       </section>
 
       <section title="Nonce and Timestamp" anchor="nonce">
         <t>
+          タイムスタンプは正の整数でなければならない (MUST)。サーバーのドキュメントで規定されていない限り、タイムスタンプは 1970/01/01 00:00:00 GMT を起点にした経過秒数で表される。
+          <!--
           The timestamp value MUST be a positive integer. Unless otherwise specified by the
           server's documentation, the timestamp is expressed in the number of seconds since
           January 1, 1970 00:00:00 GMT.
+          -->
         </t>
         <t>
+          ノンス値はクライアントによってユニークに生成されたランダムな文字列である。ノンス値があることでサーバーは、リクエストが過去に実行されていないことの検証や、安全でない通信チャネルを使ってリクエストされた場合の再現攻撃を防ぐことができる。ノンス値は同じタイムスタンプ、クライアントクレデンシャル、トークンの組み合わせを持ったすべてのリクエストに対し、ユニークでなければならない (MUST)。
+          <!--
           A nonce is a random string, uniquely generated by the client to allow the server to
           verify that a request has never been made before and helps prevent replay attacks when
           requests are made over a non-secure channel. The nonce value MUST be unique across all
           requests with the same timestamp, client credentials, and token combinations.
+          -->
         </t>
         <t>
+          サーバーは、チェック目的でノンス値を永久に保持しておく必要がないよう、タイムスタンプの古いリクエストを拒否する期間的制限を設けてもよい (MAY)。ただし、この制限はクライアントとサーバーのクロック同期が一定の水準にある前提であることに注意すること。サーバーはクライアントがサーバーのクロックと同期する方法を提供してもよいし (MAY)、別途、信頼の置けるタイムサービスを利用して双方のシステムを同期させてもよい。クロック同期方式の詳細については、この仕様書の範囲外とする。
+          <!--
           To avoid the need to retain an infinite number of nonce values for future checks, servers
           MAY choose to restrict the time period after which a request with an old timestamp is
           rejected. Note that this restriction implies a level of synchronization between the
@@ -1134,115 +1221,176 @@ boilerplate as described in RFC 5741.
           the client to sync with the server's clock; alternatively, both systems could synchronize
           with a trusted time service. Details of clock synchronization strategies are beyond the
           scope of this specification.
+          -->
         </t>
       </section>
       
       <section title="Signature" anchor="signature">
         <t>
+          OAuth 認証済みリクエストは、<spanx style="verb">oauth_consumer_key</spanx> と <spanx style="verb">oauth_token</spanx> という2つのクレデンシャル情報を持つことができる。サーバーがリクエストの正当性を検証し、認可されていないアクセスを阻止するため、クライアントはクレデンシャルの正当なオーナーであることを証明する必要がある。これはクレデンシャルの共有鍵 (または RSA 鍵) 部分を使用することにより実現される。
+          <!--
 					OAuth-authenticated requests can have two sets of credentials: those passed via the
 					<spanx style="verb">oauth_consumer_key</spanx> parameter and those in the
 					<spanx style="verb">oauth_token</spanx> parameter. In order for the server to
           verify the authenticity of the request and prevent unauthorized access, the client needs
           to prove that it is the rightful owner of the credentials. This is accomplished using the
           shared-secret (or RSA key) part of each set of credentials.
+          -->
         </t>
         <t>
+          OAuth はクライアントがクレデンシャルの正当なオーナーであることを証明する方法として <spanx style="verb">HMAC-SHA</spanx>、<spanx style="verb">RSA-SHA1</spanx>、<spanx style="verb">PLAINTEXT</spanx> の3つを提供する。<spanx style="verb">PLAINTEXT</spanx> に署名は含まれないが、これらは一般的に署名方式とみなされている。加えて、<spanx style="verb">RSA-SHA1</spanx> では、クライアントクレデンシャルにおける共有鍵の代替として、RSA 鍵が利用される。
+          <!--
           OAuth provides three methods for the client to prove its rightful ownership of the
           credentials: <spanx style="verb">HMAC-SHA1</spanx>, <spanx style="verb">RSA-SHA1</spanx>,
           and <spanx style="verb">PLAINTEXT</spanx>. These methods are generally referred to as
           signature methods, even though <spanx style="verb">PLAINTEXT</spanx> does not involve a
           signature. In addition, <spanx style="verb">RSA-SHA1</spanx> utilizes an RSA key instead
           of the shared-secrets associated with the client credentials.
+          -->
         </t>
         <t>
+          各実装がそれぞれの要件を保てるよう、OAuth では特定の署名方式を強制しない。サーバーは独自の方式を実装したり、規定することができる。本仕様の範囲外であるため、特定の方式の推奨はしない。実装者はサポートする方式を決定する前に、<xref target="Security">セキュリティに関する考慮事項</xref>を精査するべきである。
+          <!--
           OAuth does not mandate a particular signature method, as each implementation can have its
           own unique requirements. Servers are free to implement and document their own custom
           methods. Recommending any particular method is beyond the scope of this specification.
           Implementers should review the <xref target="Security">Security Considerations section</xref>
           before deciding on which method to support.
+          -->
         </t>
         <t>
+          クライアントは、どの署名方式を使用するかを <spanx style="verb">oauth_signature_method</spanx> パラメータを用いて宣言する。生成した署名 (またはそれと等価なもの) は、<spanx style="verb">oauth_signature</spanx> パラメータに含める。サーバーは各方式で規定されている方法で署名を検証する。
+          <!--
           The client declares which signature method is used via the
           <spanx style="verb">oauth_signature_method</spanx> parameter. It then generates a signature
           (or a string of an equivalent value) and includes it in the
           <spanx style="verb">oauth_signature</spanx> parameter. The server verifies the signature
           as specified for each method.
+          -->
         </t>
         <t>
+          <spanx style="verb">oauth_signature</spanx> パラメータを除き、署名のプロセスでリクエストやパラメータが変更されることはない。
+          <!--
           The signature process does not change the request or its parameters, with the exception of
           the <spanx style="verb">oauth_signature</spanx> parameter.
+          -->
         </t>
 
         <section title="Signature Base String">
           <t>
+            シグニチャベースストリングは、いくつかの HTTP リクエストの構成要素を、一貫し、かつ再現可能な形で連結した単一の文字列である。この文字列は <spanx style="verb">HMAC-SHA1</spanx> および <spanx style="verb">RSA-SHA1</spanx> 署名方式への入力値となる。
+            <!--
             The signature base string is a consistent, reproducible concatenation of several
             of the HTTP request elements into a single string. The string is used as an input to
             the <spanx style="verb">HMAC-SHA1</spanx> and <spanx style="verb">RSA-SHA1</spanx>
             signature methods.
+            -->
           </t>
           <t>
+            シグニチャベースストリングは HTTP リクエストにおける以下の構成要素を含む。
+            <!--
             The signature base string includes the following components of the HTTP request:
+            -->
             
             <list style="symbols">
               <t>
+                HTTP リクエストメソッド (例: <spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等)
+                <!--
                 The HTTP request method (e.g., <spanx style="verb">GET</spanx>,
                 <spanx style="verb">POST</spanx>, etc.).
+                -->
               </t>
               <t>
+                リクエストの HTTP <spanx style="verb">Host</spanx> ヘッダーで示されるオーソリティ。
+                <!--
                 The authority as declared by the HTTP <spanx style="verb">Host</spanx> request
                 header field.
+                -->
               </t>
               <t>
+                リクエスト URI 中のパスとクエリー要素。
+                <!--
                 The path and query components of the request resource URI.
+                -->
               </t>
               <t>
+                <spanx style="verb">oauth_signature</spanx> を除くプロトコルパラメータ。
+                <!--
                 The protocol parameters excluding the
                 <spanx style="verb">oauth_signature</spanx>.
+                -->
               </t>
               <t>
+                リクエストのエンティティボディーに含まれる、<xref target="collect_param" /> で定義された厳格な制約を満たすパラメータ。
+                <!--
                 Parameters included in the request entity-body if they comply with the strict
                 restrictions defined in <xref target="collect_param" />.
+                -->
               </t>
             </list>
           </t>
           <t>
+            シグニチャベースストリングは HTTP リクエスト全体をカバーするものではない。特に注意すべきは、多くのリクエストにおいて、エンティティボディーや HTTP エンティティヘッダーが含まれないことである。よって、サーバーが SSL や TLS およびその他の防衛策を施さない限り、シグニチャベースストリングに含まれないリクエストコンポーネントの信憑性は検証不可能であることに留意すること。
+            <!--
             The signature base string does not cover the entire HTTP request. Most notably, it
             does not include the entity-body in most requests, nor does it include most HTTP
             entity-headers. It is important to note that the server cannot verify the authenticity
             of the excluded request components without using additional protections such as SSL/TLS or
             other methods.
+            -->
           </t>
           
           <section title="String Construction" anchor="base_string">
             <t>
+              シグニチャベースストリングは以下の HTTP リクエスト要素を順番に連結して構築される。
+              <!--
               The signature base string is constructed by concatenating together, in order, the
               following HTTP request elements:
+              -->
 
               <list style="numbers">
                 <t>
+                  HTTP リクエストメソッド (大文字)。例: <spanx style="verb">HEAD</spanx>、<spanx style="verb">GET</spanx>、<spanx style="verb">POST</spanx> 等。独自の HTTP メソッドを利用する場合は、<xref target="encoding">エンコード</xref>しなければならない (MUST)。
+                  <!--
                   The HTTP request method in uppercase. For example: <spanx style="verb">HEAD</spanx>,
                   <spanx style="verb">GET</spanx>, <spanx style="verb">POST</spanx>, etc. If the
                   request uses a custom HTTP method, it MUST be <xref target="encoding">encoded</xref>.
+                  -->
                 </t>
                 <t>
+                  文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
+                  <!--
                   An <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+                  -->
                 </t>
                 <t>
+                  <xref target="sig_uri" /> に示されるベースストリング URI を<xref target="encoding">エンコード</xref>した文字列。
+                  <!--
                   The base string URI from <xref target="sig_uri" />, after being
                   <xref target="encoding">encoded</xref>.
+                  -->
                 </t>
                 <t>
+                  文字 <spanx style="verb">&amp;</spanx> (ASCII code 38)
+                  <!--
                   An <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+                  -->
                 </t>
                 <t>
+                  <xref target="sig_norm_param" /> に示されるノーマライズされたリクエストパラメータを<xref target="encoding">エンコード</xref>した文字列。
+                  <!--
                   The request parameters as normalized in <xref target="sig_norm_param" />, after
                   being <xref target="encoding">encoded</xref>.
+                  -->
                 </t>
               </list>
             </t>
             <figure>
               <preamble>
+                例えば、以下のような HTTP リクエストがあったとする。
+                <!--
                 For example, the HTTP request:
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   POST /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
@@ -1261,8 +1409,11 @@ boilerplate as described in RFC 5741.
             </figure>
             <figure>
               <preamble>
-                is represented by the following signature base string (line breaks are for display
+                この時、このリクエストに対するシグニチャベースストリングは以下のようになる。(改行は掲載上の都合による)
+                <!--
+                Is represented by the following signature base string (line breaks are for display
                 purposes only):
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   POST&http%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3D2%2520q
@@ -1276,51 +1427,75 @@ boilerplate as described in RFC 5741.
 
           <section title="Base String URI" anchor="sig_uri">
             <t>
+              ベースストリング URI には、リクエスト対象リソースを示す <spanx style="verb">http</spanx> もしくは <spanx style="verb">https</spanx> URI を構築した上で、リクエスト URI のスキーマ、オーソリティおよびパス <xref target="RFC3986" /> を以下のように含める。
+              <!--
               The scheme, authority, and path of the request resource URI <xref target="RFC3986" />
               are included by constructing an <spanx style="verb">http</spanx> or
               <spanx style="verb">https</spanx> URI representing the request resource (without the
               query or fragment) as follows:
+              -->
 
               <list style="numbers">
                 <t>
+                  スキーマおよびホストは小文字でなければならない (MUST)。
+                  <!--
                   The scheme and host MUST be in lowercase.
+                  -->
                 </t>
                 <t>
+                  ホストとポート番号はリクエスト中の HTTP <spanx style="verb">Host</spanx> ヘッダーの値と同一でなければならない (MUST)。
+                  <!--
                   The host and port values MUST match the content of the HTTP request
                   <spanx style="verb">Host</spanx> header field.
+                  -->
                 </t>
                 <t>
+                  ポート番号がそのスキーマのデフォルトポートでない場合、必ずポート番号を含めなければならない (MUST)。またデフォルトの場合はポート番号を除外しなければならない (MUST)。特に、HTTP リクエスト <xref target="RFC2616" /> の場合にはポート80、HTTPS リクエスト <xref target="RFC2818" /> の場合にはポート443を除外しなければならない (MUST)。その他のデフォルト値以外のポート番号は全て含めなければならない (MUST)。
+                  <!--
                   The port MUST be included if it is not the default port for the scheme, and MUST
                   be excluded if it is the default. Specifically, the port MUST be excluded when
                   making an HTTP request <xref target="RFC2616" /> to port 80 or when making an
                   HTTPS request <xref target="RFC2818" /> to port 443. All other non-default port
                   numbers MUST be included.
+                  -->
                 </t>
               </list>
             </t>
             <figure>
               <preamble>
+                例えば、以下のような HTTP リクエストがあったとする。
+                <!--
                 For example, the HTTP request:
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET /r%20v/X?id=123 HTTP/1.1
   Host: EXAMPLE.COM:80
 ]]></artwork>
               <postamble>
+                このときベースストリング URI は次のようになる。
+                <!--
                 is represented by the base string URI:
+                -->
                 <spanx style="verb">http://example.com/r%20v/X</spanx>.
               </postamble>
             </figure>
             <figure>
               <preamble>
+                また以下のような HTTPS リクエストがあったとする。
+                <!--
                 In another example, the HTTPS request:
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET /?q=1 HTTP/1.1
   Host: www.example.net:8080
 ]]></artwork>
               <postamble>
+                この場合のベースストリング URI は次のようになる。
+                <!--
                 is represented by the base string URI:
+                -->
 
                 <spanx style="verb">https://www.example.net:8080/</spanx>.
               </postamble>
@@ -1329,63 +1504,96 @@ boilerplate as described in RFC 5741.
             
           <section title="Request Parameters" anchor="collect_param">
             <t>
+              リクエストパラメータの一貫性と再現性を保証するため、パラメータは集められ、元の形式にデコードされる。その後ソートを行い、元のエンコード方式と異なる場合のある方法でエンコードされ、ひとつの文字列に連結される。
+              <!--
               In order to guarantee a consistent and reproducible representation of the request
               parameters, the parameters are collected and decoded to their original decoded form.
               They are then sorted and encoded in a particular manner that is often different from
               their original encoding scheme, and concatenated into a single string.
+              -->
             </t>
 
             <section title="Parameter Sources">
               <t>
+                下記に含まれるパラメータ群は、名前と値のペアのリストにまとめられる。
+                <!--
                 The parameters from the following sources are collected into a single list of
                 name/value pairs:
+                -->
 
                 <list style="symbols">
                   <t>
+                    <xref target="RFC3986" /> 3.4節で定義されている HTTP リクエスト URI のクエリー要素。クエリー要素は <spanx style="verb">application/x-www-form-urlencoded</spanx> 文字列として名前と値が分割され、<xref target="W3C.REC-html40-19980424" /> 17.13.4節で定義された方法でデコードし、名前と値のペアのリストに分解される。
+                    <!--
                     The query component of the HTTP request URI as defined by <xref target="RFC3986" />,
                     Section 3.4. The query component is parsed into a list of name/value pairs by
                     treating it as an <spanx style="verb">application/x-www-form-urlencoded</spanx>
                     string, separating the names and values and decoding them as defined by
                     <xref target="W3C.REC-html40-19980424" />, Section 17.13.4.
+                    -->
                   </t>
                   <t>
+                    OAuth HTTP <spanx style="verb">Authorization</spanx> ヘッダフィールド (<xref target="auth_header" />) が存在する場合はその値。ヘッダーのコンテンツは <spanx style="verb">realm</spanx> パラメータを除き、すべて名前と値のペアに分解される。パラメータ値は <xref target="auth_header" /> で定義された方法でデコードされる。
+                    <!--
                     The OAuth HTTP <spanx style="verb">Authorization</spanx> header field (<xref target="auth_header" />) if
                     present. The header's content is parsed into a list of name/value pairs
                     excluding the <spanx style="verb">realm</spanx> parameter if present. The
                     parameter values are decoded as defined by <xref target="auth_header" />.
+                    -->
                   </t>
                   <t>
+                    以下の条件を満たす場合のみ、HTTP リクエストエンティティボディ。
+                    <!--
                     The HTTP request entity-body, but only if all of the following conditions are met:
+                    -->
 
                     <list style="symbols">
                       <t>
+                        エンティティボディがシングルパートである。
+                        <!--
                         The entity-body is single-part.
+                        -->
                       </t>
                       <t>
+                        エンティティボディが <xref target="W3C.REC-html40-19980424" /> で定義されたコンテンツタイプ <spanx style="verb">application/x-www-form-urlencoded</spanx> のエンコード要件を満たしている。
+                        <!--
                         The entity-body follows the encoding requirements of the
                         <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type as
                         defined by <xref target="W3C.REC-html40-19980424" />.
+                        -->
                       </t>
                       <t>
+                        HTTP リクエストエンティティヘッダの <spanx style="verb">Content-Type</spanx> ヘッダーフィールドが <spanx style="verb">application/x-www-form-urlencoded</spanx> である。
+                        <!--
                         The HTTP request entity-header includes the <spanx style="verb">Content-Type</spanx>
                         header field set to <spanx style="verb">application/x-www-form-urlencoded</spanx>.
+                        -->
                       </t>
                     </list>
 
+                    エンティティボディは <xref target="W3C.REC-html40-19980424" /> 17.13.4節の方法でデコードされた名前と値のペアのリストに分解される。
+                    <!--
                     The entity-body is parsed into a list of decoded name/value pairs as described in
                     <xref target="W3C.REC-html40-19980424" />, Section 17.13.4.
+                    -->
                   </t>
                 </list>
               </t>
               <t>
+                <spanx style="verb">oauth_signature</spanx> パラメータが存在した場合は、それをシグニチャベースストリングから除外しなければならない。明示的にリクエストに含まれたパラメータ以外は、シグニチャベースストリングから除外されなければならない (<spanx style="verb">oauth_version</spanx> パラメータが省略された場合等)。
+                <!--
                 The <spanx style="verb">oauth_signature</spanx> parameter MUST be excluded from the
                 signature base string if present. Parameters not explicitly included in the request
                 MUST be excluded from the signature base string (e.g., the
                 <spanx style="verb">oauth_version</spanx> parameter when omitted).
+                -->
               </t>
               <figure>
                 <preamble>
+                  例えば下記のような HTTP リクエストの場合
+                  <!--
                   For example, the HTTP request:
+                  -->
                 </preamble>
                 <artwork xml:space="preserve"><![CDATA[
     POST /request?b5=%3D%253D&a3=a&c%40=&a2=r%20b HTTP/1.1
@@ -1402,8 +1610,11 @@ boilerplate as described in RFC 5741.
     c2&a3=2+q
   ]]></artwork>
                 <postamble>
+                  下記の (デコード済み) パラメータがシグニチャベースストリングに含まれる。
+                  <!--
                   contains the following (fully decoded) parameters used in the signature base
                   sting:
+                  -->
                 </postamble>
               </figure>
               <texttable>
@@ -1422,6 +1633,8 @@ boilerplate as described in RFC 5741.
                 <c>a3</c><c>2 q</c>
               </texttable>
               <t>
+                <spanx style="verb">b5</spanx> の値は <spanx style="verb">=%3D</spanx> であり、 <spanx style="verb">==</spanx> ではないことに注意。<spanx style="verb">c@</spanx> と <spanx style="verb">c2</spanx> の値は空である。本仕様で定義しているシグニチャベースストリングの構築を目的としたエンコードルールでは、エンコードされたスペース (ASCII コード 32) を表す <spanx style="verb">+</spanx> 文字 (ASCII コード 43) を除外しているが、これは <spanx style="verb">application/x-www-form-urlencoded</spanx> でエンコードされた値では広く利用されており、<spanx style="verb">a3</spanx> パラメータインスタンスのひとつで示されるように (このリクエストでは <spanx style="verb">a3</spanx> は2回登場する)、正しくデコードされなければならない。
+                <!--
                 Note that the value of <spanx style="verb">b5</spanx> is <spanx style="verb">=%3D</spanx>
                 and not <spanx style="verb">==</spanx>. Both <spanx style="verb">c@</spanx> and
                 <spanx style="verb">c2</spanx> have empty values. While the encoding rules
@@ -1432,36 +1645,55 @@ boilerplate as described in RFC 5741.
                 values, and MUST be properly decoded, as demonstrated by one of the
                 <spanx style="verb">a3</spanx> parameter instances (the <spanx style="verb">a3</spanx>
                 parameter is used twice in this request).
+                -->
               </t>
             </section>
 
             <section title="Parameters Normalization" anchor="sig_norm_param">
               <t>
+                <xref target="collect_param" /> で集められたパラメータは、以下のようにひとつの文字列にノーマライズされる。
+                <!--
                 The parameters collected in <xref target="collect_param" /> are normalized into a
                 single string as follows:
+                -->
 
                 <list style="numbers">
                   <t>
+                    まず、各パラメータの名前と値を<xref target="encoding">エンコード</xref>する。
+                    <!--
                     First, the name and value of each parameter are <xref target="encoding">encoded</xref>.
+                    -->
     							</t>
                   <t>
+                    パラメータはバイト値昇順を使い、名前でソートされる。2つ以上のパラメータが同じ名前を持つ場合、値でソートされる。
+                    <!--
                     The parameters are sorted by name, using ascending byte value ordering. If
                     two or more parameters share the same name, they are sorted by their value.
+                    -->
                   </t>
                   <t>
+                    各パラメータの名前は <spanx style="verb">=</spanx> 文字 (ASCII コード 61) をセパレータとして、対応する値と (値が空であっても) 連結される。
+                    <!--
                     The name of each parameter is concatenated to its corresponding value using an
                     <spanx style="verb">=</spanx> character (ASCII code 61) as a separator, even if the
                     value is empty.
+                    -->
                   </t>
                   <t>
+                    ソート済みの名前と値のペアは、<spanx style="verb">&amp;</spanx> 文字 (ASCII コード 38) をセパレータとして、ひとつの文字列に連結される。
+                    <!--
                     The sorted name/value pairs are concatenated together into a single string by
                     using an <spanx style="verb">&amp;</spanx> character (ASCII code 38) as separator.
+                    -->
                   </t>
                 </list>
               </t>
               <t>
+                例えば前節から引き継いだパラメータは、以下のようにノーマライズされる。
+                <!--
                 For example, the list of parameters from the previous section would be normalized as
                 follows:
+                -->
               </t>
               <texttable>
                 <preamble>
@@ -1518,8 +1750,11 @@ boilerplate as described in RFC 5741.
               </texttable>
               <figure>
                 <preamble>
+                  その後、これらのパラメータを連結し、単一文字列とする。(改行は掲載上の都合による)
+                  <!--
                   and concatenated together into a single string (line breaks are for display
                   purposes only):
+                  -->
                 </preamble>
                 <artwork xml:space="preserve"><![CDATA[
   a2=r%20b&a3=2%20q&a3=a&b5=%3D%253D&c%40=&c2=&oauth_consumer_key=9dj
@@ -1535,8 +1770,11 @@ boilerplate as described in RFC 5741.
 
         <section title="HMAC-SHA1">
           <t>
+            <spanx style="verb">HMAC-SHA1</spanx> 署名方式は、<xref target="RFC2104" /> で規定される、HMAC-SHA1 署名アルゴリズムを使用する。
+            <!--
             The <spanx style="verb">HMAC-SHA1</spanx> signature method uses the HMAC-SHA1 signature
             algorithm as defined in <xref target="RFC2104" />:
+            -->
 
             <figure>
               <artwork xml:space="preserve"><![CDATA[
@@ -1545,32 +1783,53 @@ boilerplate as described in RFC 5741.
             </figure>
           </t>
           <t>
+            HMAC-SHA1 関数の変数は、次のように使用される。
+            <!--
             The HMAC-SHA1 function variables are used in following way:
+            -->
 
             <list style="hanging" hangIndent="8">
               <t hangText="text">
+                シグニチャベースストリング (<xref target="base_string" /> 参照) の値に設定。
+                <!--
                 is set to the value of the signature base string from <xref target="base_string" />.
+                -->
               </t>
               <t hangText="key">
+                下記を連結した値に設定。
+                <!--
                 is set to the concatenated values of:
+                -->
 
                 <list style="numbers" hangIndent="3">
                   <t>
+                    <xref target="encoding">エンコード</xref>されたクライアント共有鍵。
+                    <!--
                     The client shared-secret, after being <xref target="encoding">encoded</xref>.
+                    -->
                   </t>
                   <t>
+                    <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))
+                    <!--
                     An <spanx style="verb">&amp;</spanx> character (ASCII code 38), which MUST be
                     included even when either secret is empty.
+                    -->
                   </t>
                   <t>
+                    <xref target="encoding">エンコード</xref>済みのトークン共有鍵。
+                    <!--
                     The token shared-secret, after being <xref target="encoding">encoded</xref>.
+                    -->
                   </t>
                 </list>
               </t>
               <t hangText="digest">
+                結果のバイト文字列を base64 エンコード (<xref target="RFC2045" /> 6.8節参照) した、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータを設定。
+                <!--
                 is used to set the value of the <spanx style="verb">oauth_signature</spanx>
                 protocol parameter, after the result octet string is base64-encoded per
                 <xref target="RFC2045" />, Section 6.8.
+                -->
               </t>
             </list>
           </t>
@@ -1578,15 +1837,21 @@ boilerplate as described in RFC 5741.
 
         <section title="RSA-SHA1">
           <t>
+            <spanx style="verb">RSA-SHA1</spanx> 署名方式は、<xref target="RFC3447" /> 8.2節 (別名 : PKCS#1) で規定されている、RSASSA-PKCS1-v1_5 署名アルゴリズムを使用しており、SHA-1 は EMSA-PKCS1-v1_5 のハッシュ化関数として利用される。この方式を使用するために、クライアントは、サーバーに RSA 公開鍵 (この仕様では範囲外) を含むクライアントクレデンシャルを発行してもらわなければならない (MUST)。
+            <!--
             The <spanx style="verb">RSA-SHA1</spanx> signature method uses the RSASSA-PKCS1-v1_5
             signature algorithm as defined in <xref target="RFC3447" />, Section 8.2 (also known as
             PKCS#1), using SHA-1 as the hash function for EMSA-PKCS1-v1_5. To use this method, the
             client MUST have established client credentials with the server that included its RSA
             public key (in a manner that is beyond the scope of this specification).
+            -->
           </t>
           <t>
+            シグニチャベースストリングは、<xref target="RFC3447" /> 8.2.1節に基づき、RSA 秘密鍵を使用して署名される。
+            <!--
             The signature base string is signed using the client's RSA private key per
             <xref target="RFC3447" />, Section 8.2.1:
+            -->
 
             <figure>
               <artwork xml:space="preserve"><![CDATA[
@@ -1594,24 +1859,38 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
             </figure>
 
+            <!--
             Where:
+            -->
 
             <list style="hanging" hangIndent="6">
               <t hangText="K">
+                クライアントの RSA 秘密鍵を設定。
+                <!--
                 is set to the client's RSA private key,
+                -->
               </t>
               <t hangText="M">
+                シグニチャベースストリング (<xref target="base_string" /> 参照) の値に設定。
+                <!--
                 is set to the value of the signature base string from <xref target="base_string" />, and
+                -->
               </t>
               <t hangText="S">
+                結果のバイト文字列を base64 エンコード (<xref target="RFC2045" /> 6.8節参照) した、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータを設定。
+                <!--
                 is the result signature used to set the value of the <spanx style="verb">oauth_signature</spanx>
                 protocol parameter, after the result octet string is base64-encoded per <xref target="RFC2045" />
                 section 6.8.
+                -->
               </t>
             </list>
           </t>
           <t>
+            サーバーは、<xref target="RFC3447" /> 8.2.2節 に基づき、シグニチャの妥当性を検証する。
+            <!--
             The server verifies the signature per <xref target="RFC3447" /> section 8.2.2:
+            -->
 
             <figure>
               <artwork xml:space="preserve"><![CDATA[
@@ -1619,18 +1898,29 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
             </figure>
 
+            <!--
             Where:
+            -->
 
             <list style="hanging" hangIndent="7">
               <t hangText="(n, e)">
+                クライアントの RSA 公開鍵を設定。
+                <!--
                 is set to the client's RSA public key,
+                -->
               </t>
               <t hangText="M">
+                シグニチャベースストリング (<xref target="base_string" /> 参照) の値に設定。
+                <!--
                 is set to the value of the signature base string from <xref target="base_string" />, and
+                -->
               </t>
               <t hangText="S">
+                クライアントから受け取った、<spanx style="verb">oauth_signature</spanx> プロトコルパラメータのバイト文字列を設定。
+                <!--
                 is set to the octet string value of the <spanx style="verb">oauth_signature</spanx>
                 protocol parameter received from the client.
+                -->
               </t>
             </list>
           </t>
@@ -1638,26 +1928,41 @@ boilerplate as described in RFC 5741.
 
         <section title="PLAINTEXT">
           <t>
+            <spanx style="verb">PLAINTEXT</spanx> 方式は、署名アルゴリズムを使用しない。この方式はトランスポート層のメカニズムとして、TLS や SSL (もしくはこれらと同等のセキュアチャネル) を使用しなければならない (MUST)。この方式はシグニチャベースストリングや、<spanx style="verb">oauth_timestamp</spanx>、<spanx style="verb">oauth_nonce</spanx> パラメータを使用しない。
+            <!--
             The <spanx style="verb">PLAINTEXT</spanx> method does not employ a signature algorithm.
             It MUST be used with a transport-layer mechanism such as TLS or SSL (or sent over a secure
             channel with equivalent protections). It does not utilize the signature base string or
             the <spanx style="verb">oauth_timestamp</spanx> and <spanx style="verb">oauth_nonce</spanx>
             parameters.
+            -->
           </t>
           <t>
+            <spanx style="verb">oauth_signature</spanx> プロトコルパラメータは、下記を連結した値に設定する。
+            <!--
             The <spanx style="verb">oauth_signature</spanx> protocol parameter is set to the
             concatenated value of:
+            -->
 
             <list style="numbers">
               <t>
+                <xref target="encoding">エンコード</xref>済みのクライアント共有鍵
+                <!--
                 The client shared-secret, after being <xref target="encoding">encoded</xref>.
+                -->
               </t>
               <t>
+                <spanx style="verb">&amp;</spanx> (ASCII コード 38) (どちらの共有鍵が空の場合でも含まなければならない (MUST))
+                <!--
                 An <spanx style="verb">&amp;</spanx> character (ASCII code 38), which MUST be
                 included even when either secret is empty.
+                -->
               </t>
               <t>
+                <xref target="encoding">エンコード</xref>済みのトークン共有鍵
+                <!--
                 The token shared-secret, after being <xref target="encoding">encoded</xref>.
+                -->
               </t>
             </list>
           </t>
@@ -1667,34 +1972,52 @@ boilerplate as described in RFC 5741.
         
       <section title="Parameter Transmission" anchor="param_include">
         <t>
+          OAuth 認可リクエストを行う際、プロトコルパラメータおよび <spanx style="verb">oauth_</spanx> プレフィックスを含むその他全てのパラメータは、リクエスト中の、以下好ましい順に挙げたいずれか一カ所に含まれる (SHALL)。
+          <!--
           When making an OAuth-authenticated request, protocol parameters as well as any other
           parameter using the <spanx style="verb">oauth_</spanx> prefix SHALL be included in the
           request using one and only one of the following locations, listed in order of decreasing
           preference:
+          -->
 
           <list style="numbers">
             <t>
+              HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールド。(<xref target="auth_header" /> 参照)
+              <!--
               The HTTP <spanx style="verb">Authorization</spanx> header field as described in
               <xref target="auth_header" />.
+              -->
             </t>
             <t>
+              HTTP リクエストエンティティボディー。(<xref target="auth_body" /> 参照)
+              <!--
               The HTTP request entity-body as described in <xref target="auth_body" />.
+              -->
             </t>
             <t>
+              HTTP リクエスト URI クエリー。（<xref target="auth_query" /> 参照)
+              <!--
               The HTTP request URI query as described in <xref target="auth_query" />.
+              -->
             </t>
           </list>
         </t>
         <t>
+          これら3つの方法に加え、プロトコルパラメータをリクエストに含める別の方法が、今後の拡張仕様で定義される場合がある (MAY)。
+          <!--
           In addition to these three methods, future extensions MAY define other methods for
           including protocol parameters in the request.
+          -->
         </t>
 
         <section title="Authorization Header" anchor="auth_header">
           <t>
+            プロトコルパラメータは、<xref target="RFC2617" /> で定義される HTTP <spanx style="verb">Authorization</spanx> ヘッダーフィールドを用いて送信される。その際 auth-scheme 名を <spanx style="verb">OAuth</spanx> (大文字/小文字を区別) とする。
+            <!--
             Protocol parameters can be transmitted using the HTTP
             <spanx style="verb">Authorization</spanx> header field as defined by <xref target="RFC2617" />
             with the auth-scheme name set to <spanx style="verb">OAuth</spanx> (case insensitive).
+            -->
           </t>
           <figure>
             <preamble>
@@ -1712,74 +2035,113 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
           </figure>
           <t>
+            プロトコルパラメータは以下のように <spanx style="verb">Authorization</spanx> ヘッダーフィールドに含まれるものとする (SHALL)。
+            <!--
             Protocol parameters SHALL be included in the <spanx style="verb">Authorization</spanx>
             header field as follows:
+            -->
 
             <list style="numbers">
               <t>
+                パラメータ名と値は<xref target="encoding">パラメータエンコーディング</xref>に従いエンコーディングされる。
+                <!--
                 Parameter names and values are encoded per
                 <xref target="encoding">Parameter Encoding</xref>.
+                -->
               </t>
               <t>
+                各パラメータ名の直後には、<spanx style="verb">=</spanx> (ASCII code 61)、<spanx style="verb">"</spanx> (ASCII code 34)、パラメータ値 (空白も可 (MAY))、そして <spanx style="verb">"</spanx> (ASCII code 34) が続く。
+                <!--
                 Each parameter's name is immediately followed by an <spanx style="verb">=</spanx>
                 character (ASCII code 61), a <spanx style="verb">"</spanx> character (ASCII code 34),
                 the parameter value (MAY be empty), and another <spanx style="verb">"</spanx> character
                 (ASCII code 34).
+                -->
               </t>
               <t>
+                パラメータは <spanx style="verb">,</spanx> (ASCII code 44) で区切られる。この際オプションとして <xref target="RFC2617" /> にある "linear whitespace" を用いることもできる (OPTIONAL)。
+                <!--
                 Parameters are separated by a <spanx style="verb">,</spanx> character (ASCII code 44)
                 and OPTIONAL linear whitespace per <xref target="RFC2617" />.
+                -->
               </t>
               <t>
+                オプションで <spanx style="verb">realm</spanx> パラメータを追加することができる (OPTIONAL)。(<xref target="RFC2617" /> セクション1.2参照)
+                <!--
                 The OPTIONAL <spanx style="verb">realm</spanx> parameter MAY be added and
                 interpreted per <xref target="RFC2617" /> section 1.2.
+                -->
               </t>
             </list>
           </t>
           <t>
+            サーバーは、クライアントからの保護されたリソースへのリクエストに対して HTTP <spanx style="verb">WWW-Authenticate</spanx> レスポンスヘッダーフィールドを返すことで、 <spanx style="verb">OAuth</spanx> auth-scheme をサポートしていることを示すことができる (MAY)。<xref target="RFC2617" /> にあるように、そのようなレスポンスは HTTP <spanx style="verb">WWW-Authenticate</spanx> ヘッダーフィールドを含むことができる (MAY)。
+            <!--
             Servers MAY indicate their support for the <spanx style="verb">OAuth</spanx>
             auth-scheme by returning the HTTP <spanx style="verb">WWW-Authenticate</spanx>
             response header field upon client requests for protected resources. As per
             <xref target="RFC2617" />, such a response MAY include additional HTTP
             <spanx style="verb">WWW-Authenticate</spanx> header fields:
+            -->
           </t>
           <figure>
             <preamble>
+              例:
+              <!--
               For example:
+              -->
             </preamble>
             <artwork xml:space="preserve"><![CDATA[
   WWW-Authenticate: OAuth realm="http://server.example.com/"
 ]]></artwork>
           </figure>
           <t>
-            The realm parameter defines a protection realm per <xref target="RFC2617" />,
-            Section 1.2.
+            この realm パラメータは保護領域を示す。(<xref target="RFC2617" /> セクション1.2参照)
+            <!--
+            The realm parameter defines a protection realm per <xref target="RFC2617" />
+            section 1.2.
+            -->
           </t>
         </section>
 
         <section title="Form-Encoded Body" anchor="auth_body">
           <t>
+            プロトコルパラーメータは HTTP リクエストエンティティボディーを用いて送信することもできる。ただしその場合は以下の条件を満たす必要がある (REQUIRED)。
+            <!--
             Protocol parameters can be transmitted in the HTTP request entity-body, but only if the
             following REQUIRED conditions are met:
+            -->
 
             <list style="symbols">
               <t>
+                エンティティボディーがシングルパートである。
+                <!--
                 The entity-body is single-part.
+                -->
               </t>
               <t>
+                エンティティボディーが <xref target="W3C.REC-html40-19980424" /> で定義される <spanx style="verb">application/x-www-form-urlencoded</spanx> コンテントタイプのエンコーディング条件を満たす。
+                <!--
                 The entity-body follows the encoding requirements of the
                 <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type as
                 defined by <xref target="W3C.REC-html40-19980424" />.
+                -->
               </t>
               <t>
+                HTTP リクエストエンティティヘッダーが <spanx style="verb">Content-Type</spanx> ヘッダーフィールドを含み、その値が <spanx style="verb">application/x-www-form-urlencoded</spanx> である。
+                <!--
                 The HTTP request entity-header includes the <spanx style="verb">Content-Type</spanx>
                 header field set to <spanx style="verb">application/x-www-form-urlencoded</spanx>.
+                -->
               </t>
             </list>
 
             <figure>
               <preamble>
+                例 (改行は掲載上の都合による)
+                <!--
                 For example (line breaks are for display purposes only):
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   oauth_consumer_key=0685bd9184jfhq22&oauth_token=ad180jjd733klr
@@ -1789,20 +2151,29 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
             </figure>
             
+            エンティティボディーは他のリクエスト固有のパラメータを含む可能性がある (MAY)。その場合、プロトコルパラメータは適切に <spanx style="verb">&amp;</spanx> (ASCII code 38) で分割され、リクエスト固有パラメータの後に付加されるべきである (SHOULD)。
+            <!--
             The entity-body MAY include other request-specific parameters, in which case, the
             protocol parameters SHOULD be appended following the request-specific parameters,
             properly separated by an <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+            -->
           </t>
         </section>
 
         <section title="Request URI Query" anchor="auth_query">
           <t>
+            プロトコルパラメータは、HTTP リクエスト URI に <xref target="RFC3986" /> セクション3で定義されるクエリーパラメータとして付与し、送信することができる。
+            <!--
             Protocol parameters can be transmitted by being added to the HTTP request URI as a
             query parameter as defined by <xref target="RFC3986" />, Section 3.
+            -->
 
             <figure>
               <preamble>
+                例 (改行は掲載上の都合による)
+                <!--
                 For example (line breaks are for display purposes only):
+                -->
               </preamble>
               <artwork xml:space="preserve"><![CDATA[
   GET /example/path?oauth_consumer_key=0685bd9184jfhq22&
@@ -1813,9 +2184,12 @@ boilerplate as described in RFC 5741.
 ]]></artwork>
             </figure>
 
+            リクエスト URI は他のリクエスト固有のクエリーパラメータを含む可能性がある (MAY)。その場合、プロトコルパラメータは適切に <spanx style="verb">&amp;</spanx> (ASCII code 38) で分割され、リクエスト固有パラメータの後に付加されるべきである (SHOULD)。
+            <!--
             The request URI MAY include other request-specific query parameters, in which case,
             the protocol parameters SHOULD be appended following the request-specific parameters,
             properly separated by an <spanx style="verb">&amp;</spanx> character (ASCII code 38).
+            -->
           </t>
         </section>
 
@@ -1823,48 +2197,72 @@ boilerplate as described in RFC 5741.
       
       <section title="Percent Encoding" anchor="encoding">
         <t>
+          既存のパーセントエンコーディング手法では、一貫したシグニチャベースストリングの構成は保証されない。以下に示すパーセントエンコーディング手法は <xref target="RFC3986" /> および <xref target="W3C.REC-html40-19980424" /> で定義されたパーセントエンコーディング手法を置き換えるために定義されたものではない。この手法はシグニチャベースストリングおよび <xref target="auth_header">Authorization</xref> ヘッダーフィールドのエンコーディングにのみ用いられるものである。
+          <!--
           Existing percent-encoding methods do not guarantee a consistent construction of the
           signature base string. The following percent-encoding method is not defined to replace
           the existing encoding methods defined by <xref target="RFC3986" /> and
           <xref target="W3C.REC-html40-19980424" />. It is used only in the construction of the
           signature base string and the <spanx style="verb">Authorization</spanx> header field.
+          -->
         </t>
         <t>
+          この仕様書では以下のようにパーセントエンコーディング手法を定義する。
+          <!--
           This specification defines the following method for percent-encoding strings:
+          -->
 
           <list style="numbers">
             <t>
+              テキスト値がまだ <xref target="RFC3629" /> で定義される UTF-8 オクテットにエンコードされていない場合は、そのようにエンコードする。人間に利用されないバイナリ値は、この行程をスキップする。
+              <!--
               Text values are first encoded as UTF-8 octets per <xref target="RFC3629" /> if they are
               not already. This does not include binary values that are not intended for human
               consumption.
+              -->
             </t>
             <t>
+              値を以下の <xref target="RFC3986" /> で定義されたパーセントエンコーディング手法に従ってエスケープする。
+              <!--
               The values are then escaped using the <xref target="RFC3986" /> percent-encoding
               (%XX) mechanism as follows:
+              -->
 
               <list style="symbols">
                 <t>
+                  <xref target="RFC3986" /> のセクション2.3で定義された予約済みでない文字 (アルファベット, 数字, "-", ".", "_", "~") はエンコードしてはならない (MUST NOT)。
+                  <!--
                   Characters in the unreserved character set as defined by <xref target="RFC3986" />,
                   Section 2.3 (ALPHA, DIGIT, "-", ".", "_", "~") MUST NOT be encoded.
+                  -->
                 </t>
                 <t>
+                  その他の文字は全てエンコードしなければならない (MUST)。
+                  <!--
                   All other characters MUST be encoded.
+                  -->
                 </t>
                 <t>
+                  エンコード文字を示す2文字の16進数値は大文字でなければならない (MUST)。
+                  <!--
                   The two hexadecimal characters used to represent encoded characters MUST be
                   uppercase.
+                  -->
                 </t>
               </list>
             </t>
           </list>
         </t>
         <t>
+          この手法は <spanx style="verb">application/x-www-form-urlencoded</spanx> で用いられるエンコード方式とは異なる。(例えばこの手法ではスペースは <spanx style="verb">+</spanx> ではなく <spanx style="verb">%20</spanx> とエンコードされる) この手法は Web デベロップメントフレームワークが提供するパーセントエンコーディングとも異なる可能性がある (MAY)。(異なる文字をエンコードしたり、小文字の16進数文字を使うことなどが想定される)
+          <!--
           This method is different from the encoding scheme used by the
           <spanx style="verb">application/x-www-form-urlencoded</spanx> content-type (for example,
           it encodes space characters as <spanx style="verb">%20</spanx> and not using the 
           <spanx style="verb">+</spanx> character). It MAY be different from the
           percent-encoding functions provided by web-development frameworks (e.g., encode different
           characters, use lowercase hexadecimal characters).
+          -->
         </t>
       </section>
 
